@@ -1,0 +1,164 @@
+/* 
+    Created on : 21.07.2022, 12:30:22
+    Author     : Truong
+*/
+
+/*{
+ font-family: aria;
+ padding-top: 5px;
+}*/
+header{
+    text-align: center;
+    background-color: white;
+}
+fieldset{
+    text-align: left;
+}
+.interForm{
+    display: flex;
+    flex-flow: wrap;
+}
+form{
+    text-align: center;
+    border-color: #f1f1f1;
+    border-style: solid;
+    
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+li{
+    display:inline;
+    padding: 3px;
+}
+.vertical_container{
+    display: flex;
+    justify-content: center;
+}
+.div_nav{
+    display: flow;
+    text-align: left;
+    background-color: papayawhip;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.div_main{
+    display: flow;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    
+}
+.div_main_nav{
+    display: flow;
+}
+.div_titel{
+    background-color: #99ccff;
+    
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+/********drop-down-Nav*********/
+a{
+    color: white;
+}
+.drop_btn, .home_btn {
+  background-color: steelblue;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+.drop_btn:hover, .home_btn:hover{
+  background-color: lightsteelblue;  
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+/********Form******************/
+input, select, textarea{
+    min-width: 250px;
+    max-width: 300px;
+    cursor: pointer;
+}
+input:hover, textarea:hover, select:hover{
+    background-color: #ffffcc;
+}
+#teltf:invalid, #emailtf:invalid{
+    background-color: #ffcccc;
+    border-color: #990033;
+}
+
+/**********Animation*********/
+#itwerbung{
+    padding: 10px;
+    min-width: 800px;
+    text-align: center;
+    background-color: #ccffff;
+    animation-name: itrun;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+@keyframes itrun{
+    from{
+        margin: 100%;
+        width: 150%;
+        background-color:#66ffff;
+    }
+    to {
+        margin: 0%;
+        width: 100%;
+        background-color:#99ffff;
+  }
+}
+/**************************/
+
+@media (max-width: 800px){
+    .interForm{
+        flex-direction: column;
+    }
+    .div_main{
+        flex-direction: column;
+    }
+    .div_nav{
+        flex-direction: column;
+    }
+    .div_rand{
+        display: none;
+        visibility: hidden;
+    }
+}
