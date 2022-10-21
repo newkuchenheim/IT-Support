@@ -3,6 +3,11 @@
  */
 package de.newkuchenheim.ITSupport.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -24,36 +30,52 @@ import de.newkuchenheim.ITSupport.bdo.Ticket;
  */
 
 @Controller
-@RequestMapping("create")
+@RequestMapping("itsupport/ticket")
 public class formController {
 
-	private static List<Ticket> events = new ArrayList();
+	private static List<Ticket> tickets = new ArrayList();
 	
 	@GetMapping
 	public String displayAllEvents(Model model) {
-		model.addAttribute("tickets", events);
-		return "create/home";
+		
+		model.addAttribute("tickets", tickets);
+		
+		//send a request with ticket
+		try {
+			String answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
+			model.addAttribute("result", answer);
+						
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			tLog.getInstance().log(null, "severe", e.getMessage());
+		}
+		
+		return "itsupport/ticket/home";
 	}
 	
 	@GetMapping("form")
 	public String renderCreateForm(Model model) {
+		
+		tickets.clear();
+
+		//tracking
+		System.out.println("call a form " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a form");
+		
 		model.addAttribute("ticket", new Ticket());
-		return "create/form";
+		return "itsupport/ticket/form";
 	}
 	
-//	@PostMapping("form")
-//	public String createEvent(@RequestParam String vname,
-//			@RequestParam String nname,
-//			@RequestParam String werkstatt,
-//			@RequestParam String abteilung,
-//			@RequestParam String email,
-//			@RequestParam String telfon,
-//			@RequestParam String causetitle,
-//			@RequestParam String causedescript) {
 	@PostMapping("form")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
 		model.addAttribute("ticket", ticket);
-		events.add(ticket);
-		return "create/home";
+		
+		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
+		System.out.println("Ticket wurde gesendet am " + LocalDateTime.now());
+		tLog.getInstance().log(null, "Info", "Trying to create a ticket");
+		
+		tickets.add(ticket);
+//		return "create/home";
+		return "redirect:";
 	}
 }
