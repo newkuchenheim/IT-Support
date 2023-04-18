@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NEW-Abwesenheitsnotiz</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"><!-- externe icon Quelle -->
+	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+  	<script type="text/javascript" th:src="@{../../js/control.js}"></script>
+</head>
+<body>
+	 <header style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
+         <img th:src="@{../../logo/NEW-Logo.png}" alt="logo" width="220" height="220"/>
+     </header>
+     <nav class="navbar navbar-inverse navbar-fixed-top p-3">
+	  	<ul class="nav nav-tabs">
+		  	<li class="nav-item">
+	  			<a class="nav-link active" aria-current="page" href="/itsupport">
+	  				<span class="material-icons md-80">home</span>
+	  				NE.W
+	  			</a>
+		  	</li>
+		  	<li class="nav-item dropdown">
+		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MICOS</a>
+		    	<ul class="dropdown-menu">
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:start">Startseite</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:micos-faq">FAQ's</a></li>
+		    	</ul>
+		  	</li>
+		  	<li class="nav-item dropdown">
+		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Job Router</a>
+		    	<ul class="dropdown-menu">
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:start">Startseite/ Newletters</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:jobrouter-faq">FAQ's</a></li>
+			      	<li><hr class="dropdown-divider"></li>
+			      	<li><a class="dropdown-item" href="http://srv-dms.kuchenheim.new.de/jobrouter/">Job Router Platform</a></li>
+		    	</ul>
+		  	</li>
+		 	<li class="nav-item">
+		    	<a class="nav-link" href="http://192.168.0.216/wiki/doku.php?id=start" >WIKI</a> <!-- tabindex="-1" aria-disabled="false" -->
+		  	</li>
+		</ul>
+	</nav>
+  	<div class="row p-3">
+  		<!-- navigation link intern -->
+  		<div class="col col-sm-2 m-2 p-3 bg-grey text-white text-left sidenav">
+  			<nav class="nav flex-column">
+			  <a class="nav-link " aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
+			  <a class="nav-link active link-dark" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
+			  <a class="nav-link" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
+			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+			</nav>
+  		</div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 text-left" style="height: 75%"> 
+	      	<form method="post" action="#"  th:object="${awNote}" style="min-width: 300px;">
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col"><!-- Vorname -->
+					    <input th:field="*{mname}" id="nametf" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" type="text" class="form-control" name="name" placeholder="Max Mustermann" required>
+					    <label for="nametf">Ihr Vor- und Nachname</label>
+					</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Abwensend vom DD.MM.JJJ" ><!-- Von date -->
+					    <span class="input-group-addon"><i class="glyphicon glyphicon-triangle-right"></i></span>
+					    <input th:field="*{awvonDate}" th:onclick="dateFromLimit()" id="fromtf" type="date" class="form-control" name="from_date" placeholder="Bis" required>
+					    <label for="fromtf">Von</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Abwensend bis DD.MM.JJJJ" ><!-- bis date -->
+					    <span class="input-group-addon"><i class="glyphicon glyphicon-triangle-right"></i></span>
+					    <input th:field="*{awtoDate}" th:onclick="dateFromLimit()" id="totf" type="date" class="form-control" name="to_date" placeholder="Bis">
+					    <label for="totf">Bis</label>
+					</div>
+            	</div>
+            	<hr>
+            	<div class="g-6 p-2"> <!-- Ist Vertreter activ? -->
+            		<div class="form-check form-switch">
+					    <input th:checked="${isVertreter}" th:onclick="showVertreter()" id="isvertreter" type="checkbox" class="form-check-input" name="isVertreter">
+					    <label class="form-check-label float-start" for="isvertreter">Vertreter?</label>
+					</div>
+            	</div>
+            	<hr>
+				<div class="row g-3 p-2" id="div_vertreter_1" hidden>
+					<div class="form-floating mb-3 col"><!-- Vertreter 1 -->
+					    <input th:field="*{kontakt1}" id="pers1tf" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" type="text" class="form-control" name="pers1" placeholder="Name des 1. Vertreters">
+					    <label for="pers1tf">1. Vertreter</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Emailadresse des 1ten Vertreter"><!-- email -->
+					    <input id="email1tf" th:field="*{mail1}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" class="form-control" name="email1" placeholder="Email">
+					    <label for="email1tf">E-Mail</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Telefonnummer des 1ten Vertreter"><!-- telefon -->
+					    <input id="telefon1tf" th:field="*{telnr1}" pattern="[0-9-./\s/]+" type="text" class="form-control" name="telefon1" placeholder="Telefonnummer">
+					    <label for="telefon1tf">Telefonnummer</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2" id="div_vertreter_2" hidden>
+					<div class="form-floating mb-3 col"><!-- Vertreter 2 -->
+					    <input th:field="*{kontakt2}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" id="pers2tf" type="text" class="form-control" name="pers2" placeholder="Name des 2. Vertreters">
+					    <label for="pers2tf">2. Vertreter</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Emailadresse des 2ten Vertreter"><!-- email -->
+					    <input id="email2tf" th:field="*{mail2}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" class="form-control" name="email2" placeholder="Email">
+					    <label for="email2tf">E-Mail</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Telefonnummer des 1ten Vertreter"><!-- telefon -->
+					    <input id="telefon2tf" th:field="*{telnr2}" pattern="[0-9-./\s/]+" type="text" class="form-control" name="telefon2" placeholder="Telefonnummer">
+					    <label for="telefon2tf">Telefonnummer</label>
+					</div>
+				</div>
+				<div class="form-group mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Senden Ihres Tickets">
+					<input type="submit" value="Absenden" class="btn btn-success"/><br/>
+				</div>
+	    	</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 m-2 bg-grey sidenav">
+	    	<h3>Anleitung</h3>
+	      	<div class="well p-2 border"><!-- info an rechten col -->
+	      		<ul>
+	      			<li><strong>Schritt 1:</strong> Füllen Sie Ihren Namen und Zeitraum Ihrer Abwesenheitsnotiz(AWS) aus.</li>
+	      			<li><strong>Schritt 2:</strong> Aktivieren Sie "Vertreter?", falls Sie einen Vertreter haben. Jeder Mitarbeiter kann max. 2 Vertreter eingeben.</li>
+	      			<li><strong>Schritt 3:</strong> Klicken Sie auf dem Button "Senden". Ihre AWS wird automatisch generiert und zu der IT gesendet.</li>
+	      		</ul>
+	        	
+	      	</div>
+	      	<div class="well p-2 border">
+	        	<p><strong>Achtung:</strong></p>
+	        	<ul>
+	        		<li>Das Formular sollte angewendet werden, falls Ihre Abwesenheit mehr als einen Tag dauert.</li>
+	        		<li>Wenn Ihre Abwesenheit unbestimmt ist, lassen Sie das Feld "Bis-Datum" frei.</li>
+	        		<li>Bei weiteren Fragen bzw. Aktualisieren Ihrer AWS kontaktieren Sie uns bitte unter 
+	        			<a href="/itsupport/ticket/form">Support-Ticket</a> 
+	        			oder telefonisch bei der IT-Hotline
+	        		</li>
+	        	</ul> 
+	      	</div>
+	    </div>
+	</div>
+	<footer class="navbar navbar-fixed-bottom p-3 m-3">
+		<div>
+        	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
+        </div>
+		<p style="font-size: 0.7em; text-align: right;"><b>released am 01.08.2022, bei NEW, version 1.0</b></p>
+	</footer>
+</body>
+</html>

@@ -106,7 +106,7 @@
 	 			<nav class="nav flex-column">
 			  <a class="nav-link active" aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
 			  <a class="nav-link" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
-			  <a class="nav-link" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
+			  <a class="nav-link active" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
 			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 			</nav>
 	 		</div>
@@ -114,8 +114,8 @@
 	 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%"> 
 			<div th:switch="${result}" class="alert alert-primary" role="alert">
-			  	<p th:case="'Result on Failure'">
-			  		Ihr Ticket wurde nicht versendet! <br> 
+			  	<p th:case="'Result on Failure'" >
+			  		Ihr Feedback wurde leider <strong>NICHT</strong>strong> versendet! <br> 
 			  		Bitte kontaktieren Sie unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a> oder Telefon. Vielen Dank!
 			  	</p>
 			  	<p th:case="*">

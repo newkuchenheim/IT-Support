@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NEW-WIKI Feedback</title>
+	<!-- <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" rel="stylesheet"> -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- icon -->
+	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+	<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+	<style>
+		/* Remove the navbar's default margin-bottom and rounded borders */
+		.navbar {
+			margin-bottom: 0;
+			border-radius: 0;
+		}
+		
+		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+		.row.content {
+			height: 450px
+		}
+		
+		/* Set gray background color and 100% height */
+		.sidenav {
+			padding-top: 20px;
+			background-color: #f1f1f1;
+			height: 100%;
+		}
+		
+		/* Set black background color, white text and some padding */
+		footer {
+			background-color: #555;
+			color: white;
+			padding: 15px;
+		}
+		
+		fieldset {
+			text-align: left;
+		}
+		
+		.interForm {
+			display: flex;
+			flex-flow: wrap;
+		}
+		
+		form {
+			text-align: center;
+			border-color: #f1f1f1;
+			border-style: solid;
+		}
+		
+		section {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		/* On small screens, set height to 'auto' for sidenav and grid */
+		@media screen and (max-width: 767px) {
+			.sidenav {
+				height: auto;
+				padding: 15px;
+			}
+			.row.content {
+				height: auto;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="row content p-3" style="height: 67%">
+		<div class="col p-3 m-2 max-width text-left">
+			<form method="post" action="#" th:object="${ticket}" style="min-width: 300px;">
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col">
+						<!-- Vorname -->
+						<input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" id="vnametf" type="text" class="form-control" name="vname"
+							placeholder="Vorname"> <label for="vnametf">Vorname</label>
+					</div>
+					<div class="form-floating mb-3 col">
+						<!-- Nachname -->
+						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+"
+							id="nnametf" type="text" class="form-control" name="nname"
+							placeholder="Nachname"> <label for="nnametf">Nachname</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="In welchem Wekstatt bzw. Gebäude arbeiten Sie bei NEW? Sie können in der empfohlenen List aussuchen, oder selbst den Ort darstellen">
+						<!-- Werkstatt Select -->
+						<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+						<input
+							th:field="*{building}" list="werkstatt-list" id="werstatt_sel"
+							type="text" class="form-control" name="werkstatt"
+							placeholder="Werkstatt" required> <label
+							for="werkstatt-list">Werkstatt</label>
+						<datalist id="werkstatt-list">
+							<option value="Kall">Kall</option>
+							<option value="Kuchenheim">Kuchenheim</option>
+							<option value="Ülpenich">Ülpenich</option>
+							<option value="Zentrale Verwaltung">Zentrale Verwaltung</option>
+							<option value="Zingsheim">Zingsheim</option>
+							<option value="Außenarbeitsplatz">Außenarbeitsplatz</option>
+						</datalist>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="In welcher Abteilung/Gruppe arbeitest du?">
+						<!-- Abteilung -->
+						<span class="input-group-addon"><i class="glyphicon glyphicon-triangle-right"></i></span> 
+						<input th:field="*{branch}" id="abteilungtf" type="text" class="form-control" name="abteilung" placeholder="Abteilung">
+						<label for="abteilungtf">Abteilung</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="Lassen Sie bitte Ihre Emailadresse!">
+						<!-- email -->
+						<input id="emailtf" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" class="form-control" name="email" placeholder="Email"> 
+						<label for="emailtf">E-Mail</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span> 
+						<select id="caution_sel" th:field="*{category}" name="causetitle" class="form-control" aria-label="Default select example" required>
+							<option selected value="">Bitte wähle eine der Optionen aus.</option>
+							<option value="😄 Lob">😀 Lob</option>
+							<option value="📝 Kritik">📝 Kritik</option>
+							<option value="🔧 Korrektur">🔧 Korrektur - Etwas stimmt	nicht</option>
+							<option value="❓ Fehlendes Thema">❓ Fehlendes Thema</option>
+						</select> 
+						<label for="caution_sel">Was möchtest du uns mitteilen?</label>
+					</div>
+					<div class="form-floating mb-3" data-bs-toggle="tooltip" data-bs-placement="right" title="hier kommt Dein Feedback an uns rein...">
+						<!-- Beschreibung des Grundes -->
+						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<textarea id="beschreibung_area" th:field="*{description}" name="causedescript" class="form-control" rows="5" style="height: 100px" required></textarea>
+						<label for="beschreibung-area">Beschreibung</label>
+					</div>
+				</div>
+				<div class="form-group mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Senden Ihres Tickets">
+					<input type="submit" value="Absenden" class="btn btn-success" /><br />
+				</div>
+
+			</form>
+		</div>
+	</div>	
+	<footer class="navbar navbar-fixed-bottom p-3 m-3">
+		<div class="well p-2">
+			<div id="itwerbung">
+				Scheller als IT-ler? <b>Frage mal Wiki</b>
+			</div>
+		</div>
+		<p style="font-size: 0.7em; text-align: right;">
+			<b>released am 01.08.2022, bei NEW, version 1.0</b>
+		</p>
+	</footer>
+</body>
+</html>

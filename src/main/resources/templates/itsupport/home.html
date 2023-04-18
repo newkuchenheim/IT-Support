@@ -4,12 +4,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>NEW IT-Support</title>
-	<link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" rel="stylesheet">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" rel="stylesheet"> -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- icon -->
 	
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
     <style>
@@ -68,38 +70,44 @@
 	 <header style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
          <img th:src="@{../logo/NEW-Logo.png}" alt="logo" width="220" height="220"/>
      </header>
-     <nav class="navbar navbar-inverse navbar-fixed-top">
+     <nav class="navbar navbar-inverse navbar-fixed-top p-3">
 	  	<ul class="nav nav-tabs">
 		  	<li class="nav-item">
 	  			<a class="nav-link active" aria-current="page" href="#">
 	  				<span class="material-icons md-80">home</span>
-	  				HOME
+	  				NE.W
 	  			</a>
 		  	</li>
 		  	<li class="nav-item dropdown">
 		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MICOS</a>
 		    	<ul class="dropdown-menu">
-			      	<li><a class="dropdown-item" href="#">Link 1</a></li>
-			      	<li><a class="dropdown-item" href="#">Link 2</a></li>
-			      	<li><a class="dropdown-item" href="#">Link 3</a></li>
-			      	<li><hr class="dropdown-divider"></li>
-			      	<li><a class="dropdown-item" href="#">Separated link</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:start">Startseite</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:micos-faq">FAQ's</a></li>
 		    	</ul>
 		  	</li>
-		  	<li class="nav-item">
-		    	<a class="nav-link" href="#">JobRouter</a>
+		  	<li class="nav-item dropdown">
+		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Job Router</a>
+		    	<ul class="dropdown-menu">
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:start">Startseite/ Newsletter</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:jobrouter-faq">FAQ's</a></li>
+			      	<li><hr class="dropdown-divider"></li>
+			      	<li><a class="dropdown-item" href="http://srv-dms.kuchenheim.new.de/jobrouter/">Job Router Platform</a></li>
+		    	</ul>
 		  	</li>
 		 	<li class="nav-item">
-		    	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Was noch?</a>
+		    	<a class="nav-link" href="http://192.168.0.216/wiki/doku.php?id=start" >WIKI</a>
 		  	</li>
 		</ul>
 	</nav>
-	<div class="row content" style="height: 67%">
+	<div class="row content p-3" style="height: 67%">
 		<!-- navigation intern 1te col -->
 		<div class="col col-sm-2 m-2 p-3 text-white text-left sidenav">
   			<nav class="nav flex-column p-3">
-			  <a class="nav-link active" aria-current="page" href="/itsupport/ticket/form">Senden Support-Ticket zu IT</a>
-			  <a class="nav-link" href="#">Abwesenheitsnotiz</a>
+			  <a class="nav-link active" aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
+			  <a class="nav-link" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
+			  <a class="nav-link" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
 			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 			</nav>
   		</div>
@@ -149,20 +157,19 @@
 		<!-- anzeige 3te col -->
 		<!-- info an rechten col -->
 		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
-	      	<div class="well"><!-- wetter field -->
-	        	<p>Info 1</p>
-	      	</div>
-	      	<!-- pop up for news -->
-	      	<div>
-	      	
+	      	<div class="well p-2 border">
+	        	<p><strong>Kontakt:</strong> IT-Hotline</p>
+	        	<ul>
+	        		<li>📞 02251 - 77756 - 123 (intern 3123)</li>
+	        	</ul> 
 	      	</div>
 	    </div>
 	</div>
-	<footer class="navbar navbar-fixed-bottom">
+	<footer class="navbar navbar-fixed-bottom p-3 m-3">
 		<div>
         	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
         </div>
-		<p style="font-size: 0.7em; text-align: right;"><b>released am 01.08.2022, bei NEW, version 1.0</b></p>
+		<p style="font-size: 0.7em; text-align: right; padding: 3px;"><b>released am 01.08.2022, bei NEW, version 1.0</b></p>
 	</footer>
 </body>
 </html>

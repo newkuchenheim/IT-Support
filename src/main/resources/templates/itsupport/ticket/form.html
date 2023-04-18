@@ -8,8 +8,10 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"><!-- icon -->
 	
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
@@ -69,38 +71,44 @@
 	 <header style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
          <img th:src="@{../../logo/NEW-Logo.png}" alt="logo" width="220" height="220"/>
      </header>
-     <nav class="navbar navbar-inverse navbar-fixed-top">
+     <nav class="navbar navbar-inverse navbar-fixed-top p-3">
 	  	<ul class="nav nav-tabs">
 		  	<li class="nav-item">
-		    	<a class="nav-link active" aria-current="page" href="/itsupport">
+	  			<a class="nav-link active" aria-current="page" href="/itsupport">
 	  				<span class="material-icons md-80">home</span>
-	  				HOME
+	  				NE.W
 	  			</a>
-			</li>
-			<li class="nav-item dropdown">
+		  	</li>
+		  	<li class="nav-item dropdown">
 		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MICOS</a>
 		    	<ul class="dropdown-menu">
-			      	<li><a class="dropdown-item" href="#">Link 1</a></li>
-			      	<li><a class="dropdown-item" href="#">Link 2</a></li>
-			      	<li><a class="dropdown-item" href="#">Link 3</a></li>
-			      	<li><hr class="dropdown-divider"></li>
-			      	<li><a class="dropdown-item" href="#">Separated link</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:start">Startseite</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:micos-faq">FAQ's</a></li>
 		    	</ul>
 		  	</li>
-		  	<li class="nav-item">
-		    	<a class="nav-link" href="#">JobRouter</a>
+		  	<li class="nav-item dropdown">
+		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Job Router</a>
+		    	<ul class="dropdown-menu">
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:start">Startseite/ Newsletter</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:tutorials:start">Tutorial/Anleitung</a></li>
+			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:jobrouter-faq">FAQ's</a></li>
+			      	<li><hr class="dropdown-divider"></li>
+			      	<li><a class="dropdown-item" href="http://srv-dms.kuchenheim.new.de/jobrouter/">Job Router Platform</a></li>
+		    	</ul>
 		  	</li>
 		 	<li class="nav-item">
-		    	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Was noch?</a>
+		    	<a class="nav-link" href="http://192.168.0.216/wiki/doku.php?id=start" >WIKI</a>
 		  	</li>
 		</ul>
 	</nav>
-  	<div class="row pt-5">
+  	<div class="row pt-5 m-2">
   		<!-- navigation link intern -->
-  		<div class="col col-sm-2 p-3 bg-grey text-white text-left sidenav">
+  		<div class="col col-sm-2 m-2 p-3 bg-grey text-white text-left sidenav">
   			<nav class="nav flex-column">
-			  <a class="nav-link active link-dark" aria-current="page" href="#">Senden Support-Ticket zu IT</a>
-			  <a class="nav-link" href="#">Abwesenheitsnotiz</a>
+			  <a class="nav-link active link-dark" aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
+			  <a class="nav-link" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
+			  <a class="nav-link" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
 			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 			</nav>
   		</div>
@@ -110,11 +118,11 @@
 	      	<form method="post" action="#"  th:object="${ticket}" style="min-width: 300px;">
             	<div class="row g-3 p-2">
             		<div class="form-floating mb-3 col"><!-- Vorname -->
-					    <input th:field="*{firstname}" id="vnametf" type="text" class="form-control" name="vname" placeholder="Vorname">
+					    <input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" id="vnametf" type="text" class="form-control" name="vname" placeholder="Vorname">
 					    <label for="vnametf">Vorname</label>
 					</div>
 					<div class="form-floating mb-3 col"><!-- Nachname -->
-					    <input th:field="*{lastname}" id="nnametf" type="text" class="form-control" name="nname" placeholder="Nachname">
+					    <input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" id="nnametf" type="text" class="form-control" name="nname" placeholder="Nachname">
 					    <label for="nnametf">Nachname</label>
 					</div>
             	</div>
@@ -140,11 +148,11 @@
             	</div>
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Emailadresse!"><!-- email -->
-					    <input id="emailtf" th:field="*{email}" type="text" class="form-control" name="email" placeholder="Email">
-					    <label for="emailtf">Email</label>
+					    <input id="emailtf" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" class="form-control" name="email" placeholder="Email">
+					    <label for="emailtf">E-Mail</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Telefonnummer, damit wir mit Ihnen sofort kontaktieren können!"><!-- telefon -->
-					    <input id="telefontf" th:field="*{telefon}" type="text" class="form-control" name="telefon" placeholder="Telefonnummer" required>
+					    <input id="telefontf" th:field="*{telefon}" pattern="[0-9-./\s/]+" type="text" class="form-control" name="telefon" placeholder="Telefonnummer" required>
 					    <label for="telefontf">Telefonnummer</label>
 					</div>
 				</div>						
@@ -153,21 +161,24 @@
 						<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
 						<select id="caution_sel" th:field="*{category}" name="causetitle" class="form-control" aria-label="Default select example" required>
 							<option selected value="">Was für ein Nachricht möchten Sie zu uns senden?</option>
-							<option value="Störung - MICOS">Störung - MICOS</option>
-                            <option value="Störung - AV">Störung - Auftragverwaltung(AV)</option>
-                            <option value="Störung - Andere Software">Störung - Andere Software</option>
-                            <option value="Störung - Hardware">Störung - Hardware(PC, Tatastur, Maus, etc.)</option>
-                            <option value="Störung - Telefonanlage">Störung - Telefonanlage</option>
-                            <option value="Störung - Drucker">Störung - Drucker</option>
-                            <option value="Anfrage - Software">Anfragen - Software</option>
-                            <option value="Anfrage - Hardware">Anfragen - Hardware</option>
-                            <option value="Andere Gründe">Andere Gründe</option>
+							<option value="⛔ MICOS">⛔ Störung - MICOS</option>
+                            <option value="⛔ AV">⛔ Störung - Auftragverwaltung(AV)</option>
+                            <option value="⛔ Andere Software">⛔ Störung - Andere Software</option>
+                            <option value="⛔ Hardware">⛔ Störung - Hardware(PC, Tatastur, Maus, etc.)</option>
+                            <option value="⛔ TK-Anlage/Server">⛔ Störung - Telefonanlage, Server</option>
+                            <option value="⛔ Drucker/Scanner">⛔ Störung - Drucker, Scanner</option>
+                            <option value="❓ AV">❓ Anfragen - AV</option>
+                            <option value="❓ MICOS">❓ Anfragen - MICOS</option>
+                            <option value="❓ Andere Software">❓ Anfragen - Andere Software</option>
+                            <option value="❓ Hardware">❓ Anfragen - Hardware</option>
+                            <option value="❓ Abwesenheitsnotiz">❓ Anfragen - Abwesenheitsnotiz</option>
+                            <option value="❓ Andere Gründe">❓ Andere Gründe</option>
 						</select>
 						<label for="caution_sel">Grund</label>
 					</div>
 					<div class="form-floating mb-3" data-bs-toggle="tooltip" data-bs-placement="right" title="Bitte beschreiben Sie genau Ihr Problem bzw. Ihre Anfragen."><!-- Beschreibung des Grundes -->
 					    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					    <textarea id="beschreibung_area" th:field="*{description}" name="causedescript" class="form-control" rows="5" required></textarea>
+					    <textarea id="beschreibung_area" th:field="*{description}" name="causedescript" class="form-control" rows="5" style="height: 100px" required></textarea>
 					    <label for="beschreibung-area">Beschreibung</label>
 					</div>
 				</div>
@@ -179,16 +190,26 @@
 	    </div>
 	    
 	    <!-- Anzeige -->
-	    <div class="col col-sm-2 p-3 bg-grey sidenav">
-	      	<div class="well"><!-- info an rechten col -->
-	        	<p>Info 1</p>
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border"><!-- info an rechten col -->
+	      		<ul>
+	      			<li><strong>Schritt 1:</strong> Füllen Sie Ihren Namen und Ihre Kontaktdaten aus</li>
+	      			<li><strong>Schritt 2:</strong> Wählen Sie einen passenden Grund aus. Hier werden die häufigsten Gründe angezeigt. Wenn Sie nicht die geeignete Option finden, können Sie <strong>Anderer Grund</strong> auswählen.</li>
+	      			<li><strong>Schritt 3:</strong> Bitte beschreiben Sie Ihr Problem bzw. Anfrage genauer in dem Feld <strong>Beschreibung</strong>.</li>
+	      			<li><strong>Schritt 4:</strong> Klicken Sie auf dem Button "Senden". Ihr Ticket wird sofort an uns gesendet.</li>
+	      		</ul>
+	        	
 	      	</div>
-	      	<div class="well">
-	        	<p>Info 2</p>
+	      	<div class="well p-2 border">
+	        	<p><strong>Kontakt:</strong> IT-Hotline</p>
+	        	<ul>
+	        		<li>📞 02251 - 77756 - 123 (intern 3123)</li>
+	        	</ul> 
 	      	</div>
 	    </div>
 	</div>
-	<footer class="navbar navbar-fixed-bottom">
+	<footer class="navbar navbar-fixed-bottom p-3 m-3">
 		<div>
         	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
         </div>
