@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NEW-Telefonnotiz</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"><!-- icon -->
+	
+  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+		/****** Begin Telenote section ******/
+		.autocomplete {
+			position: relative;
+			display: inline-block;
+			width: 300px;
+		}
+		.autocomplete-items {
+			position: absolute;
+			border: 1px solid #d4d4d4;
+			border-bottom: none;
+			border-top: none;
+			z-index: 99;
+			top: 100%;
+			left: 0;
+			right: 0;
+		}
+		.autocomplete-items div {
+			padding: 10px;
+			cursor: pointer;
+			background-color: #fff;
+			border-bottom: 1px solid #d4d4d4;
+		}
+		.autocomplete-items div:hover {
+			background-color: #e9e9e9;
+		}
+		.autocomplete-active {
+			background-color: #2e86c1 !important;
+			color: #ffffff;
+		}
+		input:invalid {
+		    border-color: coral;
+		    background-color: yellow;
+		}
+		#name_error {
+			display: none;
+		}
+		/****** End section telenote ******/
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+  	<!-- Javascript for form -->
+  	<script type="text/javascript" charset="uft-8">
+        window.onload = init;
+		function init() {
+			function setDateTimeToday() {
+				var date = new Date();
+
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+			
+				if (month < 10) month = "0" + month;
+				if (day < 10) day = "0" + day;
+				if (hours < 10) hours = "0" + hours;
+				if (minutes < 10) minutes = "0" + minutes;
+			
+				var today = year + "-" + month + "-" + day;
+				var current_time = hours + ":" + minutes;
+				document.getElementById('date').value = today;
+				document.getElementById('time').value = current_time;
+			}
+			// Set DateTime for first load
+			setDateTimeToday();
+			function csvToArray(str, delimiter = ",") {
+				/*convert CSV String to an Array with header as indizies*/
+				// slice from start of text to the first \n index
+				// use split to create an array from string by delimiter
+				const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+
+				// slice from \n index + 1 to the end of the text
+				// use split to create an array of each csv value row
+				const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+				
+				// Map the rows
+				// split values from each row into an array
+				// use headers.reduce to create an object
+				// object properties derived from headers:values
+				// the object passed as an element of the array
+				const arr = rows.map(function (row) {
+					const values = row.split(delimiter);
+					// console.log(values);
+					if (values.length > 2 && (values[2].includes("new-eu.de") || values[2].includes("newjob-eu.de")|| values[2].includes("eulog.org"))) {
+						const el = headers.reduce(function (object, header, index) {
+							object[header] = values[index];
+							return object;
+						}, {});
+						return el;
+					}
+				});
+
+				// return the array
+				return arr;
+			}
+			// create Array from csv
+			var persons;
+			function readTextFile(file) {
+				var rawFile = new XMLHttpRequest();
+				rawFile.open("GET", file, true);
+				rawFile.setRequestHeader("Cache-Control", "no-cache");
+				rawFile.setRequestHeader("Pragma", "no-cache");
+				rawFile.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
+				rawFile.onreadystatechange = function () { 
+					if (rawFile.readyState === 4) {
+						if (rawFile.status === 200 || rawFile.satus === 0) {
+							//console.log(rawFile.responseText);
+							persons = csvToArray(rawFile.responseText);
+						}
+					}
+				}
+				rawFile.send(null);
+			}
+			readTextFile("../../wikiusers.csv");
+			function autocomplete(inp) {
+				var currentFocus;
+				inp.addEventListener("input", function(e) {
+					var parent, child, val = this.value;
+					/*close any already open lists of autocompleted values*/
+					closeAllLists();
+					currentFocus = -1;
+					parent = document.createElement("DIV");
+					parent.setAttribute("id", this.id + "autocomplete-list");
+					parent.setAttribute("class", "autocomplete-items");
+					this.parentNode.appendChild(parent);
+					var max_display = 0;
+					for (i = 0; i < persons.length; i++) {
+						/*check if the value is part of lastname*/
+						if (persons[i] !== undefined) {
+							var fullname = persons[i]["\"Voller Name\""].replace("\"","").replace("\"","");
+							var names = fullname.split(" ");
+							var lastname = names[names.length-1];
+							// break loop after 15 names
+							if (max_display > 15) break;
+							if (lastname.toUpperCase().includes(val.toUpperCase())) {
+								child = document.createElement("DIV");
+								/*Set Item Text*/
+								child.innerHTML = fullname;
+								/*insert a input field that will hold the current person name item's value*/
+								child.innerHTML += "<input type='hidden' value='" + fullname + "'>";
+								child.addEventListener("click", function(e) {
+									inp.value = this.getElementsByTagName("input")[0].value;
+									closeAllLists();
+								});
+								parent.appendChild(child);
+								max_display++;
+							}
+						}
+					}
+				});
+				inp.addEventListener("keydown", function(e) {
+					var autolist = document.getElementById(this.id + "autocomplete-list");
+					if (autolist) autolist = autolist.getElementsByTagName("div");
+					if (e.keyCode == 40) {
+						currentFocus++;
+						addActive(autolist);
+					} else if (e.keyCode == 38) {
+						currentFocus--;
+						addActive(autolist);
+					} else if (e.keyCode == 13) {
+						e.preventDefault();
+						if (currentFocus > -1) {
+							if (autolist) autolist[currentFocus].click();
+						}
+					}
+				});
+				function addActive(item) {
+					/*a function to classify an item as active*/
+					if (!item) return false;
+					/*remove the "active" class on all items*/
+					removeActive(item);
+					if (currentFocus >= item.length) currentFocus = 0;
+					if (currentFocus < 0) currentFocus = (item.length - 1);
+					item[currentFocus].classList.add("autocomplete-active");
+				}
+				function removeActive(item) {
+					for (var i = 0; i < item.length; i++) {
+						item[i].classList.remove("autocomplete-active");
+					}
+				}
+				function closeAllLists(elmnt) {
+					/*close all autocomplete lists in the document, except the one passed as an argument*/
+					var items = document.getElementsByClassName("autocomplete-items");
+					for (var i = 0; i < items.length; i++) {
+						if (elmnt != items[i] && elmnt != inp) {
+							items[i].parentNode.removeChild(items[i]);
+						}
+					}
+				}
+				/*execute a function when someone clicks in the document*/
+				document.addEventListener("click", function(e) {
+					closeAllLists(e.target);
+					// remove required field if company or name is filled
+					if (document.getElementById("call_name").value !== "") document.getElementById("call_company").required = false;
+					else document.getElementById("call_company").required = true;
+					if (document.getElementById("call_company").value !== "") document.getElementById("call_name").required = false;
+					else document.getElementById("call_name").required = true;
+					// set number as required if call back is checked
+					if (document.getElementById("call_back").checked) document.getElementById("call_number").required = true;
+					else document.getElementById("call_number").required = false;
+				});
+			}
+			autocomplete(document.getElementById("note_for"));
+			function GetLocaleDateString(date) {
+				/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
+				var _date = new Date(date);
+				var day = _date.getDate();
+				var month = _date.getMonth() + 1;
+				var year = _date.getFullYear();
+			
+				if (month < 10) month = "0" + month;
+				if (day < 10) day = "0" + day;
+				return day + "." + month + "." + year;
+			}
+			function validateNumber(number) {
+				/*check if number only contains numbers or - and /*/
+				const re = /[0-9\/\+\-]{2,13}/;
+				var valid = false;
+				var full_matched_str = "";
+				if (number !== "") {
+					var matches = number.match(re);
+					if (matches !== null) {
+						for (i = 0; i < matches.length; i++) {
+							full_matched_str += matches[i];
+						}
+						if (full_matched_str.length === number.length) valid = true;
+					}
+				} else valid = true;
+				return valid;
+			}
+			
+			function sendEmail() {
+				var _call_name = document.getElementById("call_name").value;
+				var _call_company = document.getElementById("call_company").value;
+				var _call_reason = document.getElementById("call_reason").value;
+				var _date = document.getElementById("date").value;
+				var _time = document.getElementById("time").value;
+				var _note_for = document.getElementById("note_for").value;
+				var _call_number = document.getElementById("call_number").value;
+				var email_to = "";
+				var subject = "☎ - ";
+				var call_back = false;
+				if (document.getElementById("call_back").checked) call_back = true;
+				var call_later = false;
+				if (document.getElementById("call_later").checked) call_later = true;
+				var body;
+				if ((_call_name !== "" || _call_company !== "") && _note_for !== "") {
+					// validate note_for
+					var note_for_valid = false;
+					for (i = 0; i < persons.length; i++) {
+						if (persons[i] !== undefined && persons[i]["\"Voller Name\""].includes(_note_for)) {
+							email_to = persons[i]["E-Mail"];
+							note_for_valid = true;
+							break;
+						}
+					}
+					
+					var num_valid = validateNumber(_call_number);
+					if (num_valid) {
+						if (document.getElementById("call_number").hasAttribute("style")) document.getElementById("call_number").removeAttribute("style");
+						//document.getElementById("num_error").classList.add("visually-hidden");
+					} else {
+						document.getElementById("call_number").setAttribute('style', 'border-color: red');
+						//document.getElementById("num_error").classList.remove("visually-hidden");
+					}
+					if (note_for_valid && num_valid) {
+						// remove red border
+						if (document.getElementById("note_for").hasAttribute("style")) document.getElementById("note_for").removeAttribute("style");
+						// submit and reset form
+						document.getElementById("name_error").classList.add("visually-hidden");
+						document.getElementById("calling_note").submit();
+						// show success Messages
+						_form_success = document.getElementById("form_success");
+						var form_success_bs = new bootstrap.Alert(_form_success);
+						form_success_bs.show;
+						_form_success.classList.remove("visually-hidden");
+						//document.getElementById("calling_note").reset();
+						setDateTimeToday();
+						// build subject
+						if (_call_company !== "" && _call_name !== "") subject += _call_name + " " + _call_company;
+						else if (_call_name !== "" && _call_company === "") subject += _call_name;
+						else subject += _call_company;
+						if (call_back) subject += " - Zurückrufen";
+						else if (call_later) subject += " - Meldet sich später";
+						// Build body
+						body = "\t• Rückrufnummer: " + _call_number + "\r\n"
+						+ "\t• Datum / Uhrzeit: " + GetLocaleDateString(_date) + " " + _time + "\r\n"
+						+ "\t• Grund des Anrufes: " + _call_reason;
+						var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+						window.location.href = mailToLink;
+					} else {
+						document.getElementById("note_for").setAttribute('style', 'border-color: red');
+						// alert("Der angegebene Name ist nicht in der Liste!");
+						var _name_error = document.getElementById("name_error");
+						var _name_error_toast_el = document.getElementById("name_error_toast");
+						var name_error_alert = new bootstrap.Alert(_name_error);
+						_name_error.classList.remove("visually-hidden");
+					}
+				} else {
+					if (_call_name === "" && _call_company === "") {
+						document.getElementById("call_name").setAttribute('style', 'border-color: coral');
+						document.getElementById("call_company").setAttribute('style', 'border-color: coral');
+					} 
+					if (_note_for === "") document.getElementById("note_for").setAttribute('style', 'border-color: coral');
+				}
+			}
+			document.getElementById("calling_note").addEventListener("submit", (e) => {
+				e.preventDefault();
+				sendEmail();
+			});
+			// remove required field if company or name is filled
+			document.getElementById("call_name").addEventListener("change", function(e) {
+				if (e.value !== "") document.getElementById("call_company").required = false;
+				else document.getElementById("call_company").required = true;
+			});
+			document.getElementById("call_company").addEventListener("change", function(e) {
+				if (e.value !== "") document.getElementById("call_name").required = false;
+				else document.getElementById("call_name").required = true;
+			});
+		}
+	</script>
+</head>
+<body>
+	 <svg th:replace="itsupport/fragments/alerticons">
+	 	<!-- Load alert icons -->
+	 </svg>
+	 <header th:replace="itsupport/fragments/header :: header">
+         <!-- Load Header from template -->
+     </header>
+     <nav th:replace="itsupport/fragments/topmenu :: topmenu">
+     <!-- Load topmenu template -->
+	</nav>
+  	<div class="row pt-5 m-2">
+  		<!-- navigation link intern -->
+  		<div th:replace="itsupport/fragments/sidenav :: sidenav">
+		<!-- Load sidenav template -->
+  		</div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="name_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Name Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Der angegebene Name ist nicht in der Liste!
+		  		</div>
+			</div>
+			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Name Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		  		<div>
+		    		Notiz <b th:text="${noteID}"></b> wurde an Outloook übertragen.
+		  		</div>
+			</div> 
+	      	<form id="calling_note" autocomplete="off" method="post" action="#" style="min-width: 300px;">
+				<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col autocomplete"><!-- Notiz für -->
+						<input id="note_for" type="text" name="note_for" class="form-control" placeholder="Notiz für" required>
+						<label for="note_for">Notiz für</label>
+            		</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col"><!-- Anrufername -->
+            			<input id="call_name" type="text" name="call_name" class="form-control" placeholder="Name" maxlength="60" required>
+						<label for="call_name">Anrufername</label>
+            		</div>
+            		<div class="form-floating mb-3 col"><!-- Anrufer Firma -->
+            			<input id="call_company" type="text" name="call_company" class="form-control" placeholder="Firma" maxlength="60" required>
+						<label for="call_company">Anrufer Firma</label>
+            		</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col"><!-- Rückrufnummer -->
+            			<input id="call_number" type="text" name="call_number" pattern="[0-9\/\+\-]{2,13}" class="form-control" placeholder="Rückrufnummer">
+						<label for="call_number">Rückrufnummer</label>
+            		</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col"><!-- Grund -->
+            			<input id="call_reason" type="text" name="call_reason" class="form-control" placeholder="Grund" maxlength="150">
+						<label for="call_reason">Grund</label>
+            		</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-floating mb-3 col"><!-- Datum -->
+            			<input id="date" type="date" name="date" class="form-control" disabled>
+						<label for="date">Datum</label>
+            		</div>
+            		<div class="form-floating mb-3 col"><!-- Uhrzeit -->
+            			<input id="time" type="time" name="time" class="form-control" disabled>
+						<label for="time">Uhrzeit</label>
+            		</div>
+            	</div>
+            	<div class="row g-3 p-2">
+            		<div class="form-check mb-3 col"><!-- Bittet um Rückruf -->
+            			<input id="call_back" type="checkbox" name="call_back" class="form-check-input">
+            			<label for="call_back" class="form-check-label float-start">Bittet um Rückruf</label>
+            		</div>
+            		<div class="form-check mb-3 col"><!-- Meldet sich später -->
+            			<input id="call_later" type="checkbox" name="call_later" class="form-check-input">
+						<label for="call_later" class="form-check-label float-start">Meldet sich später</label>
+            		</div>
+            	</div>
+            	<div class="form-group mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+					<input type="submit" value="Absenden" class="btn btn-success" id="send" name="send"/><br/>
+				</div>
+			</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border"><!-- info an rechten col -->
+	      		<ul>
+	      			<li><strong>Schritt 1:</strong> Suchen Sie nach der gewünschten Person mit Hilfe des Nachnamens.</li>
+	      			<li><strong>Schritt 2:</strong> Geben Sie den Namen oder die Firma des Anrufers an.</li>
+	      			<li><strong>Schritt 3:</strong> Bei Bedarf können Sie einen Grund angeben.</li>
+	      			<li><strong>Schritt 4:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      		</ul>
+	        	
+	      	</div>
+	      	<div th:replace="itsupport/fragments/contact :: contact">
+	        	<!-- load contact template -->
+	      	</div>
+	    </div>
+	</div>
+	<footer th:replace="itsupport/fragments/footer :: footer">
+	<!-- Load Footer Template -->
+	</footer>
+</body>
+</html>

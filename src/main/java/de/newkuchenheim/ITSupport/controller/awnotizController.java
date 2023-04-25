@@ -4,9 +4,7 @@
 package de.newkuchenheim.ITSupport.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.awNote;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 
@@ -30,55 +28,61 @@ import de.newkuchenheim.ITSupport.dao.kanboardDAO;
  */
 
 @Controller
-@RequestMapping("itsupport/ticket")
-public class formController {
+@RequestMapping("itsupport/awnotiz")
+public class awnotizController {
 
-	private static List<Ticket> tickets = new ArrayList();
+	private static List<awNote> aws = new ArrayList();
+	private static boolean _IS_VERTRETER = false;
 	
 	@ModelAttribute("page")
     String page() {
-        return "ticket";
+        return "awnotiz";
     }
 	
 	@GetMapping
 	public String displayAllEvents(Model model) {
 		
-		model.addAttribute("tickets", tickets);
+		model.addAttribute("aws", aws);
 		
 		//send a request with ticket
 		try {
-			int TicketID = kanboardDAO.getInstance().sendTicket(tickets.get(0));
-			model.addAttribute("result", TicketID);
+			String answer = kanboardDAO.getInstance().sendAWNote(aws.get(0));
+			model.addAttribute("result", answer);
+						
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			tLog.getInstance().log(null, "severe", e.getMessage());
 		}
 		
-		return "itsupport/ticket/home";
+		return "itsupport/awnotiz/home";
 	}
 	
 	@GetMapping("form")
 	public String renderCreateForm(Model model) {
 		
-		tickets.clear();
+		aws.clear();
 
 		//tracking
-		System.out.println("call a form ticket" + LocalDateTime.now());
+		System.out.println("call a form aws " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a form");
 		
-		model.addAttribute("ticket", new Ticket());
-		return "itsupport/ticket/form";
+		model.addAttribute("awNote", new awNote());
+		return "itsupport/awnotiz/form";
 	}
 	
 	@PostMapping("form")
-	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
-		model.addAttribute("ticket", ticket);
+	public String sendForm(@ModelAttribute awNote awNote, boolean isvert ,Model model) {
 		
-		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
-		System.out.println("awNote wurde gesendet am " + LocalDateTime.now());
-		tLog.getInstance().log(null, "Info", "Trying to create a awNote");
+		model.addAttribute("awNote", awNote);
+		model.addAttribute("isVertreter", isvert);
 		
-		tickets.add(ticket);
+		System.out.println(awNote.getMname());
+		System.out.println("Ticket wurde gesendet am " + LocalDateTime.now());
+		tLog.getInstance().log(null, "Info", "Trying to create a ticket");
+		
+		_IS_VERTRETER = isvert;
+		
+		aws.add(awNote);
 //		return "create/home";
 		return "redirect:";
 	}
