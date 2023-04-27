@@ -29,5 +29,66 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/thymeleaf-custom-layout"/>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot/1.4.3.RELEASE/spring-boot-1.4.3.RELEASE.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot/1.4.3.RELEASE/spring-boot-1.4.3.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot"/>
+			<attribute name="maven.version" value="1.4.3.RELEASE"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot/2.7.3/spring-boot-2.7.3.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot/2.7.3/spring-boot-2.7.3-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot"/>
+			<attribute name="maven.version" value="2.7.3"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.4.3.RELEASE/spring-boot-autoconfigure-1.4.3.RELEASE.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.4.3.RELEASE/spring-boot-autoconfigure-1.4.3.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot-autoconfigure"/>
+			<attribute name="maven.version" value="1.4.3.RELEASE"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.7.3/spring-boot-autoconfigure-2.7.3.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.7.3/spring-boot-autoconfigure-2.7.3-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot-autoconfigure"/>
+			<attribute name="maven.version" value="2.7.3"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/spring-test/4.3.5.RELEASE/spring-test-4.3.5.RELEASE.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/spring-test/4.3.5.RELEASE/spring-test-4.3.5.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-test"/>
+			<attribute name="maven.version" value="4.3.5.RELEASE"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/spring-test/5.3.22/spring-test-5.3.22.jar" sourcepath="C:/Users/Praktikant-ZV/.m2/repository/org/springframework/spring-test/5.3.22/spring-test-5.3.22-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-test"/>
+			<attribute name="maven.version" value="5.3.22"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
