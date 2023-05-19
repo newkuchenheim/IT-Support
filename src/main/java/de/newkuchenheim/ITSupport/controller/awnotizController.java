@@ -33,7 +33,12 @@ public class awnotizController {
 
 	private static List<awNote> aws = new ArrayList();
 	private static boolean _IS_VERTRETER = false;
-	
+
+	@ModelAttribute("page")
+    String page() {
+        return "awnotiz";
+    }
+
 	@GetMapping
 	public String displayAllEvents(Model model) {
 		

@@ -38,15 +38,36 @@ public class kanboardDAO {
 	private final String _TAB_UL_1 = "- ", _NEWLINE = " \\r\\n", _BOLD_OPEN = " **", _BOLD_CLOSE = "** ",
 			_HEADING_1_OPEN = "# ", _HEADING_1_CLOSE = " # \\r\\n", _HEADING_2_OPEN = "## ",
 			_HEADING_2_CLOSE = " ## \\r\\n", _HEADING_3_OPEN = "### ", _HEADING_3_CLOSE = " ### \\r\\n";
-
+	
 	public static kanboardDAO getInstance() {
 		if (instance == null) {
 			return new kanboardDAO();
 		}
 		return instance;
 	}
-
-	public String sendTicket(Ticket ticket) throws UnsupportedEncodingException {
+	
+	private int getKanboardID (String strAnswer) {
+		String[] arrID = strAnswer.split(",");
+		String strKanboardID = arrID[1].substring(arrID[1].indexOf(':') + 1);
+		System.out.print(strKanboardID);
+		// return Integer.parseInt(strKanboardID);
+		return 1;
+	}
+	
+	/**
+	 * 
+	 * @param ticket
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public int sendTicket(Ticket ticket) throws UnsupportedEncodingException {
+		int intKanboardID = 0;
+		// Datatype datatypeName = ....
+		// String sVariablename
+		// Integer oName
+		// cdArticle oArticle
+		// cdArticeCollection oArticleList
+		
 		if (ticket != null) {
 			String title = "[" + ticket.getBuilding() + "]-[" + ticket.getCategory() + "]-[" + ticket.getLastname()
 					+ "]";
@@ -106,36 +127,18 @@ public class kanboardDAO {
 			// then read Information of response
 			try {
 				JSONObject responseObject = new JSONObject(answer);
-
-				// set value to response object
-				ResponseKanboard<Integer> resp = new ResponseKanboard();
-				if (responseObject.get("id") instanceof Long) {
-					resp.setMethodID(responseObject.getInt("id"));
-					if (responseObject.get("result") instanceof Integer) {
-						ResultKanboard<Integer> result = new ResultKanboard();
-						resp.setResults(result);
-						tLog.getInstance().log(null, "info", "Result on success! " + answer);
-					}
-				} else {
-					resp.setMethodID(0);
-
-					// create error obj
-					ErrorKanboard err = new ErrorKanboard();
-					if (responseObject.getJSONObject("error") != null) {
-						err.setErrorCode(responseObject.getJSONObject("error").getInt("code"));
-						err.setErrorMessage(responseObject.getJSONObject("error").getString("message"));
-						resp.setError(err);
-						tLog.getInstance().log(null, "severe", "Result on failure! " + answer);
-					}
-				}
-
-				return resp.getAnswerFromKanboard();
+				intKanboardID = responseObject.getInt("result");
+				System.out.println(intKanboardID);
 			} catch (JSONException err) {
 				System.out.println(err);
 			}
 
 		}
-		return "Result on failure";
+		if (intKanboardID > 0) {
+			return intKanboardID;
+		} else {
+			return -1;
+		}
 	}
 
 	/**

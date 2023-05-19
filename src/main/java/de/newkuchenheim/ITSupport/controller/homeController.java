@@ -42,6 +42,12 @@ public class homeController {
 	
 	private static List<MainContent> contents = new ArrayList();
 	
+
+	@ModelAttribute("page")
+    String page() {
+        return "itsupport";
+    }
+	
 	@GetMapping("/itsupport")
 	String getHome(Model model) throws IOException, FileNotFoundException {
 		

@@ -32,7 +32,12 @@ import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 public class wikifeedbackController {
 
 	private static List<Ticket> tickets = new ArrayList();
-
+	
+	@ModelAttribute("page")
+    String page() {
+        return "wikifeedback";
+    }
+	
 	@GetMapping
 	public String displayAllEvents(Model model) {
 

@@ -34,6 +34,11 @@ import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 public class formController {
 
 	private static List<Ticket> tickets = new ArrayList();
+
+	@ModelAttribute("page")
+    String page() {
+        return "ticket";
+    }
 	
 	@GetMapping
 	public String displayAllEvents(Model model) {
@@ -42,9 +47,11 @@ public class formController {
 		
 		//send a request with ticket
 		try {
-			String answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
+			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
 			model.addAttribute("result", answer);
 						
+			int TicketID = kanboardDAO.getInstance().sendTicket(tickets.get(0));
+			model.addAttribute("result", TicketID);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			tLog.getInstance().log(null, "severe", e.getMessage());
