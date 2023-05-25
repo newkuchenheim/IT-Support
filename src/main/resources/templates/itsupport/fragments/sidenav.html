@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="sidenav" class="col col-sm-2 m-2 p-3 bg-grey text-white text-left sidenav">
+  			<nav class="nav flex-column">
+			  <a class="nav-link" th:classappend="${page == 'ticket' ? 'link-dark' : ''}" aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
+			  <a class="nav-link" th:classappend="${page == 'awnotiz' ? 'active link-dark' : ''}" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
+			  <!-- <a class="nav-link " th:classappend="${page == 'telenotiz' ? 'active link-dark' : ''}" href="/itsupport/telenotiz/form">Telefonnotiz</a> -->
+			  <a class="nav-link" th:classappend="${page == 'wikifeedback' ? 'active link-dark' : ''}" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
+			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+			</nav>
+  	</div>
+</body>
+</html>

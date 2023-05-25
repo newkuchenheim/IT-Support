@@ -127,8 +127,9 @@ public class Ticket {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
-		this.description = description;
+			this.description = description;
 	}
+	
 	/**
 	 * @return the building
 	 */
