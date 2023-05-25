@@ -70,40 +70,26 @@
 			<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%"> 
 			<div th:switch="${result}" class="alert alert-primary" role="alert">
-			  	<p th:case="'Result on Failure'" >
-			  		Ihr Feedback wurde leider <strong>NICHT</strong>strong> versendet! <br> 
-			  		Bitte kontaktieren Sie unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a> oder Telefon. Vielen Dank!
-			  	</p>
-			  	<p th:case="*">
-			  		Ihre Nachricht wurde versendet! <br>
-			  		Wir kümmern uns schnellstmöglich um dein Anliegen und werden uns bei Ihnen melden.
-			  	</p>
+				<p th:case="-1">
+					Ihr Ticket wurde nicht versendet! <br> Bitte kontaktieren Sie
+					unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a>
+					oder Telefon. Vielen Dank!
+				</p>
+				<p th:case="*">
+					Ihre Nachricht mit der Ticket Nr. <b th:text="${result}"></b> wurde versendet! <br>
+			  		Wir kümmern uns schnellstmöglich um Ihr Anliegen und werden uns bei Ihnen melden.
+				</p>
 			</div>
-			<!--  <ul>
-				<li>Test</li>
-			    <th:block th:each="ticket : ${tickets}">
-			    	<li th:text="${ticket}"></li>
-			        <li th:text="${ticket.firstname} + ' ' + ${ticket.lastname}"></li>
-			    </th:block>
-			</ul> -->
-	    
 		</div>
 		
 		<!-- anzeige -->
-		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
-	      	<div class="well p-2 border">
-	        	<p><strong>Kontakt:</strong> IT-Hotline</p>
-	        	<ul>
-	        		<li>📞 02251 - 77756 - 123 (intern 3123)</li>
-	        	</ul> 
-	      	</div>
-	    </div>
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			<div th:replace="itsupport/fragments/contact :: contact">
+				<!-- load contact template -->
+			</div>
+		</div>
 	</div>											
-	<footer class="navbar navbar-fixed-bottom p-3 m-3">
-		<div>
-	       	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
-	       </div>
-		<p style="font-size: 0.7em; text-align: right;"><b>released am 01.05.2024, bei NEW, version 1.0</b></p>
-	</footer>
+	<!-- Load Footer Template -->
+	<footer th:replace="itsupport/fragments/footer :: footer"></footer>
 </body>
 </html>

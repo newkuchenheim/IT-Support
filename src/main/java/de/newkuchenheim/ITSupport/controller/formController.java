@@ -47,8 +47,8 @@ public class formController {
 		
 		//send a request with ticket
 		try {
-			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
-			model.addAttribute("result", answer);
+//			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
+//			model.addAttribute("result", answer);
 						
 			int TicketID = kanboardDAO.getInstance().sendTicket(tickets.get(0));
 			model.addAttribute("result", TicketID);
@@ -67,7 +67,7 @@ public class formController {
 
 		//tracking
 		System.out.println("call a form ticket" + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a form");
+		tLog.getInstance().log(null, "info", "call a ticket form");
 		
 		model.addAttribute("ticket", new Ticket());
 		return "itsupport/ticket/form";
@@ -76,10 +76,6 @@ public class formController {
 	@PostMapping("form")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
 		model.addAttribute("ticket", ticket);
-		
-		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
-		System.out.println("awNote wurde gesendet am " + LocalDateTime.now());
-		tLog.getInstance().log(null, "Info", "Trying to create a awNote");
 		
 		tickets.add(ticket);
 //		return "create/home";

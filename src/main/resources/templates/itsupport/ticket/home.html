@@ -1,153 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>IT-Support</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- icon -->
-	
-  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
-  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT-Support</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- icon -->
 
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
-    <style>
-	    /* Remove the navbar's default margin-bottom and rounded borders */ 
-	    .navbar {
-	      margin-bottom: 0;
-	      border-radius: 0;
-	    }
-	    
-	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-	    .row.content {height: 450px}
-	    
-	    /* Set gray background color and 100% height */
-	    .sidenav {
-	      padding-top: 20px;
-	      background-color: #f1f1f1;
-	      height: 100%;
-	    }
-	    
-	    /* Set black background color, white text and some padding */
-	    footer {
-	      background-color: #555;
-	      color: white;
-	      padding: 15px;
-	    }
-	    fieldset{
-		    text-align: left;
-		}
-		.interForm{
-		    display: flex;
-		    flex-flow: wrap;
-		}
-		form{
-		    text-align: center;
-		    border-color: #f1f1f1;
-		    border-style: solid;
-		    
-		}
-		section{
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    
-		}
-	    /* On small screens, set height to 'auto' for sidenav and grid */
-	    @media screen and (max-width: 767px) {
-	      .sidenav {
-	        height: auto;
-	        padding: 15px;
-	      }
-	      .row.content {height:auto;} 
-	    }
-  	</style>
+<link rel="shortcut icon" type="image/x-icon"
+	href="../../logo/logo_small.ico">
+<script type="application/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="application/javascript"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+fieldset {
+	text-align: left;
+}
+
+.interForm {
+	display: flex;
+	flex-flow: wrap;
+}
+
+form {
+	text-align: center;
+	border-color: #f1f1f1;
+	border-style: solid;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+</style>
 </head>
 <body>
-	<header style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
-        <img th:src="@{../../logo/NEW-Logo.png}" alt="logo" width="220" height="220"/>
-    </header>
-    <nav class="navbar navbar-inverse navbar-fixed-top p-3">
-	  	<ul class="nav nav-tabs">
-		  	<li class="nav-item">
-	  			<a class="nav-link active" aria-current="page" href="/itsupport">
-	  				<span class="material-icons md-80">home</span>
-	  				NE.W
-	  			</a>
-		  	</li>
-		  	<li class="nav-item dropdown">
-		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MICOS</a>
-		    	<ul class="dropdown-menu">
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:start">Startseite</a></li>
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:tutorials:start">Tutorial/Anleitung</a></li>
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:micos:micos-faq">FAQ's</a></li>
-		    	</ul>
-		  	</li>
-		  	<li class="nav-item dropdown">
-		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Job Route</a>
-		    	<ul class="dropdown-menu">
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:start">Startseite/ Newsletter</a></li>
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:tutorials:start">Tutorial/Anleitung</a></li>
-			      	<li><a class="dropdown-item" href="http://192.168.0.216/wiki/doku.php?id=apps-programme_infos-handbuecher:job_router_handbuch:jobrouter-faq">FAQ's</a></li>
-			      	<li><hr class="dropdown-divider"></li>
-			      	<li><a class="dropdown-item" href="http://srv-dms.kuchenheim.new.de/jobrouter/">Job Router Platform</a></li>
-		    	</ul>
-		  	</li>
-		 	<li class="nav-item">
-		    	<a class="nav-link disabled" href="http://192.168.0.216/wiki/doku.php?id=start">WIKI</a>
-		  	</li>
-		</ul>
-	</nav>
+	<!-- Load alert icons -->
+	<svg th:replace="itsupport/fragments/alerticons"></svg>
+
+	<!-- Load Header from template -->
+	<header th:replace="itsupport/fragments/header :: header"></header>
+
+	<!-- Load topmenu template -->
+	<nav th:replace="itsupport/fragments/topmenu :: topmenu"></nav>
+
 	<div class="row content p-3">
-		<!-- navigation intern -->
-		<div class="col col-sm-2 m-2 p-3 bg-grey text-white text-left sidenav">
-	 			<nav class="nav flex-column">
-			  <a class="nav-link active" aria-current="page" href="/itsupport/ticket/form">Support-Ticket an IT Senden</a>
-			  <a class="nav-link" href="/itsupport/awnotiz/form">Abwesenheitsnotiz (AWS)</a>
-			  <a class="nav-link" href="/itsupport/wikifeedback/form">WIKI-Feedback</a>
-			  <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-			</nav>
-	 		</div>
-	 		
-	 		<!-- main page -->
-		<div class="col p-3 max-width text-left" style="height: 67%"> 
+		<!-- navigation link intern -->
+		<!-- Load sidenav template -->
+		<div th:replace="itsupport/fragments/sidenav :: sidenav"></div>
+
+		<!-- main page -->
+		<div class="col p-3 max-width text-left" style="height: 67%">
 			<div th:switch="${result}" class="alert alert-primary" role="alert">
-			  	<p th:case="'Result on Failure'">
-			  		Ihr Ticket wurde nicht versendet! <br> 
-			  		Bitte kontaktieren Sie unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a> oder Telefon. Vielen Dank!
-			  	</p>
-			  	<p th:case="*">
-			  		Ihre Nachricht wurde versendet! <br>
-			  		Wir kümmern uns schnellstmöglich um dein Anliegen und werden uns bei Ihnen melden.
-			  	</p>
+				<p th:case="-1">
+					Ihr Ticket wurde nicht versendet! <br> Bitte kontaktieren Sie
+					unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a>
+					oder Telefon. Vielen Dank!
+				</p>
+				<p th:case="*">
+					Ihre Nachricht mit der Ticket Nr. <b th:text="${result}"></b> wurde
+					versendet! <br> Wir kümmern uns schnellstmöglich um Ihr
+					Anliegen und werden uns bei Ihnen melden.<br>
+					<br> Bei Nachfrage geben Sie die genannte <b>Ticket-Nummer</b>
+					an.
+				</p>
 			</div>
-			<!--  <ul>
-				<li>Test</li>
-			    <th:block th:each="ticket : ${tickets}">
-			    	<li th:text="${ticket}"></li>
-			        <li th:text="${ticket.firstname} + ' ' + ${ticket.lastname}"></li>
-			    </th:block>
-			</ul> -->
-	    
 		</div>
-		
+
 		<!-- anzeige -->
-		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
-	      	<div class="well p-2 border">
-	        	<p><strong>Kontakt:</strong> IT-Hotline</p>
-	        	<ul>
-	        		<li>📞 02251 - 77756 - 123 (intern 3123)</li>
-	        	</ul> 
-	      	</div>
-	    </div>
-	</div>											
-	<footer class="navbar navbar-fixed-bottom p-3 m-3">
-		<div>
-	       	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
-	       </div>
-		<p style="font-size: 0.7em; text-align: right;"><b>released am 01.05.2024, bei NEW, version 1.0</b></p>
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			<div th:replace="itsupport/fragments/contact :: contact">
+				<!-- load contact template -->
+			</div>
+		</div>
+	</div>
+	<footer th:replace="itsupport/fragments/footer :: footer">
+		<!-- Load Footer Template -->
 	</footer>
 </body>
 </html>

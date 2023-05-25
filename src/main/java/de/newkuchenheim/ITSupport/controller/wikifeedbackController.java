@@ -63,7 +63,7 @@ public class wikifeedbackController {
 
 		// tracking
 		System.out.println("call a form wikifeedback" + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a form");
+		tLog.getInstance().log(null, "info", "call a form feedback");
 
 		model.addAttribute("ticket", new Ticket());
 		return "itsupport/wikifeedback/form";
@@ -73,12 +73,8 @@ public class wikifeedbackController {
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
 		model.addAttribute("ticket", ticket);
 
-		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
-		System.out.println("wikifeedback wurde gesendet am " + LocalDateTime.now());
-		tLog.getInstance().log(null, "Info", "Trying to create a wikifeedback at " + LocalDateTime.now().toString());
-
 		tickets.add(ticket);
-//		return "create/home";
+		
 		return "redirect:";
 	}
 }

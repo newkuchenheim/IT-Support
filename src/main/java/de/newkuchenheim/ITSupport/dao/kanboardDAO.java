@@ -39,6 +39,10 @@ public class kanboardDAO {
 			_HEADING_1_OPEN = "# ", _HEADING_1_CLOSE = " # \\r\\n", _HEADING_2_OPEN = "## ",
 			_HEADING_2_CLOSE = " ## \\r\\n", _HEADING_3_OPEN = "### ", _HEADING_3_CLOSE = " ### \\r\\n";
 	
+	/**
+	 * Get Instance kanboardDAO
+	 * @return kanboardDAO
+	 */
 	public static kanboardDAO getInstance() {
 		if (instance == null) {
 			return new kanboardDAO();
@@ -46,27 +50,17 @@ public class kanboardDAO {
 		return instance;
 	}
 	
-	private int getKanboardID (String strAnswer) {
-		String[] arrID = strAnswer.split(",");
-		String strKanboardID = arrID[1].substring(arrID[1].indexOf(':') + 1);
-		System.out.print(strKanboardID);
-		// return Integer.parseInt(strKanboardID);
-		return 1;
-	}
-	
 	/**
+	 * send a request to create a Ticket in IT-Support Board
 	 * 
 	 * @param ticket
-	 * @return
+	 * 
+	 * @return int id if request was sent success. Otherwise -1 when failure.
+	 * 
 	 * @throws UnsupportedEncodingException
 	 */
 	public int sendTicket(Ticket ticket) throws UnsupportedEncodingException {
 		int intKanboardID = 0;
-		// Datatype datatypeName = ....
-		// String sVariablename
-		// Integer oName
-		// cdArticle oArticle
-		// cdArticeCollection oArticleList
 		
 		if (ticket != null) {
 			String title = "[" + ticket.getBuilding() + "]-[" + ticket.getCategory() + "]-[" + ticket.getLastname()
@@ -119,16 +113,14 @@ public class kanboardDAO {
 			HttpEntity<String> entity = new HttpEntity<String>(requestJson, headers);
 			String answer = restTemplate.postForObject(_URL, entity, String.class);
 			
-			System.out.println("___Response___");
-			System.out.println(answer);
-			System.out.println("___end___");
-			
 			// convert answer to object
 			// then read Information of response
 			try {
 				JSONObject responseObject = new JSONObject(answer);
+				//get value of key "result"
 				intKanboardID = responseObject.getInt("result");
-				System.out.println(intKanboardID);
+				
+				tLog.getInstance().log(null, "info", answer);
 			} catch (JSONException err) {
 				System.out.println(err);
 			}
@@ -266,6 +258,20 @@ public class kanboardDAO {
 		return "Result on failure";
 	}
 
+	/**
+	 * Build a request connection to Kanboard with kriterien
+	 * 
+	 * @param titel 	title of ticket
+	 * @param descript 	descriptiom of ticket
+	 * @param color		color of ticket, cyan for a new ticket input
+	 * @param projectid in which Project should be a ticket ordered
+	 * @param swimlaneid ordered Swimlane
+	 * @param columnid  ordered Column
+	 * @param start_date Start-Date 
+	 * @param due_date  End-Date
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private String buildCreateTicket(String titel, String descript, String color,  int projectid, int swimlaneid, int columnid, LocalDate start_date, LocalDate due_date)
 			throws UnsupportedEncodingException {
 		try {
@@ -325,7 +331,7 @@ public class kanboardDAO {
 				if (responseObject.get("result") instanceof Integer) {
 					ResultKanboard<Integer> result = new ResultKanboard();
 					resp.setResults(result);
-					tLog.getInstance().log(null, "info", "Result on success! " + answer);
+					tLog.getInstance().log(null, "info", answer);
 				}
 			} else {
 				resp.setMethodID(0);
@@ -348,7 +354,7 @@ public class kanboardDAO {
 	}
 
 	/**
-	 * Send a ticket to KanBoard Wiki Project
+	 * Send a feedback to KanBoard Wiki Project
 	 * 
 	 * @param ticket feedback
 	 * @return

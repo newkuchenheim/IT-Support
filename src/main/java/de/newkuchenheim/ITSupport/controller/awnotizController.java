@@ -32,7 +32,6 @@ import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 public class awnotizController {
 
 	private static List<awNote> aws = new ArrayList();
-	private static boolean _IS_VERTRETER = false;
 
 	@ModelAttribute("page")
     String page() {
@@ -43,7 +42,7 @@ public class awnotizController {
 	public String displayAllEvents(Model model) {
 		
 		model.addAttribute("aws", aws);
-		
+
 		//send a request with ticket
 		try {
 			String answer = kanboardDAO.getInstance().sendAWNote(aws.get(0));
@@ -64,26 +63,19 @@ public class awnotizController {
 
 		//tracking
 		System.out.println("call a form aws " + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a form");
+		tLog.getInstance().log(null, "info", "call a form aws");
 		
 		model.addAttribute("awNote", new awNote());
 		return "itsupport/awnotiz/form";
 	}
 	
 	@PostMapping("form")
-	public String sendForm(@ModelAttribute awNote awNote, boolean isvert ,Model model) {
+	public String sendForm(@ModelAttribute awNote awNote ,Model model) {
 		
 		model.addAttribute("awNote", awNote);
-		model.addAttribute("isVertreter", isvert);
-		
-		System.out.println(awNote.getMname());
-		System.out.println("Ticket wurde gesendet am " + LocalDateTime.now());
-		tLog.getInstance().log(null, "Info", "Trying to create a ticket");
-		
-		_IS_VERTRETER = isvert;
 		
 		aws.add(awNote);
-//		return "create/home";
+
 		return "redirect:";
 	}
 }
