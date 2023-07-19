@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.implement.ticketKanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -50,7 +51,7 @@ public class formController {
 //			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
 //			model.addAttribute("result", answer);
 						
-			int TicketID = kanboardDAO.getInstance().sendTicket(tickets.get(0));
+			int TicketID = ticketKanboardDAO.getInstance().sendTicket(tickets.get(0));
 			model.addAttribute("result", TicketID);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import de.newkuchenheim.ITSupport.bdo.awNote;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.implement.awsnotizKanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -45,7 +46,7 @@ public class awnotizController {
 
 		//send a request with ticket
 		try {
-			String answer = kanboardDAO.getInstance().sendAWNote(aws.get(0));
+			int answer = awsnotizKanboardDAO.getInstance().sendTicket(aws.get(0));
 			model.addAttribute("result", answer);
 						
 		} catch (UnsupportedEncodingException e) {

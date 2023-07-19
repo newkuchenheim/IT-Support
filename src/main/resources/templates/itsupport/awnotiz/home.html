@@ -96,14 +96,17 @@ section {
 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%">
 			<div th:switch="${result}" class="alert alert-primary" role="alert">
-				<p th:case="'Result on Failure'">
+				<p th:case="-1">
 					Ihr Abwesenheitsnotiz wurde nicht versendet! <br> Bitte kontaktieren Sie
-					unsere IT-Kollege per <a href="mailto:admin@new-eu.de">Mail</a>
+					unsere IT-Kollege per <a href="mailto:edv@new-eu.de">Mail</a>
 					oder Telefon. Vielen Dank!
 				</p>
 				<p th:case="*">
 					Ihre Abwesenheitsnotiz wurde versendet! <br> Wir kümmern uns
-					schnellstmöglich um Ihr Anliegen. Vielen Dank!
+					schnellstmöglich um Ihr Anliegen. <br>  
+					Bei Nachfrage geben Sie die genannte <b>Ticket-Nummer:</b><b th:text="${result}"></b> 
+					an.<br>
+					Vielen Dank!
 				</p>
 			</div>
 			<!--  <ul>
