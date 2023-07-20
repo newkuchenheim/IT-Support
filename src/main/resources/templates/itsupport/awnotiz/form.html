@@ -86,7 +86,7 @@
 	      	<form method="post" action="#"  th:object="${awNote}" style="min-width: 300px;">
             	<div class="row g-3 p-2">
             		<div class="form-floating mb-3 col"><!-- Vorname -->
-					    <input th:field="*{mname}" id="nametf" pattern="[a-zA-ZäüößÜÖÄ/\s/]+" type="text" class="form-control" name="name" placeholder="Max Mustermann" required>
+					    <input th:field="*{mname}" id="nametf" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" type="text" class="form-control" name="name" placeholder="Max Mustermann" required>
 					    <label for="nametf">Ihr Vor- und Nachname</label>
 					</div>
             	</div>
@@ -112,7 +112,7 @@
             	<hr>
 				<div class="row g-3 p-2" id="div_vertreter_1" hidden>
 					<div class="form-floating mb-3 col"><!-- Vertreter 1 -->
-					    <input th:field="*{kontakt1}" id="pers1tf" pattern="[a-zA-ZäüößÜÖÄ-/\s/]+" type="text" class="form-control" name="pers1" placeholder="Name des 1. Vertreters">
+					    <input th:field="*{kontakt1}" id="pers1tf" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" type="text" class="form-control" name="pers1" placeholder="Name des 1. Vertreters">
 					    <label for="pers1tf">1. Vertreter</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Emailadresse des 1ten Vertreter"><!-- email -->
@@ -120,13 +120,13 @@
 					    <label for="email1tf">E-Mail</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Telefonnummer des 1ten Vertreter"><!-- telefon -->
-					    <input id="telefon1tf" th:field="*{telnr1}" pattern="[0-9-./\s/]+" type="text" class="form-control" name="telefon1" placeholder="Telefonnummer">
+					    <input id="telefon1tf" th:field="*{telnr1}" pattern="[0-9\-\.\//\s/]+" type="text" class="form-control" name="telefon1" placeholder="Telefonnummer">
 					    <label for="telefon1tf">Telefonnummer</label>
 					</div>
 				</div>
 				<div class="row g-3 p-2" id="div_vertreter_2" hidden>
 					<div class="form-floating mb-3 col"><!-- Vertreter 2 -->
-					    <input th:field="*{kontakt2}" pattern="[a-zA-ZäüößÜÖÄ-/\s/]+" id="pers2tf" type="text" class="form-control" name="pers2" placeholder="Name des 2. Vertreters">
+					    <input th:field="*{kontakt2}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" id="pers2tf" type="text" class="form-control" name="pers2" placeholder="Name des 2. Vertreters">
 					    <label for="pers2tf">2. Vertreter</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Emailadresse des 2ten Vertreter"><!-- email -->
@@ -134,7 +134,7 @@
 					    <label for="email2tf">E-Mail</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lassen Sie bitte Ihre Telefonnummer des 1ten Vertreter"><!-- telefon -->
-					    <input id="telefon2tf" th:field="*{telnr2}" pattern="[0-9-./\s/]+" type="text" class="form-control" name="telefon2" placeholder="Telefonnummer">
+					    <input id="telefon2tf" th:field="*{telnr2}" pattern="[0-9\-\.\//\s/]+" type="text" class="form-control" name="telefon2" placeholder="Telefonnummer">
 					    <label for="telefon2tf">Telefonnummer</label>
 					</div>
 				</div>
