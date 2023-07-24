@@ -2,9 +2,16 @@
 		{
 			"type": "info",
 			"writtenBy": "Minh Tam Truong",
-			"writtenOn": "2022-10-19T16:40:48.2",
+			"writtenOn": "2023-08-01T16:40:48.2",
+			"title": "Neue Version ab 01.08.2023",
+			"description": "Neue Version ab 08/2023 - Neue Funktion von Support-Ticket und Verbesserung von User-Event"
+		},
+		{
+			"type": "info",
+			"writtenBy": "Minh Tam Truong",
+			"writtenOn": "2023-06-01T16:40:48.2",
 			"title": "Willkommen zu IT-Support bei NE.W",
-			"description": "Neue Version ab 08/2023"
+			"description": "Support-Ticket, Abwesenheitsnotiz und mehr! =)"
 		}
 	]
 }
