@@ -45,7 +45,7 @@ public class formController {
 	private static List<Ticket> tickets = new ArrayList();
 
 	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\TicketContent\\ticketcats.json";//"%USERPROFILE%/ticketcontent/ticketcats.json";
-	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.dir") + "/TicketContent/ticketcats.json";//"/home/itsupport/itsupport/ticketcats.json";
+	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/TicketContent/ticketcats.json";//"/home/itsupport/itsupport/ticketcats.json";
 	
 	@ModelAttribute("page")
     String page() {
