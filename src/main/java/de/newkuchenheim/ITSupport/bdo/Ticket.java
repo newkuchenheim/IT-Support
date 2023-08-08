@@ -20,6 +20,8 @@ public class Ticket {
 	private String title;
 	private String description;
 	private String building;
+	private String micoscat;
+	private String usercat;
 	
 	/**
 	 * @return the firstname
@@ -141,6 +143,18 @@ public class Ticket {
 	 */
 	public void setBuilding(String building) {
 		this.building = building;
+	}
+	public String getMicoscat() {
+		return micoscat;
+	}
+	public void setMicoscat(String micoscat) {
+		this.micoscat = micoscat;
+	}
+	public String getUsercat() {
+		return usercat;
+	}
+	public void setUsercat(String usercat) {
+		this.usercat = usercat;
 	}	
 	
 }

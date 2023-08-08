@@ -10,7 +10,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <!-- icon -->
-
+<!-- Bootstrap Font Icon CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <link rel="shortcut icon" type="image/x-icon"
 	href="../../logo/logo_small.ico">
 <script type="application/javascript"
@@ -78,6 +79,7 @@ section {
 	}
 }
 </style>
+<script type="text/javascript" th:src="@{../../js/ticket.js}"></script>
 </head>
 <body>
 	<!-- Load alert icons -->
@@ -102,15 +104,15 @@ section {
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col">
 						<!-- Vorname -->
-						<input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+"
+						<input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
 							id="vnametf" type="text" class="form-control" name="vname"
-							placeholder="Vorname"> <label for="vnametf">Vorname</label>
+							placeholder="Vorname" required> <label for="vnametf">Vorname</label>
 					</div>
 					<div class="form-floating mb-3 col">
 						<!-- Nachname -->
-						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ/\s/]+"
+						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
 							id="nnametf" type="text" class="form-control" name="nname"
-							placeholder="Nachname"> <label for="nnametf">Nachname</label>
+							placeholder="Nachname" required> <label for="nnametf">Nachname</label>
 					</div>
 				</div>
 				<div class="row g-3 p-2">
@@ -138,8 +140,7 @@ section {
 						title="In welcher Abteilung arbeiten Sie?">
 						<!-- Abteilung -->
 						<span class="input-group-addon"><i
-							class="glyphicon glyphicon-triangle-right"></i></span> <input
-							th:field="*{branch}" id="abteilungtf" type="text"
+							class="glyphicon glyphicon-triangle-right"></i></span> <input th:field="*{branch}" id="abteilungtf" type="text"
 							class="form-control" name="abteilung" placeholder="Abteilung">
 						<label for="abteilungtf">Abteilung</label>
 					</div>
@@ -147,7 +148,7 @@ section {
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
 						data-bs-placement="bottom"
-						title="Lassen Sie bitte Ihre Emailadresse!">
+						title="Lassen Sie bitte Ihre Emailadresse da!">
 						<!-- email -->
 						<input id="emailtf" th:field="*{email}"
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text"
@@ -156,46 +157,39 @@ section {
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
 						data-bs-placement="bottom"
-						title="Lassen Sie bitte Ihre Telefonnummer, damit wir mit Ihnen sofort kontaktieren können!">
+						title="Lassen Sie bitte Ihre Telefonnummer da, damit wir Sie sofort kontaktieren können!">
 						<!-- telefon -->
-						<input id="telefontf" th:field="*{telefon}" pattern="[0-9-./\s/]+"
+						<input id="telefontf" th:field="*{telefon}" pattern="[0-9\-\.\//\s/]+"
 							type="text" class="form-control" name="telefon"
-							placeholder="Telefonnummer" required> <label
+							placeholder="Telefonnummer"> <label
 							for="telefontf">Telefonnummer</label>
 					</div>
 				</div>
 				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3">
-						<span class="input-group-addon"><i
-							class="glyphicon glyphicon-th-list"></i></span> <select id="caution_sel"
+					<div class="form-floating mb-3 col">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> <select id="caution_sel"
 							th:field="*{category}" name="causetitle" class="form-control"
 							aria-label="Default select example" required>
-							<option selected value="">Was für ein Nachricht möchten
+							<option value="" selected hidden>Was für eine Nachricht möchten
 								Sie zu uns senden?</option>
-							<option value="⛔ MICOS">⛔ Störung - MICOS</option>
-							<option value="⛔ AV">⛔ Störung - Auftragverwaltung(AV)</option>
-							<option value="⛔ Andere Software">⛔ Störung - Andere
-								Software</option>
-							<option value="⛔ Hardware">⛔ Störung - Hardware(PC,
-								Tatastur, Maus, etc.)</option>
-							<option value="⛔ TK-Anlage/Server">⛔ Störung -
-								Telefonanlage, Server</option>
-							<option value="⛔ Drucker/Scanner">⛔ Störung - Drucker,
-								Scanner</option>
-							<option value="❓ AV">❓ Anfragen - AV</option>
-							<option value="❓ MICOS">❓ Anfragen - MICOS</option>
-							<option value="❓ Andere Software">❓ Anfragen - Andere
-								Software</option>
-							<option value="❓ Hardware">❓ Anfragen - Hardware</option>
-							<option value="❓ User Anlegen">❓ Anfragen - User anlegen</option>
-							<option value="❓ Abwesenheitsnotiz">❓ Anfragen -
-								Abwesenheitsnotiz</option>
-							<option value="❓ Andere Gründe">❓ Andere Gründe</option>
+							<option th:block th:each="category : ${categories}" th:value="${category.getValue()}" th:text="${category.getText()}"/>
 						</select> <label for="caution_sel">Grund</label>
+					</div>
+					<div class="form-floating mb-3 col" id="div_micos_sel" hidden>
+						<select id="micos_sel" th:field="*{micoscat}" class="form-control" aria-label="Default select example">
+							<!-- <option value="" selected hidden>Bitte Detail auswählen</option>-->
+							<option th:block th:each="micoscat : ${micoscats}" th:value="${micoscat.getValue()}" th:text="${micoscat.getText()}"/>
+						</select> <label for="micos_sel">Detail</label>
+					</div>
+					<div class="form-floating mb-3 col" id="div_user_sel" hidden>
+						<select id="user_sel" th:field="*{usercat}" class="form-control" aria-label="Default select example">
+							<option value="" selected hidden>Bitte Detail auswählen</option>
+							<option th:block th:each="usercat : ${usercats}" th:value="${usercat.getValue()}" th:text="${usercat.getText()}"/>
+						</select> <label for="user_sel">Detail</label>
 					</div>
 					<div class="form-floating mb-3" data-bs-toggle="tooltip"
 						data-bs-placement="right"
-						title="Bitte beschreiben Sie genau Ihr Problem bzw. Ihre Anfragen.">
+						title="Bitte beschreiben Sie genau Ihr Problem bzw. Ihre Anfrage.">
 						<!-- Beschreibung des Grundes -->
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-pencil"></i></span>
@@ -225,9 +219,10 @@ section {
 						Grund aus. Hier werden die häufigsten Gründe angezeigt. Wenn Sie
 						nicht die geeignete Option finden, können Sie <strong>Anderer
 							Grund</strong> auswählen.</li>
-					<li><strong>Schritt 3:</strong> Bitte beschreiben Sie Ihr
+					<li><strong>Schritt 3:</strong> Wählen Sie bei MICOS / User den detailierten Grund aus.</li>
+					<li><strong>Schritt 4:</strong> Bitte beschreiben Sie Ihr
 						Problem bzw. Anfrage genauer in dem Feld <strong>Beschreibung</strong>.</li>
-					<li><strong>Schritt 4:</strong> Klicken Sie auf dem Button
+					<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button
 						"Senden". Ihr Ticket wird sofort an uns gesendet.</li>
 				</ul>
 

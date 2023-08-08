@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.implement.wikifbKanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -40,7 +41,7 @@ public class wikifeedbackReduceController {
 
 		// send a request with ticket
 		try {
-			String answer = kanboardDAO.getInstance().sendWKFeedback(tickets.get(0));
+			int answer = wikifbKanboardDAO.getInstance().sendTicket(tickets.get(0));
 			model.addAttribute("result", answer);
 
 		} catch (UnsupportedEncodingException e) {

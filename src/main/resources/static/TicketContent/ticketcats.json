@@ -1,0 +1,89 @@
+{"categories":[
+    {
+        "value" : "⛔ MICOS",
+        "text" : "⛔ Störung - MICOS"
+    },
+    {
+        "value" : "⛔ AV",
+        "text" : "⛔ Störung - Auftragverwaltung(AV)"
+    },
+    {
+        "value" : "⛔ Andere Software",
+        "text" : "⛔ Störung - Andere Software"
+    },
+    {
+        "value" : "⛔ Hardware",
+        "text" : "⛔ Störung - Hardware(PC,Tatastur, Maus, etc.)"
+    },
+    {
+        "value" : "⛔ TK-Anlage/Server",
+        "text" : "⛔ Störung - Telefonanlage, Server"
+    },
+    {
+        "value" : "⛔ Drucker/Scanner",
+        "text" : "⛔ Störung - Drucker,Scanner"
+    },
+    {
+        "value" : "❓ AV",
+        "text" : "❓ Anfragen - AV"
+    },
+    {
+        "value" : "❓ MICOS",
+        "text" : "❓ Anfragen - MICOS"
+    },
+    {
+        "value" : "❓ Andere Software",
+        "text" : "❓ Anfragen - Andere Software"
+    },
+    {
+        "value" : "❓ Hardware",
+        "text" : "❓ Anfragen - Hardware"
+    },
+    {
+        "value" : "❓ User Anlegen",
+        "text" : "❓ Anfragen - User anlegen"
+    },
+    {
+        "value" : "❓ Abwesenheitsnotiz",
+        "text" : "❓ Anfragen - Abwesenheitsnotiz"
+    },
+    {
+        "value" : "❓ Andere Gründe",
+        "text" : "❓ Andere Gründe"
+    }
+], "micoscats":[
+    {
+        "value" : "ADDR",
+        "text" : "🏠 Adresse"
+    },
+    {
+        "value" : "AWER",
+        "text" : "📊 Auswertung"
+    },
+    {
+        "value" : "USER",
+        "text" : "🔑 Userprofil"
+    },
+    {
+        "value" : "REST",
+        "text" : "📋 Andere"
+    }
+], "usercats":[
+    {
+        "value" : "JR",
+        "text" : "Jobrouter"
+    },
+    {
+        "value" : "KB",
+        "text" : "Kanboard"
+    },
+    {
+        "value" : "MICOS",
+        "text" : "MICOS"
+    },
+    {
+        "value" : "BNRW",
+        "text" : "BEI_NRW"
+    }
+]
+}
