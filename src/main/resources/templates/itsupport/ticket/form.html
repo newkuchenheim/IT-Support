@@ -106,13 +106,13 @@ section {
 						<!-- Vorname -->
 						<input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
 							id="vnametf" type="text" class="form-control" name="vname"
-							placeholder="Vorname"> <label for="vnametf">Vorname</label>
+							placeholder="Vorname" required> <label for="vnametf">Vorname</label>
 					</div>
 					<div class="form-floating mb-3 col">
 						<!-- Nachname -->
 						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
 							id="nnametf" type="text" class="form-control" name="nname"
-							placeholder="Nachname"> <label for="nnametf">Nachname</label>
+							placeholder="Nachname" required> <label for="nnametf">Nachname</label>
 					</div>
 				</div>
 				<div class="row g-3 p-2">
