@@ -170,6 +170,8 @@ function init() {
 	function changeAutoCompleteList() {
 		var note_for = document.getElementById("note_for");
 		note_for.value = "";
+		document.getElementById("name_error").classList.add("visually-hidden");
+		if (note_for.hasAttribute("style")) note_for.removeAttribute("style");
 		readCSVFile();
 		autocomplete(note_for, false);
 	}
