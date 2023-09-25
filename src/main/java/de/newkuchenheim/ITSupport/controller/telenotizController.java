@@ -17,12 +17,12 @@ import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 /**
  * @author Sebastian Hansen
  * 
- * @createOn 19.04.2023
+ * @createOn 19.09.2023
  * 
  */
 
 @Controller
-@RequestMapping("itsupport/telenotiz")
+@RequestMapping("formulare/telenotiz")
 public class telenotizController {
 	//private static List<Ticket> tickets = new ArrayList();
 	@ModelAttribute("page")
@@ -30,55 +30,21 @@ public class telenotizController {
         return "telenotiz";
     }
 	
-	@ModelAttribute("noteID")
-    String noteID() {
-		// create Random Note id
-		Random rand = new Random();
-		return "" + rand.nextInt(999999);
-    }
-	
 	@GetMapping
 	public String displayAllEvents(Model model) {
-		
-		//model.addAttribute("tickets", tickets);
-		
-		//send a request with ticket
-//		try {
-//			String answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
-//			model.addAttribute("result", answer);
-//						
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//			tLog.getInstance().log(null, "severe", e.getMessage());
-//		}
-		
-		return "itsupport/telenotiz/home";
+		return "formulare/telenotiz/form";
 	}
 	
 	@GetMapping("form")
 	public String renderCreateForm(Model model) {
-		
-		//tickets.clear();
-
 		//tracking
-		System.out.println("call a form ticket" + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a form");
+		System.out.println("call a form telenotiz" + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a telenotiz form");
 		
-		// model.addAttribute("ticket", new Ticket());
-		return "itsupport/telenotiz/form";
+		return "formulare/telenotiz/form";
 	}
 	
 	@PostMapping("form")
 	public void sendForm() {
-//	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
-//		model.addAttribute("ticket", ticket);
-//		
-//		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
-//		System.out.println("awNote wurde gesendet am " + LocalDateTime.now());
-//		tLog.getInstance().log(null, "Info", "Trying to create a awNote");
-//		
-//		tickets.add(ticket);
-////		return "create/home";
-//		return "redirect:";
 	}
 }

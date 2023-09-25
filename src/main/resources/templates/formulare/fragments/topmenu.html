@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head></head>
+	<body>
+		<nav th:fragment="topmenu" class="navbar navbar-inverse navbar-fixed-top p-3">
+	  	<ul class="nav nav-tabs">
+			<li class="nav-item">
+	  			<a class="nav-link" href="/formulare">
+	  				<span class="material-icons md-80">home</span>
+	  				Start
+	  			</a>
+		  	</li>
+		  	<li class="nav-item dropdown">
+		    	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hilftools</a>
+		    	<ul class="dropdown-menu">
+			      	<li><a class="dropdown-item" target="_self" href="/formulare/telenotiz/form">Gesprächsnotiz</a></li>
+		    	</ul>
+		  	</li>
+		 	<li class="nav-item">
+		    	<a class="nav-link" target="_blank" href="http://192.168.0.216/wiki/doku.php?id=start" >WIKI</a>
+		  	</li>
+		</ul>
+	</nav>
+	</body>
+</html>
