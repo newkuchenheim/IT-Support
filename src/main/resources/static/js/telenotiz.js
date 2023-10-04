@@ -23,13 +23,14 @@ function init() {
 	setDateTimeToday();
 	function csvToArray(str, delimiter = ",") {
 		/*convert CSV String to an Array with header as indizies*/
-		// slice from start of text to the first \n index
+		// slice from start of text to the first \n or \r\n index
 		// use split to create an array from string by delimiter
-		const headers = str.slice(0, str.indexOf("\r\n")).split(delimiter);
+		const newline = (str.indexOf("\r\n") > -1 ? "\r\n" : "\n");
+		const headers = str.slice(0, str.indexOf(newline)).split(delimiter);
 
-		// slice from \n index + 1 to the end of the text
+		// slice from \n or \r\n index + 1 to the end of the text
 		// use split to create an array of each csv value row
-		const rows = str.slice(str.indexOf("\r\n") + 1).split("\r\n");
+		const rows = str.slice(str.indexOf(newline) + 1).split(newline);
 			
 		// Map the rows
 		// split values from each row into an array
