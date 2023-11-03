@@ -72,7 +72,7 @@ function init() {
 	}
 	function getFilePath() {
 		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
-		return "../../" + location + "_telelist.csv";
+		return "../../config/" + location + "_telelist.csv";
 	}
 	readCSVFile();
 	function autocomplete(inp, firstCall) {
@@ -227,8 +227,8 @@ function init() {
 			for (i = 0; i < persons.length; i++) {
 				if (persons[i] !== undefined) {
 				fullname_upp = (persons[i]["Vorname"].replaceAll("\"","") + " " + persons[i]["Name"].replaceAll("\"","")).toUpperCase();
-					if (fullname_upp.includes(_note_for.toUpperCase())) {
-						email_to = persons[i]["E-Mail"];
+					if (fullname_upp == _note_for.toUpperCase()) {
+						email_to = persons[i]["E-Mail"].replaceAll("\"","");
 						note_for_valid = true;
 						break;
 					}
@@ -257,7 +257,7 @@ function init() {
 				//document.getElementById("calling_note").reset();
 				setDateTimeToday();
 				// build subject
-				if (_call_company !== "" && _call_name !== "") subject += _call_name + " " + _call_company;
+				if (_call_company !== "" && _call_name !== "") subject += _call_name + " von " + _call_company;
 				else if (_call_name !== "" && _call_company === "") subject += _call_name;
 				else subject += _call_company;
 				if (call_back) subject += " - Zurückrufen";
@@ -272,8 +272,8 @@ function init() {
 				document.getElementById("note_for").setAttribute('style', 'border-color: red');
 				// alert("Der angegebene Name ist nicht in der Liste!");
 				var _name_error = document.getElementById("name_error");
-				var _name_error_toast_el = document.getElementById("name_error_toast");
 				var name_error_alert = new bootstrap.Alert(_name_error);
+				name_error_alert.show;
 				_name_error.classList.remove("visually-hidden");
 			}
 		} else {
