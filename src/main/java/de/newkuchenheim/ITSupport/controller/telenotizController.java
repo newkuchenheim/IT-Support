@@ -1,7 +1,6 @@
 package de.newkuchenheim.ITSupport.controller;
 
 import java.time.LocalDateTime;
-import java.util.Random;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 
 /**
  * @author Sebastian Hansen
@@ -38,7 +35,7 @@ public class telenotizController {
 	@GetMapping("form")
 	public String renderCreateForm(Model model) {
 		//tracking
-		System.out.println("call a form telenotiz" + LocalDateTime.now());
+		System.out.println("call a form telenotiz " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a telenotiz form");
 		
 		return "formulare/telenotiz/form";

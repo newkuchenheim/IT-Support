@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>IT-Support</title>
+	<title>NEW-Gesprächsnotiz</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- icon -->
 	
@@ -73,14 +73,13 @@
      <!-- Load topmenu template -->
 	</nav>
 	<div class="row content p-3">
-		<!-- Internal ListBox for chosen Form -->
-  		<div th:replace="formulare/fragments/sidebox :: sidebox">
-		<!-- Load sidebox template -->
+  		<div th:replace="formulare/fragments/sidenav :: sidenav">
+		<!-- Load sidenav template -->
   		</div>
 	 		
 	 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%"> 
-	    	Test Telefonnotiz Home
+	    	Test Gesprächsnotiz Home
 		</div>
 		
 		<!-- anzeige -->
@@ -93,11 +92,8 @@
 	      	</div>
 	    </div>
 	</div>											
-	<footer class="navbar navbar-fixed-bottom p-3 m-3">
-		<div>
-	       	<div id="itwerbung">Scheller als IT-ler? <b>Frage mal Wiki</b></div>
-	       </div>
-		<p style="font-size: 0.7em; text-align: right;"><b>released am 01.05.2024, bei NEW, version 1.0</b></p>
+	<footer th:replace="formulare/fragments/footer :: footer">
+		<!-- Load Footer Template -->
 	</footer>
 </body>
 </html>

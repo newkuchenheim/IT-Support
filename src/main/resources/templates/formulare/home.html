@@ -90,9 +90,8 @@ section {
 	<nav th:replace="formulare/fragments/topmenu :: topmenu"></nav>
 
 	<div class="row content p-3" style="height: 67%">
-		<!-- Internal ListBox for chosen Form -->
-  		<div th:replace="formulare/fragments/sidebox :: sidebox">
-		<!-- Load sidebox template -->
+  		<div th:replace="formulare/fragments/sidenav :: sidenav">
+		<!-- Load sidenav template -->
   		</div>
 
 		<!-- main page 2te col-->
@@ -109,7 +108,7 @@ section {
 					<span class="badge bg-primary">Info</span>
 					<p class="text-decoration-underline fw-bolder fs-5">Willkommen</p>
 					<br>
-					<p class="text-wrap fst-normal">Hier finden Sie unsere Hilftools</p>
+					<p class="text-wrap fst-normal">Hier finden Sie unsere Formulare</p>
 				</div>
 			</div>
 		</div>
@@ -122,7 +121,7 @@ section {
 			</div>
 		</div>
 	</div>
-	<footer th:replace="itsupport/fragments/footer :: footer">
+	<footer th:replace="formulare/fragments/footer :: footer">
 		<!-- Load Footer Template -->
 	</footer>
 </body>

@@ -3,10 +3,6 @@
  */
 package de.newkuchenheim.ITSupport.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +24,7 @@ public class homeFormulareController {
     }
 	
 	@GetMapping("/formulare")
-	String getHome(Model model) throws IOException, FileNotFoundException {
+	String getHome(Model model) {
 		return "formulare/home";
 	}
 	
