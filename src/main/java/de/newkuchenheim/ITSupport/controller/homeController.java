@@ -38,8 +38,8 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 @Controller
 public class homeController {
 	
-	private final String _URL_MAIN_CONTENT  = System.getProperty("user.home") + "\\TicketContent\\mitteilung.json";//"/home/itsupport/itsupport/main.json";
-	private final String _URL_MAIN_CONTENT_LINUX  = System.getProperty("user.home") + "/mitteilung.json";//"/home/itsupport/itsupport/main.json";
+	private final String _URL_MAIN_CONTENT  = System.getProperty("user.home") + "\\TicketContent\\mitteilung.json";//"%USERPROFILE%/TicketContent/mitteilung.json";
+	private final String _URL_MAIN_CONTENT_LINUX  = System.getProperty("user.home") + "/TicketContent/mitteilung.json";//"/home/itsupport/itsupport/TicketContent/mitteilung.json";
 	
 	private static List<MainContent> contents = new ArrayList();
 	

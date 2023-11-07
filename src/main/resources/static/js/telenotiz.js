@@ -172,6 +172,7 @@ function init() {
 		var note_for = document.getElementById("note_for");
 		note_for.value = "";
 		document.getElementById("name_error").classList.add("visually-hidden");
+		document.getElementById("email_error").classList.add("visually-hidden");
 		if (note_for.hasAttribute("style")) note_for.removeAttribute("style");
 		readCSVFile();
 		autocomplete(note_for, false);
@@ -188,23 +189,26 @@ function init() {
 		if (day < 10) day = "0" + day;
 		return day + "." + month + "." + year;
 	}
-	function validateNumber(number) {
+	function validateNumOrEmail(str, isMail) {
 		/*check if number only contains numbers or - and /*/
-		const re = /[0-9\/\+\-]{2,13}/;
+		var re = /[0-9\/\+\-]{2,13}/;
+		if (isMail) re = /^[\w-\.]+@new-eu\.de$/g;
 		var valid = false;
 		var full_matched_str = "";
-		if (number !== "") {
-			var matches = number.match(re);
+		if (str !== "") {
+			var matches = str.match(re);
 			if (matches !== null) {
 				for (i = 0; i < matches.length; i++) {
 					full_matched_str += matches[i];
 				}
-				if (full_matched_str.length === number.length) valid = true;
+				if (full_matched_str.length === str.length) valid = true;
 			}
-		} else valid = true;
+		} else {
+			valid = true;
+			if (isMail) valid = false;
+		}
 		return valid;
 	}
-		
 	function sendEmail() {
 		var _call_name = document.getElementById("call_name").value;
 		var _call_company = document.getElementById("call_company").value;
@@ -224,18 +228,26 @@ function init() {
 			// validate note_for
 			var note_for_valid = false;
 			var fullname_upp;
+			var email_valid;
 			for (i = 0; i < persons.length; i++) {
 				if (persons[i] !== undefined) {
 				fullname_upp = (persons[i]["Vorname"].replaceAll("\"","") + " " + persons[i]["Name"].replaceAll("\"","")).toUpperCase();
 					if (fullname_upp == _note_for.toUpperCase()) {
 						email_to = persons[i]["E-Mail"].replaceAll("\"","");
 						note_for_valid = true;
+						email_valid = true;
 						break;
 					}
 				}
 			}
-				
-			var num_valid = validateNumber(_call_number);
+			
+			if (!note_for_valid) {
+				email_valid = validateNumOrEmail(_note_for, true)
+				if (email_valid) {
+					email_to = _note_for;
+				}
+			}
+			var num_valid = validateNumOrEmail(_call_number, false);
 			if (num_valid) {
 				if (document.getElementById("call_number").hasAttribute("style")) document.getElementById("call_number").removeAttribute("style");
 				//document.getElementById("num_error").classList.add("visually-hidden");
@@ -243,11 +255,12 @@ function init() {
 				document.getElementById("call_number").setAttribute('style', 'border-color: red');
 				//document.getElementById("num_error").classList.remove("visually-hidden");
 			}
-			if (note_for_valid && num_valid) {
+			if ((note_for_valid && num_valid) || (email_valid && num_valid)) {
 				// remove red border
 				if (document.getElementById("note_for").hasAttribute("style")) document.getElementById("note_for").removeAttribute("style");
 				// submit and reset form
 				document.getElementById("name_error").classList.add("visually-hidden");
+				document.getElementById("email_error").classList.add("visually-hidden");
 				document.getElementById("calling_note").submit();
 				// show success Messages
 				var _form_success = document.getElementById("form_success");
@@ -270,11 +283,17 @@ function init() {
 				window.location.href = mailToLink;
 			} else {
 				document.getElementById("note_for").setAttribute('style', 'border-color: red');
-				// alert("Der angegebene Name ist nicht in der Liste!");
-				var _name_error = document.getElementById("name_error");
-				var name_error_alert = new bootstrap.Alert(_name_error);
-				name_error_alert.show;
-				_name_error.classList.remove("visually-hidden");
+				if (email_valid !== null && _note_for.includes("@") && !email_valid) {
+					var _email_error = document.getElementById("email_error");
+					var email_error_alert = new bootstrap.Alert(_email_error);
+					email_error_alert.show;
+					_email_error.classList.remove("visually-hidden");
+				} else {
+					var _name_error = document.getElementById("name_error");
+					var name_error_alert = new bootstrap.Alert(_name_error);
+					name_error_alert.show;
+					_name_error.classList.remove("visually-hidden");
+				}
 			}
 		} else {
 			if (_call_name === "" && _call_company === "") {
