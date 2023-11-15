@@ -44,8 +44,8 @@ public class formController {
 
 	private static List<Ticket> tickets = new ArrayList();
 
-	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\TicketContent\\ticketcats.json";//"%USERPROFILE%/ticketcontent/ticketcats.json";
-	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/TicketContent/ticketcats.json";//"/home/itsupport/itsupport/ticketcats.json";
+	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Ticket\\ticketcats.json";//"%USERPROFILE%/it-supportcontent/ticket/ticketcats.json";
+	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Ticket/ticketcats.json";//"/home/itsupport/itsupport/it-supportcontent/ticket/ticketcats.json";
 	
 	@ModelAttribute("page")
     String page() {
@@ -78,7 +78,7 @@ public class formController {
 		tickets.clear();
 
 		//tracking
-		System.out.println("call a form ticket" + LocalDateTime.now());
+		System.out.println("call a form ticket " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a ticket form");
 		
 		model.addAttribute("ticket", new Ticket());

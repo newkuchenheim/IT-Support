@@ -20,8 +20,8 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 @SpringBootApplication
 public class ItSupportApplication {
 
-	private static final String _PATH_CONFIG_WINDOWS  = System.getenv("USERPROFILE") + "\\TicketContent";//"%USERPROFILE%/ticketcontent/ticketcats.json";
-	private static final String _PATH_CONFIG_LINUX  = System.getProperty("user.home") + "/TicketContent";//"/home/itsupport/itsupport/ticketcats.json";
+	private static final String _PATH_CONFIG_WINDOWS  = System.getenv("USERPROFILE") + "\\IT-SupportContent";//"%USERPROFILE%/it-supportcontent
+	private static final String _PATH_CONFIG_LINUX  = System.getProperty("user.home") + "/IT-SupportContent";//"/home/itsupport/itsupport/it-supportcontent
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ItSupportApplication.class, args);
@@ -36,7 +36,7 @@ public class ItSupportApplication {
 		}
 		try {
 			//Path of project
-			Path src_path = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/TicketContent");
+			Path src_path = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/IT-SupportContent");
 			if(config_path != null && !config_path.isBlank()) {
 				Path _checkPath = Paths.get(config_path);
 				if(!Files.isDirectory(_checkPath) || Files.notExists(_checkPath)) {

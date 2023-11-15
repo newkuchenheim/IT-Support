@@ -79,7 +79,10 @@
 	 		
 	 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%"> 
-	    	Test Gesprächsnotiz Home
+	    	<div th:switch="${sended}" class="alert alert-primary" role="alert">
+				<p th:case="true">Ihre Outlook Vorlage wurde erfolgreich erstellt.</p>
+				<p th:case="*">Es wurde keine Outlook Vorlage erstellt.</p>
+			</div>
 		</div>
 		
 		<!-- anzeige -->

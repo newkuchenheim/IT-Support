@@ -1,5 +1,7 @@
 window.onload = init;
 function init() {
+	// reset chosen location
+	document.getElementById("zvw_location").checked = true;
 	function setDateTimeToday() {
 		var date = new Date();
 
@@ -16,65 +18,11 @@ function init() {
 		
 		var today = year + "-" + month + "-" + day;
 		var current_time = hours + ":" + minutes;
-		document.getElementById('date').value = today;
-		document.getElementById('time').value = current_time;
+		document.getElementById("date").value = today;
+		document.getElementById("time").value = current_time;
 	}
 	// Set DateTime for first load
 	setDateTimeToday();
-	function csvToArray(str, delimiter = ",") {
-		/*convert CSV String to an Array with header as indizies*/
-		// slice from start of text to the first \n or \r\n index
-		// use split to create an array from string by delimiter
-		const newline = (str.indexOf("\r\n") > -1 ? "\r\n" : "\n");
-		const headers = str.slice(0, str.indexOf(newline)).split(delimiter);
-
-		// slice from \n or \r\n index + 1 to the end of the text
-		// use split to create an array of each csv value row
-		const rows = str.slice(str.indexOf(newline) + 1).split(newline);
-			
-		// Map the rows
-		// split values from each row into an array
-		// use headers.reduce to create an object
-		// object properties derived from headers:values
-		// the object passed as an element of the array
-		const arr = rows.map(function (row) {
-			const values = row.split(delimiter);
-			// console.log(values);
-			if (values.length > 2 && (values[2].includes("new-eu.de") || values[2].includes("newjob-eu.de")|| values[2].includes("eulog.org"))) {
-				const el = headers.reduce(function (object, header, index) {
-					object[header] = values[index];
-					return object;
-				}, {});
-				return el;
-			}
-		});
-
-		// return the array
-		return arr;
-	}
-	// create Array from csv
-	var persons;
-	function readCSVFile() {
-		var rawFile = new XMLHttpRequest();
-		rawFile.open("GET", getFilePath(), true);
-		rawFile.setRequestHeader("Cache-Control", "no-cache");
-		rawFile.setRequestHeader("Pragma", "no-cache");
-		rawFile.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
-		rawFile.onreadystatechange = function () { 
-			if (rawFile.readyState === 4) {
-				if (rawFile.status === 200 || rawFile.satus === 0) {
-					//console.log(rawFile.responseText);
-					persons = csvToArray(rawFile.responseText);
-				}
-			}
-		}
-		rawFile.send(null);
-	}
-	function getFilePath() {
-		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
-		return "../../config/" + location + "_telelist.csv";
-	}
-	readCSVFile();
 	function autocomplete(inp, firstCall) {
 		function inputEvent() {
 			var parent, child, val = this.value;
@@ -174,7 +122,26 @@ function init() {
 		document.getElementById("name_error").classList.add("visually-hidden");
 		document.getElementById("email_error").classList.add("visually-hidden");
 		if (note_for.hasAttribute("style")) note_for.removeAttribute("style");
-		readCSVFile();
+		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
+		switch (location) {
+			case "kall":
+				persons = telelist_kall;
+				break;
+			case "khm":
+				persons = telelist_khm;
+				break;
+			case "uelp":
+				persons = telelist_uelp;
+				break;
+			case "zhm":
+				persons = telelist_zhm;
+				break;
+			case "zvw":
+				persons = telelist_zvw;
+				break;
+			default:
+				persons = telelist_zvw;
+		}
 		autocomplete(note_for, false);
 	}
 	autocomplete(document.getElementById("note_for"), true);
@@ -252,7 +219,7 @@ function init() {
 				if (document.getElementById("call_number").hasAttribute("style")) document.getElementById("call_number").removeAttribute("style");
 				//document.getElementById("num_error").classList.add("visually-hidden");
 			} else {
-				document.getElementById("call_number").setAttribute('style', 'border-color: red');
+				document.getElementById("call_number").setAttribute("style", "border-color: red");
 				//document.getElementById("num_error").classList.remove("visually-hidden");
 			}
 			if ((note_for_valid && num_valid) || (email_valid && num_valid)) {
@@ -282,25 +249,29 @@ function init() {
 				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
-				document.getElementById("note_for").setAttribute('style', 'border-color: red');
-				if (email_valid !== null && _note_for.includes("@") && !email_valid) {
+				document.getElementById("note_for").setAttribute("style", "border-color: red");
+				if (email_valid !== null && (_note_for.includes("@") || _note_for.includes(".")) && !email_valid) {
 					var _email_error = document.getElementById("email_error");
 					var email_error_alert = new bootstrap.Alert(_email_error);
 					email_error_alert.show;
 					_email_error.classList.remove("visually-hidden");
+					// hide name error message
+					document.getElementById("name_error").classList.add("visually-hidden");
 				} else {
 					var _name_error = document.getElementById("name_error");
 					var name_error_alert = new bootstrap.Alert(_name_error);
 					name_error_alert.show;
 					_name_error.classList.remove("visually-hidden");
+					// hide email error message
+					document.getElementById("email_error").classList.add("visually-hidden");
 				}
 			}
 		} else {
 			if (_call_name === "" && _call_company === "") {
-				document.getElementById("call_name").setAttribute('style', 'border-color: coral');
-				document.getElementById("call_company").setAttribute('style', 'border-color: coral');
+				document.getElementById("call_name").setAttribute("style", "border-color: coral");
+				document.getElementById("call_company").setAttribute("style", "border-color: coral");
 			} 
-			if (_note_for === "") document.getElementById("note_for").setAttribute('style', 'border-color: coral');
+			if (_note_for === "") document.getElementById("note_for").setAttribute("style", "border-color: coral");
 		}
 	}
 	document.getElementById("calling_note").addEventListener("submit", (e) => {
