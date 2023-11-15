@@ -1,52 +1,52 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
 Winkelhag,Andreas,Betriebsleitung,3310,310,0173-3028708,410,a.winkelhag@new-eu.de
-Erven,Beate,,3311,311,,460,b.erven@new-eu.de
-Aulmann,Andrea,,3312,312,,,a.aulmann@new-eu.de
+Erven,Beate,Verwaltung,3311,311,,460,b.erven@new-eu.de
+Aulmann,Andrea,Verwaltung,3312,312,,,a.aulmann@new-eu.de
 Nagel,Markus,Hausmeister,3319,319,0152-57405136,,m.nagel@new-eu.de
 Hartung,Irene,Sportlehrerin,3132,,0173-5683975,,i.hartung@new-eu.de
 Recker,Stephan,Botengänge,3333,,,,
 Danes,Christoph,Teamleitung,3320,320,,420,c.danes@new-eu.de
-Elfroth,Anja,,3362,362,,,a.elfroth@new-eu.de
-Hoß,Rebecca,,3321,321,,,r.hoss@new-eu.de
-Schneider,Peter,,3327,327,,,p.schneider@new-eu.de
-Klippel,Veronika,,3327,327,,,v.klippel@new-eu.de
-Decker,Julie,,3332,332,,430,j.decker@new-eu.de
-Bungenberg,Philipp,,3331,331,,,p.bungenberg@new-eu.de
+Elfroth,Anja,sozialer Dienst,3362,362,,,a.elfroth@new-eu.de
+Hoß,Rebecca,sozialer Dienst,3321,321,,,r.hoss@new-eu.de
+Schneider,Peter,sozialer Dienst,3327,327,,,p.schneider@new-eu.de
+Klippel,Veronika,sozialer Dienst,3327,327,,,v.klippel@new-eu.de
+Decker,Julie,Druckzentrum,3332,332,,430,j.decker@new-eu.de
+Bungenberg,Philipp,Druckzentrum,3331,331,,,p.bungenberg@new-eu.de
 Hattwig,Bernhard,Teamleitung,3340,340,,440,b.hattwig@new-eu.de
-Szakowski,Heike,,3342,342,,,verpackung@new-eu.de
-Herzfeld,Beate,,3341,341,,,b.herzfeld@new-eu.de
-Hutsch,Norbert,,3345,345,,,lager@new-eu.de
-Breuer,Claudia,,3370,370,,,c.breuer@new-eu.de
-Platzek,Wolf-Peter,,3347,347,,,konfektionierung@new-eu.de
-Radwaniak,Alexandra,,3349,349,,,a.radwaniak@new-eu.de
-Ilge-Quandt,Stanislaw,,3350,350,0173-5413716,450,s.ilge-quandt@new-eu.de
-Guttke,Eric,,3351,351,0173-5413733,,gartenbau@new-eu.de
-"Groote, von",Matthias,,,,0173-7522926,,
-Lönenbach,Monika,,3360,360,,,hauswirtschaft@new-eu.de
-Schambach,Margarete,,3361,361,,,
-Stein,Gerd,,3371,371,,470,g.stein@new-eu.de
-Weber,Wolfgang,,3372,372,,,w.weber@new-eu.de
+Szakowski,Heike,Verpackung,3342,342,,,verpackung@new-eu.de
+Herzfeld,Beate,Verpackung,3341,341,,,b.herzfeld@new-eu.de
+Hutsch,Norbert,Lager,3345,345,,,lager@new-eu.de
+Breuer,Claudia,Konfektionierung,3370,370,,,c.breuer@new-eu.de
+Platzek,Wolf-Peter,Konfektionierung,3347,347,,,konfektionierung@new-eu.de
+Radwaniak,Alexandra,Konfektionierung,3349,349,,,a.radwaniak@new-eu.de
+Ilge-Quandt,Stanislaw,Gartenbau,3350,350,0173-5413716,450,s.ilge-quandt@new-eu.de
+Guttke,Eric,Gartenbau,3351,351,0173-5413733,,gartenbau@new-eu.de
+"Groote, von",Matthias,Gartenbau,,,0173-7522926,,
+Lönenbach,Monika,Hauswirtschaft,3360,360,,,hauswirtschaft@new-eu.de
+Schambach,Margarete,Hauswirtschaft,3361,361,,,
+Stein,Gerd,Verpackung II,3371,371,,470,g.stein@new-eu.de
+Weber,Wolfgang,Verpackung II,3372,372,,,w.weber@new-eu.de
 Klein,Julian-Marc,Teamleitung Montage u. Lager,3380,380,,480,j.klein@new-eu.de
-Kaulich,Dirk,,3325,325,,,d.kaulich@new-eu.de
-Schöller,Helga,,3359,359,,,h.schoeller@new-eu.de
+Kaulich,Dirk,Montage,3325,325,,,d.kaulich@new-eu.de
+Schöller,Helga,Montage,3359,359,,,h.schoeller@new-eu.de
 Hufschmidt,Frank,Teamleitung,3390,390,,490,f.hufschmidt@new-eu.de
-Bollenbeck,Fabian,,3391,391,,,f.bollenbeck@new-eu.de
-Hanf,Gabi,,3392,392,,,g.hanf@new-eu.de
+Bollenbeck,Fabian,Industriewäsche,3391,391,,,f.bollenbeck@new-eu.de
+Hanf,Gabi,Industriewäsche,3392,392,,,g.hanf@new-eu.de
 Lenczyk,Thomas,Teamleitung,3357,357,,,t.lenczyk@new-eu.de
-Jünger,Miriam,,3322,322,,,m.juenger@new-eu.de
-Mörsdorf,Grace,,3330,330,,,g.moersdorf@new-eu.de
-Forner,Frauke,,3354,354,,,f.forner@new-eu.de
+Jünger,Miriam,Eingangsbereich und Berufsbildungsbereich (BBB),3322,322,,,m.juenger@new-eu.de
+Mörsdorf,Grace,Eingangsbereich und Berufsbildungsbereich (BBB),3330,330,,,g.moersdorf@new-eu.de
+Forner,Frauke,Eingangsbereich und Berufsbildungsbereich (BBB),3354,354,,,f.forner@new-eu.de
 Hrubi,Marion,Eingangsbereich,3355,355,,,m.hrubi@new-eu.de
-Brouns,Alexandra,,3324,324,,,
+Brouns,Alexandra,Eingangsbereich und Berufsbildungsbereich (BBB),3324,324,,,
 Springer,Jessica,Teamleitung,3501,501,0174-1860430,510,j.springer@new-eu.de
-Müßel,Daniel,,3502,502,0174-1860422,,d.muessel@new-eu.de
+Müßel,Daniel,Gleis 2,3502,502,0174-1860422,,d.muessel@new-eu.de
 Hüttmann,Fabian,Teamleitung,3382,382,,,f.huettmann@new-eu.de
-Steinmetzler,Katja,,3326,326,,,k.steinmetzler@new-eu.de
-Engels,Ronja,,3381,381,,,r.engels@new-eu.de
-Hufschmidt,Ulrike,,3384,384,,,u.hufschmidt@new-eu.de
-Hattwig,Manuela,,3393,393,,,m.hattwig@new-eu.de
-Hoffmann,Sarah,,3383,383,,,s.hoffmann@new-eu.de
+Steinmetzler,Katja,ZAB,3326,326,,,k.steinmetzler@new-eu.de
+Engels,Ronja,ZAB,3381,381,,,r.engels@new-eu.de
+Hufschmidt,Ulrike,ZAB,3384,384,,,u.hufschmidt@new-eu.de
+Hattwig,Manuela,ZAB,3393,393,,,m.hattwig@new-eu.de
+Hoffmann,Sarah,ZAB,3383,383,,,s.hoffmann@new-eu.de
 Baur,Thorsten,Leitung,,02441 - 99406 - 238,0173-3806535,,thorsten.baur@newjob-eu.de
 Klee,Holger,Job Coach,3144,144,0173-5855645,150,holger.klee@newjob-eu.de
 Huthmacher,Frank,1. Vorsitzender,3346,02251/77756346,,,br.huthmacher@new-eu.de
-Krieger,Willi,,,,0162-1699159,,wr-kuchenheim@new-eu.de
+Krieger,Willi,Werkstattrat Kuchenheim,,,0162-1699159,,wr-kuchenheim@new-eu.de
