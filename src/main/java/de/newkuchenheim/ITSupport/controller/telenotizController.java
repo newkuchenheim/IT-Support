@@ -124,6 +124,10 @@ public class telenotizController {
 						name = name.trim();
 						prename = values[2];
 					}
+				} else if (values[1].toLowerCase().contains("von")) {
+					name = values[1].replaceAll("\"", "") + " " + values[0].replaceAll("\"", "");
+					name = name.trim();
+					prename = values[2];
 				}
 				person.put("Name", name);
 				person.put("Vorname", prename);
