@@ -118,28 +118,35 @@ function init() {
 	}
 	function changeAutoCompleteList() {
 		var note_for = document.getElementById("note_for");
+		var location_header = document.getElementById("location_header");
+		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		note_for.value = "";
 		document.getElementById("name_error").classList.add("visually-hidden");
 		document.getElementById("email_error").classList.add("visually-hidden");
 		if (note_for.hasAttribute("style")) note_for.removeAttribute("style");
-		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		switch (location) {
 			case "kall":
 				persons = telelist_kall;
+				location_header.innerHTML = "Werkstatt Kall";
 				break;
 			case "khm":
 				persons = telelist_khm;
+				location_header.innerHTML = "Werkstatt Kuchenheim";
 				break;
 			case "uelp":
 				persons = telelist_uelp;
+				location_header.innerHTML = "Werkstatt Ülpenich";
 				break;
 			case "zhm":
 				persons = telelist_zhm;
+				location_header.innerHTML = "Werkstatt Zingsheim";
 				break;
 			case "zvw":
 				persons = telelist_zvw;
+				location_header.innerHTML = "Zentrale Verwaltung";
 				break;
 			default:
+				location_header.innerHTML = "Zentrale Verwaltung";
 				persons = telelist_zvw;
 		}
 		autocomplete(note_for, false);

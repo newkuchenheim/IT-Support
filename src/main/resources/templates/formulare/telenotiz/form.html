@@ -108,6 +108,10 @@
   		{
   			border-bottom-color: darkblue;
   		}
+  		#location_header {
+			color: #0d6efd;
+			text-align: center;
+		}
 		/****** End section telenote ******/
 	    /* On small screens, set height to 'auto' for sidenav and grid */
 	    @media screen and (max-width: 767px) {
@@ -139,7 +143,7 @@
          <!-- Load Header from template -->
      </header>
      <nav th:replace="formulare/fragments/topmenu :: topmenu">
-     <!-- Load topmenu template -->
+    	 <!-- Load topmenu template -->
 	</nav>
   	<div class="row pt-5 m-2">
   		<div th:replace="formulare/fragments/sidenav :: sidenav">
@@ -159,6 +163,9 @@
 		  		<div>
 		    		Ungültige E-Mail. Bitte geben Sie eine <strong>new-eu.de</strong> E-Mail an!
 		  		</div>
+			</div>
+			<div>
+				<h1 id="location_header">Zentrale Verwaltung</h1>
 			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -239,7 +246,7 @@
 	      	</div>
 	    </div>
 	</div>
-	<footer th:replace="formulare/fragments/footer :: footer">
+	<footer th:replace="itsupport/fragments/footer :: footer">
 	<!-- Load Footer Template -->
 	</footer>
 </body>

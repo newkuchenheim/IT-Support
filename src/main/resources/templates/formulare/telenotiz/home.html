@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="refresh" content="10;URL='/formulare/telenotiz/form'" />
 	<title>NEW-Gesprächsnotiz</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- icon -->
@@ -82,20 +83,18 @@
 	    	<div th:switch="${sended}" class="alert alert-primary" role="alert">
 				<p th:case="true">Ihre Outlook Vorlage wurde erfolgreich erstellt.</p>
 				<p th:case="*">Es wurde keine Outlook Vorlage erstellt.</p>
+				<p>Sie werden in 10 Sekunden automatisch weitergeleitet.</p>
 			</div>
 		</div>
 		
 		<!-- anzeige -->
 		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
-	      	<div class="well p-2 border">
-	        	<p><strong>Kontakt:</strong> IT-Hotline</p>
-	        	<ul>
-	        		<li>📞 02251 - 77756 - 123 (intern 3123)</li>
-	        	</ul> 
-	      	</div>
+	      	<div th:replace="itsupport/fragments/contact :: contact">
+				<!-- load contact template -->
+			</div>
 	    </div>
 	</div>											
-	<footer th:replace="formulare/fragments/footer :: footer">
+	<footer th:replace="itsupport/fragments/footer :: footer">
 		<!-- Load Footer Template -->
 	</footer>
 </body>
