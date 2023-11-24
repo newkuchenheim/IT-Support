@@ -111,23 +111,8 @@ public class telenotizController {
 				values = currLine.split(",");
 				prename = values[1];
 				name = values[0];
-				if (values.length > 8) {
-					name = values[1].replaceAll("\"", "") + " " + values[0].replaceAll("\"", "");
-					name = name.trim();
-					prename = values[2];
-					email = values[8];
-				} else if (values.length > 7) {
-					if (values[7].contains("@")) {
-						email = values[7];
-					} else {
-						name = values[1].replaceAll("\"", "") + " " + values[0].replaceAll("\"", "");
-						name = name.trim();
-						prename = values[2];
-					}
-				} else if (values[1].toLowerCase().contains("von")) {
-					name = values[1].replaceAll("\"", "") + " " + values[0].replaceAll("\"", "");
-					name = name.trim();
-					prename = values[2];
+				if (values.length > 7 && values[7].contains("@")) {
+					email = values[7];
 				}
 				person.put("Name", name);
 				person.put("Vorname", prename);
