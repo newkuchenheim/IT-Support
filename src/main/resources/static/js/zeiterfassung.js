@@ -100,18 +100,6 @@ function init() {
 				if (_prename_elem.hasAttribute("style")) _prename_elem.removeAttribute("style");
 				if (_name_elem.hasAttribute("style")) _name_elem.removeAttribute("style");
 				// get email of team head
-				/*if (func == "Holzbereich/AV" || func.includes("- Ülpenich") || func.includes("TOR")) email_to += "; c.merks@new-eu.de"
-				else if (func.includes("Montageh") || func.includes("Sauna-Sonder") || func.includes("Maschinen") || func.toLowerCase().includes("lager ")) email_to += "; m.etzbach@new-eu.de";
-				else {
-					for (i = 0; i < persons.length; i++) {
-						if (persons[i] !== undefined) {
-							if (persons[i]["Funktion"].includes(func) && persons[i]["Funktion"].includes("Teamleitung")) {
-								email_to += "; " + persons[i]["E-Mail"].replaceAll("\"","");
-								break;
-							}
-						}
-					}
-				}*/
 				for (i = 0; i < persons.length; i++) {
 					if (persons[i] !== undefined) {
 						if (func.includes("-") && !func.includes("Teamleitung")) {
