@@ -155,13 +155,14 @@ function init() {
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var _date = new Date(date);
-		var day = _date.getDate();
+		/*var day = _date.getDate();
 		var month = _date.getMonth() + 1;
 		var year = _date.getFullYear();
 		
 		if (month < 10) month = "0" + month;
 		if (day < 10) day = "0" + day;
-		return day + "." + month + "." + year;
+		return day + "." + month + "." + year;*/
+		return _date.toLocaleDateString();
 	}
 	function validateNumOrEmail(str, isMail) {
 		/*check if number only contains numbers or - and /*/

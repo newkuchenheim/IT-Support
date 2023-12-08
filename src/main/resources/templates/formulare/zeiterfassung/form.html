@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NEW-Zeiterfassung</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"><!-- icon -->
+	
+  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
+  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+		/****** Begin Zeiterfassung section ******/
+		#name_error {
+			display: none;
+		}
+		nav input[type=radio] {
+			display:none;
+		}
+		input:invalid {
+		    border-color: coral;
+		    background-color: yellow;
+		}
+		nav span 
+  		{
+  			border-bottom: 4px solid transparent;
+  		}
+		nav span:hover
+  		{
+  			background-color: white;
+  		}
+		nav input[type=radio]:checked + span
+  		{
+  			border-bottom-color: darkblue;
+  		}
+  		#location_header {
+			color: #0d6efd;
+			text-align: center;
+		}
+		/****** End section Zeiterfassung ******/
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+  	<!-- Load persons array in javascript -->
+  	<script type="text/javascript" th:inline="javascript">
+		  var telelist_kall = /*[[${telelist_kall}]]*/ 'Telelist Kall';
+		  var telelist_khm = /*[[${telelist_khm}]]*/ 'Telelist Kuchenheim';
+		  var telelist_uelp = /*[[${telelist_uelp}]]*/ 'Telelist ülpenich';
+		  var telelist_zhm = /*[[${telelist_zhm}]]*/ 'Telelist Zingsheim';
+		  var telelist_zvw = /*[[${telelist_zvw}]]*/ 'Telelist Zentrale Verwaltung';
+		  var persons = telelist_zvw;
+	 </script>
+  	<!-- Javascript for form -->
+  	<script type="text/javascript" th:src="@{../../js/zeiterfassung.js}">
+	 </script>
+</head>
+<body>
+	 <svg th:replace="itsupport/fragments/alerticons">
+	 	<!-- Load alert icons -->
+	 </svg>
+	 <header th:replace="itsupport/fragments/header :: header">
+         <!-- Load Header from template -->
+     </header>
+     <nav th:replace="formulare/fragments/topmenu :: topmenu">
+    	 <!-- Load topmenu template -->
+	</nav>
+  	<div class="row pt-5 m-2">
+  		<div th:replace="formulare/fragments/sidenav :: sidenav">
+		<!-- Load sidenav template -->
+  		</div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="name_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Name Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Der angegebene Name steht nicht in der Liste vom Standort!
+		  		</div>
+			</div>
+			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		  		<div>
+		    		Die Zeiterfassung wird an Outloook übertragen.
+		  		</div>
+			</div>
+			<div>
+				<h1 id="location_header">Zentrale Verwaltung</h1>
+			</div> 
+	      	<form id="time_entering" method="post" action="#" style="min-width: 300px;">
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Nachname -->
+						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+						<label for="name">Nachname</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Vorname -->
+						<input id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+						<label for="prename">Vorname</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col"><!-- Antragsart -->
+						<select id="option_request" class="form-select" required>
+							<option value="" selected hidden>Bitte die Antragsart auswählen</option>
+							<option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/>
+						</select>
+						<label for="option_request">Antrag auf</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Grund -->
+						<select id="option_reason" class="form-select" required>
+							<option value="" selected hidden>Bitte den Grund auswählen</option>
+							<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>
+						</select>
+						<label for="option_cause">Grund</label>
+					</div>
+					<div class="form-floating mb-3" data-bs-toggle="tooltip" data-bs-placement="right" title="Bitte beschreiben Sie genau Ihren Grund des Antrages">
+						<!-- Beschreibung des Grundes -->
+						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<textarea id="description_area" name="reasondescript" class="form-control" rows="5" style="height: 100px"></textarea>
+						<label for="description_area">Erläuterungen</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Datum Von -->
+						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="Von" required>
+						<label for="dateFrom">Von</label>
+					</div>
+					<div class="form-floating mb-3 col"> <!-- Uhrzeit Von -->
+						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
+						<label for="timeFrom">Uhr</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Datum Bis -->
+						<input id="dateTo" type="date" name="dateTo" class="form-control" placeholder="Bis" required>
+						<label for="dateTo">Bis</label>
+					</div>
+					<div class="form-floating mb-3 col"> <!-- Uhrzeit Bis -->
+						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr" required>
+						<label for="timeTo">Uhr</label>
+					</div>
+				</div>
+				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
+				</div>
+			</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border"><!-- info an rechten col -->
+	      		<ul>
+					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus. Ggf. vorher auf Zeiterfassung klicken.</li>
+	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
+	      			<li><strong>Schritt 3:</strong> Wählen Sie die Antragsart aus.</li>
+	      			<li><strong>Schritt 4:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
+	      			<li><strong>Schritt 5:</strong> Geben Sie bitte mindestens ein Datum an.</li>
+	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      		</ul>
+	      	</div>
+	      	<div th:replace="itsupport/fragments/contact :: contact">
+	        	<!-- load contact template -->
+	      	</div>
+	    </div>
+	</div>
+	<footer th:replace="itsupport/fragments/footer :: footer">
+	<!-- Load Footer Template -->
+	</footer>
+</body>
+</html>

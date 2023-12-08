@@ -32,7 +32,6 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 @Controller
 @RequestMapping("formulare/telenotiz")
 public class telenotizController {
-	//private static List<Ticket> tickets = new ArrayList();
 	private boolean _sended = false;
 	private final String _URL_CSVS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Formulare\\General\\";//%USERPROFILE%/it-supportcontent/formulare/general
 	private final String _URL_CSVS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Formulare/General/";//home/itsupport/itsupport/it-supportcontent/formulare/general
@@ -103,19 +102,15 @@ public class telenotizController {
 			String currLine = reader.readLine(); // skip first line;
 			String[] values;
 			String email = "";
-			String name;
-			String prename;
 			HashMap<String, String> person;
 			while((currLine = reader.readLine()) != null) {
 				person = new HashMap<String, String>();
 				values = currLine.split(",");
-				prename = values[1];
-				name = values[0];
 				if (values.length > 7 && values[7].contains("@")) {
 					email = values[7];
 				}
-				person.put("Name", name);
-				person.put("Vorname", prename);
+				person.put("Name", values[0]);
+				person.put("Vorname", values[1]);
 				person.put("E-Mail", email);
 				telelist.add(person);
 				email = "";

@@ -1,6 +1,7 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
 Opgenorth,Hendrik,Betriebsleitung,13,13,01520-9209055,,h.opgenorth@new-eu.de
 Schütt,Guido,Beauftragter für Medizinprodukte,10,10,,,g.schuett@new-eu.de
+Hölnyk,Jennifer,Verwaltung,10,10,,,j.hoelnyk@new-eu.de@new-eu.de
 Schreiber,Alexandra,Verwaltung,11,11,,,a.schreiber@new-eu.de
 Esch,Michael,Brandschutzbeauftragter,22,222,,,m.esch@new-eu.de
 Spenst,Benjamin,Montage,30,230,,,b.spenst@new-eu.de
@@ -9,7 +10,7 @@ Kurth,Roswitha,Hauswirtschaft,24,224,,,hw-kall@new-eu.de
 Schüler,Hendrik,Gartenbau,39,239,0172-1490320,,h.schueler@new-eu.de
 Lönenbach,René,Gartenbau,39,239,0174-6930942,,gartenbau-kall@new-eu.de
 Schmitz,Henrik,Auszubildender,39,239,,,h.schmitz@new-eu.de
-Schloeßer,Johanna,Teamleitung,43,243,,,j.schloesser@new-eu.de
+Schloeßer,Johanna,Konfektionierung - Teamleitung,43,243,,,j.schloesser@new-eu.de
 Baum,Michael,Lebensmittelabfüllung,32,232,,,m.baum@new-eu.de
 Reinartz,Marcel,Elektromontage,41,241,,,m.reinartz@new-eu.de
 Origer,Roger,Konfektionierung,42,242,,,r.origer@new-eu.de
@@ -24,7 +25,7 @@ Hilger,Ilona,Sozialer Dienst,21,221,,,i.hilger@new-eu.de
 Ackermann-Vandeweyer,Lotte,Sozialer Dienst,20,220,,,l.ackermann-vandeweyer@new-eu.de
 Pötz,Christina,Betriebsleitung,,,0173-7089728,,c.poetz@new-eu.de
 Müller-Kulpa,Silke,Sozialer Dienst,27,227,0173-5132778,,s.mueller-kulpa@new-eu.de
-Tarrach,Christoph,Teamleitung,37,237,,,c.tarrach@new-eu.de
+Tarrach,Christoph,Eingangsbereich und Berufsbildungsbereich - Teamleitung,37,237,,,c.tarrach@new-eu.de
 Asmuth,Frank,Eingangsbereich,23,223,,,f.asmuth@new-eu.de
 Klein,Monika,Bildungsbegleiterin,31,231,,,m.klein@new-eu.de
 Beheng,Martin,Bildungsbegleiter,35,235,,,m.beheng@new-eu.de
