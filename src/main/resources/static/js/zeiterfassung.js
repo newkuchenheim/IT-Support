@@ -113,6 +113,8 @@ function init() {
 							&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
 								email_to = persons[i]["E-Mail"].replaceAll("\"","");
 								break;	
+							} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
+								email_to = "t.scheuls@new-eu.de";
 							}
 						} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
 							email_to = persons[i]["E-Mail"].replaceAll("\"","");
