@@ -96,12 +96,13 @@
   	</style>
   	<!-- Load persons array in javascript -->
   	<script type="text/javascript" th:inline="javascript">
-		  var telelist_kall = /*[[${telelist_kall}]]*/ 'Telelist Kall';
-		  var telelist_khm = /*[[${telelist_khm}]]*/ 'Telelist Kuchenheim';
-		  var telelist_uelp = /*[[${telelist_uelp}]]*/ 'Telelist ülpenich';
-		  var telelist_zhm = /*[[${telelist_zhm}]]*/ 'Telelist Zingsheim';
-		  var telelist_zvw = /*[[${telelist_zvw}]]*/ 'Telelist Zentrale Verwaltung';
+		  var telelist_kall = /*[[${kall_telelist}]]*/ 'Telelist Kall';
+		  var telelist_khm = /*[[${khm_telelist}]]*/ 'Telelist Kuchenheim';
+		  var telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
+		  var telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
+		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
 		  var persons = telelist_zvw;
+		  var general_email_to = "s.schmitz@new-eu.de";
 	 </script>
   	<!-- Javascript for form -->
   	<script type="text/javascript" th:src="@{../../js/zeiterfassung.js}">

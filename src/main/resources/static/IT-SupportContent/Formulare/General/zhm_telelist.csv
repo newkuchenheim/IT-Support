@@ -1,18 +1,18 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
-Merks,Christian,Betriebsleitung NE.W Zingsheim,2011,11,0173/2916240,23,c.merks@new-eu.de
-Beckmann,Torsten,Betriebsleitung arbeitsmarktnahe Beschäftigungsangebote,2030,30,0173/5477744,,t.beckmann@new-eu.de
-Kirfel,Sabine,Verwaltung,2014,14,,84,s.kirfel@new-eu.de
-Zeleken,Annabella,Verwaltung,,,,23,a.zeleken@new-eu.de
-Buir,Astrid,Verwaltung,2013,13,,23,a.buir@new-eu.de
-El Massry-Hartmann,Dina,Stabsstelle Marketing,,,0173-4761579,23,d.el-hartmann@new-eu.de
-Schneider,Dietmar,Sozialer Dienst,2040,40,,84,d.schneider@new-eu.de
-Wambach,Kerstin,Sozialer Dienst,2041,41,,84,k.wambach@new-eu.de
-Krämer,Maren,Sozialer Dienst,2042,42,,84,m.kraemer@new-eu.de
-Schaafstall,Michael,NEW-Job,2059,59,0173-7100564,23,michael.schaafstall@newjob-eu.de
+Merks,Christian,Betriebsleitung - Betriebsleitung NE.W Zingsheim,2011,11,0173/2916240,23,c.merks@new-eu.de
+Beckmann,Torsten,Betriebsleitung - Betriebsleitung arbeitsmarktnahe Beschäftigungsangebote,2030,30,0173/5477744,,t.beckmann@new-eu.de
+Kirfel,Sabine,Verwaltung und Zentrale - Verwaltung,2014,14,,84,s.kirfel@new-eu.de
+Zeleken,Annabella,Verwaltung und Zentrale - Verwaltung,,,,23,a.zeleken@new-eu.de
+Buir,Astrid,Verwaltung und Zentrale - Verwaltung,2013,13,,23,a.buir@new-eu.de
+El Massry-Hartmann,Dina,Verwaltung und Zentrale - Stabsstelle Marketing,,,0173-4761579,23,d.el-hartmann@new-eu.de
+Schneider,Dietmar,sozialer Dienst - Sozialer Dienst,2040,40,,84,d.schneider@new-eu.de
+Wambach,Kerstin,sozialer Dienst - Sozialer Dienst,2041,41,,84,k.wambach@new-eu.de
+Krämer,Maren,sozialer Dienst - Sozialer Dienst,2042,42,,84,m.kraemer@new-eu.de
+Schaafstall,Michael,NEW Job - NEW-Job,2059,59,0173-7100564,23,michael.schaafstall@newjob-eu.de
 Krebs,Therese,Heilpädagogischer Arbeitsbereich (HPA) - Teamleitung,2120,120,,,t.krebs@new-eu.de
-Burggraf,Juliane,Medizin und Pflege,,,0173-1436525,,j.burggraf@new-eu.de
-Böttcher,Kerstin,Beauftragte Medizinproduktesicherheit,2043,43,,,k.boettcher@new-eu.de
-Bock,Andreas,Küche HPA,2048,48,,,
+Burggraf,Juliane,Heilpädagogischer Arbeitsbereich (HPA) - Medizin und Pflege,,,0173-1436525,,j.burggraf@new-eu.de
+Böttcher,Kerstin,Heilpädagogischer Arbeitsbereich (HPA) - Beauftragte Medizinproduktesicherheit,2043,43,,,k.boettcher@new-eu.de
+Bock,Andreas,Heilpädagogischer Arbeitsbereich (HPA) - Küche HPA,2048,48,,,
 Krebs,Julian,Heilpädagogischer Arbeitsbereich (HPA) - HPA 1&2,2121/2122,121/122,,,fb-zingsheim@new-eu.de
 Ehlen,Stefanie,Heilpädagogischer Arbeitsbereich (HPA) - HPA 1&2,2121/2122,121/122,,,fb-zingsheim@new-eu.de
 Kurth,Stefanie,Heilpädagogischer Arbeitsbereich (HPA) - HPA 1&2,2121/2122,121/122,,,fb-zingsheim@new-eu.de
@@ -78,13 +78,13 @@ Akarsu (FSJ),Lara,Produktion - Produktionsgruppe 4,2045/2046,45/46,,,p4@new-eu.d
 Vey,Dennis,Produktion - Produktionsgruppe 4 - Hauswirtschaft - Teamleitung,2064/2062,64/62,,,hw-zingsheim@new-eu.de
 Lukas,Bianca,Produktion - Produktionsgruppe 4 - Küche Produktion,2064/2062,64 / 62*,,,hw-zingsheim@new-eu.de
 Schönbeck,Susanne,Produktion - Produktionsgruppe 4 - Küche Holzbereich,2063,63,,,
-Hattenrath,Daniel,Gebäudetechniker,2070,70,0173/2655726,,d.hattenrath@new-eu.de
-Schreiber,Bernd,Holzbereich - Teamleitung,2017,17,,23,b.schreiber@new-eu.de
-Emmerichs,Dorothe,Holzbereich - Teamleitung,2015,15,,,d.emmerichs@new-eu.de
-Etzbach,Michael,Arbeitsvorbereitung - Teamleitung,2016,16,,23,m.etzbach@new-eu.de
-Eggerichs,Frank,Arbeitsvorbereitung,2018,18,,23,f.eggerichs@new-eu.de
-Lürssen,Ursula,Arbeitsvorbereitung,2039,39,,23,"u.luerssen@new-eu.de; av@new-eu.de"
-Thurmann,Melanie,ZAB Holzbereich,2129,129,,23,m.thurmann@new-eu.de
+Hattenrath,Daniel,Gebäudetechnik - Gebäudetechniker,2070,70,0173/2655726,,d.hattenrath@new-eu.de
+Schreiber,Bernd,Holzbereich - Holzbereich - Teamleitung,2017,17,,23,b.schreiber@new-eu.de
+Emmerichs,Dorothe,Holzbereich - Holzbereich - Teamleitung,2015,15,,,d.emmerichs@new-eu.de
+Etzbach,Michael,Holzbereich - Arbeitsvorbereitung - Teamleitung,2016,16,,23,m.etzbach@new-eu.de
+Eggerichs,Frank,Holzbereich - Arbeitsvorbereitung,2018,18,,23,f.eggerichs@new-eu.de
+Lürssen,Ursula,Holzbereich - Arbeitsvorbereitung,2039,39,,23,"u.luerssen@new-eu.de; av@new-eu.de"
+Thurmann,Melanie,Holzbereich - ZAB Holzbereich,2129,129,,23,m.thurmann@new-eu.de
 Meyering,Christian,Holzbereich - Montagehalle,2036,36,,,holzmontage@new-eu.de
 Bongartz,Tom,Holzbereich - Montagehalle,2036,36,,,holzmontage@new-eu.de
 Gehrmann,Alexander,Holzbereich - Montagehalle,2036,36,,,holzmontage@new-eu.de
@@ -97,9 +97,9 @@ Mertens,Simon,Holzbereich - Maschinenraum,2038,38,,,holz-zuschnitt@new-eu.de
 Schulzik,Kelvin,Holzbereich - Maschinenraum,2038,38,,,holz-zuschnitt@new-eu.de
 Sodoge,Philipp,Gartenbau,,,0174-1686185,,gartenbau-zingsheim@new-eu.de
 Heimerich,Klaus,Gartenbau,,,0173-6429527,,gartenbau-zingsheim@new-eu.de
-Afschrift,Gerd,Zentrallager Verpackung,2026/2076,26 / 76*,,,lager-zingsheim@new-eu.de
-Michels,Gerard,Lager Sauna / Palette,2079,79,,,g.michels@new-eu.de
-Frechen,Lothar,Lager Sauna / Palette,2027/2077,27 / 77*,,,saunalager@new-eu.de
-Tugushi,George,Sportlehrer,,72,,,g.tugushi@new-eu.de
-Hartung,Irene,Sportlehrerin,,73,,,i.hartung@new-eu.de
-Düngen,Jutta,Sportlehrerin,,73,,,
+Afschrift,Gerd,Lager - Zentrallager Verpackung,2026/2076,26 / 76*,,,lager-zingsheim@new-eu.de
+Michels,Gerard,Lager - Lager Sauna / Palette,2079,79,,,g.michels@new-eu.de
+Frechen,Lothar,Lager - Lager Sauna / Palette,2027/2077,27 / 77*,,,saunalager@new-eu.de
+Tugushi,George,Sonstige - Sportlehrer,,72,,,g.tugushi@new-eu.de
+Hartung,Irene,Sonstige - Sportlehrerin,,73,,,i.hartung@new-eu.de
+Düngen,Jutta,Sonstige - Sportlehrerin,,73,,,

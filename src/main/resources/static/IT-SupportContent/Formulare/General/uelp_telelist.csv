@@ -1,18 +1,18 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
-Eichen,Sven,Betriebsleitung,1020/1085*,20/85,0172-2934480,,s.eichen@new-eu.de
-Bergmann,Nicole,Beschäftigtenverwaltung,1011,11,,23,n.bergmann@new-eu.de
-Schalke,Gabi,Verwaltung,1022,22,,595,g.schalke@new-eu.de
-Gärtner,Manuela,Verwaltung NEW Job,1018,18,,,m.gaertner@new-eu.de
-Meyer,Jürgen,Hausmeister/ Fahrdienst,1017,17,,,j.meyer@new-eu.de
-Schneider,Uwe,FaSi,1024,24,0172-8352426,,u.schneider@new-eu.de
-Schlömer,Guido,FaSi,1026,26,0173-4929447,,g.schloemer@new-eu.de
-Ruland,Stefan,Technische Dienste,1091*,91,0173-4927405,,s.ruland@new-eu.de
-Danschewitz,Ralf,NEW Job,1044,44,,,ralf.danschewitz@newjob-eu.de
-Büchel,Birgit,Sozialer Dienst,1061,61,0172-2086508,23,b.buechel@new-eu.de
-Malkova,Olga,Sozialer Dienst,1060,60,0172-2086228,23,o.malkova@new-eu.de
-Kleinertz,Franca,Gewaltpräventionsbeauftragte,1078/1040,78/40,0172-2449961,,f.kleinertz@new-eu.de
+Eichen,Sven,Betriebsleitung - Betriebsleitung,1020/1085*,20/85,0172-2934480,,s.eichen@new-eu.de
+Bergmann,Nicole,Betriebsleitung - Beschäftigtenverwaltung,1011,11,,23,n.bergmann@new-eu.de
+Schalke,Gabi,Betriebsleitung - Verwaltung,1022,22,,595,g.schalke@new-eu.de
+Gärtner,Manuela,Betriebsleitung - Verwaltung NEW Job,1018,18,,,m.gaertner@new-eu.de
+Meyer,Jürgen,Betriebsleitung - Hausmeister/ Fahrdienst,1017,17,,,j.meyer@new-eu.de
+Schneider,Uwe,Betriebsleitung - FaSi,1024,24,0172-8352426,,u.schneider@new-eu.de
+Schlömer,Guido,Betriebsleitung - FaSi,1026,26,0173-4929447,,g.schloemer@new-eu.de
+Ruland,Stefan,Betriebsleitung - Technische Dienste,1091*,91,0173-4927405,,s.ruland@new-eu.de
+Danschewitz,Ralf,Betriebsleitung - NEW Job,1044,44,,,ralf.danschewitz@newjob-eu.de
+Büchel,Birgit,Sozialer Dienst und Gewaltpäventionsbeauftragte - Sozialer Dienst,1061,61,0172-2086508,23,b.buechel@new-eu.de
+Malkova,Olga,Sozialer Dienst und Gewaltpäventionsbeauftragte - Sozialer Dienst,1060,60,0172-2086228,23,o.malkova@new-eu.de
+Kleinertz,Franca,Sozialer Dienst und Gewaltpäventionsbeauftragte - Gewaltpräventionsbeauftragte,1078/1040,78/40,0172-2449961,,f.kleinertz@new-eu.de
 Neuwaldt,Lisa,Heilpädagogischer Arbeitsbereich HPA - Teamleitung,1070,70,,,l.neuwaldt@new-eu.de
-Burggraf,Juliane,Medizin und Pflege ( Di.+Do.),1090,90,0173-1436525,,j.burggraf@new-eu.de
+Burggraf,Juliane,Heilpädagogischer Arbeitsbereich HPA - Medizin und Pflege ( Di.+Do.),1090,90,0173-1436525,,j.burggraf@new-eu.de
 Aretz,Kira,Heilpädagogischer Arbeitsbereich HPA - Kleinteam 1&2,1071/1072/1092*,71/72/92,,,"hpa1@new-eu.de; fb2@new-eu.de"
 Bernacchia,Belisaria,Heilpädagogischer Arbeitsbereich HPA - Kleinteam 1&2,1071/1072/1092*,71/72/92,,,"hpa1@new-eu.de; fb2@new-eu.de"
 Fischer,Jennifer,Heilpädagogischer Arbeitsbereich HPA - Kleinteam 1&2,1071/1072/1092*,71/72/92,,,"hpa1@new-eu.de; fb2@new-eu.de"
@@ -40,7 +40,7 @@ Schneemann,Gabi,Heilpädagogischer Arbeitsbereich HPA - Kleinteam 6 & Kleinteam 
 Winkens,Kristina,Heilpädagogischer Arbeitsbereich HPA - Kleinteam 6 & Kleinteam 7&8,1074/1094* / 1076/1077/1095*,74/94 / 76/77/95,,,"fb6@new-eu.de; hpa7@new-eu.de; hpa8@new-eu.de"
 Melder,Sabine,Heilpädagogischer Arbeitsbereich HPA - Hauswirtschaft - Hauswirtschaft,,,,,
 Hey,Daniel,Berufsbildungsbereich - Teamleitung,1066*,66,,,d.hey@new-eu.de
-Ensmann,Claudia,med. Fachkraft BBB,1046,46,,,c.ensmann@new-eu.de
+Ensmann,Claudia,Berufsbildungsbereich - med. Fachkraft BBB,1046,46,,,c.ensmann@new-eu.de
 Biedermann,Roland,Berufsbildungsbereich,1046,46,,,bbb-uelpenich@new-eu.de
 Brennan,Alfred,Berufsbildungsbereich,1046,46,,,bbb-uelpenich@new-eu.de
 Ensmann,Claudia,Berufsbildungsbereich,1046,46,,,bbb-uelpenich@new-eu.de
@@ -95,12 +95,12 @@ Kirfel,Norbert,Produktion - HolzbereichÜlp./Zgh. - Holzbereich/AV,1037,37,,,hol
 Eggerichs,Frank,Produktion - HolzbereichÜlp./Zgh. - Holzbereich/AV,1091/2018,91/02446-8015-18,,,f.eggerichs@new-eu.de
 Nießen,Uwe,Produktion - HolzbereichÜlp./Zgh. - Lager-Zentrallager Büro - TOR 8,1038*,38,,,lager-uelpenich@new-eu.de
 Frings,Markus,Küche - Teamleitung,1045,45,,,m.frings@new-eu.de
-Monnig,Manfred,Küche,1045,45,,,kueche@new-eu.de
-Weiler,Martina,Küche,1045,45,,,kueche@new-eu.de
-Heuser (Azubi),Elias,Küche,1045,45,,,kueche@new-eu.de
-Heuser,Frank,Kiosk,1045,45,,,kueche@new-eu.de
-Esser,Hans-Dieter,Cap-Markt Kuchenheim,02251-57102,,,,cap@new-eu.de
-Radtke,Elvira,Cap-Markt Kuchenheim,02251-57102,,,,
-Hartung,Irene,Sportlehrer,1047,47,0173-5683975,,i.hartung@new-eu.de
-Tugushi,George,Sportlehrer,1047,47,0172-1845798,,g.tugushi@new-eu.de
-Schneider,Michael,Sportlehrer,1047,47,,,m.schneider@new-eu.de
+Monnig,Manfred,Küche - Küche,1045,45,,,kueche@new-eu.de
+Weiler,Martina,Küche - Küche,1045,45,,,kueche@new-eu.de
+Heuser (Azubi),Elias,Küche - Küche,1045,45,,,kueche@new-eu.de
+Heuser,Frank,Küche - Kiosk,1045,45,,,kueche@new-eu.de
+Esser,Hans-Dieter,Küche - Cap-Markt Kuchenheim,02251-57102,,,,cap@new-eu.de
+Radtke,Elvira,Küche - Cap-Markt Kuchenheim,02251-57102,,,,
+Hartung,Irene,Sonstige - Sportlehrer,1047,47,0173-5683975,,i.hartung@new-eu.de
+Tugushi,George,Sonstige - Sportlehrer,1047,47,0172-1845798,,g.tugushi@new-eu.de
+Schneider,Michael,Sonstige - Sportlehrer,1047,47,,,m.schneider@new-eu.de

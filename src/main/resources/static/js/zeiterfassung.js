@@ -2,7 +2,6 @@ window.onload = init;
 function init() {
 	// reset chosen location
 	document.getElementById("zvw_location").checked = true;
-	var general_email_to;
 	function changeTeleList() {
 		var prename = document.getElementById("prename");
 		var name = document.getElementById("name");
@@ -75,10 +74,12 @@ function init() {
 		var _timeTo = _timeTo_elem.value;
 		
 		// create email parts
-		var email_to = general_email_to;
+		var email_to = "";
 		var subject = "Korrekturantrag-Zeiterfassung ";
 		var body;
 		var func;
+		var pers_email;
+		var management_email = "";
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
 			// validate prename and name
 			var fullname_valid = false;
@@ -87,10 +88,14 @@ function init() {
 			var pers_fullname_upp;
 			for (i = 0; i < persons.length; i++) {
 				if (persons[i] !== undefined) {
+					if ((persons[i]["Funktion"].includes("Geschäftsführung") || persons[i]["Funktion"].includes("- Betriebsleitung")) && management_email.length == 0) {
+						management_email = persons[i]["E-Mail"].replaceAll("\"","");
+					}
 					pers_fullname_upp = (persons[i]["Name"].replaceAll("\"","") + " " + persons[i]["Vorname"].replaceAll("\"","")).toUpperCase();
 					if (fullname_upp == pers_fullname_upp) {
 						func = persons[i]["Funktion"];
 						fullname_valid = true;
+						pers_email = persons[i]["E-Mail"].replaceAll("\"","");
 						break;
 					}
 				}
@@ -106,16 +111,23 @@ function init() {
 							var funcParts = func.split("-");
 							if ((persons[i]["Funktion"].includes(funcParts[1].trim()) || persons[i]["Funktion"].includes(funcParts[0].trim())) 
 							&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-								email_to += "; " + persons[i]["E-Mail"].replaceAll("\"","");
+								email_to = persons[i]["E-Mail"].replaceAll("\"","");
 								break;	
 							}
 						} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-							email_to += "; " + persons[i]["E-Mail"].replaceAll("\"","");
+							email_to = persons[i]["E-Mail"].replaceAll("\"","");
 							break;
+						} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
+							email_to = "t.scheuls@new-eu.de";
 						}
 					}
 				}
-			// submit and reset form
+				// set email if no team head found
+				if (email_to.length == 0) {
+					if (general_email_to == pers_email) email_to = management_email;
+					else email_to = general_email_to;
+				} 
+				// submit and reset form
 				document.getElementById("name_error").classList.add("visually-hidden");
 				document.getElementById("time_entering").submit();
 				// show success Messages

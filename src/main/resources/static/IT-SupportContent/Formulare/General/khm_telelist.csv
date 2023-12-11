@@ -1,10 +1,10 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
-Winkelhag,Andreas,Betriebsleitung,3310,310,0173-3028708,410,a.winkelhag@new-eu.de
+Winkelhag,Andreas,Betriebsleitung - Betriebsleitung,3310,310,0173-3028708,410,a.winkelhag@new-eu.de
 Erven,Beate,Verwaltung,3311,311,,460,b.erven@new-eu.de
 Aulmann,Andrea,Verwaltung,3312,312,,,a.aulmann@new-eu.de
-Nagel,Markus,Hausmeister,3319,319,0152-57405136,,m.nagel@new-eu.de
-Hartung,Irene,Sportlehrerin,3132,,0173-5683975,,i.hartung@new-eu.de
-Recker,Stephan,Botengänge,3333,,,,
+Nagel,Markus,übergreifende Funktionen - Hausmeister,3319,319,0152-57405136,,m.nagel@new-eu.de
+Hartung,Irene,übergreifende Funktionen - Sportlehrerin,3132,,0173-5683975,,i.hartung@new-eu.de
+Recker,Stephan,übergreifende Funktionen - Botengänge,3333,,,,
 Danes,Christoph,sozialer Dienst - Teamleitung,3320,320,,420,c.danes@new-eu.de
 Elfroth,Anja,sozialer Dienst,3362,362,,,a.elfroth@new-eu.de
 Hoß,Rebecca,sozialer Dienst,3321,321,,,r.hoss@new-eu.de
@@ -26,7 +26,7 @@ Lönenbach,Monika,Hauswirtschaft,3360,360,,,hauswirtschaft@new-eu.de
 Schambach,Margarete,Hauswirtschaft,3361,361,,,
 Stein,Gerd,Verpackung II,3371,371,,470,g.stein@new-eu.de
 Weber,Wolfgang,Verpackung II,3372,372,,,w.weber@new-eu.de
-Klein,Julian-Marc,Teamleitung Montage u. Lager,3380,380,,480,j.klein@new-eu.de
+Klein,Julian-Marc,Montage - Teamleitung Montage u. Lager,3380,380,,480,j.klein@new-eu.de
 Kaulich,Dirk,Montage,3325,325,,,d.kaulich@new-eu.de
 Schöller,Helga,Montage,3359,359,,,h.schoeller@new-eu.de
 Hufschmidt,Frank,Industriewäsche - Teamleitung,3390,390,,490,f.hufschmidt@new-eu.de
@@ -36,7 +36,7 @@ Lenczyk,Thomas,Eingangsbereich und Berufsbildungsbereich (BBB) - Teamleitung,335
 Jünger,Miriam,Eingangsbereich und Berufsbildungsbereich (BBB),3322,322,,,m.juenger@new-eu.de
 Mörsdorf,Grace,Eingangsbereich und Berufsbildungsbereich (BBB),3330,330,,,g.moersdorf@new-eu.de
 Forner,Frauke,Eingangsbereich und Berufsbildungsbereich (BBB),3354,354,,,f.forner@new-eu.de
-Hrubi,Marion,Eingangsbereich,3355,355,,,m.hrubi@new-eu.de
+Hrubi,Marion,Eingangsbereich und Berufsbildungsbereich (BBB) - Eingangsbereich,3355,355,,,m.hrubi@new-eu.de
 Brouns,Alexandra,Eingangsbereich und Berufsbildungsbereich (BBB),3324,324,,,
 Springer,Jessica,Gleis 2 - Teamleitung,3501,501,0174-1860430,510,j.springer@new-eu.de
 Müßel,Daniel,Gleis 2,3502,502,0174-1860422,,d.muessel@new-eu.de
@@ -46,7 +46,7 @@ Engels,Ronja,ZAB,3381,381,,,r.engels@new-eu.de
 Hufschmidt,Ulrike,ZAB,3384,384,,,u.hufschmidt@new-eu.de
 Hattwig,Manuela,ZAB,3393,393,,,m.hattwig@new-eu.de
 Hoffmann,Sarah,ZAB,3383,383,,,s.hoffmann@new-eu.de
-Baur,Thorsten,Leitung,,02441 - 99406 - 238,0173-3806535,,thorsten.baur@newjob-eu.de
-Klee,Holger,Job Coach,3144,144,0173-5855645,150,holger.klee@newjob-eu.de
-Huthmacher,Frank,1. Vorsitzender,3346,02251/77756346,,,br.huthmacher@new-eu.de
+Baur,Thorsten,NEW Job - Leitung,,02441 - 99406 - 238,0173-3806535,,thorsten.baur@newjob-eu.de
+Klee,Holger,NEW Job - Job Coach,3144,144,0173-5855645,150,holger.klee@newjob-eu.de
+Huthmacher,Frank,Betriebsrat Kuchenheim - 1. Vorsitzender,3346,02251/77756346,,,br.huthmacher@new-eu.de
 Krieger,Willi,Werkstattrat Kuchenheim,,,0162-1699159,,wr-kuchenheim@new-eu.de
