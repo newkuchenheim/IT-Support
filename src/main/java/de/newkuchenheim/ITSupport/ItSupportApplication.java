@@ -1,19 +1,13 @@
 package de.newkuchenheim.ITSupport;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.util.Set;
 import java.util.stream.Stream;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import de.newkuchenheim.ITSupport.bdo.tLog;
 
@@ -24,10 +18,23 @@ public class ItSupportApplication {
 	private static final String _PATH_CONFIG_LINUX  = System.getProperty("user.home") + "/IT-SupportContent";//"/home/itsupport/itsupport/it-supportcontent
 	
 	public static void main(String[] args) {
+		//System.setProperty("server.port","8090");
 		SpringApplication.run(ItSupportApplication.class, args);
+		
+//		SpringApplicationBuilder parentBuilder =
+//	            new SpringApplicationBuilder(ParentApplication.class)
+//	                    .web(WebApplicationType.NONE);
+//	    parentBuilder.run(args);
+//	    parentBuilder.child(ServiceOneConfiguration.class)
+//	            .properties("spring.config.name=child1").run(args);
+//	    parentBuilder.child(ServiceTwoConfiguration.class)
+//	            .properties("spring.config.name=child2").run(args);
+		
+		// set log File
 		tLog.getInstance().log(null, "info", "Webapp wird gestartet");
 		tLog.getInstance().log(null, "info", "OS: " + System.getProperty("os.name").equals("Linux"));			
 		
+		//create Data-Config
 		String config_path = "";
 		if(System.getProperty("os.name").equals("Linux")) {
 			config_path = _PATH_CONFIG_LINUX;
