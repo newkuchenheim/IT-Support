@@ -32,7 +32,7 @@ import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 
 @Controller
 @RequestMapping("formulare/zeiterfassung")
-public class zeiterfassungController extends generalFormulareController {	
+public class zeiterfassungController extends abstractFormulareController {	
 		@GetMapping
 		public String displayAllEvents(Model model) {
 			model.addAttribute("page", "zeit_home");

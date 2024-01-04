@@ -44,7 +44,43 @@ function init() {
 				general_email_to = "s.schmitz@new-eu.de";
 		}
 	}
-	
+	function addReason(parent, reason, first) {
+		var child = document.createElement("option");
+		if (first) {
+			child.innerHTML = "Bitte den Grund auswählen";
+			child.value = "";
+			child.selected = true;
+			child.hidden = true;
+		} else {
+			child.innerHTML = reason["text"];
+			child.value = reason["value"];
+		}
+		parent.appendChild(child);
+	}
+	function changeReason(request) {
+		var optreason_elem = document.getElementById("option_reason");
+		// clear opt list
+		while (optreason_elem.firstChild) {
+			optreason_elem.removeChild(optreason_elem.firstChild);
+		}
+		// add specific options with request
+		addReason(optreason_elem, "", true);
+		for (var i = 0; i < optreasons.length; i++) {
+			if (request.includes("berstunden") && (optreasons[i]["text"].includes("Sonstige") || optreasons[i]["value"] == "-")) {
+				addReason(optreason_elem, optreasons[i], false);
+			} else if (request.includes("Krank") && optreasons[i]["text"].includes("Krank")) {
+				addReason(optreason_elem, optreasons[i], false);
+			} else if (request.includes("Korrektur") && !optreasons[i]["text"].includes("Krank")) {
+				addReason(optreason_elem, optreasons[i], false);
+			}
+		}
+	}
+	function validateDate(from, to) {
+		var valid = false;
+		if (from !== "" && to !== "" && to >= from) valid = true;
+		else if (from !== "" && to === "" || to !== "" && from === "") valid = true;
+		return valid;
+	}
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";
@@ -100,10 +136,13 @@ function init() {
 					}
 				}
 			}
-			if (fullname_valid)	{
+			var validDate = validateDate(_dateFrom, _dateTo);
+			if (fullname_valid && validDate) {
 				// remove red border
 				if (_prename_elem.hasAttribute("style")) _prename_elem.removeAttribute("style");
 				if (_name_elem.hasAttribute("style")) _name_elem.removeAttribute("style");
+				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
+				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
 				// get email of team head
 				for (i = 0; i < persons.length; i++) {
 					if (persons[i] !== undefined) {
@@ -131,6 +170,7 @@ function init() {
 				} 
 				// submit and reset form
 				document.getElementById("name_error").classList.add("visually-hidden");
+				document.getElementById("dateTo_error").classList.add("visually-hidden");
 				document.getElementById("time_entering").submit();
 				// show success Messages
 				var _form_success = document.getElementById("form_success");
@@ -156,6 +196,17 @@ function init() {
 					var name_error_alert = new bootstrap.Alert(_name_error);
 					name_error_alert.show;
 					_name_error.classList.remove("visually-hidden");
+				}
+				if (!validDate) {
+					_dateTo_elem.setAttribute("style", "border-color: red");
+					_timeTo_elem.setAttribute("style", "border-color: red");
+					var _dateTo_error = document.getElementById("dateTo_error");
+					var dateTo_error_alert = new bootstrap.Alert(_dateTo_error);
+					dateTo_error_alert.show;
+					_dateTo_error.classList.remove("visually-hidden");
+				} else {
+					// remove date error
+					
 				}
 			}
 		} else {
@@ -212,5 +263,9 @@ function init() {
 	document.getElementById("time_entering").addEventListener("submit", (e) => {
 		e.preventDefault();
 		sendEmail();
+	});
+	
+	document.getElementById("option_request").addEventListener("change", function() {
+		changeReason(this.options[this.selectedIndex].value);
 	});
 }

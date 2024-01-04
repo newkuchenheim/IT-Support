@@ -22,7 +22,7 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 
 @Controller
 @RequestMapping("formulare/telenotiz")
-public class telenotizController extends generalFormulareController {
+public class telenotizController extends abstractFormulareController {
 	@GetMapping
 	public String displayAllEvents(Model model) {
 		model.addAttribute("page", "tele_home");

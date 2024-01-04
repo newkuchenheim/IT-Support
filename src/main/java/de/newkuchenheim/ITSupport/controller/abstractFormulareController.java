@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 
  */
 
-public abstract class generalFormulareController {
+public abstract class abstractFormulareController {
 	protected boolean _sended = false;
 	protected final String _URL_FORM_CONTENT  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Formulare\\";//%USERPROFILE%/it-supportcontent/formulare/
 	protected final String _URL_FORM_CONTENT_LINUX = System.getProperty("user.home") + "/IT-SupportContent/Formulare/";//home/itsupport/itsupport/it-supportcontent/formulare/
