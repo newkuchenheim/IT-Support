@@ -101,6 +101,7 @@
 		  var telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
 		  var telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var optreasons = /*[[${optreasons}]]*/ 'Option Reason';
 		  var persons = telelist_zvw;
 		  var general_email_to = "s.schmitz@new-eu.de";
 	 </script>
@@ -129,6 +130,12 @@
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
 		  		<div>
 		    		Der angegebene Name steht nicht in der Liste vom Standort!
+		  		</div>
+			</div>
+			<div id="dateTo_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Das <b>Bis-Datum</b> muss gleich oder nach dem <b>Von-Datum</b> sein!
 		  		</div>
 			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
@@ -162,7 +169,7 @@
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
-							<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>
+							<!--<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>-->
 						</select>
 						<label for="option_cause">Grund</label>
 					</div>
