@@ -1,0 +1,10 @@
+/* Set correct floating label margin for row class */
+.row>.form-floating>label {
+	margin-left: 0.1rem;
+}
+/* Set correct background color for floating label for invalid date/time fields*/
+.form-floating>input:invalid + label::after,
+.form-floating>input[type=date]:invalid + label::after,
+.form-floating>input[type=time]:invalid + label::after {
+	background-color: transparent !important;
+}

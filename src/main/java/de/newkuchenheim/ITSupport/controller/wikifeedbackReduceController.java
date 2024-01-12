@@ -34,7 +34,7 @@ public class wikifeedbackReduceController {
 
 	private static List<Ticket> tickets = new ArrayList();
 
-	@GetMapping
+	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 
 		model.addAttribute("tickets", tickets);
@@ -52,7 +52,7 @@ public class wikifeedbackReduceController {
 		return "itsupport/wikifeedback/reduce/reducehome";
 	}
 
-	@GetMapping("reduceform")
+	@GetMapping({"reduceform", "reduceform/"})
 	public String renderCreateForm(Model model) {
 
 		tickets.clear();

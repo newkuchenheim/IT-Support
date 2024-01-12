@@ -33,7 +33,7 @@ import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 @Controller
 @RequestMapping("formulare/zeiterfassung")
 public class zeiterfassungController extends abstractFormulareController {	
-		@GetMapping
+		@GetMapping({"", "/"})
 		public String displayAllEvents(Model model) {
 			model.addAttribute("page", "zeit_home");
 			model.addAttribute("sended", _sended);
@@ -41,7 +41,7 @@ public class zeiterfassungController extends abstractFormulareController {
 			return "formulare/zeiterfassung/home";
 		}
 		
-		@GetMapping("form")
+		@GetMapping({"form", "form/"})
 		public String renderCreateForm(Model model) throws IOException {
 			model.addAttribute("page", "zeiterfassung");
 			// get telelist for each location

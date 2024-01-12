@@ -23,7 +23,7 @@ public class homeFormulareController {
         return "formulare";
     }
 	
-	@GetMapping("/formulare")
+	@GetMapping({"/formulare", "/formulare/"})
 	String getHome(Model model) {
 		return "formulare/home";
 	}

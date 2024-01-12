@@ -39,7 +39,7 @@ public class awnotizController {
         return "awnotiz";
     }
 
-	@GetMapping
+	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 		
 		model.addAttribute("aws", aws);
@@ -57,7 +57,7 @@ public class awnotizController {
 		return "itsupport/awnotiz/home";
 	}
 	
-	@GetMapping("form")
+	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) {
 		
 		aws.clear();

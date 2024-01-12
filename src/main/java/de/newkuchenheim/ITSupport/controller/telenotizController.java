@@ -23,7 +23,7 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 @Controller
 @RequestMapping("formulare/telenotiz")
 public class telenotizController extends abstractFormulareController {
-	@GetMapping
+	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 		model.addAttribute("page", "tele_home");
 		model.addAttribute("sended", _sended);
@@ -31,7 +31,7 @@ public class telenotizController extends abstractFormulareController {
 		return "formulare/telenotiz/home";
 	}
 	
-	@GetMapping("form")
+	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) throws IOException {
 		model.addAttribute("page", "telenotiz");
 		// get telelist for each location

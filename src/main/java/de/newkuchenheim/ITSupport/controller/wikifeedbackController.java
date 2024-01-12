@@ -39,7 +39,7 @@ public class wikifeedbackController {
         return "wikifeedback";
     }
 	
-	@GetMapping
+	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 
 		model.addAttribute("tickets", tickets);
@@ -57,7 +57,7 @@ public class wikifeedbackController {
 		return "itsupport/wikifeedback/home";
 	}
 
-	@GetMapping("form")
+	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) {
 
 		tickets.clear();

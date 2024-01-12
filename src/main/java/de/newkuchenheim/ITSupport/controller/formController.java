@@ -52,7 +52,7 @@ public class formController {
         return "ticket";
     }
 	
-	@GetMapping
+	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 		
 		model.addAttribute("tickets", tickets);
@@ -72,7 +72,7 @@ public class formController {
 		return "itsupport/ticket/home";
 	}
 	
-	@GetMapping("form")
+	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) throws FileNotFoundException {
 		
 		tickets.clear();

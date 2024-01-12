@@ -49,7 +49,7 @@ public class homeController {
         return "itsupport";
     }
 	
-	@GetMapping("/itsupport")
+	@GetMapping({"/itsupport", "/itsupport/"})
 	String getHome(Model model) throws IOException, FileNotFoundException {
 		
 		contents.clear();

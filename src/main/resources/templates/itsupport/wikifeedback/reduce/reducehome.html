@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
 	<title>IT-Support</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- icon -->
-	
-  	<link rel="shortcut icon" type="image/x-icon" href="../../logo/logo_small.ico">
-  	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  	<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
     <style>
@@ -22,7 +15,6 @@
 	    
 	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 	    .row.content {height: 450px}
-	    
 	    /* Set gray background color and 100% height */
 	    .sidenav {
 	      padding-top: 20px;
@@ -84,12 +76,12 @@
 		
 		<!-- anzeige -->
 		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
-			<div th:replace="itsupport/fragments/contact :: contact">
+			<div th:replace="~{itsupport/fragments/contact :: contact}">
 				<!-- load contact template -->
 			</div>
 		</div>
 	</div>											
 	<!-- Load Footer Template -->
-	<footer th:replace="itsupport/fragments/footer :: footer"></footer>
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
 </body>
 </html>
