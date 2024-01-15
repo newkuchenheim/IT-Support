@@ -6,7 +6,7 @@
 	<title>NEW-Zeiterfassung</title>
 
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+    <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
     <style>
 	    /* Remove the navbar's default margin-bottom and rounded borders */ 
 	    .navbar {
@@ -51,29 +51,6 @@
 		/****** Begin Zeiterfassung section ******/
 		#name_error {
 			display: none;
-		}
-		nav input[type=radio] {
-			display:none;
-		}
-		input:invalid {
-		    border-color: coral;
-		    background-color: yellow;
-		}
-		nav span 
-  		{
-  			border-bottom: 4px solid transparent;
-  		}
-		nav span:hover
-  		{
-  			background-color: white;
-  		}
-		nav input[type=radio]:checked + span
-  		{
-  			border-bottom-color: darkblue;
-  		}
-  		#location_header {
-			color: #0d6efd;
-			text-align: center;
 		}
 		/****** End section Zeiterfassung ******/
 	    /* On small screens, set height to 'auto' for sidenav and grid */

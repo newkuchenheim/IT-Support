@@ -1,0 +1,23 @@
+input:invalid {
+    border-color: coral;
+    background-color: yellow;
+}
+#name_error {
+	display: none;
+}
+nav input[type=radio] {
+	display:none;
+}
+nav span {
+	border-bottom: 4px solid transparent !important;
+}
+nav span:hover {
+	background-color: white;
+}
+nav input[type=radio]:checked + span {
+	border-bottom-color: darkblue !important;
+}
+#location_header {
+	color: #0d6efd;
+	text-align: center;
+}
