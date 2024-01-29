@@ -1,6 +1,8 @@
 package de.newkuchenheim.ITSupport.bdo.kanboardConfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,19 +43,24 @@ public enum TaskFileKanboardConfigutration {
 		params.clear();
 		switch (methodname) {
 		case "createTaskFile":
-			params.put("createTaskFile", 0);
+			//params.put("createTaskFile", 0);
 			params.put("project_id", 0);
 			params.put("task_id", 0);
 			params.put("filename", "");
 			params.put("blob", "");
+			break;
 		case "getAllTaskFiles":
 			params.put("task_id", 0);
+			break;
 		case "getTaskFile":
 			params.put("file_id", 0);
+			break;
 		case "downloadTaskFile":
 			params.put("file_id", 0);
+			break;
 		case "removeTaskFile":
 			params.put("file_id", 0);
+			break;
 		case "removeAllTaskFile":
 			params.put("task_id", 0);
 		}
@@ -81,7 +88,7 @@ public enum TaskFileKanboardConfigutration {
 		
 		//build params-String
 		if(!params.isEmpty()) {
-			int params_size = params.size();
+			/*int params_size = params.size();
 			
 			params.entrySet().forEach(e -> {
 				requestJson += quote + e.getKey() + quote + ": ";
@@ -99,6 +106,29 @@ public enum TaskFileKanboardConfigutration {
 				}
 				params.remove(e.getKey());
 			});
+			requestJson += "}}";
+			return requestJson;*/
+			List<String> paramList = new ArrayList<String>();
+			
+			params.entrySet().forEach(e -> {
+				String paramRequest = quote + e.getKey() + quote + ": ";
+				
+				//check type of value. fall value is instance if string, then add quote sign
+				if(e.getValue() instanceof Integer) {
+					paramRequest += e.getValue();
+				} else if(e.getValue() instanceof String) {
+					paramRequest += quote + e.getValue() + quote;
+				}
+				paramList.add(paramRequest);
+			});
+			if(paramList != null && !paramList.isEmpty()) {
+				for(int i=0; i<paramList.size(); i++) {
+					requestJson = requestJson + paramList.get(i);
+					if(i < (paramList.size() - 1) ) {
+						requestJson = requestJson + ",";
+					}
+				}
+			}
 			requestJson += "}}";
 			return requestJson;
 		}

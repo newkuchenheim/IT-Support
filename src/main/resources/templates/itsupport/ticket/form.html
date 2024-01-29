@@ -83,8 +83,14 @@ section {
 
 		<!-- main view col-->
 		<div class="col p-3 max-width text-left" style="height: 75%">
-			<form method="post" action="#" th:object="${ticket}"
-				style="min-width: 300px;">
+			<div id="file_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Name Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Die Datei ist zu groß!
+		  		</div>
+			</div>
+			<form method="post" id="send_ticket" action="#" th:object="${ticket}"
+				style="min-width: 300px;" enctype="multipart/form-data">
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col">
 						<!-- Vorname -->
@@ -183,6 +189,14 @@ section {
 						<label for="beschreibung-area">Beschreibung</label>
 					</div>
 				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col">
+						<!-- Datei Anhang -->
+						<input id="file" type="file" name="file" class="form-control" placeholder="Anhang"
+							accept="image/jpeg, image/png, image/jpg, application/pdf" th:field="*{file}">
+						<label for="file">Anhang (Max 10 MB)</label>
+					</div>
+				</div>
 				<div class="form-group mb-3" data-bs-toggle="tooltip"
 					data-bs-placement="top" title="Senden Ihres Tickets">
 					<input type="submit" value="Absenden" class="btn btn-success" /><br />
@@ -206,7 +220,8 @@ section {
 					<li><strong>Schritt 3:</strong> Wählen Sie bei MICOS-Störung den detailierten Grund aus.</li>
 					<li><strong>Schritt 4:</strong> Bitte beschreiben Sie Ihr
 						Problem bzw. Anfrage genauer in dem Feld <strong>Beschreibung</strong>.</li>
-					<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button
+					<li><strong>Schritt 5:</strong> Optional können Sie noch eine Datei anhängen.</li>
+					<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button
 						"Senden". Ihr Ticket wird sofort an uns gesendet.</li>
 				</ul>
 

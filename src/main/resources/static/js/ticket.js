@@ -1,5 +1,6 @@
 window.onload = init;
 function init() {
+	var MaxSize = 10485760;// in Bytes, 10 MB
 	// set default state
 	document.querySelector("#div_micos_sel").hidden = true;
 	document.querySelector("#div_user_sel").hidden = true;
@@ -36,5 +37,26 @@ function init() {
 			UserCatElem.required = false;
 			UserCatElem.value = "";
 		}
+	});
+	document.getElementById("file").addEventListener("change", function() {
+		if (this.files && this.files.length == 1 && this.files[0].size > MaxSize) {
+			this.setAttribute("style", "border-color: red");
+			this.value = "";
+			var _file_error = document.getElementById("file_error");
+			var file_error_alert = new bootstrap.Alert(_file_error);
+			file_error_alert.show;
+			_file_error.classList.remove("visually-hidden");
+		} else {
+			if (this.hasAttribute("style")) this.removeAttribute("style");
+			_file_error.classList.add("visually-hidden");
+		}
+	});
+	document.getElementById("send_ticket").addEventListener("submit", (e) => {
+		e.preventDefault();
+		var descr = document.getElementById("beschreibung_area");
+		if (descr.value !== "" && descr.value.includes("\\")) {
+			descr.value = descr.value.replaceAll("\\", "\\\\");
+		}
+		document.getElementById("send_ticket").submit();
 	});
 }

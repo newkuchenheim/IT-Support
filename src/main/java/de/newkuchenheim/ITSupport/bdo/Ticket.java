@@ -3,6 +3,8 @@
  */
 package de.newkuchenheim.ITSupport.bdo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author Minh Tam Truong
  * 
@@ -22,6 +24,8 @@ public class Ticket {
 	private String building;
 	private String micoscat;
 	private String usercat;
+	private MultipartFile file;
+	private String fileContent;
 	
 	/**
 	 * @return the firstname
@@ -155,6 +159,18 @@ public class Ticket {
 	}
 	public void setUsercat(String usercat) {
 		this.usercat = usercat;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public String getFileContent() {
+		return fileContent;
+	}
+	public void setFileContent(String fileContent) {
+		this.fileContent = fileContent;
 	}	
 	
 }

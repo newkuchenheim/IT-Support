@@ -6,6 +6,7 @@ package de.newkuchenheim.ITSupport.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
@@ -13,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -61,9 +63,14 @@ public class formController {
 		try {
 //			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
 //			model.addAttribute("result", answer);
-						
-			int TicketID = ticketKanboardDAO.getInstance().sendTicket(tickets.get(0));
+			Ticket newTicket = tickets.get(0);
+			int TicketID = ticketKanboardDAO.getInstance().sendTicket(newTicket);
 			model.addAttribute("result", TicketID);
+			// add file to new ticket
+			if (!newTicket.getFileContent().isBlank() && TicketID > -1) {
+				newTicket.setId(TicketID);
+				ticketKanboardDAO.getInstance().sendFile(newTicket);
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			tLog.getInstance().log(null, "severe", e.getMessage());
@@ -132,8 +139,16 @@ public class formController {
 	
 	@PostMapping("form")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
+		// Get file content as Base64 String, uploaded temp file will be deleted after this
+		if (ticket.getFile() != null) {
+			try {
+				ticket.setFileContent(Base64.getEncoder().encodeToString(ticket.getFile().getBytes()));
+			} catch (IOException e) {
+				e.printStackTrace();
+				tLog.getInstance().log(null, "severe", e.getMessage());
+			}
+		}
 		model.addAttribute("ticket", ticket);
-		
 		tickets.add(ticket);
 //		return "create/home";
 		return "redirect:";

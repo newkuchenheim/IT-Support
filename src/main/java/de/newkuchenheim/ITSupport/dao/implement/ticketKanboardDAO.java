@@ -1,13 +1,18 @@
 package de.newkuchenheim.ITSupport.dao.implement;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import java.util.Base64;
+
 import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskFileKanboardConfigutration;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboardFileInterface;
 import de.newkuchenheim.ITSupport.dao.kanboardTaskInterface;
 
-public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterface<Ticket> {
+public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterface<Ticket>, kanboardFileInterface<Ticket> {
 
 	private static ticketKanboardDAO instance;
 
@@ -82,6 +87,32 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 				return -1;
 		}
 		return-1;
+	}
+
+	@Override
+	public int sendFile(Ticket object) throws UnsupportedEncodingException {
+		if (object != null && object.getFile() != null) {
+			TaskFileKanboardConfigutration taskFile = TaskFileKanboardConfigutration.Create_Task_File;
+			taskFile.setParameterValue("project_id", 1);
+			taskFile.setParameterValue("task_id", object.getId());
+			taskFile.setParameterValue("filename", object.getFile().getOriginalFilename());
+			// show only first 5 characters for file content
+			taskFile.setParameterValue("blob", object.getFileContent().substring(0, 5) + "...");
+			
+			System.out.println(taskFile.getParams());
+			System.out.println(taskFile.buildRequest());
+			
+			// add whole file content to upload
+			taskFile.setParameterValue("blob", object.getFileContent());
+			
+			Object result = sendFileRequest(taskFile);
+			if(result instanceof Integer) {
+				return (int) result;
+			} 
+			else 
+				return -1;
+		}
+		return -1;
 	}
 	
 }
