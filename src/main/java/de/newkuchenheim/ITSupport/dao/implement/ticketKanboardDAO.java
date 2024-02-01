@@ -88,22 +88,27 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 		}
 		return-1;
 	}
-
+	
+	/**
+	 * send File to Kanboard Task. If response is instance of Integer, then return result as ID of the uploaded file. Otherwise -1.
+	 * 
+	 * @return ID int ID of the uploaded file, otherwise -1.
+	 */
 	@Override
-	public int sendFile(Ticket object) throws UnsupportedEncodingException {
-		if (object != null && object.getFile() != null) {
+	public int sendFile(Ticket ticket) throws UnsupportedEncodingException {
+		if (ticket != null && ticket.getFile() != null) {
 			TaskFileKanboardConfigutration taskFile = TaskFileKanboardConfigutration.Create_Task_File;
 			taskFile.setParameterValue("project_id", 1);
-			taskFile.setParameterValue("task_id", object.getId());
-			taskFile.setParameterValue("filename", object.getFile().getOriginalFilename());
+			taskFile.setParameterValue("task_id", ticket.getId());
+			taskFile.setParameterValue("filename", ticket.getFile().getOriginalFilename());
 			// show only first 5 characters for file content
-			taskFile.setParameterValue("blob", object.getFileContent().substring(0, 5) + "...");
+			taskFile.setParameterValue("blob", ticket.getFileContent().substring(0, 5) + "...");
 			
 			System.out.println(taskFile.getParams());
 			System.out.println(taskFile.buildRequest());
 			
 			// add whole file content to upload
-			taskFile.setParameterValue("blob", object.getFileContent());
+			taskFile.setParameterValue("blob", ticket.getFileContent());
 			
 			Object result = sendFileRequest(taskFile);
 			if(result instanceof Integer) {
