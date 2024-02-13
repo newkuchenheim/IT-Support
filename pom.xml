@@ -87,7 +87,7 @@
                  	<executable>true</executable>
                 </configuration>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 	            <artifactId>maven-jar-plugin</artifactId>
 	            <executions>
 	                <execution>
@@ -106,7 +106,7 @@
 	                        <goal>jar</goal>
 	                    </goals>
 	                    <configuration>
-	                        <!-- Need this to ensure application.yml is excluded -->
+	                        Need this to ensure application.yml is excluded
 	                        <forceCreation>true</forceCreation>
 	                        <excludes>
 	                            <exclude>application.yml</exclude>
@@ -114,7 +114,7 @@
 	                    </configuration>
 	                </execution>
 	            </executions>
-	        </plugin>
+	        </plugin>-->
 		</plugins>
 	</build>
 
