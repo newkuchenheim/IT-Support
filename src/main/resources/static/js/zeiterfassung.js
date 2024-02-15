@@ -2,44 +2,48 @@ window.onload = init;
 function init() {
 	// reset chosen location
 	document.getElementById("zvw_location").checked = true;
+	var persIndex = -2;
 	function changeTeleList() {
-		var prename = document.getElementById("prename");
-		var name = document.getElementById("name");
 		var location_header = document.getElementById("location_header");
+		var location_warn = document.getElementById("location_warn");
 		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
-		document.getElementById("name_error").classList.add("visually-hidden");
-		if (prename.hasAttribute("style")) prename.removeAttribute("style");
-		if (name.hasAttribute("style")) name.removeAttribute("style");
-		//prename.value = "";
-		//name.value = "";
+		document.getElementById("name_warning").classList.add("visually-hidden");
+		document.getElementById("prename").value = "";
+		document.getElementById("name").value = "";
 		switch (location) {
 			case "kall":
 				persons = telelist_kall;
 				location_header.innerHTML = "Werkstatt Kall";
+				location_warn.innerText = "Kall";
 				general_email_to = "g.schuett@new-eu.de; a.schreiber@new-eu.de; j.hoelnyk@new-eu.de";
 				break;
 			case "khm":
 				persons = telelist_khm;
 				location_header.innerHTML = "Werkstatt Kuchenheim";
+				location_warn.innerText = "Kuchenheim";
 				general_email_to = "a.winkelhag@new-eu.de";
 				break;
 			case "uelp":
 				persons = telelist_uelp;
 				location_header.innerHTML = "Werkstatt Ülpenich";
+				location_warn.innerText = "Ülpenich";
 				general_email_to = "g.schalke@new-eu.de";
 				break;
 			case "zhm":
 				persons = telelist_zhm;
 				location_header.innerHTML = "Werkstatt Zingsheim";
+				location_warn.innerText = "Zingsheim";
 				general_email_to = "verwaltung-zingsheim@new-eu.de";
 				break;
 			case "zvw":
 				persons = telelist_zvw;
 				location_header.innerHTML = "Zentrale Verwaltung";
+				location_warn.innerText = "der Zentralen Verwaltung";
 				general_email_to = "s.schmitz@new-eu.de";
 				break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
+				location_warn.innerText = "der Zentralen Verwaltung";
 				persons = telelist_zvw;
 				general_email_to = "s.schmitz@new-eu.de";
 		}
@@ -74,6 +78,29 @@ function init() {
 				addReason(optreason_elem, optreasons[i], false);
 			}
 		}
+	}
+	function validateName(prename, name) {
+		var _prename = prename;
+		var _name = name;
+		var i;
+		if (_prename == null || _prename === "") _prename = document.getElementById("prename").value;
+		if (_name == null || _name === "") _name = document.getElementById("name").value;
+		if (_prename === "" || _name === "") i = -2;
+		else {
+			var _fullname_upp = (_name + " " + _prename).toUpperCase();
+			var _pers_fullname_upp;
+			for (i = 0; i < persons.length; i++) {
+				if (persons[i] !== undefined) {
+					_pers_fullname_upp = (persons[i]["Name"].replaceAll("\"","") + " " + persons[i]["Vorname"].replaceAll("\"","")).toUpperCase();
+					if (_fullname_upp == _pers_fullname_upp) {
+						break;
+					}
+				}
+			}
+			if (i == persons.length) i = -1;
+		}
+		
+		return i;
 	}
 	function validateDate(from, to) {
 		var valid = false;
@@ -117,49 +144,36 @@ function init() {
 		var pers_email;
 		var management_email = "";
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
-			// validate prename and name
-			var fullname_valid = false;
 			var fullname = _name + " " + _prename;
-			var fullname_upp = fullname.toUpperCase();
-			var pers_fullname_upp;
-			for (i = 0; i < persons.length; i++) {
-				if (persons[i] !== undefined) {
-					if ((persons[i]["Funktion"].includes("Geschäftsführung") || persons[i]["Funktion"].includes("- Betriebsleitung")) && management_email.length == 0) {
-						management_email = persons[i]["E-Mail"].replaceAll("\"","");
-					}
-					pers_fullname_upp = (persons[i]["Name"].replaceAll("\"","") + " " + persons[i]["Vorname"].replaceAll("\"","")).toUpperCase();
-					if (fullname_upp == pers_fullname_upp) {
-						func = persons[i]["Funktion"];
-						fullname_valid = true;
-						pers_email = persons[i]["E-Mail"].replaceAll("\"","");
-						break;
-					}
-				}
-			}
 			var validDate = validateDate(_dateFrom, _dateTo);
-			if (fullname_valid && validDate) {
+			if (validDate) {
 				// remove red border
-				if (_prename_elem.hasAttribute("style")) _prename_elem.removeAttribute("style");
-				if (_name_elem.hasAttribute("style")) _name_elem.removeAttribute("style");
 				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
 				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
 				// get email of team head
-				for (i = 0; i < persons.length; i++) {
-					if (persons[i] !== undefined) {
-						if (func.includes("-") && !func.includes("Teamleitung")) {
-							var funcParts = func.split("-");
-							if ((persons[i]["Funktion"].includes(funcParts[1].trim()) || persons[i]["Funktion"].includes(funcParts[0].trim())) 
-							&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
+				if (persIndex > -1) {
+					func = persons[persIndex]["Funktion"];
+					pers_email = persons[persIndex]["E-Mail"].replaceAll("\"", "");
+					for (i = 0; i < persons.length; i++) {
+						if (persons[i] !== undefined) {
+							if ((persons[i]["Funktion"].includes("Geschäftsführung") || persons[i]["Funktion"].includes("- Betriebsleitung")) && management_email.length == 0) {
+								management_email = persons[i]["E-Mail"].replaceAll("\"","");
+							}
+							if (func.includes("-") && !func.includes("Teamleitung")) {
+								var funcParts = func.split("-");
+								if ((persons[i]["Funktion"].includes(funcParts[1].trim()) || persons[i]["Funktion"].includes(funcParts[0].trim())) 
+								&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
+									email_to = persons[i]["E-Mail"].replaceAll("\"","");
+									break;	
+								} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
+									email_to = "t.scheuls@new-eu.de";
+								}
+							} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
 								email_to = persons[i]["E-Mail"].replaceAll("\"","");
-								break;	
+								break;
 							} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
 								email_to = "t.scheuls@new-eu.de";
 							}
-						} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-							email_to = persons[i]["E-Mail"].replaceAll("\"","");
-							break;
-						} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
-							email_to = "t.scheuls@new-eu.de";
 						}
 					}
 				}
@@ -169,8 +183,8 @@ function init() {
 					else email_to = general_email_to;
 				} 
 				// submit and reset form
-				document.getElementById("name_error").classList.add("visually-hidden");
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
+				document.getElementById("name_warning").classList.add("visually-hidden");
 				document.getElementById("time_entering").submit();
 				// show success Messages
 				var _form_success = document.getElementById("form_success");
@@ -189,29 +203,13 @@ function init() {
 				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
-				if (!fullname_valid) {
-					_prename_elem.setAttribute("style", "border-color: red");
-					_name_elem.setAttribute("style", "border-color: red");
-					var _name_error = document.getElementById("name_error");
-					var name_error_alert = new bootstrap.Alert(_name_error);
-					name_error_alert.show;
-					_name_error.classList.remove("visually-hidden");
-				}
-				if (!validDate) {
 					_dateTo_elem.setAttribute("style", "border-color: red");
 					_timeTo_elem.setAttribute("style", "border-color: red");
 					var _dateTo_error = document.getElementById("dateTo_error");
 					var dateTo_error_alert = new bootstrap.Alert(_dateTo_error);
 					dateTo_error_alert.show;
 					_dateTo_error.classList.remove("visually-hidden");
-				} else {
-					// remove date error
-					
-				}
 			}
-		} else {
-			if (_prename === "" && _prename_elem.hasAttribute("style")) _prename_elem.removeAttribute("style");
-			if (_name === "" && _name_elem.hasAttribute("style")) _name_elem.removeAttribute("style");
 		}
 	}
 	
@@ -267,5 +265,29 @@ function init() {
 	
 	document.getElementById("option_request").addEventListener("change", function() {
 		changeReason(this.options[this.selectedIndex].value);
+	});
+	
+	document.getElementById("prename").addEventListener("change", function() {
+		persIndex = validateName(this.value, null);
+		if (persIndex == -1) {
+			var _name_warning = document.getElementById("name_warning");
+			var name_warning_alert = new bootstrap.Alert(_name_warning);
+			name_warning_alert.show;
+			_name_warning.classList.remove("visually-hidden");
+		} else {
+			document.getElementById("name_warning").classList.add("visually-hidden");
+		}
+	});
+	
+	document.getElementById("name").addEventListener("change", function() {
+		persIndex = validateName(null, this.value);
+		if (persIndex == -1) {
+			var _name_warning = document.getElementById("name_warning");
+			var name_warning_alert = new bootstrap.Alert(_name_warning);
+			name_warning_alert.show;
+			_name_warning.classList.remove("visually-hidden");
+		} else {
+			document.getElementById("name_warning").classList.add("visually-hidden");
+		}
 	});
 }
