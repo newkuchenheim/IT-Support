@@ -135,30 +135,4 @@ public abstract class jobrouterDAO {
 			return null;
 		}
 	}
-	
-	public Map<String, String> sendFileRequest(FileUploadJobrouterConfig config) {
-		MultiValueMap<String, Object> multipart = (MultiValueMap<String, Object>)config.buildRequestBody();
-		if (multipart != null) {
-			String fullURL = _URL + config.buildRequestRoute();
-			HttpHeaders loginHeaders = sendLoginRequest("sessions");
-			loginHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
-			HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(multipart, loginHeaders);
-			RestTemplate restTmpl = new RestTemplate();
-			String response = restTmpl.exchange(fullURL, config.getRequestMethod(), entity, String.class).getBody();
-			try {
-				JSONObject responseObject = new JSONObject(response);
-				// TODO Map with FileId, viewerURL and location
-				Map<String, String> fileData = new HashMap<String, String>();
-				fileData.put("id", responseObject.getJSONObject("fileuploads").getString("id"));
-				fileData.put("viewerURL", responseObject.getJSONObject("fileuploads").getString("viewerUrl"));
-				fileData.put("location", responseObject.getJSONObject("meta").getJSONArray("locations").getString(0));
-				return fileData;
-				
-			} catch (JSONException err) {
-				System.out.println(err);
-				return null;
-			}
-		}
-		return null;
-	}
 }

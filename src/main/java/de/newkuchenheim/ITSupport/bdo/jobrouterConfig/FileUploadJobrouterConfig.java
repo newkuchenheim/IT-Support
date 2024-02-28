@@ -6,6 +6,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
@@ -112,21 +115,27 @@ public enum FileUploadJobrouterConfig {
 	}
 	
 	public Object buildRequestBody() {
-		//if (post_params != null && !post_params.isEmpty() && contentType != null) {
+		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
 				post_params.toString();
 			} else if (contentType == MediaType.MULTIPART_FORM_DATA) {
 				// TODO set correct files body
-				MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<String, Object>();
-				//requestBody.add("files", (byte[])((JSONObject)post_params.getJSONArray("files").get(0)).get("bytes"));
-				requestBody.add("files", getTestFile());
-				return requestBody;
+				return null;
+				// This nested HttpEntiy is important to create the correct
+		        // Content-Disposition entry with metadata "name" and "filename"
+				/*MultiValueMap<String, String> fileMap = new LinkedMultiValueMap<>();
+				ContentDisposition contentDispo = ContentDisposition
+						.builder("form-data")
+						.name("file")
+						.filename((String)((JSONObject)post_params.getJSONArray("files").get(0)).get("filename"))
+						.build();
+				fileMap.add(HttpHeaders.CONTENT_DISPOSITION, contentDispo.toString());
+				HttpEntity<byte[]> fileEntity = new HttpEntity<>((byte[])((JSONObject)post_params.getJSONArray("files").get(0)).get("content"), fileMap);
+				MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+				requestBody.add("files", fileEntity);
+				return requestBody;*/
 			}
-		//}
+		}
 		return null;
-	}
-	
-	private FileSystemResource getTestFile() {
-		return new FileSystemResource("C:\\Users\\Hansen\\Documents\\Dummy.txt");
 	}
 }

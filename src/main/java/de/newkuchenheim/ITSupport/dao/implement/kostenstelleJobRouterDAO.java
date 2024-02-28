@@ -27,7 +27,7 @@ import de.newkuchenheim.ITSupport.dao.jobrouterFileUploadInterface;
  * @createOn 14.02.2024
  * 
  */
-public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterDataInterface<CostCentre>, jobrouterFileUploadInterface {
+public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterDataInterface<CostCentre> {
 	private static kostenstelleJobRouterDAO instance;
 	
 	public static kostenstelleJobRouterDAO getInstance() {
@@ -91,25 +91,4 @@ public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterD
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public byte[] getFile(String fileid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Map<String, String> sendFile(MultipartFile uploadedFile) throws IOException {
-		FileUploadJobrouterConfig fileConfig = FileUploadJobrouterConfig.POST_FILE;
-		JSONObject postParams = fileConfig.getPostParams();
-		JSONArray fileData = new JSONArray();
-		JSONObject file = new JSONObject();
-		file.put("filename", uploadedFile.getOriginalFilename());
-		file.put("content", uploadedFile.getBytes());
-		postParams.put("files", fileData);
-		Map<String, String> fileDataResult = sendFileRequest(fileConfig);
-		return fileDataResult;
-	}
-	
-	
 }
