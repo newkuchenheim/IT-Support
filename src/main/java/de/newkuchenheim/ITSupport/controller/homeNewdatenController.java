@@ -1,6 +1,3 @@
-/**
- * Controller Class for view home.html
- */
 package de.newkuchenheim.ITSupport.controller;
 
 import java.io.File;
@@ -28,28 +25,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import de.newkuchenheim.ITSupport.bdo.MainContent;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 
-
-/**
- * @author Sebastian Hansen
- *
- * @createdOn 19.09.2023
- * 
- */
-
 @Controller
-public class homeFormulareController {
-	private final String _URL_MESSAGES  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Formulare\\General\\messages.json";//%USERPROFILE%/it-supportcontent/formulare/general/messages.json
-	private final String _URL_MESSAGES_LINUX = System.getProperty("user.home") + "/IT-SupportContent/Formulare/General/messages.json";//home/itsupport/itsupport/it-supportcontent/formulare/general/messages.json
+public class homeNewdatenController {
+	private final String _URL_MESSAGES  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Newdaten\\messages.json";//"%USERPROFILE%/it-supportcontent/newdaten/messages.json";
+	private final String _URL_MESSAGES_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Newdaten/messages.json";//"/home/itsupport/itsupport/it-supportcontent/newdaten/messages.json";
 	
 	private static List<MainContent> contents = new ArrayList<MainContent>();
 	
 	@ModelAttribute("page")
     String page() {
-        return "formulare";
+        return "newdaten";
     }
 	
-	@GetMapping({"/formulare", "/formulare/"})
-	String getHome(Model model) {
+	@GetMapping({"/newdaten", "newdaten/"})
+	public String getHome(Model model) {
 		contents.clear();
 		
 		String _sys_path = null;
@@ -101,7 +90,7 @@ public class homeFormulareController {
 			} else {
 				MainContent cont = new MainContent();
 	    		cont.setType("info");
-	    		cont.setTitle("Willkommen zu Digi-NE.W-Formulare");
+	    		cont.setTitle("Willkommen zu Daten-NE.W");
 	    		cont.setDescription("Derzeits gibt es keine neue Informationen!");
 	    		cont.setWrittenBy("System");
 	    		cont.setWrittenOn(LocalDateTime.now());
@@ -113,7 +102,7 @@ public class homeFormulareController {
 		} else {
 			MainContent cont = new MainContent();
     		cont.setType("info");
-    		cont.setTitle("Willkommen zu Digi-NE.W-Formulare");
+    		cont.setTitle("Willkommen zu Daten-NE.W");
     		cont.setDescription("Derzeit gibt es keine neue Informationen!");
     		cont.setWrittenBy("System");
     		cont.setWrittenOn(LocalDateTime.now());
@@ -123,8 +112,7 @@ public class homeFormulareController {
 			tLog.getInstance().log(null, "Info", "Start Site - Content not found!");
 		}
 		
-		model.addAttribute("contents", contents);
-		return "formulare/home";
+		model.addAttribute("messages", contents);
+		return "/newdaten/home";
 	}
-	
 }

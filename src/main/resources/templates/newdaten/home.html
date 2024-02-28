@@ -3,7 +3,7 @@
 <head>
 <!-- include main scripts; title tag will be removed-->
 <title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
-<title>Digi-NE.W-Formulare</title>
+<title>Daten-NE.W</title>
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
 <style>
@@ -64,20 +64,19 @@ section {
 </style>
 </head>
 <body>
-	<svg th:replace="~{itsupport/fragments/alerticons}">
-	 	<!-- Load alert icons -->
-	 </svg>
-	 <header th:replace="~{itsupport/fragments/header :: header}">
-         <!-- Load Header from template -->
-     </header>
-     <nav th:replace="~{formulare/fragments/topmenu :: topmenu}">
-    	 <!-- Load topmenu template -->
-	</nav>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+
+	<!-- Load topmenu template -->
+	<nav th:replace="~{newdaten/fragments/topmenu :: topmenu}"></nav>
 
 	<div class="row content p-3" style="height: 67%">
-  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}">
+		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
-  		</div>
+		<div th:replace="~{newdaten/fragments/sidenav :: sidenav}"></div>
 
 		<!-- main page 2te col-->
 		<div class="col p-3 max-width text-left">
@@ -85,52 +84,52 @@ section {
 				class="row p-1 max-width text-left bg-secondary bg-gradient text-white">
 				<!-- Title of main content -->
 				<h5>
-					<strong>Digi-NE.W-Formulare</strong>
+					<strong>Daten-NE.W Desk Port</strong>
 				</h5>
 			</div>
-			<!-- read content from file and show on Page -->
+						<!-- read content from file and show on Page -->
 			<div class="row p-2 max-width text-left" data-bs-spy="scroll">
-				<th:block th:each="content : ${contents}">
-					<div th:switch="${content.type}">
+				<th:block th:each="message : ${messages}">
+					<div th:switch="${message.type}">
 						<div th:case="'warning'" class="alert alert-warning" role="alert">
 							<span class="badge bg-warning text-dark">Warning</span>
 							<p class="text-decoration-underline fw-bolder fs-5"
-								th:text="${content.title}"></p>
+								th:text="${message.title}"></p>
 							<br>
-							<p class="text-wrap fst-normal" th:text="${content.description}"></p>
+							<p class="text-wrap fst-normal" th:text="${message.description}"></p>
 							<br>
 							<p class="text-end fst-italic"
-								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+								th:text="'Von ' + ${message.writtenBy} + ', geschrieben am ' + ${message.writtenOn}"></p>
 						</div>
 						<div th:case="'success'" class="alert alert-success" role="alert">
 							<span class="badge bg-success">Erfolgreich</span>
 							<p class="text-decoration-underline fw-bolder fs-5"
-								th:text="${content.title}"></p>
+								th:text="${message.title}"></p>
 							<br>
-							<p class="text-wrap fst-normal" th:text="${content.description}"></p>
+							<p class="text-wrap fst-normal" th:text="${message.description}"></p>
 							<br>
 							<p class="text-end fst-italic"
-								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+								th:text="'Von ' + ${message.writtenBy} + ', geschrieben am ' + ${message.writtenOn}"></p>
 						</div>
 						<div th:case="'info'" class="alert alert-primary" role="alert">
 							<span class="badge bg-primary">Info</span>
 							<p class="text-decoration-underline fw-bolder fs-5"
-								th:text="${content.title}"></p>
+								th:text="${message.title}"></p>
 							<br>
-							<p class="text-wrap fst-normal" th:text="${content.description}"></p>
+							<p class="text-wrap fst-normal" th:text="${message.description}"></p>
 							<br>
 							<p class="text-end fst-italic"
-								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+								th:text="'Von ' + ${message.writtenBy} + ', geschrieben am ' + ${message.writtenOn}"></p>
 						</div>
 						<div th:case="*" class="alert alert-danger" role="alert">
 							<span class="badge bg-danger">Fehler</span>
 							<p class="text-decoration-underline fw-bolder fs-5"
-								th:text="${content.title}"></p>
+								th:text="${message.title}"></p>
 							<br>
-							<p class="text-wrap fst-normal" th:text="${content.description}"></p>
+							<p class="text-wrap fst-normal" th:text="${message.description}"></p>
 							<br>
 							<p class="text-end fst-italic"
-								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+								th:text="'Von ' + ${message.writtenBy} + ', geschrieben am ' + ${message.writtenOn}"></p>
 						</div>
 					</div>
 				</th:block>

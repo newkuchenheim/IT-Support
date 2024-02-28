@@ -3,20 +3,20 @@
 	<body>
 		<nav th:fragment="topmenu" class="navbar navbar-inverse navbar-fixed-top p-3">
 	  	<ul class="nav nav-tabs">
-			<li class="nav-item">
-	  			<a class="nav-link" th:classappend="${#strings.length(page) > 0 ? 'active' : ''}" href="/formulare">
+		  	<li class="nav-item">
+	  			<a class="nav-link" th:classappend="${#strings.length(page) > 0 ? 'active' : ''}" href="/newdaten">
 	  				<span class="material-icons md-80">home</span>
 	  				NE.W
 	  			</a>
 		  	</li>
 		 	<li class="nav-item">
-		    	<a class="nav-link" target="_blank" href="http://192.168.0.216/wiki/doku.php?id=start" >WIKI</a>
+		    	<a class="nav-link" target="_blank" href="http://192.168.0.216/wiki/doku.php?id=start">WIKI</a>
 		  	</li>
 		  	<li class="nav-item">
-		    	<a class="nav-link" target="_blank" href="/itsupport" >IT-Support</a>
+		  		<a class="nav-link" target="_blank" href="/itsupport">IT-Support</a>
 		  	</li>
 		  	<li class="nav-item">
-		    	<a class="nav-link" target="_blank" href="/newdaten" >Daten-NE.W</a>
+		    	<a class="nav-link" target="_blank" href="/formulare">Digi-NE.W-Formulare</a>
 		  	</li>
 		</ul>
 	</nav>

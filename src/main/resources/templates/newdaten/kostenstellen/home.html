@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- include main scripts; title tag will be removed-->
+<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+<title>NE.W Kostenstellen</title>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+fieldset {
+	text-align: left;
+}
+
+.interForm {
+	display: flex;
+	flex-flow: wrap;
+}
+
+form {
+	text-align: center;
+	border-color: #f1f1f1;
+	border-style: solid;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+</style>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+
+	<!-- Load topmenu template -->
+	<nav th:replace="~{newdaten/fragments/topmenu :: topmenu}"></nav>
+
+	<div class="row content p-3" style="height: 67%">
+		<!-- navigation link intern -->
+		<!-- Load sidenav template -->
+		<div th:replace="~{newdaten/fragments/sidenav :: sidenav}"></div>
+
+		<!-- main page -->
+		<div class="col p-3 max-width text-left">
+			<div
+				class="row p-1 max-width text-left bg-secondary bg-gradient text-white">
+				<!-- Title of main content -->
+				<h5>
+					<strong>Kostenstellen Suchergebnis</strong>
+				</h5>
+			</div>
+			<div class="row p-2 max-width text-left" data-bs-spy="scroll">
+				<div th:switch="${#lists.size(CostCentres)}">
+					<p th:case="'0'">Fehler beim auslesen der Daten. Bitte wenden Sie sich an den Support.</p>
+					<table th:case="*" class="table table-primary table-hover table-striped p-3">
+						<thead>
+							<tr>
+								<th>Kostenstelle</th>
+								<th>Standort</th>
+								<th>Bezeichnung</th>
+								<th>Bezeichnung 1</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="CostCentre : ${CostCentres}">
+								<tr>
+									<td th:text="${CostCentre.number}"></td>
+									<td th:text="${CostCentre.location}"></td>
+									<td th:text="${CostCentre.label}"></td>
+									<td th:text="${CostCentre.label1}"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- anzeige -->
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			<div th:replace="~{itsupport/fragments/contact :: contact}">
+				<!-- load contact template -->
+			</div>
+		</div>
+	</div>
+	<footer th:replace="~{itsupport/fragments/footer :: footer}">
+		<!-- Load Footer Template -->
+	</footer>
+</body>
+</html>
