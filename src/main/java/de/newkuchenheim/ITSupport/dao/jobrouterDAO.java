@@ -37,7 +37,6 @@ public abstract class jobrouterDAO {
 	 * @return HttpHeaders Header with token or session information
 	 */
 	protected HttpHeaders sendLoginRequest(String method) {
-		List<String> result = new ArrayList<String>();
 		String loginBody = String.format("{\"username\": \"%s\",\"password\": \"%s\"", _USER, _PWD);
 		RestTemplate restTmpl = new RestTemplate();
 		String fullURL = _URL;

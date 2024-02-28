@@ -227,16 +227,10 @@ public enum ArchiveJobrouterConfig {
 			if (contentType == MediaType.APPLICATION_JSON) {
 				post_params.toString();
 			} else if (contentType == MediaType.MULTIPART_FORM_DATA) {
-				MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<String, Object>();
-				//requestBody.add("files", (byte[])((JSONObject)post_params.getJSONArray("files").get(0)).get("bytes"));
-				requestBody.add("files", getTestFile());
-				return requestBody;
+				// TODO create correct POST Entity for file
+				return null;
 			}
 		}
 		return null;
-	}
-	
-	private FileSystemResource getTestFile() {
-		return new FileSystemResource("C:\\Dummy.txt");
 	}
 }
