@@ -61,7 +61,8 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			String descript = _HEADING_1_OPEN + ticket.getCategory() + _HEADING_1_CLOSE + _HEADING_3_OPEN + "Kontakt"
 					+ _HEADING_3_CLOSE + _TAB_UL_1 + _BOLD_OPEN + "Name:" + _BOLD_CLOSE + ticket.getFirstname() + " "
 					+ ticket.getLastname() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Tel: " + _BOLD_CLOSE
-					+ ticket.getTelefon() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Werkstatt: " + _BOLD_CLOSE
+					+ ticket.getTelefon() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Email: " + _BOLD_CLOSE
+					+ ticket.getEmail() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Werkstatt: " + _BOLD_CLOSE
 					+ ticket.getBuilding() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Abteilung: " + _BOLD_CLOSE
 					+ ticket.getBranch() + _NEWLINE + _NEWLINE + _HEADING_3_OPEN + "TICKET" + _HEADING_3_CLOSE
 					+ _TAB_UL_1 + _BOLD_OPEN + "Grund: " + _BOLD_CLOSE + ticket.getCategory() + _NEWLINE + _TAB_UL_1
