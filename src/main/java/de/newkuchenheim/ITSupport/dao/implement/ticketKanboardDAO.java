@@ -2,8 +2,15 @@ package de.newkuchenheim.ITSupport.dao.implement;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Locale;
+
+import org.json.JSONObject;
 
 import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskFileKanboardConfigutration;
@@ -66,7 +73,9 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 					+ ticket.getBuilding() + _NEWLINE + _TAB_UL_1 + _BOLD_OPEN + "Abteilung: " + _BOLD_CLOSE
 					+ ticket.getBranch() + _NEWLINE + _NEWLINE + _HEADING_3_OPEN + "TICKET" + _HEADING_3_CLOSE
 					+ _TAB_UL_1 + _BOLD_OPEN + "Grund: " + _BOLD_CLOSE + ticket.getCategory() + _NEWLINE + _TAB_UL_1
-					+ _BOLD_OPEN + "Beschreibung: " + _NEWLINE + _BOLD_CLOSE + description;
+					+ _BOLD_OPEN + "Beschreibung: " + _BOLD_CLOSE + description + _NEWLINE
+					+ _HEADING_3_OPEN + "IT-LOG" + _HEADING_3_CLOSE + _TAB_UL_1 
+					+ "@system_user " + LocalDateTime.now().toString() + " Ticket eingegangen";
 			
 			TaskKanboardConfiguration task = TaskKanboardConfiguration.CREATE_TASK;
 			task.setParameterValue("project_id", 1);
@@ -120,5 +129,216 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 		}
 		return -1;
 	}
+
+	@Override
+	public Ticket getTicketByName(Ticket ticket) throws UnsupportedEncodingException {
+		if(ticket.getId() > 0) {
+			TaskKanboardConfiguration getTask = TaskKanboardConfiguration.GET_TASK;
+			getTask.setParameterValue("task_id", ticket.getId());
+			
+			Object result = sendTaskRequest(getTask);
+			
+			if(result != null) {		
+				JSONObject task_info = new JSONObject(result.toString());
+				String title = task_info.getString("title").toLowerCase();
+				int project_id = task_info.getInt("project_id");
+				
+				//only ticket with adjusted Name & project id can be read
+				if(title.contains(ticket.getLastname().toLowerCase()) && project_id == 1) {
+					//set assigned area of Ticket
+					ticket.setBuilding(getSwimlandName(task_info.getInt("swimlane_id")));
+					//set level of ticket
+					JSONObject color_obj = new JSONObject(task_info.getJSONObject("color").toString());
+					String color = color_obj.getString("name").toLowerCase();
+					ticket.setLevel(getStufeByColor(color));
+					ticket.setColor_id(color);
+
+					ticket.setState(getStateByColumnID(task_info.getInt("column_id")));
+					
+					String infos = task_info.getString("title").replace("[", "").replace("]", "");
+					ticket.setTitle(infos);
 	
+					//ticket.setDescription(task_info.getString("description"));
+					
+					ticket.setContactperson(getContactPersonByID(task_info.getInt("owner_id")));
+					
+					LocalDateTime beginne_at;
+					if(!task_info.isNull("date_started")) {
+						beginne_at = convertLongTimeToLocalDate(task_info.getLong("date_started"));
+						ticket.setBeginn_at(beginne_at);
+					}
+					
+					
+					LocalDateTime endet_am;
+					if(!task_info.isNull("date_completed")) {
+						endet_am = convertLongTimeToLocalDate(task_info.getLong("date_completed"));
+						ticket.setEnded_am(endet_am);
+					}
+					
+					String description = task_info.getString("description");
+					convertDescriptionToHTML(ticket, description);
+					
+					return ticket;
+				} else {
+					ticket.setTitle("Ticket nicht gefunden");
+					ticket.setDescription("Keinen Ticket mit Ticketnummer " + ticket.getId() + " und Ihren Namen im System gefunden. Bitte überprüfen Sie nochmal Ihre Angabe");
+					return ticket;
+				}
+			} else {
+				ticket.setTitle("Ticket nicht gefunden");
+				ticket.setDescription("Keinen Ticket mit Ticketnummer " + ticket.getId() + " und Ihren Namen im System gefunden. Bitte überprüfen Sie nochmal Ihre Angabe");
+				return ticket;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * get swimland name of project IT-Aufgabe by id
+	 * 
+	 * @param id swimland_id
+	 * @return String name swimmland name
+	 */
+	private String getSwimlandName(int id) {
+		switch (id) {
+			case 1: 
+				return "Allgemein";
+			case 9: 
+				return "Kuchenheim";
+			case 10: 
+				return "Ülpenich";
+			case 11: 
+				return "Kall";
+			case 12: 
+				return "Zingsheim";
+			case 13: 
+				return "Eulog";
+			case 73: 
+				return "BiAp";
+			case 136: 
+				return "BBB";
+			case 142: 
+				return "WIKI, Kanboard & Servern";
+			default:
+				return "Eingang";
+		}
+		
+	}
+	
+	/**
+	 * Get contact person of task by ID
+	 * @param id int owner_id
+	 * @return name String contact person
+	 */
+	private String getContactPersonByID(int id) {
+		switch (id) {
+			case 3: 
+				return "Rene Blum";
+			case 4: 
+				return "Michael Hochgürtel";
+			case 6: 
+				return "Harald Schröder";
+			case 7: 
+				return "Minh Tam Truong";
+			case 72: 
+				return "Sebastian Hanse";
+			case 79: 
+				return "Christian Zacharias";
+			default:
+				return "System";
+		}
+		
+	}
+	
+	/**
+	 * get column name by columnID
+	 * 
+	 * @param id int column_id
+	 * @return name String name of column
+	 */
+	private String getStateByColumnID(int id) {
+		switch (id) {
+			case 2: 
+				return "Bereit";
+			case 3: 
+				return "In Bearbeitung";
+			case 4: 
+				return "Erledigen";
+			default:
+				return "Backlog";
+		}
+		
+	}
+	
+	/**
+	 * get level of ticket
+	 * 4 level: schwer, mittel, einfach, kurzfristig Störung/Eingang  
+	 * @param color String color of ticket
+	 * @return level String level of ticket
+	 */
+	private String getStufeByColor(String color) {
+		switch (color) {
+			case "red": 
+				return "Schwer";
+			case "yellow": 
+				return "Mittel";
+			case "green": 
+				return "einfach";
+			default:
+				return "Eingang/kurzfristige Problem";
+		}
+		
+	}
+	
+	/**
+	 * seperate description of ticket to 2 parts. Part "TICKET" as category of ticket, part "IT-Log" as IT-Tracking
+	 * @param ticket
+	 * @param desc
+	 */
+	private void convertDescriptionToHTML(Ticket ticket, String desc) {
+		if(desc != null && !desc.isBlank()) {
+			String[] caution_desc_array = desc.split("### TICKET ###");
+			
+			if(caution_desc_array.length == 2) {
+				String caution_desc = caution_desc_array[1];
+				
+				caution_desc = caution_desc.replace("\r\n", "");
+				caution_desc = caution_desc.replace("**", "");
+				caution_desc = caution_desc.split("Beschreibung:")[1];
+				
+				String[] itlog_desc_array = desc.split("### IT-LOG ###");
+				if(itlog_desc_array.length == 2) {
+					String itlog_desc = itlog_desc_array[1];
+					
+					//itlog_desc = itlog_desc.replace("\r\n", System.lineSeparator());
+					itlog_desc = itlog_desc.replace("**", "");
+					ticket.setDescription(itlog_desc);
+					System.out.println(ticket.getDescription());
+					
+					if(caution_desc.contains("### IT-LOG ###"))
+						caution_desc = caution_desc.split("### IT-LOG ###")[0];
+					else if(caution_desc.contains("###IT-LOG###"))
+						caution_desc = caution_desc.split("###IT-LOG###")[0];
+					else if(caution_desc.contains("### IT-Log ###"))
+						caution_desc = caution_desc.split("### IT-Log ###")[0];
+					else if(caution_desc.contains("###IT-Log###"))
+						caution_desc = caution_desc.split("###IT-Log###")[0];
+				}
+				
+				ticket.setCategory(caution_desc);
+				System.out.println(ticket.getCategory());
+				
+			}
+			
+				
+		}
+	}
+	
+	private LocalDateTime convertLongTimeToLocalDate(long value) {
+		if(value > 0) {
+			LocalDateTime date = Instant.ofEpochSecond(value).atZone(ZoneId.of("Europe/Berlin")).toLocalDateTime();
+			return date;
+		}
+		return null;
+	}
 }

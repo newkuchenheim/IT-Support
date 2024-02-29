@@ -13,9 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +37,7 @@ import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
 import de.newkuchenheim.ITSupport.dao.implement.ticketKanboardDAO;
+import javassist.compiler.ast.Symbol;
 
 /**
  * @author Minh Tam Truong, Sebastian Hansen
@@ -45,15 +51,24 @@ import de.newkuchenheim.ITSupport.dao.implement.ticketKanboardDAO;
 public class formController {
 
 	private static List<Ticket> tickets = new ArrayList();
-
+	//private String current_mapping;
 	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Ticket\\ticketcats.json";//"%USERPROFILE%/it-supportcontent/ticket/ticketcats.json";
 	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Ticket/ticketcats.json";//"/home/itsupport/itsupport/it-supportcontent/ticket/ticketcats.json";
 	
 	@ModelAttribute("page")
     String page() {
-        return "ticket";
+		
+		return "ticket";
     }
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of ticket_tracking
+* Post & GetMapping via form
+* Response via home
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 		
@@ -61,15 +76,54 @@ public class formController {
 		
 		//send a request with ticket
 		try {
-//			int answer = kanboardDAO.getInstance().sendTicket(tickets.get(0));
-//			model.addAttribute("result", answer);
-			Ticket newTicket = tickets.get(0);
-			int TicketID = ticketKanboardDAO.getInstance().sendTicket(newTicket);
-			model.addAttribute("result", TicketID);
-			// add file to new ticket
-			if (!newTicket.getFileContent().isBlank() && TicketID > -1) {
-				newTicket.setId(TicketID);
-				ticketKanboardDAO.getInstance().sendFile(newTicket);
+			for(Ticket newTicket:tickets){
+				//Ticket newTicket = tickets.get(0);
+				//System.out.println(newTicket.getId());
+				
+				// get a available ticket with ticket ID
+				if(newTicket.getId() > 0) {
+					Ticket result = ticketKanboardDAO.getInstance().getTicketByName(newTicket);
+					
+					//System.out.println(result);
+					
+					if(result.getTitle() != null && !result.getTitle().isBlank()) {
+						//System.out.println(result.getTitle() + ": " + result.getDescription() + ", color: " + result.getColor_id());
+						model.addAttribute("event_response", "tracking");
+						model.addAttribute("color", result.getColor_id());
+						
+						//title
+						model.addAttribute("title", result.getTitle());
+						
+						//Problem
+						model.addAttribute("categorie", result.getCategory());
+						//IT-Log
+						model.addAttribute("state", "Bearbeitungszustand: " + result.getState());
+						model.addAttribute("contact_person", "Ansprechpartner: " + (result.getContactperson()==null ? "Keine Angabe" : result.getContactperson()));
+						
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.ENGLISH);
+						model.addAttribute("beginn_at", "Gestartet am: " + (result.getBeginn_at()==null ? "Keine Angabe" : result.getBeginn_at().format(formatter)));
+						model.addAttribute("ended_at", "Abgeschlossen am: " + (result.getEnded_am()==null ? "Keine Angabe" : result.getEnded_am().format(formatter)));
+						
+						
+						List<String> desc_list = new ArrayList<>();//Arrays.asList(result.getDescription().split("\r\n"));
+						if(result.getDescription() != null && !result.getDescription().isBlank()) {
+							desc_list = Arrays.asList(result.getDescription().split("\r\n"));
+						} else {
+							desc_list.add("keine Angabe");
+						}
+						
+						model.addAttribute("desc_list", desc_list);
+					}
+				} else { // send a new ticket
+					model.addAttribute("event_response", "ticket");
+					int TicketID = ticketKanboardDAO.getInstance().sendTicket(newTicket);
+					model.addAttribute("result", TicketID);
+					// add file to new ticket
+					if (!newTicket.getFileContent().isBlank() && TicketID > -1) {
+						newTicket.setId(TicketID);
+						ticketKanboardDAO.getInstance().sendFile(newTicket);
+					}
+				}
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -83,7 +137,7 @@ public class formController {
 	public String renderCreateForm(Model model) throws FileNotFoundException {
 		
 		tickets.clear();
-
+		
 		//tracking
 		System.out.println("call a form ticket " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a ticket form");
@@ -140,6 +194,7 @@ public class formController {
 	@PostMapping("form")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
 		// Get file content as Base64 String, uploaded temp file will be deleted after this
+		
 		if (ticket.getFile() != null) {
 			try {
 				ticket.setFileContent(Base64.getEncoder().encodeToString(ticket.getFile().getBytes()));
@@ -148,6 +203,35 @@ public class formController {
 				tLog.getInstance().log(null, "severe", e.getMessage());
 			}
 		}
+		model.addAttribute("ticket", ticket);
+		tickets.add(ticket);
+//		return "create/home";
+		return "redirect:";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Controller of ticket_tracking
+ * Post & GetMapping
+ */
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@GetMapping({"ticket_tracking", "ticket_tracking/"})
+	public String renderTicketTracking(Model model) {
+		
+		tickets.clear();
+		//tracking
+		System.out.println("call form ticket-status " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call form ticket-status");
+		
+		model.addAttribute("ticket", new Ticket());
+		
+		return "itsupport/ticket/ticket_tracking";
+	}
+	
+	@PostMapping("ticket_tracking")
+	public String sendTracking(@ModelAttribute Ticket ticket, Model model) {
+		// Get file content as Base64 String, uploaded temp file will be deleted after this
 		model.addAttribute("ticket", ticket);
 		tickets.add(ticket);
 //		return "create/home";

@@ -116,7 +116,7 @@ public abstract class kanboardDAO {
 		// response after push request
 		HttpEntity<String> entity = new HttpEntity<String>(config.buildRequest(), headers);
 		String response = restTemplate.postForObject(_URL, entity, String.class);
-		System.out.println(response);
+		//System.out.println(response);
 
 		// convert answer to object
 		// then read Information of response

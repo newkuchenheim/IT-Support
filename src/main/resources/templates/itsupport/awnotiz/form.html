@@ -68,13 +68,16 @@
 	<!-- Load topmenu template -->
 	<nav th:replace="~{itsupport/fragments/topmenu :: topmenu}"></nav>
 	
-  	<div class="row p-3">
+  	<div class="row p-1">
   		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
 		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 text-left" style="height: 75%"> 
+	    	<div class="d-flex justify-content-center">
+				<h1 class="display-6">Abwesenheitsnotiz (AWS)</h1>
+			</div>
 	      	<form method="post" action="#"  th:object="${awNote}" style="min-width: 300px;">
             	<div class="row g-3 p-2">
             		<div class="form-floating mb-3 col"><!-- Vorname -->

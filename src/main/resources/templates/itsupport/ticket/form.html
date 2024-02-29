@@ -76,18 +76,15 @@ section {
 	<nav th:replace="~{itsupport/fragments/topmenu :: topmenu}"></nav>
 	
 	
-	<div class="row pt-5 m-2">
+	<div class="row pt-1 m-2">
 		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
 		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
 
 		<!-- main view col-->
 		<div class="col p-3 max-width text-left" style="height: 75%">
-			<div id="file_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Name Error -->
-		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-		  		<div>
-		    		Die Datei ist zu groß!
-		  		</div>
+			<div class="d-flex justify-content-center">
+				<h1 class="display-6">Support-Ticket</h1>
 			</div>
 			<form method="post" id="send_ticket" action="#" th:object="${ticket}"
 				style="min-width: 300px;" enctype="multipart/form-data">
@@ -204,9 +201,10 @@ section {
 
 			</form>
 		</div>
-
+		
 		<!-- Anzeige -->
 		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			
 			<h3>Anleitung</h3>
 			<div class="well p-2 border">
 				<!-- info an rechten col -->

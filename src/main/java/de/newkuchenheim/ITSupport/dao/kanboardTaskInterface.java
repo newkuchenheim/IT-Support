@@ -19,4 +19,12 @@ public interface kanboardTaskInterface<T> {
 	 */
 	public int sendTicket(T ticket) throws UnsupportedEncodingException;
 	
+	/**
+	 * get Ticket by Keys ID & name
+	 * 
+	 * @param tickets
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public T getTicketByName(T ticket)  throws UnsupportedEncodingException;
 }
