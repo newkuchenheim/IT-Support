@@ -76,19 +76,18 @@
 	 </script>
 </head>
 <body>
-	 <svg th:replace="~{itsupport/fragments/alerticons}">
-	 	<!-- Load alert icons -->
-	 </svg>
-	 <header th:replace="~{itsupport/fragments/header :: header}">
-         <!-- Load Header from template -->
-     </header>
-     <nav th:replace="~{formulare/fragments/topmenu :: topmenu}">
-    	 <!-- Load topmenu template -->
-	</nav>
-  	<div class="row pt-5 m-2">
-  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}">
-		<!-- Load sidenav template -->
-  		</div>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+    
+  	<div class="row pt-1 m-2">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 max-width text-left" style="height: 75%">
@@ -208,7 +207,8 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
-	      	<div class="well p-2 border"><!-- info an rechten col -->
+	      	<div class="well p-2 border">
+	      		<!-- info an rechten col -->
 	      		<ul>
 					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus. Ggf. vorher auf Änderungsmitteilung klicken.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
@@ -232,13 +232,11 @@
 	      			<li><strong>Übergang soz. versich. pfl. AV:</strong><br><b>3</b> Gutscheine.</li>
 	      		</ul>
 	      	</div>
-	      	<div th:replace="~{itsupport/fragments/contact :: contact}">
-	        	<!-- load contact template -->
-	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
 	    </div>
 	</div>
-	<footer th:replace="~{itsupport/fragments/footer :: footer}">
 	<!-- Load Footer Template -->
-	</footer>
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
 </body>
 </html>
