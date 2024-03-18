@@ -16,6 +16,7 @@ public class ItSupportApplication {
 
 	private static final String _PATH_CONFIG_WINDOWS  = System.getenv("USERPROFILE") + "\\IT-SupportContent";//"%USERPROFILE%/it-supportcontent
 	private static final String _PATH_CONFIG_LINUX  = System.getProperty("user.home") + "/IT-SupportContent";//"/home/itsupport/itsupport/it-supportcontent
+	private static final Path _PATH_CONFIG_SRC = Paths.get("src", "main", "resources", "static", "IT-SupportContent");
 	
 	public static void main(String[] args) {
 		//System.setProperty("server.port","8090");
@@ -42,8 +43,6 @@ public class ItSupportApplication {
 			config_path = _PATH_CONFIG_WINDOWS;
 		}
 		try {
-			//Path of project
-			Path src_path = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/IT-SupportContent");
 			if(config_path != null && !config_path.isBlank()) {
 				Path _checkPath = Paths.get(config_path);
 				if(!Files.isDirectory(_checkPath) || Files.notExists(_checkPath)) {
@@ -52,28 +51,30 @@ public class ItSupportApplication {
 //					FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(perms);
 					Files.createDirectories(_checkPath);
 					
-					//recusive copy
-					Stream<Path> streamPath = Files.walk(src_path);
+					//recursive copy
+					Stream<Path> streamPath = Files.walk(_PATH_CONFIG_SRC);
 					streamPath.forEach(p -> {
 						try {
-							Files.copy(p, _checkPath.resolve(src_path.relativize(p)));
+							Files.copy(p, _checkPath.resolve(_PATH_CONFIG_SRC.relativize(p)));
 						} catch (IOException e) {
 							//e.printStackTrace();
-							System.out.println("Programm Start - File check - FileAlreadyExistsException");
+							System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
 						}
 					});
-				} else if(Files.isDirectory(_checkPath) && Files.list(_checkPath).toList().isEmpty()) {
+					streamPath.close();
+				} else if(Files.isDirectory(_checkPath)) {
 					// if directory is exist but empty
 					//recusive copy
-					Stream<Path> streamPath = Files.walk(src_path);
+					Stream<Path> streamPath = Files.walk(_PATH_CONFIG_SRC);
 					streamPath.forEach(p -> {
 						try {
-							Files.copy(p, _checkPath.resolve(src_path.relativize(p)));
+							Files.copy(p, _checkPath.resolve(_PATH_CONFIG_SRC.relativize(p)));
 						} catch (IOException e) {
 							//e.printStackTrace();
-							System.out.println("Programm Start - File check - FileAlreadyExistsException");
+							System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
 						}
 					});
+					streamPath.close();
 				}
 			}
 		} catch (IOException e) {
