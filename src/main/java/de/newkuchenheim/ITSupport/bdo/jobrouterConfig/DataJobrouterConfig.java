@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
@@ -11,7 +12,8 @@ public enum DataJobrouterConfig {
 	GET_DATASETS(HttpMethod.GET, "datasets", new HashMap<String, Object>()),
 	GET_DATASETS_JRID(HttpMethod.GET, "datasets_jrid", new HashMap<String, Object>()),
 	POST_DATASETS(HttpMethod.POST, "datasets_post", new HashMap<String, Object>(), MediaType.APPLICATION_JSON),
-	POST_LISTOPTIONS(HttpMethod.POST, "listoptions_post", new HashMap<String, Object>(), MediaType.APPLICATION_JSON);
+	POST_LISTOPTIONS(HttpMethod.POST, "listoptions_post", new HashMap<String, Object>(), MediaType.APPLICATION_JSON),
+	DELETE_DATASETS(HttpMethod.DELETE, "datasets_delete", new HashMap<String, Object>(), MediaType.APPLICATION_JSON);
 	
 	private HttpMethod requestMethod;
 	private String method_name;
@@ -24,6 +26,7 @@ public enum DataJobrouterConfig {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.params = map;
+		this.contentType = contentType;
 		configParamsMap();
 	}
 	
@@ -69,6 +72,11 @@ public enum DataJobrouterConfig {
 			post_params.put("dataset", new JSONObject());
 			requestRoute += "/listoptions";
 			break;
+		case "datasets_delete":
+			params.put(":guid", "");
+			requestRoute += "/datasets";
+			post_params.put("datasets", new JSONArray());
+			break;
 		}
 	}
 	
@@ -92,9 +100,9 @@ public enum DataJobrouterConfig {
 		return contentType;
 	}
 	
-	public boolean setPostParams(JSONObject postParams) {
-		if (postParams != null && !postParams.isEmpty()) {
-			this.post_params = postParams;
+	public boolean setPostParamsValue(String postParam, Object value) {
+		if (postParam != null && !postParam.isBlank()) {
+			this.post_params.put(postParam, value);
 			return true;
 		} 
 		return false;
@@ -116,7 +124,7 @@ public enum DataJobrouterConfig {
 	public String buildRequestBody() {
 		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
-				post_params.toString();
+				return post_params.toString();
 			}
 		}
 		return null;

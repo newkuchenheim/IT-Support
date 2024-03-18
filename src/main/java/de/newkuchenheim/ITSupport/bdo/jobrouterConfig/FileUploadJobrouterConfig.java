@@ -1,18 +1,28 @@
 package de.newkuchenheim.ITSupport.bdo.jobrouterConfig;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 public enum FileUploadJobrouterConfig {
 	GET_FILE(HttpMethod.GET, "getfile", new HashMap<String, Object>()),
@@ -25,12 +35,18 @@ public enum FileUploadJobrouterConfig {
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
 	private String requestRoute = "/application/fileuploads";
+	private String dirSeperator = "/";
 	
 	FileUploadJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.params = map;
 		this.contentType = contentType;
+		if(System.getProperty("os.name").equals("Linux")) {
+			dirSeperator = "/";
+		} else {
+			dirSeperator = "\\";
+		}
 		configParamsMap();
 	}
 	
@@ -91,9 +107,9 @@ public enum FileUploadJobrouterConfig {
 		return contentType;
 	}
 	
-	public boolean setPostParams(JSONObject postParams) {
-		if (postParams != null && !postParams.isEmpty()) {
-			this.post_params = postParams;
+	public boolean setPostParamsValue(String postParam, Object value) {
+		if (postParam != null && !postParam.isBlank()) {
+			this.post_params.put(postParam, value);
 			return true;
 		} 
 		return false;
@@ -114,26 +130,16 @@ public enum FileUploadJobrouterConfig {
 		return null;
 	}
 	
-	public Object buildRequestBody() {
+	public Object buildRequestBody() throws IOException {
 		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
-				post_params.toString();
+				return post_params.toString();
 			} else if (contentType == MediaType.MULTIPART_FORM_DATA) {
 				// TODO set correct files body
+				if (!post_params.getJSONArray("files").isEmpty()) {
+				 return null;
+				}
 				return null;
-				// This nested HttpEntiy is important to create the correct
-		        // Content-Disposition entry with metadata "name" and "filename"
-				/*MultiValueMap<String, String> fileMap = new LinkedMultiValueMap<>();
-				ContentDisposition contentDispo = ContentDisposition
-						.builder("form-data")
-						.name("file")
-						.filename((String)((JSONObject)post_params.getJSONArray("files").get(0)).get("filename"))
-						.build();
-				fileMap.add(HttpHeaders.CONTENT_DISPOSITION, contentDispo.toString());
-				HttpEntity<byte[]> fileEntity = new HttpEntity<>((byte[])((JSONObject)post_params.getJSONArray("files").get(0)).get("content"), fileMap);
-				MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
-				requestBody.add("files", fileEntity);
-				return requestBody;*/
 			}
 		}
 		return null;

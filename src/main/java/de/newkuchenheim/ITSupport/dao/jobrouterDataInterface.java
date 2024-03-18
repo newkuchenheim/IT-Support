@@ -25,6 +25,7 @@ public interface jobrouterDataInterface<T> {
 	 * send a request to get specific dataset of a table.
 	 * 
 	 * @param guid of table
+	 * @param jrid internal id of dataset
 	 * 
 	 * @return JSONArray Object with  specific dataset.
 	 * 
@@ -35,30 +36,33 @@ public interface jobrouterDataInterface<T> {
 	 * send a request to create new dataset in given table.
 	 * 
 	 * @param guid of table
+	 * @paran object with dataset content
 	 * 
 	 * @return long - internal jrid of new dataset if request was sent success. Otherwise -1.
 	 * 
 	 * @throws
 	 */
-	public long sendDataSet(T object);
+	public long sendDataSet(String guid, T object);
 	/**
 	 * send a request to create new dataset in given table.
 	 * 
+	 * @param guid of table
 	 * @param jrids List of internal dataset ids to delete
 	 * 
 	 * @return boolean true if request was sent success. Otherwise false.
 	 * 
 	 * @throws
 	 */
-	public long deleteDataSets(List<String> jrids);
+	public boolean deleteDataSets(String guid, List<String> jrids);
 	/**
-	 * send a request to create new dataset in given table
+	 * send a request to get an object containing the list options for each column.
 	 * 
 	 * @param guid of table
+	 * @param dataset object
 	 * 
 	 * @return int count of listoptions if request was sent success. Otherwise -1
 	 * 
 	 * @throws
 	 */
-	public int sendListOptions(T object);
+	public int sendListOptions(String guid, T object);
 }

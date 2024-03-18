@@ -1,5 +1,6 @@
 package de.newkuchenheim.ITSupport.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,13 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
@@ -77,7 +82,7 @@ public abstract class jobrouterDAO {
 		}
 	}
 	
-	public Object sendArchiveRequest(ArchiveJobrouterConfig config) {
+	public Object sendArchiveRequest(ArchiveJobrouterConfig config) throws IOException {
 		// first login
 		HttpHeaders loginHeaders = sendLoginRequest("sessions");
 		if (loginHeaders != null) {
@@ -85,6 +90,7 @@ public abstract class jobrouterDAO {
 			Object requestData = config.buildRequestBody();
 			RestTemplate restTmpl = new RestTemplate();
 			String response = "";
+			ResponseEntity<?> responseEntity = null;
 			if (requestData != null) {
 				loginHeaders.setContentType(config.getContentType());
 				if (requestData instanceof String) {
@@ -93,14 +99,38 @@ public abstract class jobrouterDAO {
 					response = restTmpl.exchange(fullURL, config.getRequestMethod(), 
 							new HttpEntity<MultiValueMap<String, Object>>((MultiValueMap<String, Object>) requestData, loginHeaders), String.class).getBody();
 				}
+				System.out.println(response);
+			} else if (config.isBinaryResponse()) {
+				responseEntity = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(loginHeaders), byte[].class);
 			} else {
-				response = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(loginHeaders), String.class).getBody();
+				responseEntity = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(loginHeaders), String.class);
 			}
-			System.out.println(response);
 			
 			try {
-				JSONObject responseObject = new JSONObject(response);
-				return responseObject;
+				if (config.isBinaryResponse()) {
+					Map<String, Object> fileData = new HashMap<>();
+					ContentDisposition contentDispo = responseEntity.getHeaders().getContentDisposition();
+					byte[] binaryData = (byte[])responseEntity.getBody();
+					fileData.put("filename", contentDispo.getFilename());
+					fileData.put("charset", contentDispo.getCharset());
+					fileData.put("content", binaryData);
+					System.out.println("File: " + contentDispo.getFilename());
+					return fileData;
+				} else if (config.getRequestMethod() == HttpMethod.DELETE) {
+					JSONObject status = new JSONObject();
+					if (responseEntity.getStatusCode().is2xxSuccessful()) {
+						status.put("success", true);
+					} else {
+						status.put("success", false);
+					}
+					System.out.println(responseEntity.getStatusCode());
+					return status;
+				} else {
+					response = (String)responseEntity.getBody();
+					System.out.println(response);
+					JSONObject responseObject = new JSONObject(response);
+					return responseObject;
+				}
 			} catch (JSONException err) {
 				System.out.println(err);
 				return null;
@@ -120,18 +150,79 @@ public abstract class jobrouterDAO {
 				loginHeaders.setContentType(MediaType.APPLICATION_JSON);
 			}
 			RestTemplate restTmpl = new RestTemplate();
-			String response = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(requestData, loginHeaders), String.class).getBody();
-			System.out.println(response);
-			
-			try {
-				JSONObject responseObject = new JSONObject(response);
-				return responseObject;
-			} catch (JSONException err) {
-				System.out.println(err);
-				return null;
+			if (config.getRequestMethod() == HttpMethod.DELETE) {
+				HttpStatusCode statusCode = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(requestData, loginHeaders), String.class).getStatusCode();
+				JSONObject status = new JSONObject();
+				if (statusCode.is2xxSuccessful()) {
+					status.put("success", true);
+				} else {
+					status.put("success", false);
+				}
+				System.out.println(statusCode);
+				return status;
+			} else {
+				String response = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(requestData, loginHeaders), String.class).getBody();
+				System.out.println(response);
+				
+				try {
+					JSONObject responseObject = new JSONObject(response);
+					return responseObject;
+				} catch (JSONException err) {
+					System.out.println(err);
+					return null;
+				}
 			}
 		} else {
 			return null;
 		}
+	}
+	
+	public Object sendFileRequest(FileUploadJobrouterConfig config) throws IOException {
+		Object multipartObj = config.buildRequestBody();
+		String fullURL = _URL + config.buildRequestRoute();
+		RestTemplate restTmpl = new RestTemplate();
+		HttpHeaders loginHeaders = sendLoginRequest("sessions");
+		if (loginHeaders != null) {
+			if (multipartObj != null) {
+				MultiValueMap<String, Object> multipart = (MultiValueMap<String, Object>)multipartObj;
+				loginHeaders.setContentType(config.getContentType());
+				HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(multipart, loginHeaders);
+				ResponseEntity<String> responseEntity = restTmpl.exchange(fullURL, config.getRequestMethod(), entity, String.class);
+				try {
+					String response = responseEntity.getBody();
+					JSONObject responseObject = new JSONObject(response);
+					Map<String, String> fileData = new HashMap<String, String>();
+					fileData.put("id", responseObject.getJSONObject("fileuploads").getString("id"));
+					fileData.put("viewerURL", responseObject.getJSONObject("fileuploads").getString("viewerUrl"));
+					fileData.put("location", responseObject.getJSONObject("meta").getJSONArray("locations").getString(0));
+					return fileData;
+					
+				} catch (JSONException err) {
+					System.out.println(err);
+					return null;
+				}
+			} else if (config.getRequestMethod() == HttpMethod.DELETE) {
+				HttpStatusCode statusCode = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(loginHeaders), String.class).getStatusCode();
+				JSONObject status = new JSONObject();
+				if (statusCode.is2xxSuccessful()) {
+					status.put("success", true);
+				} else {
+					status.put("success", false);
+				}
+				System.out.println(statusCode);
+				return status;
+			} else {
+				ResponseEntity<byte[]> responseEntity = restTmpl.exchange(fullURL, config.getRequestMethod(), new HttpEntity<String>(loginHeaders), byte[].class);
+				Map<String, Object> fileData = new HashMap<>();
+				ContentDisposition contentDispo = responseEntity.getHeaders().getContentDisposition();
+				byte[] binaryData = (byte[])responseEntity.getBody();
+				fileData.put("filename", contentDispo.getFilename());
+				fileData.put("charset", contentDispo.getCharset());
+				fileData.put("content", binaryData);
+				System.out.println("File: " + contentDispo.getFilename());
+				return fileData;
+			}
+		}
+		return null;
 	}
 }

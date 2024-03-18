@@ -75,9 +75,9 @@ public enum ProcessJobrouterConfig {
 		return contentType;
 	}
 	
-	public boolean setPostParams(JSONObject postParams) {
-		if (postParams != null && !postParams.isEmpty()) {
-			this.post_params = postParams;
+	public boolean setPostParamsValue(String postParam, Object value) {
+		if (postParam != null && !postParam.isBlank()) {
+			this.post_params.put(postParam, value);
 			return true;
 		} 
 		return false;
@@ -99,7 +99,7 @@ public enum ProcessJobrouterConfig {
 	public Object buildRequestBody() {
 		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
-				post_params.toString();
+				return post_params.toString();
 			}
 		}
 		return null;

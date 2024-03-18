@@ -1,15 +1,19 @@
 package de.newkuchenheim.ITSupport.bdo.jobrouterConfig;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 public enum ArchiveJobrouterConfig {
 	
@@ -40,6 +44,7 @@ public enum ArchiveJobrouterConfig {
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
 	private String requestRoute = "/application/jobarchive/archives/:archive";
+	private boolean binaryResponse = false;
 	
 	ArchiveJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
@@ -92,27 +97,32 @@ public enum ArchiveJobrouterConfig {
 			params.put(":archive", "");
 			params.put(":revisionId", -1);
 			requestRoute += "/documents/:revisionId/file";
+			binaryResponse = true;
 			break;
 		case "documentrevisions_files":
 			params.put(":archive", "");
 			params.put(":revisionId", -1);
 			requestRoute += "/documents/:revisionId/files";
+			binaryResponse = true;
 			break;
 		case "documentrevisions_clippedfiles":
 			params.put(":archive", "");
 			params.put(":revisionId", -1);
 			requestRoute += "/documents/:revisionId/clippedfiles";
+			binaryResponse = true;
 			break;
 		case "documentrevisions_clippedfilesid":
 			params.put(":archive", "");
 			params.put(":revisionId", -1);
 			params.put(":clippedFileId", -1);
 			requestRoute += "/documents/:revisionId/clippedfiles/:clippedFileId";
+			binaryResponse = true;
 			break;
 		case "documentrevisions_pdf":
 			params.put(":archive", "");
 			params.put(":revisionId", -1);
 			requestRoute += "/documents/:revisionId/mergedpdf";
+			binaryResponse = true;
 			break;
 		case "documentrevisions_file_post":
 			params.put(":archive", "");
@@ -201,14 +211,21 @@ public enum ArchiveJobrouterConfig {
 		return contentType;
 	}
 	
-	public boolean setPostParams(JSONObject postParams) {
-		if (postParams != null && !postParams.isEmpty()) {
-			this.post_params = postParams;
+	public boolean setPostParamsValue(String postParam, Object value) {
+		if (postParam != null && !postParam.isBlank()) {
+			this.post_params.put(postParam, value);
 			return true;
 		} 
 		return false;
 	}
 	
+	/**
+	 * @return the binaryResponse
+	 */
+	public boolean isBinaryResponse() {
+		return binaryResponse;
+	}
+
 	public String buildRequestRoute() {
 		if (!params.isEmpty()) {
 			if (requestRoute.contains(":")) {
@@ -225,9 +242,13 @@ public enum ArchiveJobrouterConfig {
 	public Object buildRequestBody() {
 		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
-				post_params.toString();
+				return post_params.toString();
 			} else if (contentType == MediaType.MULTIPART_FORM_DATA) {
-				// TODO create correct POST Entity for file
+				if (!post_params.getJSONArray("files").isEmpty()) {
+					MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+					// TODO correct multipart Body with files
+					return null;
+				}
 				return null;
 			}
 		}

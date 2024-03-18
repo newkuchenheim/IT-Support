@@ -1,25 +1,14 @@
 package de.newkuchenheim.ITSupport.dao.implement;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
 
 import de.newkuchenheim.ITSupport.bdo.CostCentre;
-import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.ArchiveJobrouterConfig;
 import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.DataJobrouterConfig;
-import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.FileUploadJobrouterConfig;
 import de.newkuchenheim.ITSupport.dao.jobrouterDAO;
 import de.newkuchenheim.ITSupport.dao.jobrouterDataInterface;
-import de.newkuchenheim.ITSupport.dao.jobrouterFileUploadInterface;
 
 /**
  * @author Sebastian Hansen
@@ -75,20 +64,50 @@ public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterD
 	}
 
 	@Override
-	public long sendDataSet(CostCentre object) {
+	public long sendDataSet(String guid, CostCentre CostCentre) {
+		if (guid != null && !guid.isBlank() && CostCentre != null) {
+			DataJobrouterConfig dataConf = DataJobrouterConfig.POST_DATASETS;
+			dataConf.setParameterValue(":guid", guid);
+			JSONObject dataset = new JSONObject();
+			dataset.put("ks", CostCentre.getNumber());
+			dataset.put("bez", CostCentre.getLabel());
+			dataset.put("standort", CostCentre.getLocation());
+			dataset.put("bez1", CostCentre.getLabel1());
+			dataConf.setPostParamsValue("dataset", dataset);
+			JSONObject resultObj = sendDataRequest(dataConf);
+			if (resultObj != null) {
+				return Long.parseLong(resultObj.getJSONArray("datasets").getJSONObject(0).getString("jrid"));
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public int sendListOptions(String guid, CostCentre CostCentre) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int sendListOptions(CostCentre object) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long deleteDataSets(List<String> jrids) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean deleteDataSets(String guid, List<String> jrids) {
+		if (guid != null && !guid.isBlank() && jrids != null && !jrids.isEmpty()) {
+			DataJobrouterConfig dataConf = DataJobrouterConfig.DELETE_DATASETS;
+			dataConf.setParameterValue(":guid", guid);
+			JSONArray jrIDs = new JSONArray();
+			JSONObject jrID;
+			for (int i = 0; i < jrids.size(); i++) {
+				jrID = new JSONObject();
+				jrID.put("jrid", jrids.get(i));
+				jrIDs.put(jrID);
+			}
+			dataConf.setPostParamsValue("datasets", jrIDs);
+			JSONObject resultObj = sendDataRequest(dataConf);
+			if (resultObj != null) {
+				return resultObj.getBoolean("success");
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 }

@@ -1,5 +1,7 @@
 package de.newkuchenheim.ITSupport.dao;
 
+import java.util.Map;
+
 import org.json.JSONArray;
 
 /**
@@ -31,7 +33,7 @@ public interface jobrouterArchiveInterface {
 	//################################################ endregion JobArchvie archives modul ###################################################
 	//############################################### region JobArchvie archivedocuments modul ###############################################
 	/**
-	 * send a request to lists all all archived documents for the given archive that match filters.
+	 * send a request to lists all archived documents for the given archive that match filters.
 	 * Meta fields, index fields, assigned keywords and containing files are displayed for each document.
 	 * 
 	 * @param archive name or guid of archive
@@ -48,18 +50,18 @@ public interface jobrouterArchiveInterface {
 	 * @param archive name or guid of archive
 	 * @param revisionid Revision ID
 	 * 
-	 * @return File as binary data if request was sent success. Otherwise null when failure.
+	 * @return File data as HashMap if request was sent success. Otherwise null when failure.
 	 */
-	public byte[] getArchiveDocumentRevisionsFile(String archive, long revisionid);
+	public Map<String, Object> getArchiveDocumentRevisionsFile(String archive, long revisionid);
 	/**
 	 * send a request to get all files of the archived document with the given revision id.
 	 * 
 	 * @param archive name or guid of archive
 	 * @param revisionid Revision ID
 	 * 
-	 * @return Zip-File as binary data if request was sent success. Otherwise null when failure.
+	 * @return Zip-File data as HashMap if request was sent success. Otherwise null when failure.
 	 */
-	public byte[] getArchiveDocumentRevisionsFiles(String archive, long revisionid);
+	public Map<String, Object> getArchiveDocumentRevisionsFiles(String archive, long revisionid);
 	/**
 	 * send a request to get a single clipped file of the archived document with the given revision id and clipped file id.
 	 * 
@@ -67,27 +69,27 @@ public interface jobrouterArchiveInterface {
 	 * @param revisionid Revision ID
 	 * @param clippedfileid Clipped File ID
 	 * 
-	 * @return File as binary data if request was sent success. Otherwise null when failure.
+	 * @return File data as HashMap if request was sent success. Otherwise null when failure.
 	 */
-	public byte[] getArchiveDocumentRevisionsClippedFile(String archive, long revisionid, long clippedfileid);
+	public Map<String, Object> getArchiveDocumentRevisionsClippedFile(String archive, long revisionid, long clippedfileid);
 	/**
 	 * send a request to get all clipped files of the archived document with the given revision id.
 	 * 
 	 * @param archive name or guid of archive
 	 * @param revisionid Revision ID
 	 * 
-	 * @return Zip-File as binary data if request was sent success. otherwise null
+	 * @return Zip-File data as HashMap if request was sent success. otherwise null
 	 */
-	public byte[] getArchiveDocumentRevisionsClippedFiles(String archive, long revisionid);
+	public Map<String, Object> getArchiveDocumentRevisionsClippedFiles(String archive, long revisionid);
 	/**
 	 * send a request to get a single PDF file with the merged content of all document files.
 	 * 
 	 * @param archive name or guid of archive
 	 * @param revisionid Revision ID
 	 * 
-	 * @return PDF File as binary data if request was sent success. Otherwise null when failure.
+	 * @return PDF File data as HashMap if request was sent success. Otherwise null when failure.
 	 */
-	public byte[] getArchiveDocumentRevisionsPDF(String archive, long revisionid);
+	public Map<String, Object> getArchiveDocumentRevisionsPDF(String archive, long revisionid);
 	/**
 	 * send a request to create a completely new document revision in the given archive.
 	 * The first file from the request becomes the document file.
@@ -99,9 +101,8 @@ public interface jobrouterArchiveInterface {
 	 */
 	public long sendArchiveDocumentRevisionsFile(String archive);
 	/**
-	 * send a request to create a completely new document revision in the given archive.
-	 * The first file from the request becomes the document file.
-	 * Any additional files from the request are added as clipped files
+	 * send a request to Clips files to the archived document with the given revision id.
+	 * A new revision will be created and the associated revision id returned. 
 	 * 
 	 * @param archive name or guid of archive
 	 * 
@@ -200,9 +201,9 @@ public interface jobrouterArchiveInterface {
 	 * @param archive name or guid of archive
 	 * @param viewId Id of the archive view
 	 * 
-	 * @return PDF File as binary data if request was sent success. Otherwise null.
+	 * @return PDF File data as HashMap if request was sent success. Otherwise null.
 	 */
-	public byte[] getArchiveViews(String archive, long viewId);
+	public Map<String, Object> getArchiveViews(String archive, long viewId);
 	//########################################### endregion JobArchvie archiveviews modul ####################################################
 	//########################################## region JobArchvie archiveviewindcies modul ##################################################
 	/**
