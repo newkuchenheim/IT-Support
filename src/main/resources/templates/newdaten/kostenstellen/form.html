@@ -97,7 +97,7 @@
 	      	<form id="searchkst" method="post" action="" style="min-width: 300px;" th:object="${CostCentre}">
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col"><!-- Kostenstelle -->
-						<input th:field="*{number}" id="ks" type="text" name="ks" class="form-control" pattern="[0-9\/\+\-]+" placeholder="Kostenstelle">
+						<input th:field="*{label1}" id="ks" type="text" name="ks" class="form-control" placeholder="Kostenstelle">
 						<label for="ks">Kostenstelle</label>
 					</div>
 					<div class="form-floating mb-3 col"><!-- Standort Art; Freitext oder Auswahlblox -->
@@ -156,6 +156,7 @@
 			<div class="well p-2 border">
 	        	<p><strong>Achtung:</strong></p>
 	        	<ul>
+	        		<li>Bei der <strong>Kostenstelle</strong> können Sie die Groß- und Kleinschreibung ignorieren.</li>
 	        		<li>Wenn Sie den Standort <strong>freihand</strong> eingeben, können Sie die Groß- und Kleinschreibung ignorieren.</li>
 	        	</ul> 
 	      	</div>

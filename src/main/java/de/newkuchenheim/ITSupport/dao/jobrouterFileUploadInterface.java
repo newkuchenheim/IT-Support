@@ -18,15 +18,15 @@ public interface jobrouterFileUploadInterface {
 	 * 
 	 * @param fileid
 	 * 
-	 * @return File as binary data if request sent success. Otherwise null when failure.
+	 * @return File data as HashMap if request sent success. Otherwise null when failure.
 	 */
-	public byte[] getFile(String fileid);
+	public Map<String, Object> getFile(String fileid);
 	/**
 	 * send a request to upload a temporary file to Jobrouter
 	 * 
 	 * @param uploadedFile
 	 * 
-	 * @return JobrouterUploadFile Object with data of temporary file in jobrouter if request sent success. Otherwise null when failure.
+	 * @return file data of temporary file in jobrouter as Map if request sent success. Otherwise null when failure.
 	 * 
 	 */
 	public Map<String, String> sendFile(MultipartFile uploadedFile) throws IOException;

@@ -38,13 +38,14 @@ function init() {
 		var CostCentresTmp = null;
 		if (ksValue !== "" || locationValue !== "") {
 			var locationValUpp = locationValue.toUpperCase();
+			var ksValUpp = ksValue.toUpperCase();
 			CostCentresTmp = new Array();
 			_CostCentres.forEach((CostCentre) => {
 				// add current CostCentre only to result CostCentres if search conditions matched
-				if ((ksValue !== ""  && CostCentre["number"].includes(ksValue) 
+				if ((ksValUpp !== ""  && CostCentre["label1"].toUpperCase().includes(ksValUpp) 
 					&& locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
-					|| (ksValue === "" && locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
-					|| (locationValue === "" && ksValue !== "" && CostCentre["number"].includes(ksValue))) {
+					|| (ksValUpp === "" && locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
+					|| (locationValUpp === "" && ksValUpp !== "" && CostCentre["label1"].toUpperCase().includes(ksValUpp))) {
 						CostCentresTmp.push(CostCentre);
 					}
 			});
@@ -55,7 +56,7 @@ function init() {
 		if (CostCentresTmp !== null && CostCentresTmp.length > 0) {
 			// create table construct
 			var tableElem = document.createElement("TABLE");
-			tableElem.classList.add("table","table-primary", "table-hover", "table-striped", "p-3");
+			tableElem.classList.add("table", "table-hover", "table-striped", "p-3");
 			tableElem.appendChild(_tableHeadElem);
 			var tableBodyElem = document.createElement("TBODY");
 			CostCentresTmp.forEach((item) => {

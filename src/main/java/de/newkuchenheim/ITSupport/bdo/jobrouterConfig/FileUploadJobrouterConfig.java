@@ -35,18 +35,12 @@ public enum FileUploadJobrouterConfig {
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
 	private String requestRoute = "/application/fileuploads";
-	private String dirSeperator = "/";
 	
 	FileUploadJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.params = map;
 		this.contentType = contentType;
-		if(System.getProperty("os.name").equals("Linux")) {
-			dirSeperator = "/";
-		} else {
-			dirSeperator = "\\";
-		}
 		configParamsMap();
 	}
 	
@@ -130,7 +124,7 @@ public enum FileUploadJobrouterConfig {
 		return null;
 	}
 	
-	public Object buildRequestBody() throws IOException {
+	public Object buildRequestBody() {
 		if (post_params != null && !post_params.isEmpty() && contentType != null) {
 			if (contentType == MediaType.APPLICATION_JSON) {
 				return post_params.toString();
