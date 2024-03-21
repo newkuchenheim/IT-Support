@@ -1,8 +1,11 @@
 package de.newkuchenheim.ITSupport.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Sebastian Hansen
@@ -96,19 +99,21 @@ public interface jobrouterArchiveInterface {
 	 * Any additional files from the request are added as clipped files
 	 * 
 	 * @param archive name or guid of archive
+	 * @param List of uploaded files
 	 * 
 	 * @return long revisionid if request was sent success. Otherwise -1 when failure.
 	 */
-	public long sendArchiveDocumentRevisionsFile(String archive);
+	public long sendArchiveDocumentRevisionsFile(String archive, List<MultipartFile> uploadedFiles);
 	/**
 	 * send a request to Clips files to the archived document with the given revision id.
 	 * A new revision will be created and the associated revision id returned. 
 	 * 
 	 * @param archive name or guid of archive
+	 * @param list of uploaded files
 	 * 
 	 * @return long revisionid if request was sent success. Otherwise -1 when failure.
 	 */
-	public long sendArchiveDocumentRevisionsClippedFiles(String archive);
+	public long sendArchiveDocumentRevisionsClippedFiles(String archive, List<MultipartFile> uploadedFiles);
 	/**
 	 * send a request to create a new revision of an already existing document in the given archive.
 	 * The first file from the request becomes the new document file.
@@ -117,10 +122,11 @@ public interface jobrouterArchiveInterface {
 	 * 
 	 * @param archive name or guid of archive
 	 * @param revisionid Revision ID of an existing document
+	 * @param list of uploaded files
 	 * 
 	 * @return long revisionid if request was sent success. Otherwise -1 when failure.
 	 */
-	public long sendArchiveDocumentRevisionsFileRevID(String archive, long revisionid);
+	public long sendArchiveDocumentRevisionsFileRevID(String archive, long revisionid, List<MultipartFile> uploadedFiles);
 	/**
 	 * send a request to delete a document with the given revision id.
 	 * 
@@ -157,10 +163,11 @@ public interface jobrouterArchiveInterface {
 	 * The authorized user needs an active archive profile to access this route. 
 	 * 
 	 * @param archive name or guid of archive
+	 * @param fields as JSONObject
 	 * 
 	 * @return JSONArray with listoptions if request was sent success. Otherwise null.
 	 */
-	public JSONArray postArchiveIndicies(String archive);
+	public JSONArray postArchiveIndicies(String archive, JSONObject fields);
 	/**
 	 * send a request to get an object containing the list options for the given list field.
 	 * The field should be configured with SQL statement. Current values of other list fields can be provided for variable resolution in the SQL statement.
@@ -169,10 +176,11 @@ public interface jobrouterArchiveInterface {
 	 * 
 	 * @param archive name or guid of archive
 	 * @param indexfield name of index field
+	 * @param fields as JSONObject
 	 * 
 	 * @return JSONArray with listoptions if request was sent success. Otherwise null.
 	 */
-	public JSONArray postArchiveIndiciesIndexField(String archive, String indexfield);
+	public JSONArray postArchiveIndiciesIndexField(String archive, String indexfield, JSONObject fields);
 	//########################################## endregion JobArchvie archiveindicies modul ##################################################
 	//######################################### region JobArchvie archiveindexdialogs modul ##################################################
 	/**

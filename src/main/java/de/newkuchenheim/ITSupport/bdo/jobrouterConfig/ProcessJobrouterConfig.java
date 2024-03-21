@@ -20,6 +20,7 @@ public enum ProcessJobrouterConfig {
 	ProcessJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
+		this.contentType = contentType;
 		this.params = map;
 		configParamsMap();
 	}
