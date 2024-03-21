@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<meta http-equiv="refresh" content="10;URL='/formulare/aendmitteilungzuw/form'" />
+	<title>NEW-Änderungsmitteilung Zuwendung</title>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+</head>
+<body>
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+    
+	<div class="row content p-3">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+	 		
+	 		<!-- main page -->
+		<div class="col p-3 max-width text-left" style="height: 67%"> 
+	    	<div th:switch="${sended}" class="alert alert-primary" role="alert">
+				<p th:case="true">Ihre Outlook Vorlage wurde erfolgreich erstellt.</p>
+				<p th:case="*">Es wurde keine Outlook Vorlage erstellt.</p>
+				<p>Sie werden in 10 Sekunden automatisch weitergeleitet.</p>
+			</div>
+		</div>
+		
+		<!-- anzeige -->
+		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+	    </div>
+	</div>											
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>

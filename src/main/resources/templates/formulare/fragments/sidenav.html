@@ -31,6 +31,7 @@
 				</div>
 			</div>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Zeiterfassung</a>
+			<a class="nav-link" href="/formulare/aendmitteilungzuw/form">Änderungsmitteilung-Zuwendung</a>
 		</nav>
 		<nav  class="nav flex-column" th:case="zeiterfassung">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
@@ -61,10 +62,43 @@
 					</nav>
 				</div>
 			</div>
+			<a class="nav-link" href="/formulare/aendmitteilungzuw/form">Änderungsmitteilung-Zuwendung</a>
+		</nav>
+		<nav  class="nav flex-column" th:case="aendmitteilung">
+			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
+			<a class="nav-link" href="/formulare/zeiterfassung/form">Zeiterfassung</a>
+			<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collLocation" role="button" aria-expanded="true" aria-controls="collLocation">Änderungsmitteilung-Zuwendung</a>
+			<div class="collapse show" id="collLocation">
+				<div class="card card-body">
+			  		<nav>
+						  <label>
+							  <input type="radio" name="location" id="zvw_location" value="zvw" checked>
+							  <span class="nav-link">Zentrale Verwaltung</span>
+						  </label><br>
+						  <label>
+							  <input type="radio" name="location" value="khm" checked>
+							  <span class="nav-link">Kuchenheim</span>
+						  </label><br>
+						  <label>
+							  <input type="radio" name="location" value="kall">
+							  <span class="nav-link">Kall</span>
+						  </label><br>
+						  <label>
+							  <input type="radio" name="location" value="uelp">
+							  <span class="nav-link">Ülpenich</span>
+						  </label><br>
+						  <label>
+							  <input type="radio" name="location" value="zhm">
+							  <span class="nav-link">Zingsheim</span>
+						  </label>
+					</nav>
+				</div>
+			</div>
 		</nav>
 		<nav  class="nav flex-column" th:case="*">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Zeiterfassung</a>
+			<a class="nav-link" href="/formulare/aendmitteilungzuw/form">Änderungsmitteilung-Zuwendung</a>
 		</nav>
   	</div>
 </body>
