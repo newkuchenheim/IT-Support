@@ -71,6 +71,7 @@
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
 		  var optreasons = /*[[${optreasons}]]*/ 'Option Reason';
 		  var persons = telelist_zvw;
+		  var general_email_to = "s.schmitz@new-eu.de";
 	 </script>
   	<!-- Javascript for form -->
   	<script type="text/javascript" th:src="@{../../js/zeiterfassung.js}">
@@ -187,16 +188,8 @@
 	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>
 	      	</div>
-
-	      	<div class="well p-2 border">
-	        	<p><strong>Laufweg:</strong></p>
-	        	<ul>
-	        		<li>Die E-Mail geht immer an den direkten Vorgesetzten.</li>
-	        	</ul>
-	      	</div>
-	      	<div th:replace="~{itsupport/fragments/contact :: contact}">
-	        	<!-- load contact template -->
-	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
 	    </div>
 	</div>
 	<!-- Load Footer Template -->
