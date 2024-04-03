@@ -101,9 +101,9 @@ public class formController {
 						model.addAttribute("contact_person", "Ansprechpartner: " + (result.getContactperson()==null ? "Keine Angabe" : result.getContactperson()));
 						
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.ENGLISH);
-						model.addAttribute("beginn_at", "** Vorraussichtlich gestartet am: " + (result.getBeginn_at()==null ? "Keine Angabe" : result.getBeginn_at().format(formatter)) + " (geplant / nach Vereinbarung)");
-						model.addAttribute("ended_at", "** Vorraussichtlich abgeschlossen am: " + (result.getEnded_am()==null ? "Keine Angabe" : result.getEnded_am().format(formatter))  + " (geplant / nach Vereinbarung)");
-						model.addAttribute("changed_at", "Ticket wurde " + (result.getEnded_am()==null ? " keine Änderung gefunden." : ("am " + result.getChanged_at().format(formatter) + " aktualisiert.")));
+						model.addAttribute("beginn_at", "** Vorraussichtlich gestartet am: " + (result.getBeginn_at()==null ? "Keine Angabe" : result.getBeginn_at().format(formatter)));
+						model.addAttribute("ended_at", "** Vorraussichtlich abgeschlossen am: " + (result.getEnded_am()==null ? "Keine Angabe" : result.getEnded_am().format(formatter)));
+						model.addAttribute("changed_at", (result.getEnded_am()==null ? "Bisher ist es keine Änderung gefunden." : ("Ticket wurde am " + result.getChanged_at().format(formatter) + " aktualisiert.")));
 						
 						
 						List<String> desc_list = new ArrayList<>();//Arrays.asList(result.getDescription().split("\r\n"));
