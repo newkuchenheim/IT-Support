@@ -86,8 +86,8 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			task.setParameterValue("title", title);
 			task.setParameterValue("description", descript);
 
-			System.out.println(task.getParams());
-			System.out.println(task.buildRequest());
+			//System.out.println(task.getParams());
+			//System.out.println(task.buildRequest());
 			
 			Object result = sendTaskRequest(task);
 			if(result instanceof Integer) {
@@ -114,8 +114,8 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			// show only first 5 characters for file content
 			taskFile.setParameterValue("blob", ticket.getFileContent().substring(0, 5) + "...");
 			
-			System.out.println(taskFile.getParams());
-			System.out.println(taskFile.buildRequest());
+			//System.out.println(taskFile.getParams());
+			//System.out.println(taskFile.buildRequest());
 			
 			// add whole file content to upload
 			taskFile.setParameterValue("blob", ticket.getFileContent());
@@ -148,11 +148,12 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 					//set assigned area of Ticket
 					ticket.setBuilding(getSwimlandName(task_info.getInt("swimlane_id")));
 					//set level of ticket
-					JSONObject color_obj = new JSONObject(task_info.getJSONObject("color").toString());
-					String color = color_obj.getString("name").toLowerCase();
-					ticket.setLevel(getStufeByColor(color));
-					ticket.setColor_id(color);
-
+//					JSONObject color_obj = new JSONObject(task_info.getJSONObject("color").toString());
+//					String color = color_obj.getString("name").toLowerCase();
+//					ticket.setLevel(getStufeByColor(color));
+//					ticket.setColor_id(color);
+					ticket.setColor_id("cyan");
+					
 					ticket.setState(getStateByColumnID(task_info.getInt("column_id")));
 					
 					String infos = task_info.getString("title").replace("[", "").replace("]", "");
@@ -170,9 +171,15 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 					
 					
 					LocalDateTime endet_am;
-					if(!task_info.isNull("date_completed")) {
-						endet_am = convertLongTimeToLocalDate(task_info.getLong("date_completed"));
+					if(!task_info.isNull("date_due")) {
+						endet_am = convertLongTimeToLocalDate(task_info.getLong("date_due"));
 						ticket.setEnded_am(endet_am);
+					}
+					
+					LocalDateTime changed_am;
+					if(!task_info.isNull("date_modification")) {
+						changed_am = convertLongTimeToLocalDate(task_info.getLong("date_modification"));
+						ticket.setChanged_at(changed_am);
 					}
 					
 					String description = task_info.getString("description");
@@ -265,7 +272,7 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			case 4: 
 				return "Erledigen";
 			default:
-				return "Backlog";
+				return "Eingang";
 		}
 		
 	}
@@ -326,7 +333,7 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 				}
 				
 				ticket.setCategory(caution_desc);
-				System.out.println(ticket.getCategory());
+				//System.out.println(ticket.getCategory());
 				
 			}
 			

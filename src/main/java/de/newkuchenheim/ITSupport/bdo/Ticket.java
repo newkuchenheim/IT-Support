@@ -33,6 +33,7 @@ public class Ticket {
 	private String state;
 	private LocalDateTime beginn_at;
 	private LocalDateTime ended_am;
+	private LocalDateTime changed_at;
 	private boolean is_active;
 	private String contactperson;
 	
@@ -222,6 +223,12 @@ public class Ticket {
 	}
 	public void setContactperson(String contactperson) {
 		this.contactperson = contactperson;
+	}
+	public LocalDateTime getChanged_at() {
+		return changed_at;
+	}
+	public void setChanged_at(LocalDateTime changed_at) {
+		this.changed_at = changed_at;
 	}	
 	
 }
