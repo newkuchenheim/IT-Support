@@ -64,6 +64,7 @@ public class ItSupportApplication {
 //					streamPath.close();
 //				} else if(Files.isDirectory(_checkPath)) {
 //					// if directory is exist but empty
+
 					//recusive copy
 //					Stream<Path> streamPath = Files.walk(_PATH_CONFIG_SRC);
 //					streamPath.forEach(p -> {
