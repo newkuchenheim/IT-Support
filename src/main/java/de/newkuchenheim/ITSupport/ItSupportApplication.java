@@ -58,7 +58,7 @@ public class ItSupportApplication {
 							Files.copy(p, _checkPath.resolve(_PATH_CONFIG_SRC.relativize(p)));
 						} catch (IOException e) {
 							//e.printStackTrace();
-							System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
+							//System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
 						}
 					});
 					streamPath.close();
