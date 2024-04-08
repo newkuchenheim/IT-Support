@@ -26,3 +26,5 @@ replay_pid*
 #ignore target
 target
 /.settings
+/.idea
+/.mvn
