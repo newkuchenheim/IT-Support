@@ -73,13 +73,16 @@ section {
 	<!-- Load top menu template -->
 	<nav th:replace="~{itsupport/fragments/topmenu :: topmenu}"></nav>
 
-	<div class="row content p-3">
+	<div class="row content p-1">
 		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
 		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
 
 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%">
+			<div class="d-flex justify-content-center">
+				<h1 class="display-6">WIKI-Feedback</h1>
+			</div>
 			<div th:switch="${result}" class="alert alert-primary" role="alert">
 				<p th:case="'Result on Failure'">
 					Ihr Feedback wurde nicht versendet! <br> Bitte kontaktieren Sie

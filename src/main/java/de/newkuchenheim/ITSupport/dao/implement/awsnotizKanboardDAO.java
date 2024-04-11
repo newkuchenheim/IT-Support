@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.awNote;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
 import de.newkuchenheim.ITSupport.dao.kanboardDAO;
@@ -248,5 +249,11 @@ public class awsnotizKanboardDAO extends kanboardDAO implements kanboardTaskInte
 			}
 		}
 		return -1;
+	}
+
+	@Override
+	public awNote getTicketByName(awNote ticket) throws UnsupportedEncodingException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

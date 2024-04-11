@@ -66,14 +66,13 @@ public class ResponseKanboard<T> {
 			if(results != null ) {
 				// if result type long in the future will be used for a lot of functions of kanboard
 				// then a enum class for exact funtions will be written and used to falls decision
-//				if(results.getResultType() instanceof Integer) { 
-//					return "ProjectID is found";
-//				} else if (results.getResultType() instanceof Ticket) {
-//					return "Ticket is found";
-//				} else if(results.getResultType() instanceof Boolean) {
-//					return "Result on success";
-//				} 
-				
+				if(results.getResultType() instanceof Integer) { 
+					return "ProjectID is found";
+				} else if (results.getResultType() instanceof Ticket) {
+					return "Ticket is found";
+				} else if(results.getResultType() instanceof Boolean) {
+					return "Result on success";
+				} 
 				return results.getResultType().toString();
 			}
 			else {
