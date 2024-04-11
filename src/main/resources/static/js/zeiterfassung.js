@@ -17,43 +17,37 @@ function init() {
 				persons = telelist_kall;
 				location_header.innerHTML = "Werkstatt Kall";
 				location_warn.innerText = "Kall";
-				general_email_to = "h.opgenorth@new-eu.de";
 				cc_email = "korrekturbeleg-kall@new-eu.de";
 				break;
 			case "khm":
 				persons = telelist_khm;
 				location_header.innerHTML = "Werkstatt Kuchenheim";
 				location_warn.innerText = "Kuchenheim";
-				general_email_to = "";
-				cc_email = "a.winkelhag@new-eu.de; b.erven@new-eu.de";
+				cc_email = "korrekturbeleg-kuchenheim@new-eu.de";
 				break;
 			case "uelp":
 				persons = telelist_uelp;
 				location_header.innerHTML = "Werkstatt Ülpenich";
 				location_warn.innerText = "Ülpenich";
-				general_email_to = "g.schalke@new-eu.de";
-				cc_email = "";
+				cc_email = "korrekturbeleg-uelpenich@new-eu.de";
 				break;
 			case "zhm":
 				persons = telelist_zhm;
 				location_header.innerHTML = "Werkstatt Zingsheim";
 				location_warn.innerText = "Zingsheim";
-				general_email_to = "c.merks@new-eu.de";
-				cc_email = "verwaltung-zingsheim@new-eu.de";
+				cc_email = "korrekturbeleg-zingsheim@new-eu.de";
 				break;
 			case "zvw":
 				persons = telelist_zvw;
 				location_header.innerHTML = "Zentrale Verwaltung";
 				location_warn.innerText = "der Zentralen Verwaltung";
-				general_email_to = "";
-				cc_email = "";
+				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 				break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
 				location_warn.innerText = "der Zentralen Verwaltung";
 				persons = telelist_zvw;
-				general_email_to = "";
-				cc_email = "";
+				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 		}
 	}
 	function addReason(parent, reason, first) {
@@ -143,13 +137,11 @@ function init() {
 		var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
 		var _timeTo = _timeTo_elem.value;
-		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
+		//var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
 		var email_to = "";
 		var subject = "Korrekturbeleg-Zeiterfassung ";
 		var body;
-		var func;
-		var pers_email;
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
 			var fullname = _name + " " + _prename;
 			var validDate = validateDate(_dateFrom, _dateTo);
@@ -157,39 +149,7 @@ function init() {
 				// remove red border
 				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
 				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
-				if (location !== "zvw" && location !== "uelp") {
-					// get email of team head
-					if (persIndex > -1) {
-						func = persons[persIndex]["Funktion"];
-						pers_email = persons[persIndex]["E-Mail"].replaceAll("\"", "");
-						for (i = 0; i < persons.length; i++) {
-							if (persons[i] !== undefined) {
-								if (func.includes("-") && !func.includes("Teamleitung")) {
-									var funcParts = func.split("-");
-									if ((persons[i]["Funktion"].includes(funcParts[1].trim()) || persons[i]["Funktion"].includes(funcParts[0].trim())) 
-									&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-										email_to = persons[i]["E-Mail"].replaceAll("\"","");
-										break;	
-									} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
-										email_to = "t.scheuls@new-eu.de";
-									}
-								} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-									email_to = persons[i]["E-Mail"].replaceAll("\"","");
-									break;
-								} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
-									email_to = "t.scheuls@new-eu.de";
-								}
-							}
-						}
-					}
-				}
-				// set email if no team head found
-				if (email_to.length == 0) {
-					email_to = general_email_to;
-				}
-				// build cc part
-				var cc_part = "";
-				if (cc_email !== "") cc_part = "&cc=" + cc_email; 
+				
 				// submit and reset form
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
 				document.getElementById("name_warning").classList.add("visually-hidden");
@@ -208,7 +168,7 @@ function init() {
 					+ "\t• Erläuterungen:\t    " + _description + "\r\n"
 					+ "\t• Datum und Uhrzeit:\tVon: " + GetLocaleDateString(_dateFrom) + " " + _timeFrom + "\r\n"
 					+ "\t\t\t\t\t\t   Bis:  " + GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
-				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + cc_part + "&body=" + encodeURIComponent(body);
+				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&cc=" + cc_email + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
 					_dateTo_elem.setAttribute("style", "border-color: red");
