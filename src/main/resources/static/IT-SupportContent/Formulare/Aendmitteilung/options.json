@@ -1,0 +1,83 @@
+{"optvouchers":[
+    {
+        "value" : "CAP Markt",
+        "text" : "CAP Markt"
+    },
+    {
+        "value" : "Cafesito",
+        "text" : "Cafesito"
+    },
+    {
+        "value" : "REWE",
+        "text" : "REWE"
+    },
+    {
+        "value" : "DM",
+        "text" : "DM"
+    }
+], "optreasonswork":[
+    {
+        "value" : "nach TzBfG",
+        "text" : "nach TzBfG"
+    },
+    {
+        "value" : "behinderungsbedingt",
+        "text" : "behinderungsbedingt"
+    },
+    {
+        "value" : "Ende der Teilzeit",
+        "text" : "Ende der Teilzeit"
+    }
+], "optjubilar":[
+    {
+        "value" : "10",
+        "text" : "10 Jahre"
+    },
+    {
+        "value" : "15",
+        "text" : "15 Jahre"
+    },
+    {
+        "value" : "20+",
+        "text" : "20 Jahre oder mehr (5 er Abstände)"
+    }
+], "opthousingtypes":[
+    {
+        "value" : "Elternhaus",
+        "text" : "Elternhaus"
+    },
+    {
+        "value" : "Gastfamilie",
+        "text" : "Gastfamile"
+    },
+    {
+        "value" : "Pflegefamilie",
+        "text" : "Pflegefamilie"
+    },
+    {
+        "value" : "selbstständig mit ambulanten Wohnhilfen",
+        "text" : "selbstständig mit ambulanten Wohnhilfen"
+    },
+    {
+        "value" : "selbstständig ohne ambulanten Wohnhilfen",
+        "text" : "selbstständig ohne ambulanten Wohnhilfen"
+    },
+    {
+        "value" : "Wohneinrichtung",
+        "text" : "Wohneinrichtung"
+    }
+], "optcostunit":[
+    {
+        "value" : "kein passender Kostenträger",
+        "text" : "kein passender Kostenträger"
+    },
+    {
+        "value" : "Landschaftsverband (LVR)",
+        "text" : "Landschaftsverband (LVR)"
+    },
+    {
+        "value" : "Deutsche Rentenversicherung",
+        "text" : "Deutsche Rentenversicherung"
+    }
+]
+}

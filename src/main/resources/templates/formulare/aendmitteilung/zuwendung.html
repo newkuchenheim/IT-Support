@@ -72,7 +72,7 @@
 		  var _persons = _telelist_zvw;
 	 </script>
   	<!-- Javascript for form -->
-  	<script type="text/javascript" th:src="@{../../js/aendmitteilungzuw.js}">
+  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/zuwendung.js}">
 	 </script>
 </head>
 <body>
@@ -104,7 +104,7 @@
 		  		</div>
 			</div>
 			<div>
-				<h1 id="location_header">Zentrale Verwaltung</h1>
+				<h1 id="location_header">Änderungsmitteilung - Zuwendung</h1>
 			</div> 
 	      	<form id="change_notice" method="post" action="#" style="min-width: 300px;">
 	      		<!-- load head fields for form -->
@@ -113,7 +113,7 @@
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
-							<option th:block th:each="reason : ${optreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
+							<option th:block th:each="reason : ${optreasons}" th:value="${reason}" th:text="${reason}"/>
 						</select>
 						<label for="option_reason">Grund (Urkunde beifügen)</label>
 					</div>
@@ -176,9 +176,6 @@
 				</div>
 				<!-- load foot fields for form -->
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: footfields}"></th:block>
-				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
-					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
-				</div>
 			</form>
 	    </div>
 	    
@@ -188,7 +185,7 @@
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
-					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus. Ggf. vorher auf Änderungsmitteilung klicken.</li>
+					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
 	      			<li><strong>Schritt 3:</strong> Wählen Sie den Grund aus.</li>
 	      			<li><strong>Schritt 4:</strong> Wählen Sie die Gutscheine und die Anzahl aus.</li>

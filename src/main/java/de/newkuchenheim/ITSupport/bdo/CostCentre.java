@@ -6,7 +6,7 @@ package de.newkuchenheim.ITSupport.bdo;
 * @createOn 16.02.2024
 * 
 */
-public class CostCentre {
+public class CostCentre implements Comparable<CostCentre>{
 	private String number;
 	private String label;
 	private String label1;
@@ -59,11 +59,22 @@ public class CostCentre {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
 	public CostCentre() {
 		number = "";
 		label = "";
 		label1 = "";
 		location = "";
+	}
+	@Override
+	public int compareTo(CostCentre o) {
+		return this.number.compareTo(o.getNumber());
+	}
+	@Override
+	public String toString() {
+		String str = "";
+		if (!number.isBlank() || !label.isBlank()) {
+			str = number + " - " + label;
+		}
+		return str;
 	}
 }

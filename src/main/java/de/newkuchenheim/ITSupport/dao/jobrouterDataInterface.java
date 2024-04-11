@@ -20,7 +20,7 @@ public interface jobrouterDataInterface<T> {
 	 * 
 	 * @throws
 	 */
-	public JSONArray getDataSets(String guid);
+	public List<T> getDataSets(String guid);
 	/**
 	 * send a request to get specific dataset of a table.
 	 * 
@@ -31,7 +31,7 @@ public interface jobrouterDataInterface<T> {
 	 * 
 	 * @throws
 	 */
-	public JSONArray getDataSet(String guid, long jrid);
+	public T getDataSet(String guid, long jrid);
 	/**
 	 * send a request to create new dataset in given table.
 	 * 

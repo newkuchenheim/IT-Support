@@ -1,5 +1,7 @@
 package de.newkuchenheim.ITSupport.dao.implement;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -16,19 +18,20 @@ import de.newkuchenheim.ITSupport.dao.jobrouterDataInterface;
  * @createOn 14.02.2024
  * 
  */
-public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterDataInterface<CostCentre> {
-	private static kostenstelleJobRouterDAO instance;
+public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterDataInterface<CostCentre> {
+	private static kostenstelleJobrouterDAO instance;
 	
-	public static kostenstelleJobRouterDAO getInstance() {
+	public static kostenstelleJobrouterDAO getInstance() {
 		if (instance == null) {
-			return new kostenstelleJobRouterDAO();
+			return new kostenstelleJobrouterDAO();
 		}
 		return instance;
 	}
 	
 	@Override
-	public JSONArray getDataSets(String guid) {
+	public List<CostCentre> getDataSets(String guid) {
 		// create config and send request
+		List<CostCentre> CostCentres = new ArrayList<>();
 		if (guid != null && !guid.isBlank()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.GET_DATASETS;
 			dataConf.setParameterValue(":guid", guid);
@@ -37,16 +40,37 @@ public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterD
 			System.out.println(dataConf.buildRequestRoute());
 			JSONObject datasets = sendDataRequest(dataConf);
 			if (datasets != null) {
-				return datasets.getJSONArray("datasets");
+				JSONArray dataArray = datasets.getJSONArray("datasets");
+				if (dataArray != null && !dataArray.isEmpty()) {
+					for(Object dataset : dataArray) {
+						CostCentre CostCentreTmp = new CostCentre();
+						JSONObject currDataset = ((JSONObject) dataset);
+						if (currDataset.get("ks") != null && currDataset.get("ks") instanceof String) {
+							CostCentreTmp.setNumber(currDataset.getString("ks"));
+						}
+						if (currDataset.get("bez") != null && currDataset.get("bez") instanceof String) {
+							CostCentreTmp.setLabel(currDataset.getString("bez"));
+						}
+						if (currDataset.get("bez1") != null && currDataset.get("bez1") instanceof String) {
+							CostCentreTmp.setLabel1(currDataset.getString("bez1"));
+						}
+						if (currDataset.get("standort") != null && currDataset.get("standort") instanceof String) {
+							CostCentreTmp.setLocation(currDataset.getString("standort"));
+						}
+						CostCentres.add(CostCentreTmp);
+						// Sort List by number
+						Collections.sort(CostCentres);
+					}
+				}
 			}
-			return null;
 		}
-		return null;
+		return CostCentres;
 	}
 
 	@Override
-	public JSONArray getDataSet(String guid, long jrid) {
+	public CostCentre getDataSet(String guid, long jrid) {
 		// create config and send request
+		CostCentre CostCentre = null;
 		if (guid != null && !guid.isBlank()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.GET_DATASETS_JRID;
 			dataConf.setParameterValue(":guid", guid);
@@ -56,11 +80,26 @@ public class kostenstelleJobRouterDAO extends jobrouterDAO implements jobrouterD
 			System.out.println(dataConf.buildRequestRoute());
 			JSONObject datasets = sendDataRequest(dataConf);
 			if (datasets != null) {
-				return datasets.getJSONArray("datasets");
+				JSONArray dataArray = datasets.getJSONArray("datasets");
+				if (dataArray != null && !dataArray.isEmpty()) {
+					CostCentre = new CostCentre();
+					JSONObject dataset = dataArray.getJSONObject(0);
+					if (dataset.get("ks") != null && dataset.get("ks") instanceof String) {
+						CostCentre.setNumber(dataset.getString("ks"));
+					}
+					if (dataset.get("bez") != null && dataset.get("bez") instanceof String) {
+						CostCentre.setLabel(dataset.getString("bez"));
+					}
+					if (dataset.get("bez1") != null && dataset.get("bez1") instanceof String) {
+						CostCentre.setLabel1(dataset.getString("bez1"));
+					}
+					if (dataset.get("standort") != null && dataset.get("standort") instanceof String) {
+						CostCentre.setLocation(dataset.getString("standort"));
+					}
+				}
 			}
-			return null;
 		}
-		return null;
+		return CostCentre;
 	}
 
 	@Override

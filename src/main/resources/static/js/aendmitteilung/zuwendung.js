@@ -1,7 +1,7 @@
 window.onload = init;
 function init() {
 	// reset chosen location
-	document.getElementById("zvw_location").checked = true;
+	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
 	var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
@@ -22,34 +22,34 @@ function init() {
 	// Set Date for first load
 	setDateToday();
 	function changeTeleList() {
-		var location_header = document.getElementById("location_header");
-		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
+		//var location_header = document.getElementById("location_header");
+		var location = document.getElementById("option_location").value;
 		document.getElementById("prename").value = "";
 		document.getElementById("name").value = "";
 		switch (location) {
 			case "kall":
 				_persons = _telelist_kall;
-				location_header.innerHTML = "NEW Kall";
+				//location_header.innerHTML = "NEW Kall";
 				break;
 			case "khm":
 				_persons = _telelist_khm;
-				location_header.innerHTML = "NEW Kuchenheim";
+				//location_header.innerHTML = "NEW Kuchenheim";
 				break;
 			case "uelp":
 				_persons = _telelist_uelp;
-				location_header.innerHTML = "NEW Ülpenich";
+				//location_header.innerHTML = "NEW Ülpenich";
 				break;
 			case "zhm":
 				_persons = _telelist_zhm;
-				location_header.innerHTML = "NEW Zingsheim";
+				//location_header.innerHTML = "NEW Zingsheim";
 				break;
 			case "zvw":
 				_persons = _telelist_zvw;
-				location_header.innerHTML = "Zentrale Verwaltung";
+				//location_header.innerHTML = "Zentrale Verwaltung";
 				break;
 			default:
 				_persons = _telelist_zvw;
-				location_header.innerHTML = "Zentrale Verwaltung";
+				//location_header.innerHTML = "Zentrale Verwaltung";
 		}
 	}
 	function validateName(prename, name) {
@@ -101,7 +101,8 @@ function init() {
 		// get form data
 		var _prename_elem = document.getElementById("prename");
 		var _name_elem = document.getElementById("name");
-		var _location_header = document.getElementById("location_header").innerHTML;
+		var _location_elem = document.getElementById("option_location");
+		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateCreate = document.getElementById("dateCreate").value;
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
@@ -113,7 +114,7 @@ function init() {
 		var _voucherCountSum = parseInt(document.getElementById("voucherCountSum").value);
 		var _ccEmail = document.getElementById("cc_email").value;
 		// create email parts
-		var subject = "Änderungsmitteilung Zuwendung " + _location_header;
+		var subject = "Änderungsmitteilung Zuwendung " + _location_text;
 		var ccPart = "";
 		if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
@@ -141,7 +142,7 @@ function init() {
 				vouchers += tabs + "Summe: " + _voucherCountSum;
 				document.getElementById("change_notice").submit();
 				// build body
-				body = "\t• Zweigstelle:\t\t\t\t\t\t\t" + _location_header + "\r\n"
+				body = "\t• Zweigstelle:\t\t\t\t\t\t\t" + _location_text + "\r\n"
 					+ "\t• Name, Vorname:\t\t\t\t\t" + fullname + "\r\n"
 					+ "\t• Grund (Urkunde beifügen):\t\t\t " + _optreason + "\r\n"
 					+ "\t• Info für FiBu:\t\t\t\t\t\t" + vouchers + "\r\n"
@@ -245,10 +246,13 @@ function init() {
 	});
 	
 	// add Change EventListener to all Locations
-	var locations = document.getElementsByName("location");
+	/*var locations = document.getElementsByName("location");
 	for (var i = 0; i < locations.length; i++) {
 		locations[i].addEventListener("change", changeTeleList);
-	}
+	}*/
+	
+	// add change event to location
+	document.getElementById("option_location").addEventListener("change", changeTeleList);
 	
 	// add change event to all count fields
 	var arrCount = document.getElementsByName("voucherCount");

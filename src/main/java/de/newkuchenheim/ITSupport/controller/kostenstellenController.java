@@ -25,7 +25,7 @@ import de.newkuchenheim.ITSupport.bdo.CostCentre;
 import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobRouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
 
 @Controller
 @RequestMapping("/newdaten/kostenstellen")
@@ -44,7 +44,6 @@ public class kostenstellenController {
 	
 	@GetMapping({"form", "form/"})
 	public String renderCreateForm(@ModelAttribute CostCentre CostCentre, Model model) {
-		CostCentres.clear();
 		getAllCostCentres();
 			
 		//tracking
@@ -90,25 +89,6 @@ public class kostenstellenController {
 	
 	private void getAllCostCentres() {
 		// get datasets from table neuTestKostenstelle
-		JSONArray answer = kostenstelleJobRouterDAO.getInstance().getDataSets("33937D15-AC9A-A7CE-9B2D-0DC182D13FEB");
-		if (answer != null) {
-			for(Object dataset : answer) {
-				CostCentre CostCentreTmp = new CostCentre();
-				JSONObject currDataset = ((JSONObject) dataset);
-				if (currDataset.get("ks") != null && currDataset.get("ks") instanceof String) {
-					CostCentreTmp.setNumber(currDataset.getString("ks"));
-				}
-				if (currDataset.get("bez") != null && currDataset.get("bez") instanceof String) {
-					CostCentreTmp.setLabel(currDataset.getString("bez"));
-				}
-				if (currDataset.get("bez1") != null && currDataset.get("bez1") instanceof String) {
-					CostCentreTmp.setLabel1(currDataset.getString("bez1"));
-				}
-				if (currDataset.get("standort") != null && currDataset.get("standort") instanceof String) {
-					CostCentreTmp.setLocation(currDataset.getString("standort"));
-				}
-				CostCentres.add(CostCentreTmp);
-			}
-		}
+		CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("33937D15-AC9A-A7CE-9B2D-0DC182D13FEB");
 	}
 }
