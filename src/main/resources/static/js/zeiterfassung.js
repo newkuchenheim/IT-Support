@@ -163,11 +163,11 @@ function init() {
 				subject += fullname;
 				// build body
 				body = "\t• Name, Vorname:\t" + fullname + "\r\n"
-					+ "\t• Antrag auf:\t\t\t" + _optrequest + "\r\n"
-					+ "\t• Grund:\t\t\t  " + _optreason + "\r\n"
+					+ "\t• Antrag auf:\t" + _optrequest + "\r\n"
+					+ "\t• Grund:\t  " + _optreason + "\r\n"
 					+ "\t• Erläuterungen:\t    " + _description + "\r\n"
-					+ "\t• Datum:\tVon: " + GetLocaleDateString(_dateFrom) + " " //+ _timeFrom + "\r\n"
-					+ "\t\t\t\t\t\t   Bis:  " + GetLocaleDateString(_dateTo) + " " //+ _timeTo + "\r\n";
+					+ "\t• Datum:\tVon: " + GetLocaleDateString(_dateFrom) + " - " //+ _timeFrom + "\r\n"
+					+ GetLocaleDateString(_dateTo)//+ _timeTo + "\r\n";
 				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&cc=" + cc_email + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
@@ -192,30 +192,30 @@ function init() {
 		var value_low = this.options[this.selectedIndex].value.toLowerCase();
 		var dateFrom_elem = document.getElementById("dateFrom");
 		var timeFrom_elem = document.getElementById("timeFrom");
-		var dateTo_elem = document.getElementById("dateTo");
-		var timeTo_elem = document.getElementById("timeTo");
-		if (value_low.includes("kommen")) {
+		//var dateTo_elem = document.getElementById("dateTo");
+		//var timeTo_elem = document.getElementById("timeTo");
+		/**if (value_low.includes("kommen")) {
 			dateFrom_elem.required = true;
-			timeFrom_elem.required = true;
+			//timeFrom_elem.required = true;
 			dateTo_elem.required = false;
-			timeTo_elem.required = false;
+			//timeTo_elem.required = false;
 			// clear not required fields
 			dateTo_elem.value = "";
-			timeTo_elem.value = "";
+			//timeTo_elem.value = "";
 		} else if (value_low.includes("gehen")) {
 			dateFrom_elem.required = false;
-			timeFrom_elem.required = false;
+			//timeFrom_elem.required = false;
 			dateTo_elem.required = true;
-			timeTo_elem.required = true;
+			//timeTo_elem.required = true;
 			// clear not required fields
 			dateFrom_elem.value = "";
-			timeFrom_elem.value = "";
-		} else {
+			//timeFrom_elem.value = "";
+		} else { */
 			dateFrom_elem.required = true;
-			timeFrom_elem.required = true;
+			//timeFrom_elem.required = true;
 			dateTo_elem.required = true;
-			timeTo_elem.required = true;
-		}
+			//timeTo_elem.required = true;
+		//}
 	});
 	
 	// Set Time to 00:00 if date change
