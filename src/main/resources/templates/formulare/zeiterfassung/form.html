@@ -128,8 +128,9 @@
 				<div class="row g-3 p-2 h-auto">
 					<div class="form-floating mb-3 col"><!-- Antragsart -->
 						<select id="option_request" class="form-select" required>
-							<option value="" selected hidden>Bitte die Antragsart auswählen</option>
-							<option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/>
+							<option value="Krankbuchung" selected>Krankbuchung</option>
+							<!-- <option value="" selected hidden>Bitte die Antragsart auswählen</option> -->
+							<!-- <option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/> -->
 						</select>
 						<label for="option_request">Antrag auf</label>
 					</div>
@@ -152,21 +153,23 @@
 						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="Von" required>
 						<label for="dateFrom">Von</label>
 					</div>
-					<div class="form-floating mb-3 col"> <!-- Uhrzeit Von -->
-						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
-						<label for="timeFrom">Uhr</label>
-					</div>
-				</div>
-				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Datum Bis -->
+					<div class="form-floating mb-3 col">
 						<input id="dateTo" type="date" name="dateTo" class="form-control" placeholder="Bis" required>
 						<label for="dateTo">Bis</label>
 					</div>
-					<div class="form-floating mb-3 col"> <!-- Uhrzeit Bis -->
+					
+				</div>
+				<!--<div class="row g-3 p-2">
+					 <div class="form-floating mb-3 col"> 
+						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
+						<label for="timeFrom">Uhr</label>
+					</div>-->
+					<!-- <div class="form-floating mb-3 col"> 
 						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr" required>
 						<label for="timeTo">Uhr</label>
 					</div>
-				</div>
+				</div>-->
+				
 				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
 					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
 				</div>

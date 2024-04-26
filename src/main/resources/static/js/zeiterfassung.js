@@ -140,7 +140,7 @@ function init() {
 		//var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
 		var email_to = "";
-		var subject = "Korrekturbeleg-Zeiterfassung ";
+		var subject = "Korrekturbeleg-Krankbuchung";
 		var body;
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
 			var fullname = _name + " " + _prename;
@@ -166,8 +166,8 @@ function init() {
 					+ "\t• Antrag auf:\t\t\t" + _optrequest + "\r\n"
 					+ "\t• Grund:\t\t\t  " + _optreason + "\r\n"
 					+ "\t• Erläuterungen:\t    " + _description + "\r\n"
-					+ "\t• Datum und Uhrzeit:\tVon: " + GetLocaleDateString(_dateFrom) + " " + _timeFrom + "\r\n"
-					+ "\t\t\t\t\t\t   Bis:  " + GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
+					+ "\t• Datum:\tVon: " + GetLocaleDateString(_dateFrom) + " " //+ _timeFrom + "\r\n"
+					+ "\t\t\t\t\t\t   Bis:  " + GetLocaleDateString(_dateTo) + " " //+ _timeTo + "\r\n";
 				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&cc=" + cc_email + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
