@@ -50,7 +50,8 @@ function init() {
 				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 		}
 	}
-	function addReason(parent, reason, first) {
+	
+	/**function addReason(parent, reason, first) {
 		var child = document.createElement("option");
 		if (first) {
 			child.innerHTML = "Bitte den Grund auswählen";
@@ -62,8 +63,9 @@ function init() {
 			child.value = reason["value"];
 		}
 		parent.appendChild(child);
-	}
-	function changeReason(request) {
+	}*/
+	
+	/**function changeReason(request) {
 		var optreason_elem = document.getElementById("option_reason");
 		// clear opt list
 		while (optreason_elem.firstChild) {
@@ -80,7 +82,8 @@ function init() {
 				addReason(optreason_elem, optreasons[i], false);
 			}
 		}
-	}
+	}*/
+	
 	function validateName(prename, name) {
 		var _prename = prename;
 		var _name = name;
@@ -125,19 +128,19 @@ function init() {
 		var _prename_elem = document.getElementById("prename");
 		var _name_elem = document.getElementById("name");
 		var _dateFrom_elem = document.getElementById("dateFrom");
-		var _timeFrom_elem = document.getElementById("timeFrom");
+		//var _timeFrom_elem = document.getElementById("timeFrom");
 		var _dateTo_elem = document.getElementById("dateTo");
-		var _timeTo_elem = document.getElementById("timeTo");
+		//var _timeTo_elem = document.getElementById("timeTo");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optrequest = document.getElementById("option_request").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t  ");
 		var _dateFrom = _dateFrom_elem.value;
-		var _timeFrom = _timeFrom_elem.value;
+		//var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
-		var _timeTo = _timeTo_elem.value;
-		//var location = document.querySelector("input[type='radio'][name=location]:checked").value;
+		//var _timeTo = _timeTo_elem.value;
+		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
 		var email_to = "";
 		var subject = "Korrekturbeleg-Krankbuchung";
@@ -148,7 +151,7 @@ function init() {
 			if (validDate) {
 				// remove red border
 				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
-				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
+				//if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
 				
 				// submit and reset form
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
@@ -162,17 +165,17 @@ function init() {
 				// build subject
 				subject += fullname;
 				// build body
-				body = "\t• Name, Vorname:\t" + fullname + "\r\n"
-					+ "\t• Antrag auf:\t" + _optrequest + "\r\n"
-					+ "\t• Grund:\t  " + _optreason + "\r\n"
-					+ "\t• Erläuterungen:\t    " + _description + "\r\n"
-					+ "\t• Datum:\tVon: " + GetLocaleDateString(_dateFrom) + " - " //+ _timeFrom + "\r\n"
-					+ GetLocaleDateString(_dateTo)//+ _timeTo + "\r\n";
-				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&cc=" + cc_email + "&body=" + encodeURIComponent(body);
+				body = "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Antrag auf: " + _optrequest + "\r\n"
+					+ "\t• Grund: " + _optreason + "\r\n"
+					+ "\t• Erläuterungen: " + _description + "\r\n"
+					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " - " //+ _timeFrom + "\r\n"
+					+ GetLocaleDateString(_dateTo) + " ";//+ _timeTo + "\r\n";
+				var mailToLink = "mailto:" + cc_email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
 					_dateTo_elem.setAttribute("style", "border-color: red");
-					_timeTo_elem.setAttribute("style", "border-color: red");
+					//_timeTo_elem.setAttribute("style", "border-color: red");
 					var _dateTo_error = document.getElementById("dateTo_error");
 					var dateTo_error_alert = new bootstrap.Alert(_dateTo_error);
 					dateTo_error_alert.show;
@@ -191,8 +194,8 @@ function init() {
 	document.getElementById("option_reason").addEventListener("change", function() {
 		var value_low = this.options[this.selectedIndex].value.toLowerCase();
 		var dateFrom_elem = document.getElementById("dateFrom");
-		var timeFrom_elem = document.getElementById("timeFrom");
-		//var dateTo_elem = document.getElementById("dateTo");
+		//var timeFrom_elem = document.getElementById("timeFrom");
+		var dateTo_elem = document.getElementById("dateTo");
 		//var timeTo_elem = document.getElementById("timeTo");
 		/**if (value_low.includes("kommen")) {
 			dateFrom_elem.required = true;
@@ -219,12 +222,12 @@ function init() {
 	});
 	
 	// Set Time to 00:00 if date change
-	document.getElementById("dateFrom").addEventListener("change", function(e) {
+	/**document.getElementById("dateFrom").addEventListener("change", function(e) {
 		if (e.value !== "" && document.getElementById("timeFrom").value === "") document.getElementById("timeFrom").value = "00:00";
 	});
 	document.getElementById("dateTo").addEventListener("change", function(e) {
 		if (e.value !== "" && document.getElementById("timeTo").value === "") document.getElementById("timeTo").value = "00:00";
-	});
+	});*/
 	
 	document.getElementById("time_entering").addEventListener("submit", (e) => {
 		e.preventDefault();

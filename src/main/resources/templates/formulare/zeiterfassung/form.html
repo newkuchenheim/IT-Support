@@ -137,6 +137,8 @@
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
+							<option value="Krank ohne Bescheinigung">Krank ohne Bescheinigung</option>
+							<option value="Krank mit eAu">Krank mit eAu</option>
 							<!--<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>-->
 						</select>
 						<label for="option_cause">Grund</label>
@@ -182,12 +184,11 @@
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
-					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus. Ggf. vorher auf Zeiterfassung klicken.</li>
+					<li><strong>Schritt 1:</strong> Wählen Sie <b>Ihren Standort</b> aus. Ggf. vorher auf Korrekturbeleg-Krankbuchung klicken.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
-	      			<li><strong>Schritt 3:</strong> Wählen Sie die Antragsart aus.</li>
-	      			<li><strong>Schritt 4:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
-	      			<li><strong>Schritt 5:</strong> Geben Sie bitte mindestens ein Datum an.</li>
-	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      			<li><strong>Schritt 3:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
+	      			<li><strong>Schritt 4:</strong> Geben Sie bitte mindestens ein Datum an.</li>
+	      			<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>
 	      	</div>
 	      	<div class="well p-2 border">

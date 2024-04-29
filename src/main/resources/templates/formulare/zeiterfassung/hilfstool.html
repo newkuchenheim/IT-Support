@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<title>NE.W - Überstunden Berechnen</title>
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+		/****** Begin Zeiterfassung section ******/
+		#name_error {
+			display: none;
+		}
+		/****** End section Zeiterfassung ******/
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+	<script type="text/javascript" th:src="@{../../js/timeCalculation.js}"></script>
+</head>
+<body>
+	 <!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	 
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	 
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+     
+  	<div class="row pt-1 m-2">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div class="d-flex justify-content-center">
+				<h1 class="display-6">Novatime Hilfstool - Überstunden Berechen</h1>
+			</div>
+	    	<form id="time_entering" method="post" action="#" style="min-width: 300px;">
+				
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"> 
+						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
+						<label for="timeFrom">Uhrzeit-Von</label>
+					</div>
+					<div class="form-floating mb-3 col"> 
+						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr" required>
+						<label for="timeTo">Uhrzeit-Bis</label>
+					</div>
+				</div>
+			
+				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top">
+					<button type="button" onClick="timeCalculationAction()" class="btn btn-success" id="timeCalculation" name="timeCalculation">Berechnen</button><br/>
+				</div>
+			</form>
+			<div id="div_message" class="alert alert-dark" role="alert" style="display:none;">
+				<h4 class="alert-heading">Korrekturstunden</h4>
+				<p id="time_diff_echtzeit"></p>
+				<p id="time_diff_novatime"></p>
+				<hr>
+				<div class="d-flex justify-content-end">
+					<a href="http://192.168.0.6/cgi-bin/htm_work.cgi" target="_blank"><button type="button" class="btn btn-primary"> → Link zu Novatime</button></button></a>
+				</div>		
+			</div>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border">
+	      		<!-- info an rechten col -->
+	      		<ul>
+					<li><strong>Schritt 1:</strong> Geben Sie bitte die Zeitspanne von-bis Uhrzeit.</li>
+	      			<li><strong>Schritt 2:</strong> Klicken Sie auf dem Button <b>Berechnen</b>. Jetzt können Sie richtigen Wert von Überstundengutschrift bei Novatime eintragen.</li>
+	      		</ul>
+	      	</div>
+	      	<div class="well p-2 border">
+	        	<p><strong>Achtung:</strong></p>
+	        	<ul>
+	        		<li>Sie müssen in der Outlook Vorlage noch die Empfänger E-Mail Adresse angeben.</li>
+	        	</ul> 
+	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+	    </div>
+	</div>
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>
