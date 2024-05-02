@@ -146,7 +146,31 @@
 				</div>
 			</th:block>
 			<th:block th:unless="${#strings.startsWith(page, 'aendmitt')}">
-				<a class="nav-link">Änderungsmitteilung</a>
+				<a class="nav-link" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
+				<div class="collapse" id="collForm">
+					<div class="card card-body">
+				  		<nav class="nav flex-column">
+				  			<a class="nav-link" href="/formulare/aendmitteilung/anschrift">Anschrift</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/austritt">Austritt</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/fahrtendienst">Fahrtendienst</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/lohn">Lohn</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/mittagessen">Mittagessen</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/sonstiges">Sonstiges</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/fehlzeit_unbezahlt">Unbezahlte Fehlzeit</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/urlaub_unbezahlt">Unbezahlter Urlaub</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_zweigstelle">Wechsel Zweigstelle</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
+				  			<a class="nav-link" href="/formulare/aendmitteilung/feedback">Feedback</a>
+						</nav>
+					</div>
+				</div>
 			</th:block>
 		</nav>
   	</div>
