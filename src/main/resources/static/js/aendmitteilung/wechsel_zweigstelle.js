@@ -37,26 +37,19 @@ function init() {
 	}
 	
 	function changeCostCentres(location) {
-		_opt_oldcostcentre = document.getElementById("option_oldcostcentre");
-		_opt_newcostcentre = document.getElementById("option_newcostcentre");
+		_optcostcentre = document.getElementById("option_costcentre");
 		// clear option lists
-		while (_opt_oldcostcentre.firstChild) {
-			_opt_oldcostcentre.removeChild(_opt_oldcostcentre.firstChild);
+		while (_optcostcentre.firstChild) {
+			_optcostcentre.removeChild(_optcostcentre.firstChild);
 		}
-		while (_opt_newcostcentre.firstChild) {
-			_opt_newcostcentre.removeChild(_opt_newcostcentre.firstChild);
-		}
-		_opt_oldcostcentre.value = "";
-		_opt_newcostcentre.value = "";
+		_optcostcentre.value = "";
 		// add first option
-		addCostCentre(_opt_oldcostcentre, null, true);
-		addCostCentre(_opt_newcostcentre, null, true);
+		addCostCentre(_optcostcentre, null, true);
 		for (var i = 0; i < _CostCentres.length; i++) {
 			if (_CostCentres[i]["location"] !== "" && (_CostCentres[i]["location"] === location 
 			|| _CostCentres[i]["location"].includes("BIAP") || _CostCentres[i]["location"] === "Außenarbeitsplätze")) {
-				addCostCentre(_opt_oldcostcentre, _CostCentres[i], false);
-				addCostCentre(_opt_newcostcentre, _CostCentres[i], false);
-			} 
+				addCostCentre(_optcostcentre, _CostCentres[i], false);
+			}
 		}
 		
 	}
@@ -66,7 +59,6 @@ function init() {
 		//var location_header = document.getElementById("location_header");
 		var location_elem = document.getElementById("option_location");
 		var location_val = location_elem.value;
-		var location_text = location_elem.options[location_elem.selectedIndex].text;
 		document.getElementById("prename").value = "";
 		document.getElementById("name").value = "";
 		switch (location_val) {
@@ -94,7 +86,6 @@ function init() {
 				_persons = _telelist_zvw;
 				//location_header.innerHTML = "Zentrale Verwaltung";
 		}
-		changeCostCentres(location_text);
 	}
 	/*function validateName(prename, name) {
 		var _prename = prename;
@@ -136,20 +127,26 @@ function init() {
 		var _location_elem = document.getElementById("option_location");
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateChange = document.getElementById("dateChange").value;
-		var _optoldcostcentre = document.getElementById("option_oldcostcentre").value;
-		var _optnewcostcentre = document.getElementById("option_newcostcentre").value;
+		var _optcostcentre = document.getElementById("option_costcentre").value;
+		var _newlocation_elem = document.getElementById("option_newlocation");
+		var _newlocation_text = _newlocation_elem.options[_newlocation_elem.selectedIndex].text;
+		var _baseAmount = document.getElementById("BaseAmount").value;
+		var _increaseAmount = document.getElementById("IncreaseAmount").value;
+		var _lunch = document.querySelector("input[type='radio'][name=lunch]:checked").value;
+		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
+		var lunchmodel_part = (_lunch.startsWith("j") ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t   ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t       ");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
 		//var _ccEmail = document.getElementById("cc_email").value;
 		// create email parts
-		var subject = "Änderungsmitteilung Wechsel Kostenstelle ";
+		var subject = "Änderungsmitteilung Wechsel Zweigstelle ";
 		var ccPart = "";
 		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
-		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateChange !== "" && _optoldcostcentre !== "" && _optnewcostcentre !== "" && _createdBy !== "") {
+		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateChange !== "" && _optcostcentre !== "" && _baseAmount !== "" && _createdBy !== "") {
 			var fullname = _name + ", " + _prename;
 			// show success Messages
 			var _form_success = document.getElementById("form_success");
@@ -160,14 +157,17 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t " + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t" + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Alte Kostenstelle:\t    " + _optoldcostcentre + "\r\n"
-				+ "\t• Neue Kostenstelle:\t  " + _optnewcostcentre + "\r\n"
-				+ "\t• Bemerkung:\t\t      " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle:\t\t\t    " + _location_text + "\r\n"
+				+ "\t• Name, Vorname:\t     " + fullname + "\r\n"
+				+ "\t• Wechseltag:\t\t\t   " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Neue Zweigstelle:\t       " + _newlocation_text + "\r\n"
+				+ "\t• Neue Kostenstelle:\t      " + _optcostcentre + "\r\n"
+				+ "\t• Grundbetrag:\t\t\t  " + _baseAmount + "\r\n"
+				+ "\t• Steigerungsbetrag:\t      " + _increaseAmount + "\r\n"
+				+ "\t• Teilnahme Mittagessen: " + _lunch + lunchmodel_part + "\r\n"
+				+ "\t• Bemerkung:\t\t          " + _comment + "\r\n"
+				+ "\t• Erstellt durch:\t\t    " + _createdBy + "\r\n"
+				+ "\t• Erstellt am:\t\t\t      " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
@@ -175,6 +175,24 @@ function init() {
 	
 	// add change event to location
 	document.getElementById("option_location").addEventListener("change", changeTeleList);
+	document.getElementById("option_newlocation").addEventListener("change", function() {
+		changeCostCentres(this.options[this.selectedIndex].text);
+	});
+	
+	document.getElementById("lunchyes").addEventListener("change", function() {
+		if (this.checked) {
+			document.getElementById("div_lunchmodel_sel").hidden = false;
+			document.getElementById("option_lunchmodel").required = true;
+		}
+	});
+	
+	document.getElementById("lunchno").addEventListener("change", function() {
+		if (this.checked) {
+			document.getElementById("div_lunchmodel_sel").hidden = true;
+			document.getElementById("option_lunchmodel").required = false;
+			document.getElementById("option_lunchmodel").value = "";
+		}
+	});
 	
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();

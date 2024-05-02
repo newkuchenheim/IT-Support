@@ -34,6 +34,7 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 		List<CostCentre> CostCentres = new ArrayList<>();
 		if (guid != null && !guid.isBlank()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.GET_DATASETS;
+			dataConf.resetRequestRoute();
 			dataConf.setParameterValue(":guid", guid);
 			
 			System.out.println(dataConf.getParams());
@@ -73,6 +74,7 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 		CostCentre CostCentre = null;
 		if (guid != null && !guid.isBlank()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.GET_DATASETS_JRID;
+			dataConf.resetRequestRoute();
 			dataConf.setParameterValue(":guid", guid);
 			dataConf.setParameterValue(":jrid", jrid);
 			
@@ -106,6 +108,7 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 	public long sendDataSet(String guid, CostCentre CostCentre) {
 		if (guid != null && !guid.isBlank() && CostCentre != null) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.POST_DATASETS;
+			dataConf.resetRequestRoute();
 			dataConf.setParameterValue(":guid", guid);
 			JSONObject dataset = new JSONObject();
 			dataset.put("ks", CostCentre.getNumber());
@@ -131,6 +134,7 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 	public boolean deleteDataSets(String guid, List<String> jrids) {
 		if (guid != null && !guid.isBlank() && jrids != null && !jrids.isEmpty()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.DELETE_DATASETS;
+			dataConf.resetRequestRoute();
 			dataConf.setParameterValue(":guid", guid);
 			JSONArray jrIDs = new JSONArray();
 			JSONObject jrID;

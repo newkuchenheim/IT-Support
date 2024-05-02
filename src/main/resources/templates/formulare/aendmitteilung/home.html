@@ -9,6 +9,7 @@
 		<meta th:case="WorkingHours" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/arbeitszeit'" />
 		<meta th:case="withdrawal" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/austritt'" />
 		<meta th:case="BankAccount" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/bankverbindung'" />
+		<meta th:case="shuttle" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/fahrtendienst'" />
 		<meta th:case="illness" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/krankheit'" />
 		<meta th:case="pay" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/lohn'" />
 		<meta th:case="addrequire" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/mehrbedarf'" />
@@ -19,6 +20,8 @@
 		<meta th:case="truant" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/fehlen_unentschuldigt'" />
 		<meta th:case="chginworkgrp" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/wechsel_arbeitsbereich'" />
 		<meta th:case="chgcostcentre" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/wechsel_kostenstelle'" />
+		<meta th:case="chglocation" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/wechsel_zweigstelle'" />
+		<meta th:case="feedback" http-equiv="refresh" content="10;URL='/formulare/aendmitteilung/feedback'" />
 	</th:block>
 	<title>NEW-Änderungsmitteilung</title>
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -88,7 +91,10 @@
 	 		<!-- main page -->
 		<div class="col p-3 max-width text-left" style="height: 67%"> 
 	    	<div th:switch="${sended}" class="alert alert-primary" role="alert">
-				<p th:case="true">Ihre Outlook Vorlage wurde erfolgreich erstellt.</p>
+				<th:block th:case="true">
+					<p th:if="${formpage == 'feedback'}">Ihr Feedback wurde gesendet</p>
+					<p th:unless="${formpage == 'feedback'}">Ihr Outlook Vorlage wurde gesendet</p>
+				</th:block>
 				<p th:case="*">Es wurde keine Outlook Vorlage erstellt.</p>
 				<p>Sie werden in 10 Sekunden automatisch weitergeleitet.</p>
 			</div>

@@ -4,7 +4,7 @@ function init() {
 	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
 	var _persIndex = -2;
-	var _email_to = "aenderungsmitteilung@new-eu.de";
+	var _email_to = "aenderungsmitteilung@new-eu.de;leistunstraegerabrechnung@new-eu.de";
 	function setDateToday() {
 		var date = new Date();
 
@@ -107,7 +107,7 @@ function init() {
 		var ccPart = "";
 		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
-		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFrom !== "" && _dateTo !== "" && _createdBy !== "" 
+		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFirstDay !== "" && _createdBy !== "" 
 			&& _baseAmount !== "" && _increaseAmount !== "" && _weekHours !== "" && _optlunchmodel !== "") {
 			var fullname = _name + ", " + _prename;
 			// show success Messages
@@ -122,11 +122,11 @@ function init() {
 			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
 				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
 				+ "\t• Erster Tag:\t\t\t\t\t  " + GetLocaleDateString(_dateFirstDay) + "\r\n"
-				+ "\t• Grund:\t\t\t\t\t\t" + _optreason + "\r\n"
+				+ "\t• Grund:\t\t\t\t\t    " + _optreason + "\r\n"
 				+ "\t• Wochenstunden:\t\t\t " + _weekHours + "\r\n"
-				+ "\t• Mittagessen / Zeitmodell:\t " + _optlunchmodel + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t\t\t  " + _baseAmount + "\r\n"
-				+ "\t• Neuer Steigerungsbetrag:\t " + _increaseAmount + "\r\n"
+				+ "\t• Mittagessen / Zeitmodell:\t     " + _optlunchmodel + "\r\n"
+				+ "\t• Grundbetrag:\t\t\t\t\t " + _baseAmount + "\r\n"
+				+ "\t• Neuer Steigerungsbetrag:\t     " + _increaseAmount + "\r\n"
 				+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
 				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
 				+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";

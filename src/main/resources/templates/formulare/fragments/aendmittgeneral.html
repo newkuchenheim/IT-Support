@@ -7,11 +7,7 @@
 			<div class="form-floating mb-3 col"><!-- Standort -->
 				<select id="option_location" class="form-select" required>
 					<option value="" selected hidden>Bitte den Standort auswählen</option>
-					<!-- <option value="zvw">Zentrale Verwaltung</option> -->
-					<option value="khm">Kuchenheim</option>
-					<option value="kall">Kall</option>
-					<option value="uelp">Ülpenich</option>
-					<option value="zhm">Zingsheim</option>
+					<option th:block th:each="location : ${optlocations}" th:value="${location.value}" th:text="${location.text}"/>
 				</select>
 				<label for="option_location">Standort</label>
 			</div>

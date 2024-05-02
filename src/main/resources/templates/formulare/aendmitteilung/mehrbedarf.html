@@ -107,9 +107,7 @@
 					<div class="form-floating mb-3 col"><!-- Fallgruppen -->
 						<select id="option_casegroup" class="form-select" required>
 							<option value="" selected hidden>Bitte die Fallgruppe auswählen</option>
-							<option value="A">Fallgruppe A</option>
-							<option value="B">Fallgruppe B</option>
-							<option value="C">Fallgruppe C</option>
+							<option th:block th:each="casegroup : ${optcasegroups}" th:value="${casegroup.value}" th:text="${casegroup.text}"/>
 						</select>
 						<label for="option_casegroup">Fallgruppen</label>
 					</div>

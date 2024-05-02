@@ -34,13 +34,15 @@ public enum FileUploadJobrouterConfig {
 	private MediaType contentType;
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
-	private String requestRoute = "/application/fileuploads";
+	private final String mainRoute = "/application/fileuploads";
+	private String requestRoute;
 	
 	FileUploadJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.params = map;
 		this.contentType = contentType;
+		this.requestRoute = this.mainRoute;
 		configParamsMap();
 	}
 	
@@ -107,6 +109,14 @@ public enum FileUploadJobrouterConfig {
 			return true;
 		} 
 		return false;
+	}
+	
+	public void resetRequestRoute() {
+		// reset route for next call
+		if (!requestRoute.contains(":")) {
+			this.requestRoute = this.mainRoute;
+			configParamsMap();
+		}
 	}
 	
 	public String buildRequestRoute() {

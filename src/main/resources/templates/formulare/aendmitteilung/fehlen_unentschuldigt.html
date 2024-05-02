@@ -86,6 +86,12 @@
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="dateTo_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Der <b>Letzte Tag</b> muss gleich oder nach dem <b>Ersten Tag</b> sein!
+		  		</div>
+			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 		  		<div>
@@ -133,6 +139,7 @@
 					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
 	      			<li><strong>Schritt 3:</strong> Geben Sie den Ersten und Lezten Tag an.</li>
+	      			<li><strong>Schritt 4:</strong> Aktivieren Sie bei Bedarf die Unterbrechung.</li>
 	      			<li><strong>Schritt 5:</strong> Geben Sie Ihren Namen bei <strong>"Erstellt durch"</strong> an.</li>
 	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>

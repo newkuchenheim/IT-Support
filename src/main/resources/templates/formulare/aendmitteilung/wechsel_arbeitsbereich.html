@@ -159,7 +159,7 @@
 						<div id="div_lunchmodel_sel" class="form-floating mb-2" hidden><!-- Zeitmodell -->
 							<select id="option_lunchmodel" class="form-select">
 								<option value="" selected hidden>Bitte auswählen</option>
-								<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel}" th:text="${lunchmodel}"/>
+								<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
 							</select>
 							<label for="option_lunchmodel">Zeitmodell</label>
 						</div>

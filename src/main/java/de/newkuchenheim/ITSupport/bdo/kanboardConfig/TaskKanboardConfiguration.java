@@ -54,13 +54,17 @@ public enum TaskKanboardConfiguration {
 		switch (methodname) {
 		case "getTask":
 			params.put("task_id", 0);
+			break;
 		case "getAllTasks":
 			params.put("project_id", 0);
 			params.put("status_id", 0);
+			break;
 		case "updateTask":
 			params.put("id", 0);
+			break;
 		case "closeTask":
 			params.put("task_id", 0);
+			break;
 		case "removeTask":
 			params.put("task_id", 0);
 		}

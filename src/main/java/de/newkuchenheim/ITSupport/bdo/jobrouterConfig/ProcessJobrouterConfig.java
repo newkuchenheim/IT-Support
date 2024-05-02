@@ -15,13 +15,15 @@ public enum ProcessJobrouterConfig {
 	private MediaType contentType;
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
-	private String requestRoute = "/application";
+	private final String mainRoute = "/application";
+	private String requestRoute;
 	
 	ProcessJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.contentType = contentType;
 		this.params = map;
+		this.requestRoute = this.mainRoute;
 		configParamsMap();
 	}
 	
@@ -82,6 +84,14 @@ public enum ProcessJobrouterConfig {
 			return true;
 		} 
 		return false;
+	}
+	
+	public void resetRequestRoute() {
+		// reset route for next call
+		if (!requestRoute.contains(":")) {
+			this.requestRoute = this.mainRoute;
+			configParamsMap();
+		}
 	}
 	
 	public String buildRequestRoute() {

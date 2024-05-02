@@ -86,6 +86,12 @@
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="dateTo_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Der <b>Letzte Tag</b> muss gleich oder nach dem <b>Ersten Tag</b> sein!
+		  		</div>
+			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 		  		<div>
@@ -109,17 +115,15 @@
 						<label for="dateTo">Letzter Tag</label>
 					</div>
 				</div>
-				<hr>
 				<div class="row g-3 p-2 h-auto">
 					<div class="form-floating mb-3 col"><!-- Mittagessen / Zeitmodell (Verrechnung)-->
 						<select id="option_lunchmodel" class="form-select" required>
 							<option value="" selected hidden>Bitte auswählen</option>
-							<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel}" th:text="${lunchmodel}"/>
+							<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
 						</select>
 						<label for="option_lunchmodel">Mittagessen Verrechnung Lohn aussetzen / Verrechnung Lohn wiederaufnehmen</label>
 					</div>
 				</div>
-				<hr>
 				<!-- load foot fields for form -->
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: foot_commentfields}"></th:block>
 			</form>
@@ -133,8 +137,8 @@
 	      		<ul>
 					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
-	      			<li><strong>Schritt 3:</strong> Geben Sie das Von und Bis Datum an.</li>
-	      			<li><strong>Schritt 4:</strong> Geben Sie die Anzahl der Fehltage an.</li>
+	      			<li><strong>Schritt 3:</strong> Geben Sie den Ersten und Letzten Tag an.</li>
+	      			<li><strong>Schritt 4:</strong> Geben Sie die Mittagessen Verrechnung an.</li>
 	      			<li><strong>Schritt 5:</strong> Geben Sie Ihren Namen bei <strong>"Erstellt durch"</strong> an.</li>
 	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>

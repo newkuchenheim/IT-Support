@@ -1,4 +1,6 @@
-input:invalid {
+input:invalid,
+select:invalid,
+textarea:invalid {
     border-color: coral;
     background-color: yellow;
 }

@@ -43,7 +43,8 @@ public enum ArchiveJobrouterConfig {
 	private String method_name;
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
-	private String requestRoute = "/application/jobarchive/archives/:archive";
+	private final String mainRoute = "/application/jobarchive/archives/:archive";
+	private String requestRoute;
 	private boolean binaryResponse = false;
 	
 	ArchiveJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
@@ -51,6 +52,7 @@ public enum ArchiveJobrouterConfig {
 		this.method_name = method_name;
 		this.contentType = contentType;
 		this.params = map;
+		this.requestRoute = this.mainRoute;
 		configParamsMap();
 	}
 	
@@ -225,7 +227,15 @@ public enum ArchiveJobrouterConfig {
 	public boolean isBinaryResponse() {
 		return binaryResponse;
 	}
-
+	
+	public void resetRequestRoute() {
+		// reset route for next call
+		if (!requestRoute.contains(":")) {
+			this.requestRoute = this.mainRoute;
+			configParamsMap();
+		}
+	}
+	
 	public String buildRequestRoute() {
 		if (!params.isEmpty()) {
 			if (requestRoute.contains(":")) {

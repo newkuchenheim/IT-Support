@@ -9,7 +9,7 @@ function init() {
 	// change comment height
 	_comment_area.removeAttribute("style");
 	_comment_area.setAttribute("style", "height: 200px");
-	var _persIndex = -2;
+	//var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
 	function setDateToday() {
 		var date = new Date();
@@ -57,7 +57,7 @@ function init() {
 				//location_header.innerHTML = "Zentrale Verwaltung";
 		}
 	}
-	function validateName(prename, name) {
+	/*function validateName(prename, name) {
 		var _prename = prename;
 		var _name = name;
 		var i;
@@ -79,7 +79,7 @@ function init() {
 		}
 		
 		return i;
-	}
+	}*/
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";

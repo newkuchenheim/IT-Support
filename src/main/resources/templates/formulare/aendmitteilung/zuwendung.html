@@ -69,6 +69,7 @@
 		  var _telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
 		  var _telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
 		  var _telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var _VoucherReasons = /*[[${optreasons}]]*/ 'All Voucher Reasons';
 		  var _persons = _telelist_zvw;
 	 </script>
   	<!-- Javascript for form -->
@@ -113,7 +114,7 @@
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
-							<option th:block th:each="reason : ${optreasons}" th:value="${reason}" th:text="${reason}"/>
+							<option th:block th:each="reason : ${optreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
 						</select>
 						<label for="option_reason">Grund (Urkunde beifügen)</label>
 					</div>
@@ -196,15 +197,15 @@
 	      	</div>
 	      	<div class="well p-2 border">
 	      		<h4>Gutscheine</h4>
-	      		<ul>
-					<li><strong>Hochzeit & Geburt:</strong><br><b>3</b> Gutscheine in Höhe von jeweils <b>50</b>,- EUR.</li>
+	      		<ul id="voucher_descr">
+					<!-- <li><strong>Hochzeit & Geburt:</strong><br><b>3</b> Gutscheine in Höhe von jeweils <b>50</b>,- EUR.</li>
 	      			<li><strong>Verabschiedung:</strong><br><b>1</b> Gutschein in Höhe von <b>50</b>,- EUR.</li>
 	      			<li><strong>Runder Geburtstag, Krankenbesuch, Erfolgreicher BBB:</strong><br><b>1</b> Gutschein in Höhe von <b>20</b>,- EUR.</li>
 	      			<li><strong>Externes Praktikum:</strong><br>2. und 3. Praktikumsmonat jeweils <b>1</b> Gutschein.</li>
 	      			<li><strong>Jubilare:</strong><br>nach <b>10</b> Jahren <b>1</b> Gutschein<br>
 	      				nach <b>15</b> Jahren <b>2</b> Gutscheine<br>
 	      				je <b>5</b> weitere Jahre, jeweils <b>1</b> Gutschein</li>
-	      			<li><strong>Übergang soz. versich. pfl. AV:</strong><br><b>3</b> Gutscheine.</li>
+	      			<li><strong>Übergang soz. versich. pfl. AV:</strong><br><b>3</b> Gutscheine.</li>-->
 	      		</ul>
 	      	</div>
 	      	<!-- load contact template -->

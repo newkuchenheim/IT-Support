@@ -1,29 +1,24 @@
 package de.newkuchenheim.ITSupport.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.newkuchenheim.ITSupport.bdo.CostCentre;
-import de.newkuchenheim.ITSupport.bdo.TicketCategory;
+import de.newkuchenheim.ITSupport.bdo.FormData;
+import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.implement.aendmitteilungJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.aendmittJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.aendmittKanboardDAO;
 import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
 
 /**
@@ -37,6 +32,13 @@ import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
 @RequestMapping("formulare/aendmitteilung")
 public class aendmitteilungController extends abstractFormulareController {
 	private String _formPage = "";
+
+	// add global model attribute
+	@ModelAttribute("optlocations")
+	public List<FormData> getLocations() {
+		return aendmittJobrouterDAO.getInstance().getFormData("sto", true);
+	}
+	
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 		model.addAttribute("formpage", _formPage);
@@ -45,71 +47,6 @@ public class aendmitteilungController extends abstractFormulareController {
 		_sended = false;
 		_formPage = "";
 		return "formulare/aendmitteilung/home";
-	}
-	
-//////////////////////////////////////////////////////////////////////////////////////////////////
-/**
-* Controller of zuwendung
-* Post & GetMapping
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	@GetMapping({"zuwendung", "zuwendung/"})
-	public String renderCreateForm(Model model) throws IOException {
-		model.addAttribute("page", "aendmittdonation");
-		// get telelist for each location
-		addArrayListsFromCSV(model);
-		
-		// get the option lists
-		List<TicketCategory> _optvouchers = new ArrayList<TicketCategory>();
-		//List<TicketCategory> _optreasons = new ArrayList<TicketCategory>();
-		List<TicketCategory> _optjubilar = new ArrayList<TicketCategory>();
-		String _options_path = getFormPath("Aendmitteilung") + "options.json";
-		if(_options_path != null && !_options_path.isBlank()) {
-			Path _checkPath = Paths.get(_options_path);
-			if(Files.exists(_checkPath)) {
-				InputStream is = new FileInputStream(new File(_options_path));
-				
-		        JSONTokener tokener = new JSONTokener(is);
-		        JSONObject _options_json = new JSONObject(tokener);
-		        JSONArray _optvouchers_json = _options_json.getJSONArray("optvouchers");
-		        _optvouchers_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_optvouchers.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });
-		        /*JSONArray _optreasons_json = _options_json.getJSONArray("optreasons");
-		        _optreasons_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_optreasons.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });*/
-		        JSONArray _optjubilar_json = _options_json.getJSONArray("optjubilar");
-		        _optjubilar_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_optjubilar.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });
-			}
-		}
-		// get donation reason from jobrouter
-		List<String> _optreasons = aendmitteilungJobrouterDAO.getInstance().getDataSets("1B0C492D-A103-3BA3-3A26-18413F6EA54B");
-		model.addAttribute("optvouchers", _optvouchers);
-		model.addAttribute("optreasons", _optreasons);
-		model.addAttribute("optjubilar", _optjubilar);
-		
-		//tracking
-		System.out.println("call a form aendmitteilungzuw " + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a aendmitteilungzuw form");
-		
-		return "formulare/aendmitteilung/zuwendung";
-	}
-	
-	@PostMapping("zuwendung")
-	public String sendAffectionForm(Model model) {
-		_sended = true;
-		_formPage = "donation";
-		return "redirect:";
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,32 +63,8 @@ public class aendmitteilungController extends abstractFormulareController {
 		addArrayListsFromCSV(model);
 		
 		// get housingtype from jobrouter
-		/*JSONArray datasets = aendmitteilungJobrouterDAO.getInstance().getDataSets("C7AEDB5A-887D-DE03-6859-C826E296A41B");
-		List<String> housingTypes = new ArrayList<>();
-		if (datasets != null && !datasets.isEmpty()) {
-			for (Object item : datasets) {
-				housingTypes.add(((JSONObject)item).getString("Name"));
-			}
-		}
-		model.addAttribute("housingTypes", housingTypes);*/
-		List<TicketCategory> _opthousingtypes = new ArrayList<TicketCategory>();
-		String _options_path = getFormPath("Aendmitteilung") + "options.json";
-		if(_options_path != null && !_options_path.isBlank()) {
-			Path _checkPath = Paths.get(_options_path);
-			if(Files.exists(_checkPath)) {
-				InputStream is = new FileInputStream(new File(_options_path));
-				
-		        JSONTokener tokener = new JSONTokener(is);
-		        JSONObject _options_json = new JSONObject(tokener);
-		        JSONArray _opthousingtypes_json = _options_json.getJSONArray("opthousingtypes");
-		        _opthousingtypes_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_opthousingtypes.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });
-			}
-		}
-		model.addAttribute("opthousingtypes", _opthousingtypes);
+		List<FormData> opthousingtypes = aendmittJobrouterDAO.getInstance().getFormData("adr", false);
+		model.addAttribute("opthousingtypes", opthousingtypes);
 		
 		//tracking
 		System.out.println("call a form aendmitteilungaddr " + LocalDateTime.now());
@@ -180,27 +93,9 @@ public class aendmitteilungController extends abstractFormulareController {
 		// get telelist for each location
 		addArrayListsFromCSV(model);
 		
-		// get working hours reason
-		List<TicketCategory> _optreasons = new ArrayList<TicketCategory>();
-		String _options_path = getFormPath("Aendmitteilung") + "options.json";
-		if(_options_path != null && !_options_path.isBlank()) {
-			Path _checkPath = Paths.get(_options_path);
-			if(Files.exists(_checkPath)) {
-				InputStream is = new FileInputStream(new File(_options_path));
-				
-		        JSONTokener tokener = new JSONTokener(is);
-		        JSONObject _options_json = new JSONObject(tokener);
-		        JSONArray _optreasons_json = _options_json.getJSONArray("optreasonswork");
-		        _optreasons_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_optreasons.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });
-			}
-		}
-		
-		// get lunch model from jobrouter
-		List<String> _optlunchmodels = aendmitteilungJobrouterDAO.getInstance().getDataSets("FBFD504A-6BED-5E3B-DC4C-D6C4E3DFF7CC");
+		// get working hours reason and lunchmodel
+		List<FormData> _optreasons = aendmittJobrouterDAO.getInstance().getFormData("az", false);
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
 		model.addAttribute("optreasons", _optreasons);
 		model.addAttribute("optlunchmodels", _optlunchmodels);
 		
@@ -232,8 +127,8 @@ public class aendmitteilungController extends abstractFormulareController {
 		addArrayListsFromCSV(model);
 		
 		// get lunch model from jobrouter
-		List<String> _optlunchmodels = aendmitteilungJobrouterDAO.getInstance().getDataSets("FBFD504A-6BED-5E3B-DC4C-D6C4E3DFF7CC");
-		model.addAttribute("optlunchmodels", _optlunchmodels);
+		List<FormData> optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
+		model.addAttribute("optlunchmodels", optlunchmodels);
 		
 		//tracking
 		System.out.println("call a form aendmitteilungwithdrawal " + LocalDateTime.now());
@@ -273,6 +168,80 @@ public class aendmitteilungController extends abstractFormulareController {
 	public String sendBankAccountForm(Model model) {
 		_sended = true;
 		_formPage = "BankAccount";
+		return "redirect:";
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of fahrtendienst
+* Post & GetMapping
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping({"fahrtendienst", "fahrtendienst/"})
+	public String renderCreateShuttletForm(Model model) throws IOException {
+		model.addAttribute("page", "aendmittshuttle");
+		// get telelist for each location
+		addArrayListsFromCSV(model);
+		
+		// get all data from jobrouter for shuttle form
+		List<FormData> _optshuttledata = aendmittJobrouterDAO.getInstance().getFormData("fd", false);
+		// get only driver types
+		List<FormData> _optdrivertypes = new ArrayList<>(_optshuttledata);
+		_optdrivertypes.removeIf(s -> !s.getModule().equals("Selbstfahrer"));
+		// get only reasons
+		List<FormData> _optwithdrawdriverreasons = new ArrayList<>(_optshuttledata);
+		_optwithdrawdriverreasons.removeIf(s -> !s.getModule().equals("Grund"));
+		// get only buslines
+		List<FormData> _optbuslines = new ArrayList<>(_optshuttledata);
+		_optbuslines.removeIf(s -> !s.getModule().equals("Linie"));
+		model.addAttribute("optbuslines", _optbuslines);
+		model.addAttribute("optwithdrawdriverreasons", _optwithdrawdriverreasons);
+		model.addAttribute("optdrivertypes", _optdrivertypes);
+			
+		
+		//tracking
+		System.out.println("call a form aendmitteilungshuttle " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a aendmitteilungshuttle form");
+		
+		return "formulare/aendmitteilung/fahrtendienst";
+	}
+	
+	@PostMapping("fahrtendienst")
+	public String sendShuttleForm(Model model) {
+		_sended = true;
+		_formPage = "shuttle";
+		return "redirect:";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of krankheit
+* Post & GetMapping
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping({"krankheit", "krankheit/"})
+	public String renderIllnessForm(Model model) throws IOException {
+		model.addAttribute("page", "aendmittillness");
+		// get telelist for each location
+		addArrayListsFromCSV(model);
+		
+		// get lunch model from jobrouter
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
+		model.addAttribute("optlunchmodels", _optlunchmodels);
+		
+		//tracking
+		System.out.println("call a form aendmitteilungillness " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a aendmitteilungillness form");
+		
+		return "formulare/aendmitteilung/krankheit";
+	}
+	
+	@PostMapping("krankheit")
+	public String sendIllnessForm(Model model) {
+		_sended = true;
+		_formPage = "illness";
 		return "redirect:";
 	}
 	
@@ -316,6 +285,10 @@ public class aendmitteilungController extends abstractFormulareController {
 		// get telelist for each location
 		addArrayListsFromCSV(model);
 		
+		// get case groups from jobrouter
+		List<FormData> _optcasegroups = aendmittJobrouterDAO.getInstance().getFormData("mbf", false);
+		model.addAttribute("optcasegroups", _optcasegroups);
+		
 		//tracking
 		System.out.println("call a form aendmitteilungaddrequire " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a aendmitteilungaddrequire form");
@@ -344,14 +317,14 @@ public class aendmitteilungController extends abstractFormulareController {
 		addArrayListsFromCSV(model);
 		
 		// get lunch model from jobrouter
-		List<String> _optlunchmodels = aendmitteilungJobrouterDAO.getInstance().getDataSets("FBFD504A-6BED-5E3B-DC4C-D6C4E3DFF7CC");
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
 		model.addAttribute("optlunchmodels", _optlunchmodels);
 		
 		//tracking
 		System.out.println("call a form aendmitteilunglunch " + LocalDateTime.now());
 		tLog.getInstance().log(null, "info", "call a aendmitteilunglunch form");
 		
-		return "formulare/aendmitteilung/austritt";
+		return "formulare/aendmitteilung/mittagessen";
 	}
 	
 	@PostMapping("mittagessen")
@@ -429,7 +402,7 @@ public class aendmitteilungController extends abstractFormulareController {
 		addArrayListsFromCSV(model);
 		
 		// get lunch model from jobrouter
-		List<String> _optlunchmodels = aendmitteilungJobrouterDAO.getInstance().getDataSets("FBFD504A-6BED-5E3B-DC4C-D6C4E3DFF7CC");
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
 		model.addAttribute("optlunchmodels", _optlunchmodels);
 		
 		//tracking
@@ -482,32 +455,18 @@ public class aendmitteilungController extends abstractFormulareController {
 	
 	@GetMapping({"wechsel_arbeitsbereich", "wechsel_arbeitsbereich/"})
 	public String renderCreateChgInWorkGrpForm(Model model) throws IOException {
-		model.addAttribute("page", "aendmitttchginworkgrp");
+		model.addAttribute("page", "aendmittchginworkgrp");
 		// get telelist for each location
 		addArrayListsFromCSV(model);
 		
 		// get cost unit
-		List<TicketCategory> _optcostunits = new ArrayList<TicketCategory>();
-		String _options_path = getFormPath("Aendmitteilung") + "options.json";
-		if(_options_path != null && !_options_path.isBlank()) {
-			Path _checkPath = Paths.get(_options_path);
-			if(Files.exists(_checkPath)) {
-				InputStream is = new FileInputStream(new File(_options_path));
-				
-		        JSONTokener tokener = new JSONTokener(is);
-		        JSONObject _options_json = new JSONObject(tokener);
-		        JSONArray _optcostunit_json = _options_json.getJSONArray("optcostunit");
-		        _optcostunit_json.forEach(item -> {
-		        	if(item instanceof JSONObject) {
-		        		_optcostunits.add(new TicketCategory(((JSONObject) item).getString("value"), ((JSONObject) item).getString("text")));
-		        	}
-		        });
-			}
-		}
+		List<FormData> _optcostunits = aendmittJobrouterDAO.getInstance().getFormData("wab", false);
 		// get cost centres from jobrouter
-		List<CostCentre> CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("33937D15-AC9A-A7CE-9B2D-0DC182D13FEB");
+		List<CostCentre> CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("E5CEE295-2FAD-6D86-0767-CD018CC24FAD");
 		// get lunch model from jobrouter
-		List<String> _optlunchmodels = aendmitteilungJobrouterDAO.getInstance().getDataSets("FBFD504A-6BED-5E3B-DC4C-D6C4E3DFF7CC");
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
+		// Remove text only values
+		_optlunchmodels.removeIf(s -> (!Character.isDigit(s.getText().charAt(0))));
 		model.addAttribute("optlunchmodels", _optlunchmodels);
 		model.addAttribute("CostCentres", CostCentres);
 		model.addAttribute("optcostunits", _optcostunits);
@@ -536,11 +495,11 @@ public class aendmitteilungController extends abstractFormulareController {
 	
 	@GetMapping({"wechsel_kostenstelle", "wechsel_kostenstelle/"})
 	public String renderCreateChgCostCentreForm(Model model) throws IOException {
-		model.addAttribute("page", "aendmitttchgcostcentre");
+		model.addAttribute("page", "aendmittchgcostcentre");
 		// get telelist for each location
 		addArrayListsFromCSV(model);
 		
-		List<CostCentre> CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("33937D15-AC9A-A7CE-9B2D-0DC182D13FEB");
+		List<CostCentre> CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("E5CEE295-2FAD-6D86-0767-CD018CC24FAD");
 		model.addAttribute("CostCentres", CostCentres);
 		
 		//tracking
@@ -554,6 +513,111 @@ public class aendmitteilungController extends abstractFormulareController {
 	public String sendChgCostCentreForm(Model model) {
 		_sended = true;
 		_formPage = "chgcostcentre";
+		return "redirect:";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of wechsel_zweigstelle
+* Post & GetMapping
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping({"wechsel_zweigstelle", "wechsel_zweigstelle/"})
+	public String renderCreateChgLocationForm(Model model) throws IOException {
+		model.addAttribute("page", "aendmittchglocation");
+		// get telelist for each location
+		addArrayListsFromCSV(model);
+		
+		List<CostCentre> CostCentres = kostenstelleJobrouterDAO.getInstance().getDataSets("E5CEE295-2FAD-6D86-0767-CD018CC24FAD");
+		model.addAttribute("CostCentres", CostCentres);
+		// get lunch model from jobrouter
+		List<FormData> _optlunchmodels = aendmittJobrouterDAO.getInstance().getFormData("zm", false);
+		model.addAttribute("optlunchmodels", _optlunchmodels);
+		
+		//tracking
+		System.out.println("call a form aendmitteilungchglocation " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a aendmitteilungchglocation form");
+		
+		return "formulare/aendmitteilung/wechsel_zweigstelle";
+	}
+	
+	@PostMapping("wechsel_zweigstelle")
+	public String sendChgLocationForm(Model model) {
+		_sended = true;
+		_formPage = "chglocation";
+		return "redirect:";
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of zuwendung
+* Post & GetMapping
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping({"zuwendung", "zuwendung/"})
+	public String renderCreateForm(Model model) throws IOException {
+		model.addAttribute("page", "aendmittdonation");
+		// get telelist for each location
+		addArrayListsFromCSV(model);
+		
+		// get all data from jobrouter for voucher form
+		List<FormData> _optdonationdata = aendmittJobrouterDAO.getInstance().getFormData("zw", false);
+		// get only jubilar
+		List<FormData> _optjubilar = new ArrayList<>(_optdonationdata);
+		_optjubilar.removeIf(s -> !s.getModule().equals("Jubiläum"));
+		// get only reasons
+		List<FormData> _optreasons = new ArrayList<>(_optdonationdata);
+		_optreasons.removeIf(s -> !s.getModule().equals("Grund"));
+		// get only vouchers
+		List<FormData> _optvouchers = new ArrayList<>(_optdonationdata);
+		_optvouchers.removeIf(s -> !s.getModule().equals("Gutschein"));
+		model.addAttribute("optvouchers", _optvouchers);
+		model.addAttribute("optreasons", _optreasons);
+		model.addAttribute("optjubilar", _optjubilar);
+		
+		//tracking
+		System.out.println("call a form aendmitteilungdonation " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a aendmitteilungdonation form");
+		
+		return "formulare/aendmitteilung/zuwendung";
+	}
+	
+	@PostMapping("zuwendung")
+	public String sendDonationForm(Model model) {
+		_sended = true;
+		_formPage = "donation";
+		return "redirect:";
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+* Controller of feedback
+* Post & GetMapping
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping({"feedback", "feedback/"})
+	public String renderCreateFeedbackForm(Model model) throws IOException {
+		model.addAttribute("page", "aendmittfeedback");
+		// get telelist for each location
+		addArrayListsFromCSV(model);
+		
+		model.addAttribute("ticket", new Ticket());
+		
+		//tracking
+		System.out.println("call a form aendmitteilungfeedback " + LocalDateTime.now());
+		tLog.getInstance().log(null, "info", "call a aendmitteilungfeedback form");
+		
+		return "formulare/aendmitteilung/feedback";
+	}
+	
+	@PostMapping("feedback")
+	public String sendFeedbackForm(@ModelAttribute Ticket ticket, Model model) throws UnsupportedEncodingException {
+		_formPage = "feedback";
+		_sended = aendmittKanboardDAO.getInstance().updateFeedbackTicket(ticket);
+		model.addAttribute("ticket", ticket);
 		return "redirect:";
 	}
 }

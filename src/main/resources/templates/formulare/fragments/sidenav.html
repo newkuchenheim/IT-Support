@@ -39,6 +39,7 @@
 			  			<a class="nav-link" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/austritt">Austritt</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/fahrtendienst">Fahrtendienst</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/lohn">Lohn</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
@@ -49,7 +50,9 @@
 			  			<a class="nav-link" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_zweigstelle">Wechsel Zweigstelle</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/feedback">Feedback</a>
 					</nav>
 				</div>
 			</div>
@@ -91,6 +94,7 @@
 			  			<a class="nav-link" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/austritt">Austritt</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/fahrtendienst">Fahrtendienst</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/lohn">Lohn</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
@@ -101,7 +105,9 @@
 			  			<a class="nav-link" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_zweigstelle">Wechsel Zweigstelle</a>
 			  			<a class="nav-link" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/feedback">Feedback</a>
 					</nav>
 				</div>
 			</div>
@@ -118,6 +124,7 @@
 				  			<a class="nav-link" th:classappend="${page == 'aendmittwork' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittwithdrawal' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/austritt">Austritt</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittbankacc' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
+				  			<a class="nav-link" th:classappend="${page == 'aendmittshuttle' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/fahrtendienst">Fahrtendienst</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittillness' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittpay' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/lohn">Lohn</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittaddrequire' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
@@ -126,36 +133,17 @@
 				  			<a class="nav-link" th:classappend="${page == 'aendmittunpaidtime' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/fehlzeit_unbezahlt">Unbezahlte Fehlzeit</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittunpaidleave' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/urlaub_unbezahlt">Unbezahlter Urlaub</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmitttruant' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
-				  			<a class="nav-link" th:classappend="${page == 'aendmitttchginworkgrp' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
-				  			<a class="nav-link" th:classappend="${page == 'aendmitttchgcostcentre' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+				  			<a class="nav-link" th:classappend="${page == 'aendmittchginworkgrp' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
+				  			<a class="nav-link" th:classappend="${page == 'aendmittchgcostcentre' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+				  			<a class="nav-link" th:classappend="${page == 'aendmittchglocation' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/wechsel_zweigstelle">Wechsel Zweigstelle</a>
 				  			<a class="nav-link" th:classappend="${page == 'aendmittdonation' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
+							<a class="nav-link" th:classappend="${page == 'aendmittfeedback' ? 'active link-dark' : ''}" href="/formulare/aendmitteilung/feedback">Feedback</a>
 						</nav>
 					</div>
 				</div>
 			</th:block>
 			<th:block th:unless="${#strings.startsWith(page, 'aendmitt')}">
-				<a class="nav-link" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
-				<div class="collapse" id="collForm">
-					<div class="card card-body">
-				  		<nav class="nav flex-column">
-				  			<a class="nav-link" href="/formulare/aendmitteilung/anschrift">Anschrift</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/austritt">Austritt</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/lohn">Lohn</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/mittagessen">Mittagessen</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/sonstiges">Sonstiges</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/fehlzeit_unbezahlt">Unbezahlte Fehlzeit</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/urlaub_unbezahlt">Unbezahlter Urlaub</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
-				  			<a class="nav-link" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
-						</nav>
-					</div>
-				</div>
+				<a class="nav-link">Änderungsmitteilung</a>
 			</th:block>
 		</nav>
   	</div>

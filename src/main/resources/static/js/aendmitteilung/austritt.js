@@ -3,7 +3,7 @@ function init() {
 	// reset chosen location
 	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
-	var _persIndex = -2;
+	//var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
 	function setDateToday() {
 		var date = new Date();
@@ -51,7 +51,7 @@ function init() {
 				//location_header.innerHTML = "Zentrale Verwaltung";
 		}
 	}
-	function validateName(prename, name) {
+	/*function validateName(prename, name) {
 		var _prename = prename;
 		var _name = name;
 		var i;
@@ -73,7 +73,7 @@ function init() {
 		}
 		
 		return i;
-	}
+	}*/
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";
@@ -92,7 +92,7 @@ function init() {
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateWithdrawal = document.getElementById("dateWithdrawal").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _sendto = document.getElementById("sendto_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t\t     ");
+		var _sendto = document.getElementById("sendto_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
 		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
@@ -117,9 +117,9 @@ function init() {
 			// build body
 			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
 				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-				+ "\t• Austritt am:\t\t\t  " + GetLocaleDateString(_dateWithdrawal) + "\r\n"
-				+ "\t• Mittagessen / Zeitmodell:\t " + _optlunchmodel + "\r\n"
-				+ "\t• Unterlagen sind zu senden an:  " + _sendto + "\r\n"
+				+ "\t• Austritt am:\t\t\t\t\t" + GetLocaleDateString(_dateWithdrawal) + "\r\n"
+				+ "\t• Mittagessen / Zeitmodell:\t     " + _optlunchmodel + "\r\n"
+				+ "\t• Unterlagen sind zu senden an:   " + _sendto + "\r\n"
 				+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
 				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
 				+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";

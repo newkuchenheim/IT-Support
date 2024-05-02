@@ -20,13 +20,15 @@ public enum DataJobrouterConfig {
 	private MediaType contentType;
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private JSONObject post_params = new JSONObject();
-	private String requestRoute = "/application/jobdata/tables/:guid";
+	private final String mainRoute = "/application/jobdata/tables/:guid";
+	private String requestRoute;
 	
 	DataJobrouterConfig(HttpMethod requestMethod, String method_name, Map<String, Object> map, MediaType contentType) {
 		this.requestMethod = requestMethod;
 		this.method_name = method_name;
 		this.params = map;
 		this.contentType = contentType;
+		this.requestRoute = this.mainRoute;
 		configParamsMap();
 	}
 	
@@ -106,6 +108,14 @@ public enum DataJobrouterConfig {
 			return true;
 		} 
 		return false;
+	}
+	
+	public void resetRequestRoute() {
+		// reset route for next call
+		if (!requestRoute.contains(":")) {
+			this.requestRoute = this.mainRoute;
+			configParamsMap();
+		}
 	}
 	
 	public String buildRequestRoute() {

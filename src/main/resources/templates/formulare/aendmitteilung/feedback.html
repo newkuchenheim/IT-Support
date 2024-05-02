@@ -3,7 +3,7 @@
 <head>
 	<!-- include main scripts; title tag will be removed-->
 	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
-	<title>NEW-Änderungsmitteilung Unbezahlter Urlaub</title>
+	<title>NEW-Änderungsmitteilung Anschrift</title>
 
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
@@ -48,6 +48,11 @@
 		    align-items: center;
 		    
 		}
+		/****** Begin Anschrift section ******/
+		#name_error {
+			display: none;
+		}
+		/****** End section Anschrift ******/
 	    /* On small screens, set height to 'auto' for sidenav and grid */
 	    @media screen and (max-width: 767px) {
 	      .sidenav {
@@ -66,9 +71,9 @@
 		  var _telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
 		  var _persons = _telelist_zvw;
 	 </script>
-  	<!-- Javascript for form -->
-  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/urlaub_unbezahlt.js}">
-	 </script>
+  	<!-- Javascript for form
+  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/feedback.js}">
+	 </script>-->
 </head>
 <body>
 	<!-- Load alert icons -->
@@ -86,44 +91,45 @@
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 max-width text-left" style="height: 75%">
-	    	<div id="dateTo_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
-		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-		  		<div>
-		    		Der <b>Letzte Tag</b> muss gleich oder nach dem <b>Ersten Tag</b> sein!
-		  		</div>
-			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 		  		<div>
-		    		Die Änderungsmitteilung wird an Outloook übertragen.
+		    		Ihr Feedback wird gesendet.
 		  		</div>
 			</div>
 			<div>
-				<h1 id="location_header">Änderungsmitteilung - Unbezahlter Urlaub</h1>
+				<h1 id="location_header">Änderungsmitteilung - Feedback</h1>
 			</div> 
-	      	<form id="change_notice" method="post" action="#" style="min-width: 300px;">
-	      		<!-- load head fields for form -->
-				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
-				<!-- variable form fields -->
-				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Erster Tag -->
-						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="von" required>
-						<label for="dateFrom">Erster Tag</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Letzter Tag -->
-						<input id="dateTo" type="date" name="dateTo" class="form-control" placeholder="bis" required>
-						<label for="dateTo">Letzter Tag</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Mittagessen / Angabe Zeitmodell -->
-						<select id="option_lunchmodel" class="form-select" required>
-							<option value="" selected hidden>Bitte auswählen</option>
-							<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
+	      	<form id="change_notice" method="post" th:object="${ticket}" action="#" style="min-width: 300px;">
+	      		<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col"><!-- Standort -->
+						<select th:field="*{building}" id="option_location" class="form-select" required>
+							<option value="" selected hidden>Bitte den Standort auswählen</option>
+							<option th:block th:each="location : ${optlocations}" th:value="${location.text}" th:text="${location.text}"/>
 						</select>
-						<label for="option_lunchmodel">Mittagessen / Angabe Zeitmodell</label>
+						<label for="option_location">Standort</label>
 					</div>
 				</div>
-				<!-- load foot fields for form -->
-				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: foot_commentfields}"></th:block>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Nachname -->
+						<input th:field="*{lastname}" id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+						<label for="name">Name</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Vorname -->
+						<input th:field="*{firstname}" id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+						<label for="prename">Vorname</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3">
+						<!-- Feedback -->
+						<textarea th:field="*{description}" id="feedback_area" name="feedback_area" class="form-control" rows="8" style="height: 150px" required></textarea>
+						<label for="feedback_area">Feedback</label>
+					</div>
+				</div>
+				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Feedback Senden">
+					<input type="submit" value="Senden" class="btn btn-success" id="send" name="send"/><br/>
+				</div>
 			</form>
 	    </div>
 	    
@@ -134,11 +140,9 @@
 	      		<!-- info an rechten col -->
 	      		<ul>
 					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
-	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
-	      			<li><strong>Schritt 3:</strong> Geben Sie den Ersten und Letzten Tag an.</li>
-	      			<li><strong>Schritt 4:</strong> Geben Sie das Mittagessen / Zeitmodell an.</li>
-	      			<li><strong>Schritt 5:</strong> Geben Sie Ihren Namen bei <strong>"Erstellt durch"</strong> an.</li>
-	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+					<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
+	      			<li><strong>Schritt 3:</strong> Füllen Sie das Feedbackfeld aus</li>
+	      			<li><strong>Schritt 4:</strong> Klicken Sie auf dem Button "Senden". Ihr Feedback wird dann direkt an uns gesendet.</li>
 	      		</ul>
 	      	</div>
 	      	<!-- load contact template -->

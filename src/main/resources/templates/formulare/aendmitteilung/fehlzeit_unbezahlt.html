@@ -86,6 +86,12 @@
 	    
 	    <!-- main view col-->
 	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="dateTo_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Das <b>Bis-Datum</b> muss gleich oder nach dem <b>Von-Datum</b> sein!
+		  		</div>
+			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 		  		<div>
@@ -109,7 +115,7 @@
 						<label for="dateTo">Bis</label>
 					</div>
 					<div class="form-floating mb-3 col"><!-- Bis -->
-						<input id="days" type="number" name="days" class="form-control" placeholder="fehltage" min="1" step="1" required>
+						<input id="days" type="number" name="days" class="form-control" placeholder="fehltage" step="1" min="1" required>
 						<label for="days">Anzahl Fehltag(e)</label>
 					</div>
 				</div>
@@ -127,7 +133,7 @@
 					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie den Vor- und Nachnamen der gewünschten Person ein.</li>
 	      			<li><strong>Schritt 3:</strong> Geben Sie das Von und Bis Datum an.</li>
-	      			<li><strong>Schritt 4:</strong> Geben Sie die Anzahl der Fehltage an.</li>
+	      			<li><strong>Schritt 4:</strong> Falls erforderlich, passen Sie die Anzahl der Fehltage an.</li>
 	      			<li><strong>Schritt 5:</strong> Geben Sie Ihren Namen bei <strong>"Erstellt durch"</strong> an.</li>
 	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>

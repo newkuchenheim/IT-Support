@@ -3,7 +3,7 @@ function init() {
 	// reset chosen location
 	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
-	var _persIndex = -2;
+	//var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
 	function setDateToday() {
 		var date = new Date();
@@ -46,12 +46,11 @@ function init() {
 		// add first option
 		addCostCentre(_optcostcentre, null, true);
 		for (var i = 0; i < _CostCentres.length; i++) {
-			if (_CostCentres[i]["location"] !== "" && (_CostCentres[i]["location"] === location 
-				|| _CostCentres[i]["number"] < "17910" && (_CostCentres[i]["location"].includes("BIAP") || _CostCentres[i]["location"] === "Außenarbeitsplätze"))) {
+			if (_CostCentres[i]["location"] !== "" && (_CostCentres[i]["location"] === location
+			|| _CostCentres[i]["location"].includes("BIAP") || _CostCentres[i]["location"] === "Außenarbeitsplätze")) {
 				addCostCentre(_optcostcentre, _CostCentres[i], false);
 			}
 		}
-		
 	}
 	
 	function changeTeleList() {
@@ -86,10 +85,10 @@ function init() {
 				_persons = _telelist_zvw;
 				//location_header.innerHTML = "Zentrale Verwaltung";
 		}
-		changeCostCentres("NEW " + location_text);
+		changeCostCentres(location_text);
 	}
 	
-	function validateName(prename, name) {
+	/*function validateName(prename, name) {
 		var _prename = prename;
 		var _name = name;
 		var i;
@@ -111,7 +110,7 @@ function init() {
 		}
 		
 		return i;
-	}
+	}*/
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";
@@ -139,15 +138,9 @@ function init() {
 		var costunit_text = (_other_costunit !== "" ? _other_costunit : _optcostunit);
 		var _lunch = document.getElementById("lunch").checked;
 		var lunch_Text = (_lunch ? "ja" : "nein");
-		var _paymethods = document.getElementsByName("paymethods");
-		var paymethod = "";
-		for (var i = 0; i < _paymethods.length; i++) {
-			if (_paymethods[i].checked) {
-				paymethod = _paymethods[i].value;
-				break;
-			}
-		}
-		var _optlunchmodel = document.getElementById("option_lunchmodell");
+		var _paymethod = document.querySelector("input[type='radio'][name=paymethods]:checked").value;;
+		var paymethod = (_paymethod !== null && _paymethod !== "" ? _paymethod : "");
+		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel = (_optlunchmodel !== null && _optlunchmodel !== "" ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
 		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
@@ -177,11 +170,11 @@ function init() {
 				+ "\t• Kostenträger:\t\t\t\t\t" + costunit_text + "\r\n"
 				+ "\t• Kostenstelle:\t\t\t\t\t" + _optcostcentre + "\r\n"
 				+ "\t• Prüfung\r\n"
-				+ "\t   Erwerbsminderungsrente:\t  " + checkReducedPension_Text + "\r\n"
+				+ "\t   Erwerbsminderungsrente:\t    " + checkReducedPension_Text + "\r\n"
 				+ "\t• Grundbetrag:\t\t\t\t\t" + _baseAmount + "\r\n"
-				+ "\t• Steigerungsbetrag:\t\t\t" + _increaseAmount + "\r\n"
-				+ "\t• Mittagessen:\t\t\t\t     " + lunch_Text + "\r\n"
-				+ "\t• Zahlungsmethode:\t\t\t" + paymethod + lunchmodel + "\r\n"
+				+ "\t• Steigerungsbetrag:\t\t\t  " + _increaseAmount + "\r\n"
+				+ "\t• Mittagessen:\t\t\t\t        " + lunch_Text +  "\r\n"
+				+ "\t• Zahlungsmethode:\t\t\t  " + paymethod + lunchmodel + "\r\n"
 				+ "\t• Bemerkung:\t\t\t\t\t" + _comment + "\r\n"
 				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
 				+ "\t• Erstellt am:\t\t\t\t\t   " + GetLocaleDateString(_dateCreate) + "\r\n";
@@ -205,15 +198,11 @@ function init() {
 	document.getElementById("lunch").addEventListener("change", function() {
 		if (this.checked) {
 			document.getElementById("div_paymethod").hidden = false;
+			document.getElementById("lunchpay").required = true;
 		} else {
 			document.getElementById("div_paymethod").hidden = true;
-			var _paymethods = document.getElementsByName("paymethods");
-			for (var i = 0; i < _paymethods.length; i++) {
-				if (_paymethods[i].checked) {
-					_paymethods[i].checked = false;
-					break;
-				}
-			}
+			document.querySelector("input[type='radio'][name=paymethods]:checked").checked = false;
+			document.getElementById("lunchpay").required = false;
 		}
 	});
 	

@@ -1,8 +1,91 @@
 window.onload = init;
 function init() {
+	// define String Format function
+	String.prototype.format = function () {
+	  var args = arguments;
+	  return this.replace(/{([0-9]+)}/g, function (match, index) {
+	    return typeof args[index] == 'undefined' ? match : args[index];
+	  });
+	};
 	// reset chosen location
 	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
+	// generate description text for vouchers
+	function initVoucherDescr() {
+		var _voucher_descr = document.getElementById("voucher_descr");
+		var voucherGrp1 = "<strong>";
+		var voucherGrp2 = "";
+		var voucherGrp3 = "<strong>";
+		var voucherGrp1Eur = "";
+		var voucherGrp3Eur = "";
+		var voucherGrpJub_elem = document.createElement("li");
+		var JubilarText = "";
+		var voucherGrpTrain_elem = document.createElement("li");
+		var TraineeText = "";
+		for (var i = 0; i < _VoucherReasons.length; i++) {
+			if (_VoucherReasons[i]["value"] !== "Jubilare" && !_VoucherReasons[i]["value"].includes("Praktikum")) {
+				var strArray = Array.from(_VoucherReasons[i]["description"]);
+				var voucherCount = parseInt(strArray[0]);
+				if (voucherCount == 3) {
+					voucherGrp3 += _VoucherReasons[i]["value"] + ", "
+					if (voucherGrp3Eur.length == 0) {
+						var voucherParts = _VoucherReasons[i]["description"].split(":");
+						voucherGrp3Eur = voucherParts[1].substring(0, voucherParts[1].indexOf(" "));
+					}
+				} else if (_VoucherReasons[i]["value"] === "Verabschiedung" && voucherGrp2.length == 0) {
+					var voucherParts = _VoucherReasons[i]["description"].split(":");
+					voucherGrp2 = "<strong>Verabschiedung</strong><br><b>{0}</b> Gutschein(e) in Höhe von <b>{1}</b>,- EUR"
+						.format(voucherParts[0].substring(0, voucherParts[0].indexOf(" ")), voucherParts[1].substring(0, voucherParts[1].indexOf(" ")));
+				} else {
+					voucherGrp1 += _VoucherReasons[i]["value"] + ", ";
+					if (voucherGrp1Eur.length == 0) {
+						var voucherParts = _VoucherReasons[i]["description"].split(":");
+						voucherGrp1Eur = voucherParts[1].substring(0, voucherParts[1].indexOf(" "));
+					}
+				}
+			} else if (_VoucherReasons[i]["value"] === "Jubilare" && JubilarText.length == 0) {
+				JubilarText = "<strong>Jubilare:</strong><br>";
+				var jubilar_parts = _VoucherReasons[i]["description"].split(";");
+				for (var j = 0; j < jubilar_parts.length; j++) {
+					var voucherdef = jubilar_parts[j].split(":");
+					var years = voucherdef[0].substring(0,voucherdef[0].indexOf(" "));
+					var voucherCount = voucherdef[1].substring(0,voucherdef[1].indexOf(" "));
+					if (voucherdef[0].includes("je")) {
+						JubilarText += "je <b>{0}</b> weitere Jahre <b>{1}</b> Gutschein(e)".format(years, voucherCount);
+					} else {
+						JubilarText += "nach <b>{0}</b> Jahren <b>{1}</b> Gutschein(e)".format(years, voucherCount);
+					}
+					if (j < jubilar_parts.length - 1) JubilarText += "<br>";
+				}
+			} else if (_VoucherReasons[i]["value"].includes("Praktikum") && TraineeText.length == 0) {
+				TraineeText = "<strong>Externes Praktikum:</strong><br>";
+				var monthparts = _VoucherReasons[i]["description"].split(";");
+				for (var j = 0; j < monthparts.length; j++) {
+					var voucherdef = monthparts[j].split(":");
+					var month = voucherdef[0].substring(0,voucherdef[0].indexOf(" "));
+					var voucherCount = voucherdef[1].substring(0,voucherdef[1].indexOf(" "));
+					TraineeText += "<b>{0}</b> Praktikumsmonat <b>{1}</b> Gutschein(e)".format(month, voucherCount);
+					if (j < monthparts.length - 1) TraineeText += "<br>";
+				}
+			}
+		}
+		voucherGrpJub_elem.innerHTML = JubilarText;
+		voucherGrpTrain_elem.innerHTML = TraineeText;
+		voucherGrp1 = voucherGrp1.substring(0, voucherGrp1.length - 2) + "</strong><br><b>1</b> Gutschein in Höhe von <b>{0}</b>,- EUR".format(voucherGrp1Eur);
+		voucherGrp3 = voucherGrp3.substring(0, voucherGrp3.length - 2) + "</strong><br><b>3</b> Gutscheine in Höhe von jeweils <b>{0}</b>,- EUR".format(voucherGrp3Eur);
+		var voucherGrp1_elem = document.createElement("li");
+		voucherGrp1_elem.innerHTML = voucherGrp1;
+		var voucherGrp2_elem = document.createElement("li");
+		voucherGrp2_elem.innerHTML = voucherGrp2;
+		var voucherGrp3_elem = document.createElement("li");
+		voucherGrp3_elem.innerHTML = voucherGrp3;
+		_voucher_descr.appendChild(voucherGrp3_elem);
+		_voucher_descr.appendChild(voucherGrp2_elem);
+		_voucher_descr.appendChild(voucherGrp1_elem);
+		_voucher_descr.appendChild(voucherGrpTrain_elem);
+		_voucher_descr.appendChild(voucherGrpJub_elem);
+	}
+	initVoucherDescr();
 	var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
 	var _maxvoucher = 1;
