@@ -75,4 +75,10 @@ public class wikifbKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 		return -1;
 	}
 
+	@Override
+	public Ticket getTicketByName(Ticket ticket) throws UnsupportedEncodingException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

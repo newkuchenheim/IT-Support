@@ -3,6 +3,8 @@
  */
 package de.newkuchenheim.ITSupport.bdo;
 
+import java.time.LocalDateTime;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -26,6 +28,14 @@ public class Ticket {
 	private String usercat;
 	private MultipartFile file;
 	private String fileContent;
+	private String color_id;
+	private String level;
+	private String state;
+	private LocalDateTime beginn_at;
+	private LocalDateTime ended_am;
+	private LocalDateTime changed_at;
+	private boolean is_active;
+	private String contactperson;
 	
 	/**
 	 * @return the firstname
@@ -171,6 +181,54 @@ public class Ticket {
 	}
 	public void setFileContent(String fileContent) {
 		this.fileContent = fileContent;
+	}
+	public String getColor_id() {
+		return color_id;
+	}
+	public void setColor_id(String color_id) {
+		this.color_id = color_id;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public LocalDateTime getBeginn_at() {
+		return beginn_at;
+	}
+	public void setBeginn_at(LocalDateTime beginn_at) {
+		this.beginn_at = beginn_at;
+	}
+	public LocalDateTime getEnded_am() {
+		return ended_am;
+	}
+	public void setEnded_am(LocalDateTime ended_am) {
+		this.ended_am = ended_am;
+	}
+	public boolean isIs_active() {
+		return is_active;
+	}
+	public void setIs_active(boolean is_active) {
+		this.is_active = is_active;
+	}
+	public String getContactperson() {
+		return contactperson;
+	}
+	public void setContactperson(String contactperson) {
+		this.contactperson = contactperson;
+	}
+	public LocalDateTime getChanged_at() {
+		return changed_at;
+	}
+	public void setChanged_at(LocalDateTime changed_at) {
+		this.changed_at = changed_at;
 	}	
 	
 }

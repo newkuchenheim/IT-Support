@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- include main scripts; title tag will be removed-->
+<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+<title>NEW-Ticket Senden</title>
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+fieldset {
+	text-align: left;
+}
+
+.interForm {
+	display: flex;
+	flex-flow: wrap;
+}
+
+form {
+	text-align: center;
+	border-color: #f1f1f1;
+	border-style: solid;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+</style>
+<script type="text/javascript" th:src="@{../../js/ticket.js}"></script>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons :: alerticons}"></svg>
+	
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+	<nav th:replace="~{itsupport/fragments/topmenu :: topmenu}"></nav>
+	
+	
+	<div class="row pt-1 m-2">
+		<!-- navigation link intern -->
+		<!-- Load sidenav template -->
+		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
+
+		<!-- main view col-->
+		<div class="col p-3 max-width text-left" style="height: 75%">
+			<div class="d-flex justify-content-center">
+				<h1 class="display-6">Ticket-Tracking</h1>
+			</div>
+			<form method="post" id="send_ticket" action="#" th:object="${ticket}"
+				style="min-width: 300px;" enctype="multipart/form-data">
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col">
+						<!-- Ticketnummer -->
+						<input th:field="*{id}"
+							id="ticketnrtf" type="text" class="form-control" name="ticketnr"
+							placeholder="Ticketnummer" required> <label for="ticketnrtf">Ticketnummer</label>
+					</div>
+					<div class="form-floating mb-3 col">
+						<!-- Nachname -->
+						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
+							id="nnametf" type="text" class="form-control" name="nname"
+							placeholder="Nachname" required> <label for="nnametf">Nachname</label>
+					</div>
+				</div>
+				<div class="form-group mb-3" data-bs-toggle="tooltip"
+					data-bs-placement="top" title="Senden Ihres Tickets">
+					<input type="submit" value="Absenden" class="btn btn-success" /><br />
+				</div>
+			</form>
+		</div>
+		
+		<!-- Anzeige -->
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			
+			<h3>Anleitung</h3>
+			<div class="well p-2 border">
+				<!-- info an rechten col -->
+				<ul>
+					<li><strong>Schritt 1:</strong> Geben Sie bitte Ihre <strong>Ticketnumer</strong> ein.</li>
+					<li><strong>Schritt 2:</strong> Geben Sie bitte Ihren <strong>Nachname</strong> ein.</li>
+					<li><strong>Schritt 3:</strong> Klicken Sie auf dem Button
+						"Senden", um Zustand Ihres Tickets zu überprüfen.</li>
+				</ul>
+
+			</div>
+			
+			<!-- load contact template -->
+			<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+		</div>
+	</div>
+	
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>

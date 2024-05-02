@@ -73,28 +73,124 @@ section {
 	<!-- Load topmenu template -->
 	<nav th:replace="~{itsupport/fragments/topmenu :: topmenu}"></nav>
 
-	<div class="row content p-3">
+	<div class="row content p-1">
 		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
 		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
 
 		<!-- main page -->
-		<div class="col p-3 max-width text-left" style="height: 67%">
-			<div th:switch="${result}" class="alert alert-primary" role="alert">
-				<p th:case="-1">
-					Ihr Ticket wurde nicht versendet! <br> Bitte kontaktieren Sie
-					unsere IT-Kollege per <a href="mailto:edv@new-eu.de">Mail</a>
-					oder Telefon. Vielen Dank!
-				</p>
-				<p th:case="*">
-					Ihre Nachricht mit der Ticket Nr. <b th:text="${result}"></b> wurde
-					versendet! <br> Wir kümmern uns schnellstmöglich um Ihr
-					Anliegen und werden uns bei Ihnen melden.<br>
-					<br> Bei Nachfrage geben Sie die genannte <b>Ticket-Nummer</b>
-					an.
-				</p>
+		<div th:switch="${event_response}" class="col p-1 max-width text-left">
+			<div class="d-flex justify-content-center">
+				<h1 class="display-6">Support-Ticket</h1>
+			</div>
+			<div th:case="tracking" class="row p-3 max-width text-left">
+				  <div th:switch="${color}">
+					<!--<div th:case="red" class="alert alert-danger" role="alert">
+						<h3 th:text="${title}"></h3>
+						<h5>Problembeschreibung</h5>
+						<p th:text="${categorie}"></p>
+						<h5>IT-Log</h5>
+						<p th:text="${contact_person}"></p>
+						<p th:text="${state}"></p>
+						<p th:text="${beginn_at}"></p>
+						<p th:text="${ended_at}"></p>
+						<p><b>Log:</b></p>
+						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>					</div>
+					<div th:case="yellow" class="alert alert-warning" role="alert">
+						<h3 th:text="${title}"></h3>
+						<h5>Problembeschreibung</h5>
+						<p th:text="${categorie}"></p>
+						<h5>IT-Log</h5>
+						<p th:text="${contact_person}"></p>
+						<p th:text="${state}"></p>
+						<p th:text="${beginn_at}"></p>
+						<p th:text="${ended_at}"></p>
+						<p><b>Log:</b></p>
+						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>
+					</div>
+					<div th:case="green" class="alert alert-success" role="alert">
+						<h3 th:text="${title}"></h3>
+						<h5>Problembeschreibung</h5>
+						<p th:text="${categorie}"></p>
+						<h5>IT-Log</h5>
+						<p th:text="${contact_person}"></p>
+						<p th:text="${state}"></p>
+						<p th:text="${beginn_at}"></p>
+						<p th:text="${ended_at}"></p>
+						<p><b>Log:</b></p>
+						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>
+					</div>-->
+					<div th:case="cyan" class="alert alert-info" role="alert">
+						<h3 th:text="${title}"></h3>
+						<h5>Problembeschreibung</h5>
+						<p th:text="${categorie}"></p>
+						<h5>IT-Log</h5>
+						<p><b>Allgemeine Information:</b></p>
+						<p th:text="${contact_person}"></p>
+						<p th:text="${state}"></p>
+						<p th:text="${changed_at}"></p>
+						<p th:text="${beginn_at}"></p>
+						<p th:text="${ended_at}"></p>
+						<p><b>Log:</b></p>
+						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>
+					</div>
+					<div th:case="*" class="alert alert-dark" role="alert">
+						<h5 th:text="${title}"></h5>
+						<p th:text="${desc}"></p>
+					</div>
+					<nav class="nav">
+					  <a class="nav-link" aria-current="page" href="ticket_tracking">⬅ Zurück zu <b>Ticket-Tracking</b></a>
+					</nav>
+				</div>
+				<div class="col p-3 max-width text-left">
+					<!--  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Über Farbe Ihres Tickets erklären</button>
+					<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+						<div class="offcanvas-header">
+						    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Farbe zeigt Schwierigkeitsgrad Ihres Tickets</h5>
+						    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+						    <div class="alert alert-info" role="alert">
+						    Grad: Ticket ist im System eingegangen oder wird kurzfristig bearbeitet, falls Startdatum des Tickets eingesetzt ist.
+						    </div>
+						    <div class="alert alert-success" role="alert">Grad: Einfach</div>
+						    <div class="alert alert-warning" role="alert">Grad: Mittel</div>
+						    <div class="alert alert-danger" role="alert">Grad: Schwer</div>
+						</div>
+					</div>-->
+					<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions1" aria-controls="offcanvasWithBothOptions1">Über Bearbeitungszustand Ihres Tickets erklären</button>
+					<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions1" aria-labelledby="offcanvasWithBothOptionsLabel1">
+						<div class="offcanvas-header">
+						    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel1">Bearbeitungszustand ihres Tickets</h5>
+						    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+						    <p><b>Eingang: </b> beschreibt den Zustand, dass Ihr Ticket im System eingegangen ist, aber es noch nicht konkret für eine Umsetzung in Art und Zeit geplant werden kann. </p><br>
+						    <p><b>Vorbereitung: </b>beschreibt eine Aufgabe, wo die Art der Umsetzung bekannt ist. Es sollte auch definiert sein wer die Aufgabe erledigt und in welchem Zeitraum diese Aufgabe zu erledigen ist.</p><br>
+						    <p><b>In Bearbeitung: </b>Wenn eine Aufgabe gestartet wird sollte diese in den Status "In Bearbeitung" und auch einem Mitarbeiter zugeordnet sein.</p><br>
+						    <p><b>Abgeschlossen: </b>die Bearbeitung des Tickets ist abgeschlossen.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:case="ticket" >
+				<div th:switch="${result}" class="alert alert-primary" role="alert">
+					<p th:case="-1">
+						Ihr Ticket wurde nicht versendet! <br> Bitte kontaktieren Sie
+						unsere IT-Kollege per <a href="mailto:edv@new-eu.de">Mail</a>
+						oder Telefon. Vielen Dank!
+					</p>
+					<p th:case="*">
+						Ihre Nachricht mit der Ticket Nr. <b th:text="${result}"></b> wurde
+						versendet! <br> Wir kümmern uns schnellstmöglich um Ihr
+						Anliegen und werden uns bei Ihnen melden.<br>
+						<br> Sie können den Zustand Ihres Tickets mit <b>Ticket-Nummer </b><b th:text="${result}"></b> über <a href="ticket_tracking">Ticket-Tracking</a>
+						verfolgen.
+					</p>
+				</div>
 			</div>
 		</div>
+		
 
 		<!-- anzeige -->
 		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
@@ -103,8 +199,8 @@ section {
 			</div>
 		</div>
 	</div>
-	<footer th:replace="~{itsupport/fragments/footer :: footer}">
-		<!-- Load Footer Template -->
-	</footer>
+	<!--<div th:replace="~{itsupport/fragments/footer :: footer}">
+		
+	</div>  -->
 </body>
 </html>

@@ -50,22 +50,27 @@ public enum TaskKanboardConfiguration {
 	 * @return
 	 */
 	private void configParamsMap(String methodname) {
-		params.clear();
+		//params.clear();
 		switch (methodname) {
 		case "getTask":
+			params.clear();
 			params.put("task_id", 0);
 			break;
 		case "getAllTasks":
+			params.clear();
 			params.put("project_id", 0);
 			params.put("status_id", 0);
 			break;
 		case "updateTask":
+			params.clear();
 			params.put("id", 0);
 			break;
 		case "closeTask":
+			params.clear();
 			params.put("task_id", 0);
 			break;
 		case "removeTask":
+			params.clear();
 			params.put("task_id", 0);
 		}
 	}

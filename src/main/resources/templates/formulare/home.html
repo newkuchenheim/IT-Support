@@ -64,20 +64,18 @@ section {
 </style>
 </head>
 <body>
-	<svg th:replace="~{itsupport/fragments/alerticons}">
-	 	<!-- Load alert icons -->
-	 </svg>
-	 <header th:replace="~{itsupport/fragments/header :: header}">
-         <!-- Load Header from template -->
-     </header>
-     <nav th:replace="~{formulare/fragments/topmenu :: topmenu}">
-    	 <!-- Load topmenu template -->
-	</nav>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	 
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	 
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
 
 	<div class="row content p-3" style="height: 67%">
-  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}">
-		<!-- Load sidenav template -->
-  		</div>
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
 
 		<!-- main page 2te col-->
 		<div class="col p-3 max-width text-left">
@@ -140,13 +138,11 @@ section {
 		<!-- anzeige 3te col -->
 		<!-- info an rechten col -->
 		<div class="col col-sm-2 m-2 p-3 bg-grey sidenav">
-			<div th:replace="~{itsupport/fragments/contact :: contact}">
-				<!-- load contact template -->
-			</div>
+			<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
 		</div>
 	</div>
-	<footer th:replace="~{itsupport/fragments/footer :: footer}">
-		<!-- Load Footer Template -->
-	</footer>
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
 </body>
 </html>
