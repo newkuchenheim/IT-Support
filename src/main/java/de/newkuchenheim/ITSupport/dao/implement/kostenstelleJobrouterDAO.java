@@ -23,7 +23,7 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 	
 	public static kostenstelleJobrouterDAO getInstance() {
 		if (instance == null) {
-			return new kostenstelleJobrouterDAO();
+			instance = new kostenstelleJobrouterDAO();
 		}
 		return instance;
 	}
