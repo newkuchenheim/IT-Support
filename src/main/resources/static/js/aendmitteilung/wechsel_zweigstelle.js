@@ -46,46 +46,12 @@ function init() {
 		// add first option
 		addCostCentre(_optcostcentre, null, true);
 		for (var i = 0; i < _CostCentres.length; i++) {
-			if (_CostCentres[i]["location"] !== "" && (_CostCentres[i]["location"] === location 
+			if (_CostCentres[i]["location"] !== "" && _CostCentres[i]["number"] < "19301" && (_CostCentres[i]["location"] === location 
 			|| _CostCentres[i]["location"].includes("BIAP") || _CostCentres[i]["location"] === "Außenarbeitsplätze")) {
 				addCostCentre(_optcostcentre, _CostCentres[i], false);
 			}
 		}
 		
-	}
-	
-	
-	function changeTeleList() {
-		//var location_header = document.getElementById("location_header");
-		var location_elem = document.getElementById("option_location");
-		var location_val = location_elem.value;
-		document.getElementById("prename").value = "";
-		document.getElementById("name").value = "";
-		switch (location_val) {
-			case "kall":
-				_persons = _telelist_kall;
-				//location_header.innerHTML = "NEW Kall";
-				break;
-			case "khm":
-				_persons = _telelist_khm;
-				//location_header.innerHTML = "NEW Kuchenheim";
-				break;
-			case "uelp":
-				_persons = _telelist_uelp;
-				//location_header.innerHTML = "NEW Ülpenich";
-				break;
-			case "zhm":
-				_persons = _telelist_zhm;
-				//location_header.innerHTML = "NEW Zingsheim";
-				break;
-			case "zvw":
-				_persons = _telelist_zvw;
-				//location_header.innerHTML = "Zentrale Verwaltung";
-				break;
-			default:
-				_persons = _telelist_zvw;
-				//location_header.innerHTML = "Zentrale Verwaltung";
-		}
 	}
 	/*function validateName(prename, name) {
 		var _prename = prename;

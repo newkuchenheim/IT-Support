@@ -28,11 +28,11 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
 
 @Controller
-@RequestMapping("/newdaten/kostenstellen")
+@RequestMapping("digidaten/kostenstellen")
 public class kostenstellenController {
 	private static List<CostCentre> CostCentres = new ArrayList<CostCentre>();
-	private final String _URL_LOCATIONS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Newdaten\\Kostenstellen\\locations.json";//"%USERPROFILE%/it-supportcontent/newdaten/kostenstellen/locations.json";
-	private final String _URL_LOCATIONS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Newdaten/Kostenstellen/locations.json";//"/home/itsupport/itsupport/it-supportcontent/newdaten/kostenstellen/locations.json";
+	private final String _URL_LOCATIONS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Digidaten\\Kostenstellen\\locations.json";//"%USERPROFILE%/it-supportcontent/digidaten/kostenstellen/locations.json";
+	private final String _URL_LOCATIONS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Digidaten/Kostenstellen/locations.json";//"/home/itsupport/itsupport/it-supportcontent/digidaten/kostenstellen/locations.json";
 	
 	// home not needed
 	/*@GetMapping({"", "/"})
@@ -84,7 +84,7 @@ public class kostenstellenController {
 		model.addAttribute("CostCentre", new CostCentre());
 		model.addAttribute("CostCentres", CostCentres);
 		model.addAttribute("page", "ks");
-		return "/newdaten/kostenstellen/form";
+		return "/digidaten/kostenstellen/form";
 	}
 	
 	private void getAllCostCentres() {

@@ -52,7 +52,7 @@ function init() {
 		addCostCentre(_opt_oldcostcentre, null, true);
 		addCostCentre(_opt_newcostcentre, null, true);
 		for (var i = 0; i < _CostCentres.length; i++) {
-			if (_CostCentres[i]["location"] !== "" && (_CostCentres[i]["location"] === location 
+			if (_CostCentres[i]["location"] !== "" && _CostCentres[i]["number"] < "19301" && (_CostCentres[i]["location"] === location 
 			|| _CostCentres[i]["location"].includes("BIAP") || _CostCentres[i]["location"] === "Außenarbeitsplätze")) {
 				addCostCentre(_opt_oldcostcentre, _CostCentres[i], false);
 				addCostCentre(_opt_newcostcentre, _CostCentres[i], false);
@@ -60,40 +60,10 @@ function init() {
 		}
 		
 	}
-	
-	
-	function changeTeleList() {
-		//var location_header = document.getElementById("location_header");
+	function changeTeleListAndCC() {
+		changeTeleList();
 		var location_elem = document.getElementById("option_location");
-		var location_val = location_elem.value;
 		var location_text = location_elem.options[location_elem.selectedIndex].text;
-		document.getElementById("prename").value = "";
-		document.getElementById("name").value = "";
-		switch (location_val) {
-			case "kall":
-				_persons = _telelist_kall;
-				//location_header.innerHTML = "NEW Kall";
-				break;
-			case "khm":
-				_persons = _telelist_khm;
-				//location_header.innerHTML = "NEW Kuchenheim";
-				break;
-			case "uelp":
-				_persons = _telelist_uelp;
-				//location_header.innerHTML = "NEW Ülpenich";
-				break;
-			case "zhm":
-				_persons = _telelist_zhm;
-				//location_header.innerHTML = "NEW Zingsheim";
-				break;
-			case "zvw":
-				_persons = _telelist_zvw;
-				//location_header.innerHTML = "Zentrale Verwaltung";
-				break;
-			default:
-				_persons = _telelist_zvw;
-				//location_header.innerHTML = "Zentrale Verwaltung";
-		}
 		changeCostCentres(location_text);
 	}
 	/*function validateName(prename, name) {
@@ -174,7 +144,7 @@ function init() {
 	}
 	
 	// add change event to location
-	document.getElementById("option_location").addEventListener("change", changeTeleList);
+	document.getElementById("option_location").addEventListener("change", changeTeleListAndCC);
 	
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();

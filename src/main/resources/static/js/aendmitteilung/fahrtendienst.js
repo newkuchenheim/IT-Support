@@ -60,48 +60,6 @@ function init() {
 			}
 		}
 	}
-	
-	/**
-	 * set person list to choosen location
-	 */
-	function changeTeleList() {
-		//var location_header = document.getElementById("location_header");
-		var location = document.getElementById("option_location").value;
-		document.getElementById("prename").value = "";
-		document.getElementById("name").value = "";
-		switch (location) {
-			case "kall":
-				_persons = _telelist_kall;
-				changeBuslines("Kall");
-				//location_header.innerHTML = "NEW Kall";
-				break;
-			case "khm":
-				_persons = _telelist_khm;
-				changeBuslines("Kuchenheim");
-				//location_header.innerHTML = "NEW Kuchenheim";
-				break;
-			case "uelp":
-				_persons = _telelist_uelp;
-				changeBuslines("Ülpenich");
-				//location_header.innerHTML = "NEW Ülpenich";
-				break;
-			case "zhm":
-				_persons = _telelist_zhm;
-				changeBuslines("Zingsheim");
-				//location_header.innerHTML = "NEW Zingsheim";
-				break;
-			case "zvw":
-				_persons = _telelist_zvw;
-				changeBuslines("Verwaltung");
-				//location_header.innerHTML = "Zentrale Verwaltung";
-				break;
-			default:
-				_persons = _telelist_zvw;
-				changeBuslines("Verwaltung");
-				//location_header.innerHTML = "Zentrale Verwaltung";
-		}
-	}
-	
 	/**
 	 * reset Div fields
 	 * 

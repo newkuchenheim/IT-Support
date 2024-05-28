@@ -26,18 +26,18 @@ import de.newkuchenheim.ITSupport.bdo.MainContent;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 
 @Controller
-public class homeNewdatenController {
-	private final String _URL_MESSAGES  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Newdaten\\messages.json";//"%USERPROFILE%/it-supportcontent/newdaten/messages.json";
-	private final String _URL_MESSAGES_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Newdaten/messages.json";//"/home/itsupport/itsupport/it-supportcontent/newdaten/messages.json";
+public class homeDigidatenController {
+	private final String _URL_MESSAGES  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Digidaten\\messages.json";//"%USERPROFILE%/it-supportcontent/digidaten/messages.json";
+	private final String _URL_MESSAGES_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Digidaten/messages.json";//"/home/itsupport/itsupport/it-supportcontent/digidaten/messages.json";
 	
 	private static List<MainContent> contents = new ArrayList<MainContent>();
 	
 	@ModelAttribute("page")
     String page() {
-        return "newdaten";
+        return "digidaten";
     }
 	
-	@GetMapping({"/newdaten", "newdaten/"})
+	@GetMapping({"/digidaten", "/digidaten/"})
 	public String getHome(Model model) {
 		contents.clear();
 		
@@ -90,7 +90,7 @@ public class homeNewdatenController {
 			} else {
 				MainContent cont = new MainContent();
 	    		cont.setType("info");
-	    		cont.setTitle("Willkommen zu Daten-NE.W");
+	    		cont.setTitle("Willkommen zu Digi-Daten");
 	    		cont.setDescription("Derzeits gibt es keine neue Informationen!");
 	    		cont.setWrittenBy("System");
 	    		cont.setWrittenOn(LocalDateTime.now());
@@ -102,7 +102,7 @@ public class homeNewdatenController {
 		} else {
 			MainContent cont = new MainContent();
     		cont.setType("info");
-    		cont.setTitle("Willkommen zu Daten-NE.W");
+    		cont.setTitle("Willkommen zu Digi-Daten");
     		cont.setDescription("Derzeit gibt es keine neue Informationen!");
     		cont.setWrittenBy("System");
     		cont.setWrittenOn(LocalDateTime.now());
@@ -113,6 +113,6 @@ public class homeNewdatenController {
 		}
 		
 		model.addAttribute("messages", contents);
-		return "/newdaten/home";
+		return "/digidaten/home";
 	}
 }

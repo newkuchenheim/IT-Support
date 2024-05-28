@@ -62,18 +62,6 @@
 	      .row.content {height:auto;} 
 	    }
   	</style>
-  	<!-- Load persons array in javascript -->
-  	<script type="text/javascript" th:inline="javascript">
-		  var _telelist_kall = /*[[${kall_telelist}]]*/ 'Telelist Kall';
-		  var _telelist_khm = /*[[${khm_telelist}]]*/ 'Telelist Kuchenheim';
-		  var _telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
-		  var _telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
-		  var _telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
-		  var _persons = _telelist_zvw;
-	 </script>
-  	<!-- Javascript for form
-  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/feedback.js}">
-	 </script>-->
 </head>
 <body>
 	<!-- Load alert icons -->

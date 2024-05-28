@@ -1,34 +1,34 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
-Opgenorth,Hendrik,Betriebsleitung - Betriebsleitung,13,13,01520-9209055,,h.opgenorth@new-eu.de
-Schütt,Guido,Verwaltung - Beauftragter für Medizinprodukte,10,10,,,g.schuett@new-eu.de
+Opgenorth,Hendrik,Betriebsleitung,13,13,01520-9209055,,h.opgenorth@new-eu.de
+Schütt,Guido,Beauftragter für Medizinprodukte,10,10,,,g.schuett@new-eu.de
 Hölnyk,Jennifer,Verwaltung,10,10,,,j.hoelnyk@new-eu.de
 Schreiber,Alexandra,Verwaltung,11,11,,,a.schreiber@new-eu.de
-Esch,Michael,Verwaltung - Brandschutzbeauftragter,22,222,,,m.esch@new-eu.de
+Esch,Michael,Brandschutzbeauftragter,22,222,,,m.esch@new-eu.de
 Spenst,Benjamin,Montage,30,230,,,b.spenst@new-eu.de
-Haas,Stephan,Montage - Autowäsche,34,234,,,s.haas@new-eu.de
+Haas,Stephan,Autowäsche,34,234,,,s.haas@new-eu.de
 Kurth,Roswitha,Hauswirtschaft,24,224,,,hw-kall@new-eu.de
 Schüler,Hendrik,Gartenbau,39,239,0172-1490320,,h.schueler@new-eu.de
 Lönenbach,René,Gartenbau,39,239,0174-6930942,,gartenbau-kall@new-eu.de
-Schmitz,Henrik,Gartenbau - Auszubildender,39,239,,,h.schmitz@new-eu.de
-Schloeßer,Johanna,Konfektionierung - Teamleitung,43,243,,,j.schloesser@new-eu.de
-Baum,Michael,Konfektionierung - Lebensmittelabfüllung,32,232,,,m.baum@new-eu.de
-Reinartz,Marcel,Konfektionierung - Elektromontage,41,241,,,m.reinartz@new-eu.de
+Schmitz,Henrik,Auszubildender,39,239,,,h.schmitz@new-eu.de
+Schloeßer,Johanna,Teamleitung,43,243,,,j.schloesser@new-eu.de
+Baum,Michael,Lebensmittelabfüllung,32,232,,,m.baum@new-eu.de
+Reinartz,Marcel,Elektromontage,41,241,,,m.reinartz@new-eu.de
 Origer,Roger,Konfektionierung,42,242,,,r.origer@new-eu.de
 Möseler,Kira Sophia,Konfektionierung,47,247,,,k.moeseler@new-eu.de
-Hopf,Svenja,Konfektionierung - Auszubildende,,,,,s.hopf@new-eu.de
-Kortwig,Kristiane,ZAB,26,226,,,k.kortwig@new-eu.de
-Luger,Susanne,ZAB - Beauftragte Medizinproduktesicherheit,46,246,,,s.luger@new-eu.de
+Linden-Schmitz,Britta,ZAB,26,226,,,b.linden-perrin@new-eu.de
+Luger,Susanne,Beauftragte Medizinproduktesicherheit,46,246,,,s.luger@new-eu.de
 Leisen,Eva,ZAB,49,249,,,e.leisen@new-eu.de
 Van Laak,Rainer,Hausmeister,12,12,01525-7396443,,td-kall@new-eu.de
-Giesen,Jürgen,Hausmeister,12,12,,,td-kall@new-eu.de
-Hilger,Ilona,Sozialer Dienst - Sozialer Dienst,21,221,,,i.hilger@new-eu.de
-Ackermann-Vandeweyer,Lotte,Sozialer Dienst - Sozialer Dienst,20,220,,,l.ackermann-vandeweyer@new-eu.de
-Pötz,Christina,Eingangsbereich und Berufsbildungsbereich - Betriebsleitung,,,0173-7089728,,c.poetz@new-eu.de
-Müller-Kulpa,Silke,Eingangsbereich und Berufsbildungsbereich - Sozialer Dienst,27,227,0173-5132778,,s.mueller-kulpa@new-eu.de
-Tarrach,Christoph,Eingangsbereich und Berufsbildungsbereich - Teamleitung,37,237,,,c.tarrach@new-eu.de
-Asmuth,Frank,Eingangsbereich und Berufsbildungsbereich - Eingangsbereich,23,223,,,f.asmuth@new-eu.de
-Klein,Monika,Eingangsbereich und Berufsbildungsbereich - Bildungsbegleiterin,31,231,,,m.klein@new-eu.de
-Beheng,Martin,Eingangsbereich und Berufsbildungsbereich - Bildungsbegleiter,35,235,,,m.beheng@new-eu.de
-Reetz,Benedikt,Eingangsbereich und Berufsbildungsbereich - Bildungsbegleiter,36,236,,,b.reetz@new-eu.de
-Ewinger,Tanja,Eingangsbereich und Berufsbildungsbereich - ZAB,48,248,,,t.ewinger@new-eu.de
-Diesch,Petra,NEW Job - Job Coach,38,238,0174-1860445,,petra.diesch@newjob-eu.de
+Reetz,Benedikt,Hausmeister,36,236,,,b.reetz@new-eu.de
+Hilger,Ilona,Sozialer Dienst,21,221,,,i.hilger@new-eu.de
+Ackermann-Vandeweyer,Lotte,Sozialer Dienst,20,220,,,l.ackermann-vandeweyer@new-eu.de
+Pötz,Christina,Betriebsleitung,,,0173-7089728,,c.poetz@new-eu.de
+Müller-Kulpa,Silke,Sozialer Dienst,27,227,0173-5132778,,s.mueller-kulpa@new-eu.de
+Tarrach,Christoph,Teamleitung,37,237,,,c.tarrach@new-eu.de
+Asmuth,Frank,Eingangsbereich,23,223,,,f.asmuth@new-eu.de
+Klein,Monika,Bildungsbegleiterin,31,231,,,m.klein@new-eu.de
+Beheng,Martin,Bildungsbegleiter,35,235,,,m.beheng@new-eu.de
+Bürger,Matthias,Bildungsbegleiter,33,233,,,m.buerger@new-eu.de
+Ewinger,Tanja,ZAB,48,248,,,t.ewinger@new-eu.de
+Kortwig,Kristiane,ZAB,26,226,,,k.kortwig@new-eu.de
+Diesch,Petra,Job Coach,38,238,0174-1860445,,petra.diesch@newjob-eu.de
