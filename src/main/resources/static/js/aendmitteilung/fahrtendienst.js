@@ -24,6 +24,13 @@ function init() {
 	// Set Date for first load
 	setDateCreateToToday();
 	
+	/**
+	 * add busline element to parent element
+	 * 
+	 * @param {Element} parent
+	 * @param {Array<string>} BusLine Busline Data
+	 * @param {boolean} first add first element
+	 */
 	function addBusline(parent, BusLine, first) {
 		var child = document.createElement("option");
 		if (first) {
@@ -41,7 +48,7 @@ function init() {
 	/**
 	 * fill busline selection for given location
 	 * 
-	 * @param location
+	 * @param {string} location
 	 */
 	function changeBuslines(location) {
 		var _busline_sel = document.getElementById("option_busline");
@@ -61,15 +68,24 @@ function init() {
 		}
 	}
 	/**
+	 * change Telelist and Buslines for location selection
+	 */
+	function changeTeleListAndBuslines() {
+		changeTeleList();
+		var location_elem = document.getElementById("option_location");
+		var location_text = location_elem.options[location_elem.selectedIndex].text;
+		changeBuslines(location_text.substring(4));
+	}
+	/**
 	 * reset Div fields
 	 * 
-	 * @param {boolean} selfdriver - true: reset self driver fields, false: reset shuttle fields
+	 * @param {boolean} selfdriver true: reset self driver fields, false: reset shuttle fields
 	 */
 	function resetDivFields(selfdriver) {
 		if (selfdriver) {
 			document.getElementById("option_drivertype").value = "";
 			var division = document.querySelector("input[type='radio'][name=divisions]:checked");
-			if (divison != null) division.checked = false;
+			if (division != null) division.checked = false;
 		} else {
 			var meetingpoint = document.querySelector("input[type='radio'][name=meetingpoints]:checked");
 			var escort = document.querySelector("input[type='radio'][name=escorts]:checked");
@@ -110,7 +126,9 @@ function init() {
 	}*/
 	
 	/**
-	 * @returns current date as locale date string in format dd.mm.yyyy (without starting zeros)
+	 * returns current date as locale date string in format dd.mm.yyyy (without starting zeros)
+	 * @param {string} date 
+	 *
 	 */
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
@@ -225,7 +243,7 @@ function init() {
 	}
 	
 	// add change event to location
-	document.getElementById("option_location").addEventListener("change", changeTeleList);
+	document.getElementById("option_location").addEventListener("change", changeTeleListAndBuslines);
 	// show and reset needed form fields
 	document.getElementById("selfdriver").addEventListener("change", function() {
 		if (this.checked) {
@@ -256,7 +274,7 @@ function init() {
 			document.getElementById("div_wheelchair_size").hidden = true;
 			var _height_elem = document.getElementById("height");
 			_height_elem.value = "";
-			_heigth_elem.required = false;
+			_height_elem.required = false;
 			var _width_elem = document.getElementById("width");
 			_width_elem.value = "";
 			_width_elem.required = false;
