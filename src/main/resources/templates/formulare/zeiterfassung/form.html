@@ -69,6 +69,7 @@
 		  var telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
 		  var telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var telelist_qubi = /*[[${qubi_telelist}]]*/ 'Telelist QuBi';
 		  var optreasons = /*[[${optreasons}]]*/ 'Option Reason';
 		  var persons = telelist_zvw;
 	 </script>
@@ -190,12 +191,6 @@
 	      			<li><strong>Schritt 4:</strong> Geben Sie bitte mindestens ein Datum an.</li>
 	      			<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>
-	      	</div>
-	      	<div class="well p-2 border">
-	        	<p><strong>Achtung:</strong></p>
-	        	<ul>
-	        		<li>Sie müssen in der Outlook Vorlage noch die Empfänger E-Mail Adresse angeben.</li>
-	        	</ul> 
 	      	</div>
 	      	<!-- load contact template -->
 	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>

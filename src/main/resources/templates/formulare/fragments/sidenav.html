@@ -20,6 +20,10 @@
 							  <span class="nav-link">Kall</span>
 						  </label><br>
 						  <label>
+							  <input type="radio" name="location" value="qubi">
+							  <span class="nav-link">QuBi Eifel Mechernich</span>
+						  </label><br>
+						  <label>
 							  <input type="radio" name="location" value="uelp">
 							  <span class="nav-link">Ülpenich</span>
 						  </label><br>
@@ -77,6 +81,10 @@
 							  <span class="nav-link">Kall</span>
 						  </label><br>
 						  <label>
+							  <input type="radio" name="location" value="qubi">
+							  <span class="nav-link">QuBi Eifel Mechernich</span>
+						  </label><br>
+						  <label>
 							  <input type="radio" name="location" value="uelp">
 							  <span class="nav-link">Ülpenich</span>
 						  </label><br>
@@ -117,7 +125,7 @@
 		<nav  class="nav flex-column" th:case="*">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Korrekturbeleg - Krankbuchung</a>
-			<a class="nav-link" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a>
+			<a class="nav-link" th:classappend="${page == 'hilfstool' ? 'active link-dark' : ''}" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a>
 			<th:block th:if="${#strings.startsWith(page, 'aendmitt')}">
 				<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
 				<div class="collapse show" id="collForm">

@@ -1,9 +1,8 @@
 Name,Vorname,Funktion,Telefon_Int,Telefon_Ext,Handy,Fax,E-Mail
 Richerzhagen,Georg,Geschäftsführung,3110,02251 - 77756 - 110,0170 - 3340569,--201,g.richerzhagen@new-eu.de
 Werner,Christoph,Geschäftsführung,3160,02251 - 77756 - 160,0163 - 2449933,,c.werner@new-eu.de
-Fiege,Wilfried,Geschäftsführung,3113,02251 - 77756 - 113,0172 - 8532162,--202,w.fiege@new-eu.de
-Scheuls,Tanja,Prokuristin Pädagogische Leitung,3119,02251 - 77756 - 119,0172 - 8160958,--199,t.scheuls@new-eu.de
-Jungheim,Birgit,Sozialer Dienst,3323,02251 - 77756 - 323,,,b.jungheim@new-eu.de
+Scheuls,Tanja,Prokuristin Pädagogische Leitung,<color #ed1c24>QuBi Mechernich</color>,02443 - 99790 - 0,0172 - 8160958,-99,t.scheuls@new-eu.de
+Jungheim,Birgit,ab 03.06.2024 im QuBi Mechernich,,02443 - 99790 - 25,,,b.jungheim@new-eu.de
 Niebes,Elke,Zentrale,3100,02251 - 77756 - 100,,--199,empfang-verwaltung@new-eu.de
 Simons,Dorothee,Assistenz Geschäftsführung,3143,02251 - 77756 - 143,,,d.simons@new-eu.de
 Sporrer,Georg,QM- und Datenschutzbeauftragter,3130,02251 - 77756 - 130,0172 - 8360414,-200,g.sporrer@new-eu.de
@@ -16,15 +15,15 @@ Jonas,Hildegard,Finanzbuchhaltung,3112,02251 - 77756 - 112,0162 - 2451169,-203,h
 Dreimol,Beate,Finanzbuchhaltung,3131,02251 - 77756 - 131,0162 - 2449675,,b.dreimol@new-eu.de
 Hoenselaars,Kerstin,Finanzbuchh./Fahrtendienst,3145,02251 - 77756 - 145,0162 - 4566855,,k.hoenselaars@new-eu.de
 Bischof,Anke,Finanzbuchh./Leistungsträger,3118,02251 - 77756 - 118,0172 - 4421308,-199,a.bischof@new-eu.de
-Schmitz,Susanne,Leitung Personalabteilung,3117,02251 - 77756 - 117,0162 - 2549797,-204,s.schmitz@new-eu.de
+Schmitz,Susanne,Leitung Entgelt und Personalcontrolling,3117,02251 - 77756 - 117,0162 - 2549797,-204,s.schmitz@new-eu.de
 Mertes,Vera,Personalreferentin,3142,02251 - 77756 - 142,01523-1373934,,v.mertes@new-eu.de
 Kempener,Annika,Personalabteilung,3116,02251 - 77756 - 116,0162 - 2549778,,a.kempener@new-eu.de
-Krebs,Tanja,Personalabteilung,3147,02251 - 77756 - 147,"","",tanja.krebs@new-eu.de
-Lennier,Alina,Studentische Aushilfe Personalab.,3146,02251 - 77756 - 146,,,a.lennier@new-eu.de
+Krebs,Tanja,Personalabteilung,3147,02251 - 77756 - 147,,,tanja.krebs@new-eu.de
+Lennier,Alina,Personalabteilung,3146,02251 - 77756 - 146,,,a.lennier@new-eu.de
 Brings,Jannik,Auszubildender,3148,02251 - 77756  -148,,,j.brings@new-eu.de
 Hochgürtel,Michael,IT - Administrator,3120,02251 - 77756 - 120,0173 - 7203073,,admin@new-eu.de
 Truong,Minh Tam,NE.W IT,3122,02251 - 77756 - 122,,,t.truong@new-eu.de
 Blum,René,NE.W IT,3124,02251 - 77756 - 124,0152- 54522589,,r.blum@new-eu.de
-Zacharias,Christian,NE.W IT,3125,02251 - 77756 - 125,,,c.zacharias@new-eu.de
-Schröder,Harald,NE.W IT,3123,02251 - 77756 - 123,,,h.schroeder@new-eu.de
+Zacharias,Christian,NE.W IT,3126,02251 - 77756 - 126,0172- 5317530,,c.zacharias@new-eu.de
+Schröder,Harald,NE.W IT,3125,02251 - 77756 - 125,,,h.schroeder@new-eu.de
 Hansen,Sebastian,NE.W IT,3123,02251 - 77756 - 123,,,s.hansen@new-eu.de

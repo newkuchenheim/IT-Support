@@ -2,8 +2,8 @@ window.onload = init;
 function init() {
 	// reset chosen location
 	document.getElementById("zvw_location").checked = true;
-	var general_email_to = "";
-	var cc_email = "";
+	//var general_email_to = "";
+	var cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 	var persIndex = -2;
 	function changeTeleList() {
 		var location_header = document.getElementById("location_header");
@@ -42,6 +42,12 @@ function init() {
 				location_header.innerHTML = "Zentrale Verwaltung";
 				location_warn.innerText = "der Zentralen Verwaltung";
 				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
+				break;
+			case "qubi":
+				persons = telelist_qubi;
+				location_header.innerHTML = "QuBi Eifel Mechernich";
+				location_warn.innerText = "dem QuBi Eifel Mechernich";
+				cc_email = "korrekturbeleg-qubi@new-eu.de";
 				break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
@@ -135,15 +141,14 @@ function init() {
 		var _name = _name_elem.value;
 		var _optrequest = document.getElementById("option_request").value;
 		var _optreason = document.getElementById("option_reason").value;
-		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t  ");
+		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t");
 		var _dateFrom = _dateFrom_elem.value;
 		//var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
 		//var _timeTo = _timeTo_elem.value;
 		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
-		var email_to = "";
-		var subject = "Korrekturbeleg-Krankbuchung";
+		//var email_to = "";
 		var body;
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
 			var fullname = _name + " " + _prename;
@@ -163,7 +168,7 @@ function init() {
 				form_success_bs.show;
 				_form_success.classList.remove("visually-hidden");
 				// build subject
-				subject += fullname;
+				var subject = "Korrekturbeleg-Krankbuchung " + fullname;
 				// build body
 				body = "\t• Name, Vorname: " + fullname + "\r\n"
 					+ "\t• Antrag auf: " + _optrequest + "\r\n"
