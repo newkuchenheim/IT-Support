@@ -113,6 +113,6 @@ public class homeDigidatenController {
 		}
 		
 		model.addAttribute("messages", contents);
-		return "/digidaten/home";
+		return "digidaten/home";
 	}
 }

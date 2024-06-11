@@ -84,7 +84,7 @@ public class kostenstellenController {
 		model.addAttribute("CostCentre", new CostCentre());
 		model.addAttribute("CostCentres", CostCentres);
 		model.addAttribute("page", "ks");
-		return "/digidaten/kostenstellen/form";
+		return "digidaten/kostenstellen/form";
 	}
 	
 	private void getAllCostCentres() {
