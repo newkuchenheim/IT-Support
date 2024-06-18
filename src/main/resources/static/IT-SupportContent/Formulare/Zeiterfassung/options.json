@@ -2,15 +2,27 @@
     {
         "value" : "Krank Buchung",
         "text" : "Krank Buchung"
+    },
+    {
+        "value" : "Korrekturbuchung",
+        "text" : "Korrekturbuchung"
     }
 ], "optreasons":[
+	{
+        "value" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]",
+        "text" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]"
+    },
     {
         "value" : "Krank ohne Bescheinigung",
         "text" : "Krank ohne Bescheinigung"
     },
     {
-        "value" : "Krank mit eAu",
-        "text" : "Krank mit eAU"
+        "value" : "Krank ohne Bescheinigung",
+        "text" : "Krank ohne Bescheinigung"
+    },
+    {
+        "value" : "Krank mit pAu",
+        "text" : "Krank mit pAU"
     }
 ]
 }

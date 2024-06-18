@@ -57,7 +57,7 @@ function init() {
 		}
 	}
 	
-	/**function addReason(parent, reason, first) {
+	function addReason(parent, reason, first) {
 		var child = document.createElement("option");
 		if (first) {
 			child.innerHTML = "Bitte den Grund auswählen";
@@ -67,11 +67,21 @@ function init() {
 		} else {
 			child.innerHTML = reason["text"];
 			child.value = reason["value"];
+			
+			if(reason["text"].includes("Sonstiges")){
+				child.selected = true;
+				
+				var timeFrom_elem = document.getElementById("timeFrom");
+				var timeTo_elem = document.getElementById("timeTo");
+				
+				timeFrom_elem.required = true;
+				timeTo_elem.required = true;
+			}
 		}
 		parent.appendChild(child);
-	}*/
+	}
 	
-	/**function changeReason(request) {
+	function changeReason(request) {
 		var optreason_elem = document.getElementById("option_reason");
 		// clear opt list
 		while (optreason_elem.firstChild) {
@@ -80,15 +90,15 @@ function init() {
 		// add specific options with request
 		addReason(optreason_elem, "", true);
 		for (var i = 0; i < optreasons.length; i++) {
-			if (request.includes("berstunden") && (optreasons[i]["text"].includes("Sonstige") || optreasons[i]["value"] == "-")) {
+			if (request.includes("Krankbuchung") && optreasons[i]["text"].includes("Krank")) {
 				addReason(optreason_elem, optreasons[i], false);
-			} else if (request.includes("Krank") && optreasons[i]["text"].includes("Krank")) {
-				addReason(optreason_elem, optreasons[i], false);
-			} else if (request.includes("Korrektur") && !optreasons[i]["text"].includes("Krank")) {
-				addReason(optreason_elem, optreasons[i], false);
-			}
+			} else if(request === "Korrekturbuchung" && optreasons[i]["text"].includes("Sonstiges")){
+				
+				addReason(optreason_elem, optreasons[i], false);	
+			} 
 		}
-	}*/
+		
+	}
 	
 	function validateName(prename, name) {
 		var _prename = prename;
@@ -134,18 +144,18 @@ function init() {
 		var _prename_elem = document.getElementById("prename");
 		var _name_elem = document.getElementById("name");
 		var _dateFrom_elem = document.getElementById("dateFrom");
-		//var _timeFrom_elem = document.getElementById("timeFrom");
+		var _timeFrom_elem = document.getElementById("timeFrom");
 		var _dateTo_elem = document.getElementById("dateTo");
-		//var _timeTo_elem = document.getElementById("timeTo");
+		var _timeTo_elem = document.getElementById("timeTo");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optrequest = document.getElementById("option_request").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t");
 		var _dateFrom = _dateFrom_elem.value;
-		//var _timeFrom = _timeFrom_elem.value;
+		var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
-		//var _timeTo = _timeTo_elem.value;
+		var _timeTo = _timeTo_elem.value;
 		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
 		//var email_to = "";
@@ -156,7 +166,7 @@ function init() {
 			if (validDate) {
 				// remove red border
 				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
-				//if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
+				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
 				
 				// submit and reset form
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
@@ -168,19 +178,20 @@ function init() {
 				form_success_bs.show;
 				_form_success.classList.remove("visually-hidden");
 				// build subject
-				var subject = "Korrekturbeleg-Krankbuchung " + fullname;
+				var subject = "Korrekturbeleg-"+_optrequest + ": " + fullname;
 				// build body
-				body = "\t• Name, Vorname: " + fullname + "\r\n"
+				body = "Korrekturbeleg-"+_optrequest + ":"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
 					+ "\t• Antrag auf: " + _optrequest + "\r\n"
 					+ "\t• Grund: " + _optreason + "\r\n"
 					+ "\t• Erläuterungen: " + _description + "\r\n"
-					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " - " //+ _timeFrom + "\r\n"
-					+ GetLocaleDateString(_dateTo) + " ";//+ _timeTo + "\r\n";
+					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " - " + _timeFrom + "\r\n"
+					+ GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
 				var mailToLink = "mailto:" + cc_email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
 					_dateTo_elem.setAttribute("style", "border-color: red");
-					//_timeTo_elem.setAttribute("style", "border-color: red");
+					_timeTo_elem.setAttribute("style", "border-color: red");
 					var _dateTo_error = document.getElementById("dateTo_error");
 					var dateTo_error_alert = new bootstrap.Alert(_dateTo_error);
 					dateTo_error_alert.show;
@@ -199,40 +210,28 @@ function init() {
 	document.getElementById("option_reason").addEventListener("change", function() {
 		var value_low = this.options[this.selectedIndex].value.toLowerCase();
 		var dateFrom_elem = document.getElementById("dateFrom");
-		//var timeFrom_elem = document.getElementById("timeFrom");
+		var timeFrom_elem = document.getElementById("timeFrom");
 		var dateTo_elem = document.getElementById("dateTo");
-		//var timeTo_elem = document.getElementById("timeTo");
-		/**if (value_low.includes("kommen")) {
-			dateFrom_elem.required = true;
-			//timeFrom_elem.required = true;
-			dateTo_elem.required = false;
-			//timeTo_elem.required = false;
-			// clear not required fields
-			dateTo_elem.value = "";
-			//timeTo_elem.value = "";
-		} else if (value_low.includes("gehen")) {
-			dateFrom_elem.required = false;
-			//timeFrom_elem.required = false;
-			dateTo_elem.required = true;
-			//timeTo_elem.required = true;
-			// clear not required fields
-			dateFrom_elem.value = "";
-			//timeFrom_elem.value = "";
-		} else { */
-			dateFrom_elem.required = true;
-			//timeFrom_elem.required = true;
-			dateTo_elem.required = true;
-			//timeTo_elem.required = true;
-		//}
+		var timeTo_elem = document.getElementById("timeTo");
+		
+		dateFrom_elem.required = true;
+		dateTo_elem.required = true;
+		if(value_low.includes("sonstiges")){
+			timeFrom_elem.required = true;
+			timeTo_elem.required = true;
+		} else {
+			timeFrom_elem.required = false;
+			timeTo_elem.required = false;
+		}
 	});
 	
 	// Set Time to 00:00 if date change
-	/**document.getElementById("dateFrom").addEventListener("change", function(e) {
+	document.getElementById("dateFrom").addEventListener("change", function(e) {
 		if (e.value !== "" && document.getElementById("timeFrom").value === "") document.getElementById("timeFrom").value = "00:00";
 	});
 	document.getElementById("dateTo").addEventListener("change", function(e) {
 		if (e.value !== "" && document.getElementById("timeTo").value === "") document.getElementById("timeTo").value = "00:00";
-	});*/
+	});
 	
 	document.getElementById("time_entering").addEventListener("submit", (e) => {
 		e.preventDefault();

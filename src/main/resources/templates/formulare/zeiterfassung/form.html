@@ -129,8 +129,9 @@
 				<div class="row g-3 p-2 h-auto">
 					<div class="form-floating mb-3 col"><!-- Antragsart -->
 						<select id="option_request" class="form-select" required>
-							<option value="Krankbuchung" selected>Krankbuchung</option>
-							<!-- <option value="" selected hidden>Bitte die Antragsart auswählen</option> -->
+							<option value="" selected>Bitte die Antragsart auswählen</option>
+							<option value="Krankbuchung" >Krankbuchung</option>
+							<option value="Korrekturbuchung" >Korrekturbuchung</option>
 							<!-- <option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/> -->
 						</select>
 						<label for="option_request">Antrag auf</label>
@@ -138,9 +139,10 @@
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
-							<option value="Krank ohne Bescheinigung">Krank ohne Bescheinigung</option>
+							<!-- <option value="Krank ohne Bescheinigung">Krank ohne Bescheinigung</option>
 							<option value="Krank mit eAu">Krank mit eAu</option>
-							<!--<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>-->
+							<option value="Krank mit pAu">Krank mit pAu</option>-->
+							<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>
 						</select>
 						<label for="option_cause">Grund</label>
 					</div>
@@ -162,16 +164,16 @@
 					</div>
 					
 				</div>
-				<!--<div class="row g-3 p-2">
+				<div class="row g-3 p-2">
 					 <div class="form-floating mb-3 col"> 
-						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
+						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr">
 						<label for="timeFrom">Uhr</label>
-					</div>-->
-					<!-- <div class="form-floating mb-3 col"> 
-						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr" required>
+					</div>
+					<div class="form-floating mb-3 col"> 
+						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr">
 						<label for="timeTo">Uhr</label>
 					</div>
-				</div>-->
+				</div>
 				
 				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
 					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
@@ -185,7 +187,7 @@
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
-					<li><strong>Schritt 1:</strong> Wählen Sie <b>Ihren Standort</b> aus. Ggf. vorher auf Korrekturbeleg-Krankbuchung klicken.</li>
+					<li><strong>Schritt 1:</strong> Wählen Sie <b>Ihren Standort</b> aus. Ggf. vorher auf Korrekturbeleg klicken.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
 	      			<li><strong>Schritt 3:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
 	      			<li><strong>Schritt 4:</strong> Geben Sie bitte mindestens ein Datum an.</li>
