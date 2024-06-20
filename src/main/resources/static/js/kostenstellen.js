@@ -45,7 +45,8 @@ function init() {
 				if ((ksValUpp !== ""  && CostCentre["label1"].toUpperCase().includes(ksValUpp) 
 					&& locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
 					|| (ksValUpp === "" && locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
-					|| (locationValUpp === "" && ksValUpp !== "" && CostCentre["label1"].toUpperCase().includes(ksValUpp))) {
+					|| (locationValUpp === "" && ksValUpp !== "" && CostCentre["label1"].toUpperCase().includes(ksValUpp))
+					|| (locationValUpp === "SONSTIGE" && (CostCentre["location"].toUpperCase() === "NE.W" || CostCentre["location"].toUpperCase().includes("ERGEBNIS")))) {
 						CostCentresTmp.push(CostCentre);
 					}
 			});

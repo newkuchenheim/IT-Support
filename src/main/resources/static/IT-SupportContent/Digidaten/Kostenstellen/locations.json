@@ -1,67 +1,55 @@
 {"locations":[
     {
-        "value" : "NEW Kall",
-        "text" : "NEW Kall"
+        "value" : "NE.W Ülpenich",
+        "text" : "NE.W Ülpenich"
     },
     {
-        "value" : "NEW Kuchenheim",
-        "text" : "NEW Kuchenheim"
+        "value" : "NE.W Zingsheim",
+        "text" : "NE.W Zingsheim"
     },
     {
-        "value" : "NEW Mechernich",
-        "text" : "NEW Mechernich"
+        "value" : "NE.W Kuchenheim",
+        "text" : "NE.W Kuchenheim"
     },
     {
-        "value" : "NEW Ülpenich",
-        "text" : "NEW Ülpenich"
+        "value" : "NE.W Kall",
+        "text" : "NE.W Kall"
     },
     {
-        "value" : "NEW Zingsheim",
-        "text" : "NEW Zingsheim"
+        "value" : "QuBi.Eifel",
+        "text" : "QuBi.Eifel"
     },
     {
-        "value" : "Zentrale Verwaltung Kuchenheim",
-        "text" : "Zentrale Verwaltung Kuchenheim"
+        "value" : "NE.W Verwaltung",
+        "text" : "NE.W Verwaltung"
+    },
+    {
+        "value" : "NE.W Fuhrpark",
+        "text" : "NE.W Fuhrpark"
     },
     {
         "value" : "Außenarbeitsplätze",
         "text" : "Außenarbeitsplätze"
     },
     {
-        "value" : "Kantine Kreissparkasse Euskirchen",
-        "text" : "Kantine Kreissparkasse Euskirchen"
+        "value" : "Eulog",
+        "text" : "Eulog"
     },
     {
-        "value" : "Kantine Bundeswehr Euskirchen",
-        "text" : "Kantine Bundeswehr Euskirchen"
+        "value" : "Eulog Fuhrpark",
+        "text" : "Eulog Fuhrpark"
     },
     {
-        "value" : "BIAP NEW JOB",
-        "text" : "BIAP NEW JOB"
+        "value" : "IFG",
+        "text" : "IFG"
     },
     {
-        "value" : "BIAP Projekt Router",
-        "text" : "BIAP Projekt Router"
+        "value" : "IFG Fuhrpark",
+        "text" : "IFG Fuhrpark"
     },
     {
-        "value" : "BIAP EuLog",
-        "text" : "BIAP EuLog"
-    },
-    {
-        "value" : "EuLog Service gGmbH",
-        "text" : "EuLog Service gGmbH"
-    },
-    {
-        "value" : "EuLog Lager und Logistik",
-        "text" : "EuLog Lager und Logistik"
-    },
-    {
-        "value" : "EuLog Handwerkliche Dienstleistungen",
-        "text" : "EuLog Handwerkliche Dienstleistungen"
-    },
-    {
-        "value" : "EuLog CAP Markt Kuchenheim",
-        "text" : "EuLog CAP Markt Kuchenheim"
+        "value" : "Sonstige",
+        "text" : "Sonstige"
     }
 ]
 }
