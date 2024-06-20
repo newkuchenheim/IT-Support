@@ -104,7 +104,10 @@ function init() {
 		    document.getElementById("searchBtn").click();
   		}
 	}
-	
+	function refreshPage() {
+		window.location.href=window.location.href;
+	}
+	document.getElementById("resetBtn").addEventListener("click", refreshPage);
 	document.getElementById("searchBtn").addEventListener("click", createResultTable);
 	document.getElementById("location_type").addEventListener("change", function() {
 		switch(this.options[this.selectedIndex].value) {
