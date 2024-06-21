@@ -46,7 +46,8 @@ function init() {
 					&& locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
 					|| (ksValUpp === "" && locationValUpp !== "" && CostCentre["location"].toUpperCase().includes(locationValUpp))
 					|| (locationValUpp === "" && ksValUpp !== "" && CostCentre["label1"].toUpperCase().includes(ksValUpp))
-					|| (locationValUpp === "SONSTIGE" && (CostCentre["location"].toUpperCase() === "NE.W" || CostCentre["location"].toUpperCase().includes("ERGEBNIS")))) {
+					|| (locationValUpp === "SONSTIGE" && (CostCentre["location"].toUpperCase() === "NE.W" 
+					|| CostCentre["location"].toUpperCase().includes("ERGEBNIS")) && CostCentre["label1"].toUpperCase().includes(ksValUpp))) {
 						CostCentresTmp.push(CostCentre);
 					}
 			});
