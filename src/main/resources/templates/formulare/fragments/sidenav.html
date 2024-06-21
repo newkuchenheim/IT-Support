@@ -64,7 +64,7 @@
 		</nav>
 		<nav  class="nav flex-column" th:case="zeiterfassung">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
-			<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collLocation" role="button" aria-expanded="true" aria-controls="collLocation">Korrekturbeleg - Krankbuchung</a>
+			<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collLocation" role="button" aria-expanded="true" aria-controls="collLocation">Korrekturbeleg</a>
 			<div class="collapse show" id="collLocation">
 				<div class="card card-body">
 			  		<nav>
@@ -125,7 +125,7 @@
 		<nav  class="nav flex-column" th:case="*">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Korrekturbeleg</a>
-			<a class="nav-link" th:classappend="${page == 'hilfstool' ? 'active link-dark' : ''}" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a>
+			<!--<a class="nav-link" th:classappend="${page == 'hilfstool' ? 'active link-dark' : ''}" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a>-->
 			<th:block th:if="${#strings.startsWith(page, 'aendmitt')}">
 				<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
 				<div class="collapse show" id="collForm">
