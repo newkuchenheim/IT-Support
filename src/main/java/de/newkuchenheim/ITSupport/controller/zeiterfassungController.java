@@ -81,4 +81,17 @@ public class zeiterfassungController extends abstractFormulareController {
 			
 			return "formulare/zeiterfassung/form";
 		}
+
+		/**
+		 * get mapping hilfstool 
+		 */
+		@GetMapping({"hilfstool", "hilfstool/"})
+		public String renderCreateHilfstool(Model model) throws IOException {
+			model.addAttribute("page", "hilfstool");
+			//tracking
+			System.out.println("call a zeiterfassung-hilfstool " + LocalDateTime.now());
+			tLog.getInstance().log(null, "info", "call a zeiterfassung-hilfstool");
+			
+			return "formulare/zeiterfassung/hilfstool";
+		}
 }

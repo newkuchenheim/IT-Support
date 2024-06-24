@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<title>NEW-Änderungsmitteilung Wechsel Fahrtendienst</title>
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+  	<!-- Load persons array in javascript -->
+  	<script type="text/javascript" th:inline="javascript">
+		  var _telelist_kall = /*[[${kall_telelist}]]*/ 'Telelist Kall';
+		  var _telelist_khm = /*[[${khm_telelist}]]*/ 'Telelist Kuchenheim';
+		  var _telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
+		  var _telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
+		  var _telelist_qubi = /*[[${qubi_telelist}]]*/ 'Telelist Mechernich';
+		  var _telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var _CostCentres = /*[[${CostCentres}]]*/ 'All CostCentres';
+		  var _BusLines = /*[[${optbuslines}]]*/ 'All Buslines';
+		  var _persons = _telelist_zvw;
+	 </script>
+  	<!-- Javascript for form -->
+  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/fahrtendienst.js}">
+	 </script>
+	 <!-- general Javascript for form -->
+  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/general.js}">
+	 </script>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+    
+  	<div class="row pt-1 m-2">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		  		<div>
+		    		Die Änderungsmitteilung wird an Outloook übertragen.
+		  		</div>
+			</div>
+			<div>
+				<h1 id="location_header">Änderungsmitteilung - Fahrtendienst</h1>
+			</div> 
+	      	<form id="change_notice" method="post" action="#" style="min-width: 300px;">
+	      		<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col"><!-- Standort -->
+						<select id="option_location" class="form-select" required>
+							<option value="" selected hidden>Bitte den Standort auswählen</option>
+							<option th:block th:each="location : ${optlocations}" th:value="${location.value}" th:text="${location.text}"/>
+						</select>
+						<label for="option_location">Standort</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Erstellt durch -->
+						<input id="createdBy" type="text" name="createdBy" class="form-control" placeholder="Erstellt durch" required>
+						<label for="createdBy">Erstellt durch</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Erstellt am -->
+						<input id="dateCreate" type="date" name="dateCreate" class="form-control" placeholder="Erstellt am" disabled>
+						<label for="dateCreate">Erstellt am</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Nachname -->
+						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+						<label for="name">Name</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Vorname -->
+						<input id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+						<label for="prename">Vorname</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Gültig ab -->
+						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="gültig ab" required>
+						<label for="dateFrom">Gültig ab</label>
+					</div>
+				</div>
+				<hr>
+				<div class="g-3 p-2">
+					<div class="form-check form-switch"> <!-- Neuaufnahme -->
+						<input class="form-check-input" type="checkbox" role="switch" id="newIntake" name="newIntake">
+						<label class="form-check-label float-start" for="newIntake">Neuaufnahme</label>
+					</div>
+				</div>
+				<hr>
+				<div class="g-3 p-2">
+					<fieldset class="border p-1">
+						<legend class="float-none w-auto p-2">Neue Adresse</legend>
+						<div class="row">
+							<div class="form-floating mb-2 col"> <!-- Straße -->
+							  <input class="form-control" type="text" name="street" id="street" placeholder="straße">
+							  <label for="street">Straße</label>
+							</div>
+							<div class="form-floating mb-2 col"> <!-- PLZ -->
+							  <input class="form-control" type="text" name="zipcode" id="zipcode" pattern="[0-9]*" placeholder="PLZ">
+							  <label for="zipcode">PLZ</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-floating mb-2 col"> <!-- Stadt -->
+							  <input class="form-control" type="text" name="city" id="city" placeholder="stadt">
+							  <label for="city">Ort</label>
+							</div>
+							<div class="form-floating mb-2 col"> <!-- Telefon -->
+							  <input class="form-control" type="text" name="phone" id="phone" pattern="[0-9\/\+\-]{2,13}" placeholder="telefon">
+							  <label for="phone">Telefon</label>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="g-3 p-2">
+					<fieldset class="border p-2"> <!-- Wechsel -->
+						<legend class="float-none w-auto p-2">Wechsel (nur bei Bedarf ausfüllen)</legend>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="changes" id="todriver" value="zu Selbstfahrer">
+						  <label class="form-check-label" for="todriver">von Zubringer zu Selbstfahrer</label>
+						</div>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="changes" id="toshuttle" value="zu Zubringer">
+						  <label class="form-check-label" for="toshuttle">von Selbstfahrer zu Zubringer</label>
+						</div>
+					</fieldset>
+				</div>
+				<hr>
+				<div class="g-3 p-2">
+					<div class="form-check form-switch"> <!-- Selbstfahrer -->
+						<input class="form-check-input" type="checkbox" role="switch" id="selfdriver" name="selfdriver">
+						<label class="form-check-label float-start" for="selfdriver">Selbstfahrer</label>
+					</div>
+				</div>
+				<hr>
+				<div id="div_shuttle">
+					<div class="row g-3 p-2 h-auto">
+						<div class="form-floating mb-3 col"><!-- Austrittsgrund -->
+							<select id="option_withdrawal_reason" class="form-select">
+								<option value="" selected hidden>Bitte den Grund auswählen</option>
+								<option th:block th:each="reason : ${optwithdrawdriverreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
+							</select>
+							<label for="option_withdrawal_reason">Austritt</label>
+						</div>
+						<div class="form-floating mb-2 col"><!-- Buslinie -->
+							<select id="option_busline" class="form-select">
+								<option value="" selected hidden>Bitte auswählen</option>
+								<!-- <option th:block th:each="busline : ${optbuslines}" th:value="${busline.value}" th:text="${busline.text}"/>-->
+							</select>
+							<label for="option_busline">Linie</label>
+						</div>
+					</div>
+					<div class="g-3 p-2">
+						<fieldset class="border p-1"> <!-- Abholpunkt -->
+							<legend class="float-none w-auto p-1">Abholpunkt</legend>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="meetingpoints" id="addresspoint" value="gleich Wohnadresse" required>
+							  <label class="form-check-label" for="adresspoint">gleich Wohnadresse</label>
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="meetingpoints" id="otherpoint" value="weicht von Wohnadresse ab">
+							  <label class="form-check-label" for="otherpoint">weicht von Wohnadresse ab</label>
+							</div>
+						</fieldset>
+					</div>
+					<div class="g-3 p-2">
+						<fieldset class="border p-1"> <!-- Begleitperson -->
+							<legend class="float-none w-auto p-1">Begleitperson</legend>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="escorts" id="escortsyes" value="notwendig" required>
+							  <label class="form-check-label" for="escortsyes">notwendig (s. Kostenzusage/Genehmigung)</label>
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="escorts" id="escortsno" value="nicht notwendig">
+							  <label class="form-check-label" for="escortsno">nicht notwendig</label>
+							</div>
+						</fieldset>
+					</div>
+					<hr>
+					<div class="g-3 p-2">
+						<div class="form-check form-switch"> <!-- Rollstuhl -->
+							<input class="form-check-input" type="checkbox" role="switch" id="wheelchair" name="wheelchair">
+							<label class="form-check-label float-start" for="wheelchair">Rollstuhl</label>
+						</div>
+					</div>
+					<div id="div_wheelchair_size" class="g-3 p-2" hidden>
+						<fieldset class="border p-2">
+							<legend class="float-none w-auto p-2">Maße</legend>
+							<div class="row">
+								<div class="form-floating mb-2 col"> <!-- Höhe -->
+								  <input class="form-control" type="text" name="height" id="height" pattern="([1-9]\d*|0),[0-9]{1,2}">
+								  <label for="height">Höhe (cm)</label>
+								</div>
+								<div class="form-floating mb-2 col"> <!-- Breite -->
+								  <input class="form-control" type="text" name="width" id="width" pattern="([1-9]\d*|0),[0-9]{1,2}">
+								  <label for="width">Breite (cm)</label>
+								</div>
+								<div class="form-floating mb-2 col"> <!-- Tiefe -->
+								  <input class="form-control" type="text" name="depth" id="depth" pattern="([1-9]\d*|0),[0-9]{1,2}">
+								  <label for="depth">Tiefe (cm)</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<hr>
+					<div class="row g-3 p-2">
+						<div class="form-floating">
+							<!-- Bemerkung / Sonstige Info -->
+							<textarea id="comment_area" name="comment_area" class="form-control" rows="5" style="height: 80px"></textarea>
+							<label for="comment_area">Bemerkung / Sonstige Info</label>
+						</div>
+					</div>
+				</div>
+				<div class="g-3 p-2">
+					<fieldset class="border p-2"> <!-- Kostenzusage -->
+						<legend class="float-none w-auto p-2">Kostenzusage / Genehmigung liegt vor</legend>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="costacceptance" id="accept" value="ja">
+						  <label class="form-check-label" for="accept">ja</label>
+						</div>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="costacceptance" id="unaccept" value="liegt noch nicht vor">
+						  <label class="form-check-label" for="unaccept">liegt noch nicht vor, trotzdem laut Anweisung SD Umsetzung</label>
+						</div>
+					</fieldset>
+				</div>
+				<div id="div_selfdriver" class="g-3 p-2 h-auto bg-secondary" hidden>
+					<fieldset class="border p-2"> <!-- Selbstfahrer -->
+						<legend class="float-none w-auto p-2">Selbstfahrer</legend>
+						<div class="row">
+							<div class="form-floating col"><!-- Selbstfahrer -->
+								<select id="option_drivertype" class="form-select">
+									<option value="" selected hidden>Bitte auswählen</option><!-- Fahrerart -->
+									<option th:block th:each="drivertype : ${optdrivertypes}" th:value="${drivertype.value}" th:text="${drivertype.text}"/>
+								</select>
+								<label for="option_drivertype">Fahrertyp</label>
+							</div>
+							<div class="form-check col">
+							  <input class="form-check-input" type="radio" name="divisions" id="bbb" value="EV/BBB">
+							  <label class="form-check-label" for="bbb">EV/BBB</label>
+							</div>
+							<div class="form-check col">
+							  <input class="form-check-input" type="radio" name="divisions" id="ab" value="AB">
+							  <label class="form-check-label" for="ab">AB</label>
+							</div>
+							<div>
+							<fieldset class="border p-2"> <!-- Angabe der Zentralen Verwaltung -->
+								<legend class="float-none w-auto p-2">Änderung von Zentralen Verwaltung</legend>
+								<div class="row">
+									<div class="form-floating col"> <!-- KM bis NEW -->
+										  <input class="form-control" type="text" name="km" id="km" pattern="[0-9]*">
+										  <label for="km">Entfernung bis zur NEW in Kilometer</label>
+									</div>
+									<div class="form-floating col"> <!-- Tagessatz -->
+										  <input class="form-control" type="text" name="dailyrate" id="dailyrate" pattern="([1-9]\\d*|0),[0-9]{1,2}">
+										  <label for="dailyrate">Tagessatz in Euro</label>
+									</div>
+								</div>
+							</fieldset>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="border border-3 border-dark bg-dark mt-1"></div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- erledigt durch -->
+						<input id="doneby" type="text" name="doneby" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Erledigt durch">
+						<label for="doneby">Erledigt durch</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Vorname -->
+						<input id="dateDoneBy" type="date" name="dateDoneBy" class="form-control" placeholder="Erledigt am">
+						<label for="dateDoneBy">Erledigt am</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+						<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
+					</div>
+				</div>
+			</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border">
+	      		<!-- info an rechten col -->
+	      		<ul>
+					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
+	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Namen bei <strong>"Erstellt durch"</strong> an.</li>
+	      			<li><strong>Schritt 3:</strong> Geben Sie den Vor- und Nachnahmen der gewünschten Person an.</li>
+	      			<li><strong>Schritt 4:</strong> Geben Sie das Gültig ab Datum an.</li>
+	      			<li><strong>Schritt 5:</strong> Aktivieren Sie bei Bedarf den Schalter für die Neuaufnahme.</li>
+	      			<li><strong>Schritt 6:</strong> Geben Sie die neue Adresse an.</li>
+	      			<li><strong>Schritt 7:</strong> Geben Sie bei Bedarf ein Wechsel an.</li>
+	      			<li><strong>Schritt 8:</strong> Aktivieren Sie bei Bedarf den Selbstfahrerschalter, füllen die Informationen aus 
+	      				und machen mit Schritt 14 weiter.</li>
+	      			<li><strong>Schritt 9:</strong> Bitte wählen Sie den Austrittsgrund aus.</li>
+	      			<li><strong>Schritt 10:</strong> Geben Sie dann die Buslinie an.</li>
+	      			<li><strong>Schritt 11:</strong> Bitte wählen Sie einen Abholpunkt aus.</li>
+	      			<li><strong>Schritt 12:</strong> Bitte geben Sie an ob eine Begleitperson notwendig ist.</li>
+	      			<li><strong>Schritt 13:</strong> Geben Sie bei Bedarf die Rollstuhlmaße an.</li>
+	      			<li><strong>Schritt 14:</strong> Bitte geben Sie an ob eine Kostenzusage vorliegt.</li>
+	      			<li><strong>Schritt 15:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      		</ul>
+	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+	    </div>
+	</div>
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>

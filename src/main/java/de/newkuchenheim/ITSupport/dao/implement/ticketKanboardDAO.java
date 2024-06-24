@@ -96,7 +96,7 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			else 
 				return -1;
 		}
-		return-1;
+		return -1;
 	}
 	
 	/**

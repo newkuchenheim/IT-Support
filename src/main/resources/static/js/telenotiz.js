@@ -145,6 +145,10 @@ function init() {
 				persons = telelist_zvw;
 				location_header.innerHTML = "Zentrale Verwaltung";
 				break;
+			case "qubi":
+				persons = telelist_qubi;
+				location_header.innerHTML = "QuBi Eifel Mechernich";
+			break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
 				persons = telelist_zvw;

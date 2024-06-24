@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<title>NEW-Änderungsmitteilung Anschrift</title>
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+		/****** Begin Anschrift section ******/
+		#name_error {
+			display: none;
+		}
+		/****** End section Anschrift ******/
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+    
+  	<div class="row pt-1 m-2">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		  		<div>
+		    		Ihr Feedback wird gesendet.
+		  		</div>
+			</div>
+			<div>
+				<h1 id="location_header">Änderungsmitteilung - Feedback</h1>
+			</div> 
+	      	<form id="change_notice" method="post" th:object="${ticket}" action="#" style="min-width: 300px;">
+	      		<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col"><!-- Standort -->
+						<select th:field="*{building}" id="option_location" class="form-select" required>
+							<option value="" selected hidden>Bitte den Standort auswählen</option>
+							<option th:block th:each="location : ${optlocations}" th:value="${location.text}" th:text="${location.text}"/>
+						</select>
+						<label for="option_location">Standort</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Nachname -->
+						<input th:field="*{lastname}" id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+						<label for="name">Name</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Vorname -->
+						<input th:field="*{firstname}" id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+						<label for="prename">Vorname</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3">
+						<!-- Feedback -->
+						<textarea th:field="*{description}" id="feedback_area" name="feedback_area" class="form-control" rows="8" style="height: 150px" required></textarea>
+						<label for="feedback_area">Feedback</label>
+					</div>
+				</div>
+				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Feedback Senden">
+					<input type="submit" value="Senden" class="btn btn-success" id="send" name="send"/><br/>
+				</div>
+			</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<div class="well p-2 border">
+	      		<!-- info an rechten col -->
+	      		<ul>
+					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus.</li>
+					<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
+	      			<li><strong>Schritt 3:</strong> Füllen Sie das Feedbackfeld aus</li>
+	      			<li><strong>Schritt 4:</strong> Klicken Sie auf dem Button "Senden". Ihr Feedback wird dann direkt an uns gesendet.</li>
+	      		</ul>
+	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+	    </div>
+	</div>
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>

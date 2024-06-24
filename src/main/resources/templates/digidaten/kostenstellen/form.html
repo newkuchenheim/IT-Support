@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<title>NE.W Kostenstellen</title>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+	<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+	<style>
+	/* Remove the navbar's default margin-bottom and rounded borders */
+	.navbar {
+		margin-bottom: 0;
+		border-radius: 0;
+	}
+	
+	/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	.row.content {
+		height: 450px
+	}
+	/* Set gray background color and 100% height */
+	.sidenav {
+		padding-top: 20px;
+		background-color: #f1f1f1;
+		height: 100%;
+	}
+	
+	/* Set black background color, white text and some padding */
+	footer {
+		background-color: #555;
+		color: white;
+		padding: 15px;
+	}
+	
+	fieldset {
+		text-align: left;
+	}
+	
+	.interForm {
+		display: flex;
+		flex-flow: wrap;
+	}
+	
+	form {
+		text-align: center;
+		border-color: #f1f1f1;
+		border-style: solid;
+	}
+	
+	section {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#headline {
+		color: #0d6efd;
+		text-align: center;
+	}
+	/* On small screens, set height to 'auto' for sidenav and grid */
+	@media screen and (max-width: 767px) {
+		.sidenav {
+			height: auto;
+			padding: 15px;
+		}
+		.row.content {
+			height: auto;
+		}
+	}
+	</style>
+	<!-- Load persons array in javascript -->
+  	<script type="text/javascript" th:inline="javascript">
+		  var _CostCentres = /*[[${CostCentres}]]*/ 'All CostCentres';
+	 </script>
+ 	<!-- Javascript for form -->
+ 	<script type="text/javascript" th:src="@{../../js/kostenstellen.js}">
+ 	</script>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+
+	<!-- Load topmenu template -->
+	<nav th:replace="~{digidaten/fragments/topmenu :: topmenu}"></nav>
+
+	<div class="row content p-3" style="height: 67%">
+		<!-- navigation link intern -->
+		<!-- Load sidenav template -->
+		<div th:replace="~{digidaten/fragments/sidenav :: sidenav}"></div>
+
+		<!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+			<div>
+				<h1 id="headline">Kostenstellen</h1>
+			</div> 
+	      	<form id="searchkst" method="post" action="" style="min-width: 300px;" th:object="${CostCentre}">
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col"><!-- Kostenstelle -->
+						<input th:field="*{label1}" id="ks" type="text" name="ks" class="form-control" placeholder="Kostenstelle">
+						<label for="ks">Kostenstelle</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Standort Art; Freitext oder Auswahlblox -->
+						<select id="location_type" class="form-select">
+							<option value="" hidden="true" selected>Bitte auswählen</option>
+							<option value="freetext">Freihand</option>
+							<option value="select">Auswahlliste</option>
+						</select>
+						<label for="location_type">Standort Eingabe</label>
+					</div>
+					<div class="form-floating mb-3 col" id="div_location_freetext" hidden="true"><!-- Standort freie Texteingabe -->
+						<input th:field="*{location}" id="location_freetext" type="text" name="location_freetext" class="form-control" placeholder="Standort">
+						<label for="location_freetext">Standort</label>
+					</div>
+					<div class="form-floating mb-3 col" id="div_location_sel" hidden="true"><!-- Standort Select -->
+						<select id="location_sel" class="form-select" th:field="*{location}">
+							<option value="" selected>Keine Angabe</option>
+							<option th:block th:each="location : ${locations}" th:value="${location.value}" th:text="${location.text}"/>
+						</select>
+						<label for="location_sel">Standort</label>
+					</div>
+				</div>
+				<div class="form-group mb-3 col" data-bs-toggle="tooltip" data-bs-placement="top" title="Kostenstellen suchen">
+					<button type="button" class="btn btn-success" id="searchBtn" name="searchBtn">
+						<i class="bi bi-search"></i>&nbsp;Suchen
+					</button>
+					<button type="button" class="btn btn-secondary" id="resetBtn" name="resetBtn">
+						<i class="bi bi-x-lg"></i>&nbsp;Filter zurücksetzen
+					</button>
+				</div>
+			</form>
+			<!-- Ergebnis Tabelle -->
+			<div class="row p-3 text-left">
+				<div class="row p-1 max-width text-left bg-secondary bg-gradient text-white">
+					<!-- Title of table -->
+					<h5>
+						<strong>Suchergebnis</strong>
+					</h5>
+				</div>
+				<div id="resultView" class="row p-2 max-width text-left border" data-bs-spy="scroll">
+					<!-- Result will be dynamic created with javascript -->
+					<div class="alert alert-primary">
+						<p class="text-wrap fst-normal">Bitte die Suchanfrage starten.</p>
+					</div>
+				</div>
+			</div>
+	    </div>
+		<!-- anzeige -->
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			<h3>Anleitung</h3>
+			<div class="well p-2 border">
+				<!-- info an rechten col -->
+				<ul>
+					<li><strong>Schritt 1:</strong> Füllen Sie die Suchfelder aus. Wenn Sie keine Angaben machen, werden allen Kostenstellen angezeigt.</li>
+					<li><strong>Schritt 2:</strong> Klicken Sie auf den <strong>Suchen</strong> - Button.</li>
+					<li><strong>Schritt 3:</strong> Alle passenden Kostenstellen werden dann unter dem <strong>Suchergebnis</strong> aufgelistet.</li>
+					<li><strong>Neue Suche:</strong> Mit dem Button <b>"Filter zurücksetzen"</b> können Sie alle Filter löschen und neu ausfüllen.</li>
+				</ul>
+			</div>
+			<div class="well p-2 border">
+	        	<p><strong>Achtung:</strong></p>
+	        	<ul>
+	        		<li>Bei der <strong>Kostenstelle</strong> können Sie die Groß- und Kleinschreibung ignorieren.</li>
+	        		<li>Wenn Sie den Standort <strong>freihand</strong> eingeben, können Sie die Groß- und Kleinschreibung ignorieren.</li>
+	        	</ul> 
+	      	</div>
+			<div th:replace="~{itsupport/fragments/contact :: contact}">
+				<!-- load contact template -->
+			</div>
+		</div>
+	</div>
+	<footer th:replace="~{itsupport/fragments/footer :: footer}">
+		<!-- Load Footer Template -->
+	</footer>
+</body>
+</html>
