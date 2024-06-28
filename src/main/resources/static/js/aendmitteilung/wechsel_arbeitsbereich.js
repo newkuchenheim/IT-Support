@@ -108,8 +108,8 @@ function init() {
 		var costunit_text = (_other_costunit !== "" ? _other_costunit : _optcostunit);
 		var _lunch = document.getElementById("lunch").checked;
 		var lunch_Text = (_lunch ? "ja" : "nein");
-		var _paymethod = document.querySelector("input[type='radio'][name=paymethods]:checked").value;;
-		var paymethod = (_paymethod !== null && _paymethod !== "" ? _paymethod : "");
+		var _paymethod = document.querySelector("input[type='radio'][name=paymethods]:checked");
+		var paymethod = (_paymethod !== null && _paymethod.value !== "" ? _paymethod.value : "");
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel = (_optlunchmodel !== null && _optlunchmodel !== "" ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
