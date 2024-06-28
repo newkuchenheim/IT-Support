@@ -147,7 +147,7 @@
 						<label for="note_for">Notiz für</label>
             		</div>
             	</div>
-            	<div class="row g-3 p-2">
+            	<div class="row g-3 p-2" id="company_info">
             		<div class="form-floating mb-3 col"><!-- Anrufername -->
             			<input id="call_name" type="text" name="call_name" pattern="[a-zA-ZäüößÜÖÄ\-\.´'éÉ/\s/]+" class="form-control" placeholder="Name" maxlength="60" required>
 						<label for="call_name">Anrufername</label>
@@ -197,7 +197,11 @@
 	    
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
-	      	<h3>Anleitung</h3>
+	      	<h3>Anleitung&nbsp;
+				<button type="button" class="btn btn-primary" id="start_tour">
+					Tour Starten
+				</button>
+			</h3>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

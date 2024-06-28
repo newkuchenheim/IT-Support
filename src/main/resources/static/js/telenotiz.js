@@ -304,4 +304,63 @@ function init() {
 	for (var i = 0; i < locations.length; i++) {
 		locations[i].addEventListener("change", changeAutoCompleteList);
 	}
+	// Create Tour Steps
+	var wt = new WebTour();
+	var steps = [
+		{
+			title: "Anleitung Gesprächsnotiz",
+			content: "Willkommen.<br>Sie können die Schritte mit der Maus oder den Pfeiltasten bedienen.<br>Sie können die Anleitung mit \"ESC\" jederzeit beenden",
+			btnNext: { text: "Nächste &#8594" },
+			btnBack: { text: "Schließen"},
+			width: "600px"
+		},
+		{
+			element: "#collLocation",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Gesprächsnotiz klicken.",
+			placement: "right",
+			btnNext: { text: "Nächste &#8594" },
+			btnBack: { text: "&#8592 Zurück"},
+			width: "400px"
+		},
+		{
+			element: "#note_for",
+			title: "2. Schritt",
+			content: "Suchen Sie nach der gewünschten Person mit Hilfe des Nachnamens oder geben Sie direkt die E-Mail ein.",
+			placement: "bottom",
+			btnNext: { text: "Nächste &#8594" },
+			btnBack: { text: "&#8592 Zurück"},
+			width: "500px"
+		},
+		{
+			element: "#company_info",
+			title: "3. Schritt",
+			content: "Geben Sie den Namen oder die Firma des Anrufers an.",
+			placement: "bottom",
+			btnNext: { text: "Nächste &#8594" },
+			btnBack: { text: "&#8592 Zurück"},
+			width: "450px"
+		},
+		{
+			element: "#call_reason",
+			title: "4. Schritt",
+			content: "Bei Bedarf können Sie einen Grund angeben.",
+			placement: "bottom",
+			btnNext: { text: "Nächste &#8594" },
+			btnBack: { text: "&#8592 Zurück"},
+			width: "400px"
+		},
+		{
+			element: "#send",
+			title: "5. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: "Fertig" },
+			btnBack: { text: "&#8592 Zurück"},
+			width: "400px"
+	}]
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		wt.start();
+	});
 }

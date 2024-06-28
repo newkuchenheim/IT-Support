@@ -105,11 +105,11 @@
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
 				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Wechseltag -->
+					<div class="form-floating mb-3 col" id="step_dateChange"><!-- Wechseltag -->
 						<input id="dateChange" type="date" name="dateChange" class="form-control" placeholder="wechseltag" required>
 						<label for="dateChange">Wechseltag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Kostenträger -->
+					<div class="form-floating mb-3 col" id="step_costunit"><!-- Kostenträger -->
 						<select id="option_costunit" class="form-select" required>
 							<option value="" selected hidden>Bitte den Kostenträger auswählen</option>
 							<option th:block th:each="costunit : ${optcostunits}" th:value="${costunit.value}" th:text="${costunit.text}"/>
@@ -120,7 +120,7 @@
 						<input id="other_costunit" type="text" name="other_costunit" class="form-control" placeholder="sonstiger Kostenträger">
 						<label for="other_costunit">Sonstiger Kostenträger</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Kostenstelle -->
+					<div class="form-floating mb-3 col" id="step_costcentre"><!-- Kostenstelle -->
 						<select id="option_costcentre" class="form-select" required>
 							<option value="" selected hidden>Bitte die Kostenstelle auswählen</option>
 							<!-- <option th:block th:each="CostCentre : ${CostCentres}" th:value="${CostCentre.toString()}" th:text="${CostCentre.toString()}"/>-->
@@ -130,25 +130,25 @@
 				</div>
 				<hr>
 				<div class="g-3 p-2">
-					<div class="form-check form-switch"> <!-- Prüfung Erwerbsminderungsrente -->
+					<div class="form-check form-switch" id="step_ReducedPension"> <!-- Prüfung Erwerbsminderungsrente -->
 						<input class="form-check-input" type="checkbox" role="switch" id="checkReducedPension" name="checkReducedPension">
 						<label class="form-check-label float-start" for="checkReducedPension">Prüfung Erwerbsminderungsrente (Rentenbescheid an Personalabteilung)</label>
 					</div>
 				</div>
 				<hr>
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Grundbetrag -->
+					<div class="form-floating mb-3 col" id="step_baseAmount"><!-- Grundbetrag -->
 						<input id="BaseAmount" type="text" name="BaseAmount" class="form-control" placeholder="Grundbetrag" required>
 						<label for="BaseAmount">Grundbetrag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Neuer Steigerungsbetrag -->
+					<div class="form-floating mb-3 col" id="step_increaseAmount"><!-- Neuer Steigerungsbetrag -->
 						<input id="IncreaseAmount" type="text" name="IncreaseAmount" class="form-control" placeholder="Steigerungsbetrag">
 						<label for="IncreaseAmount">Neuer Steigerungsbetrag</label>
 					</div>
 				</div>
 				<hr>
 				<div class="g-3 p-2">
-					<div class="form-check form-switch"> <!-- Mittagessen -->
+					<div class="form-check form-switch" id="step_lunch"> <!-- Mittagessen -->
 						<input class="form-check-input" type="checkbox" role="switch" id="lunch" name="lunch">
 						<label class="form-check-label float-start" for="lunch">Mittagessen</label>
 					</div>
@@ -181,7 +181,11 @@
 	    
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
-	      	<h3>Anleitung</h3>
+	      	<h3>Anleitung&nbsp;
+				<button type="button" class="btn btn-primary" id="start_tour">
+					Tour Starten
+				</button>
+			</h3>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
