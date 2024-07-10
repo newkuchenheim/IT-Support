@@ -164,11 +164,11 @@ function init() {
 		var _optreason = document.getElementById("option_reason").value;
 		var _voucherCounts = document.getElementsByName("voucherCount");
 		var _voucherCountSum = parseInt(document.getElementById("voucherCountSum").value);
-		var _ccEmail = document.getElementById("cc_email").value;
+		//var _ccEmail = document.getElementById("cc_email").value;
 		// create email parts
 		var subject = "Änderungsmitteilung Zuwendung " + _location_text;
 		var ccPart = "";
-		if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
+		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
 		if (_prename !== "" && _name !== "" && _optvouchers[0].value !== "" && _optreason !== "" && _voucherCounts[0].value !== "" && _employee !== "" && _createdBy !== "") {
 			if (_voucherCountSum && _voucherCountSum > 0 && _voucherCountSum == _maxvoucher) {

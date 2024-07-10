@@ -212,31 +212,31 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			var selfdriver_part = "\t• Selbstfahrer:\t\t\t\t\t" + _optdrivertype + ", " + _division + "\r\n"
-					+ "\t• Änderung von Verwaltung:\t  " + _km + " Kilometer bis zur NEW, Tagessatz in Euro: " + _dailyrate + "\r\n";
-			var shuttle_part = "\t• Austritt:\t\t\t\t\t   " + opt_withdrawal_reason + ", Linie: " + _optbusline + "\r\n"
-					+ "\t• Abholpunkt:\t\t\t\t\t" + _meetingpoint + "\r\n"
-					+ "\t• Begleitperson:\t\t\t\t" + _escort + "\r\n"
-					+ "\t• Rollstuhl:\t\t\t\t\t    " + wheelchair_text;
+			var selfdriver_part = "\t• Selbstfahrer: " + _optdrivertype + ", " + _division + "\r\n"
+					+ "\t• Änderung von Verwaltung: " + _km + " Kilometer bis zur NEW, Tagessatz in Euro: " + _dailyrate + "\r\n";
+			var shuttle_part = "\t• Austritt:   " + opt_withdrawal_reason + ", Linie: " + _optbusline + "\r\n"
+					+ "\t• Abholpunkt: " + _meetingpoint + "\r\n"
+					+ "\t• Begleitperson: " + _escort + "\r\n"
+					+ "\t• Rollstuhl: " + wheelchair_text + "\r\n";
 			if (_wheelchair) {
 				shuttle_part += ", Höhe (cm): " + _height + " x Breite (cm): " + _width + " x Tiefe (cm): " + _depth + "\r\n";
 			}
-			shuttle_part += "\t• Bemerkung / Sonstige Info:\t     " + _comment + "\r\n";
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t" + _createdBy + ", am " + GetLocaleDateString(_dateCreate) + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-				+ "\t• Gütig Ab:\t\t\t\t\t  " + GetLocaleDateString(_dateFrom) + "\r\n"
-				+ "\t• Neuaufnahme:\t\t\t\t   " + newIntake_text + "\r\n"
-				+ "\t• Adresse:\t\t\t\t\t  " + _street + "\r\n\t\t\t\t\t\t\t\t   " + _zipcode + " " + _city + "\r\n\t\t\t\t\t\t\t\t   Telefon: " + _phone + "\r\n"
-				+ "\t• Wechsel:\t\t\t\t\t  " + _changes_text + "\r\n";
+			shuttle_part += "\t• Bemerkung / Sonstige Info: " + _comment + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + ", am " + GetLocaleDateString(_dateCreate) + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Gütig Ab: " + GetLocaleDateString(_dateFrom) + "\r\n"
+				+ "\t• Neuaufnahme: " + newIntake_text + "\r\n"
+				+ "\t• Adresse: " + _street + ", " + _zipcode + " " + _city + "\r\n\t• Telefon: " + _phone + "\r\n"
+				+ "\t• Wechsel: " + _changes_text + "\r\n";
 			if (_selfdriver) {
 				body += selfdriver_part;
-			} else {
-				body += shuttle_part;
 			}
-			body += "\t• Kostenzusage / Genehmigung:   " + _costacceptance + "\r\n"
-				 + "\t• Erledigt durch:\t\t\t\t  " + _doneby + "\r\n"
-				 + "\t• Erledigt am:\t\t\t\t\t    " + GetLocaleDateString(_dateDoneBy) + "\r\n";
+			body += shuttle_part;
+			
+			body += "\t• Kostenzusage / Genehmigung: " + _costacceptance + "\r\n"
+				 + "\t• Erledigt durch: " + _doneby + "\r\n"
+				 + "\t• Erledigt am: " + GetLocaleDateString(_dateDoneBy) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
