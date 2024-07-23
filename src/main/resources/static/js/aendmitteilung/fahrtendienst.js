@@ -74,7 +74,8 @@ function init() {
 		changeTeleList();
 		var location_elem = document.getElementById("option_location");
 		var location_text = location_elem.options[location_elem.selectedIndex].text;
-		changeBuslines(location_text.substring(4));
+		var location = (location_elem.value === "qubi" ? location_text : location_text.substring(4));
+		changeBuslines(location);
 	}
 	/**
 	 * reset Div fields
