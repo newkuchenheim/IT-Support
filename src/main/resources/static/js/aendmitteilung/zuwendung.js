@@ -87,7 +87,7 @@ function init() {
 	}
 	initVoucherDescr();
 	var _persIndex = -2;
-	var _email_to = "aenderungsmitteilung@new-eu.de";
+	var _email_to = "aenderungsmitteilung@new-eu.de;d.kalus@new-eu.de";
 	var _maxvoucher = 1;
 	function setDateToday() {
 		var date = new Date();
@@ -164,11 +164,11 @@ function init() {
 		var _optreason = document.getElementById("option_reason").value;
 		var _voucherCounts = document.getElementsByName("voucherCount");
 		var _voucherCountSum = parseInt(document.getElementById("voucherCountSum").value);
-		var _ccEmail = document.getElementById("cc_email").value;
+		//var _ccEmail = document.getElementById("cc_email").value;
 		// create email parts
 		var subject = "Änderungsmitteilung Zuwendung " + _location_text;
 		var ccPart = "";
-		if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
+		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
 		if (_prename !== "" && _name !== "" && _optvouchers[0].value !== "" && _optreason !== "" && _voucherCounts[0].value !== "" && _employee !== "" && _createdBy !== "") {
 			if (_voucherCountSum && _voucherCountSum > 0 && _voucherCountSum == _maxvoucher) {
@@ -194,14 +194,14 @@ function init() {
 				vouchers += tabs + "Summe: " + _voucherCountSum;
 				document.getElementById("change_notice").submit();
 				// build body
-				body = "\t• Zweigstelle:\t\t\t\t\t\t\t" + _location_text + "\r\n"
-					+ "\t• Name, Vorname:\t\t\t\t\t" + fullname + "\r\n"
-					+ "\t• Grund (Urkunde beifügen):\t\t\t " + _optreason + "\r\n"
-					+ "\t• Info für FiBu:\t\t\t\t\t\t" + vouchers + "\r\n"
+				body = "\t• Zweigstelle: " + _location_text + "\r\n"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Grund (Urkunde beifügen): " + _optreason + "\r\n"
+					+ "\t• Info für FiBu: " + vouchers + "\r\n"
 					+ "\t• Verantwortlicher Mitarbeiter\r\n"
-					+ "\t (Empfänger) für die Gutscheinausgabe:\t   " + _employee + "\r\n"
-					+ "\t• Erstellt durch:\t\t\t\t\t\t" + _createdBy + "\r\n"
-					+ "\t• Erstellt am:\t\t\t\t\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+					+ "\t (Empfänger) für die Gutscheinausgabe: " + _employee + "\r\n"
+					+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+					+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 				var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 				window.location.href = mailToLink;
 			} else {
