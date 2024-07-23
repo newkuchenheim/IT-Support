@@ -196,31 +196,51 @@ function init() {
 		sendEmail();
 	});
 	// Create Tour Steps
-	var wt = new WebTour();
+	/*var wt = new WebTour();
+	function nextCustom() {
+		wt.isPaused = true;
+		wt.showLoader();
+		setTimeout(() => {
+			wt.isPaused = false;
+			document.querySelector('.wt-loader').remove();
+		}, 10000);
+	}*/
 	var steps = [
 		{
 			title: "Anleitung Änderungsmitteilung - Wechsel in Arbeitsbereich",
 			content: "Willkommen.<br>Sie können die Schritte mit der Maus oder den Pfeiltasten bedienen.<br>Sie können die Anleitung mit \"ESC\" jederzeit beenden",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "Schließen"},
-			width: "600px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("CloseText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			width: wtConfig.get("StartWidth")
 		},
 		{
 			element: "#step_location",
 			title: "1. Schritt",
 			content: "Wählen Sie Ihren Standort aus.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
 		},
 		{
 			element: "#step_names",
 			title: "2. Schritt",
 			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var prename = document.getElementById("prename").value;
+				var name = document.getElementById("name").value;
+				if (prename == null || prename === "" || name == null || name === "") {
+					nextCustom();
+				}
+			},
 			width: "450px"
 		},
 		{
@@ -228,8 +248,14 @@ function init() {
 			title: "3. Schritt",
 			content: "Geben Sie den Wechseltag an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var dateChange = document.getElementById("dateChange").value;
+				if (dateChange == null || dateChange === "") {
+					nextCustom();
+				}
+			},
 			width: "450px"
 		},
 		{
@@ -237,75 +263,95 @@ function init() {
 			title: "4. Schritt",
 			content: "Geben Sie den Kostenträger an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var costunit = document.getElementById("option_costunit").value;
+				if (costunit == null || costunit === "") {
+					nextCustom();
+				}
+			}
 		},
 		{
 			element: "#step_costcentre",
 			title: "5. Schritt",
 			content: "Geben Sie die Kostenstelle an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var costcentre = document.getElementById("option_costcentre").value;
+				if (costcentre == null || costcentre === "") {
+					nextCustom();
+				}
+			}
 		},
 		{
 			element: "#step_ReducedPension",
 			title: "6. Schritt",
 			content: "Aktivieren Sie bei Bedarf diesen Schalter.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
 		},
 		{
 			element: "#step_baseAmount",
 			title: "7. Schritt",
 			content: "Geben Sie den Grundbetrag an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var baseAmount = document.getElementById("BaseAmount").value;
+				if (baseAmount == null || baseAmount === "") {
+					nextCustom();
+				}
+			}
 		},
 		{
 			element: "#step_increaseAmount",
 			title: "8. Schritt",
 			content: "Geben Sie den Steigerungsbetrag an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
 		},
 		{
 			element: "#step_lunch",
 			title: "9. Schritt",
 			content: "Aktivieren Sie bei Bedarf diesen Schalter<br>und geben die Zahlungsmethode an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
 		},
 		{
 			element: "#step_createdBy",
 			title: "10. Schritt",
 			content: "Geben Sie in diesem Feld Ihren Namen an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
 		},
 		{
 			element: "#send",
 			title: "11. Schritt",
 			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
 			placement: "top",
-			btnNext: { text: "Fertig" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.get("FinishText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
+			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
 	}]
 	wt.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }
