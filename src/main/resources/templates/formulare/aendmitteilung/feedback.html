@@ -62,6 +62,9 @@
 	      .row.content {height:auto;} 
 	    }
   	</style>
+  	<!-- Javascript for form -->
+  	<script type="text/javascript" th:src="@{../../js/aendmitteilung/feedback.js}">
+	 </script>
 </head>
 <body>
 	<!-- Load alert icons -->
@@ -90,7 +93,7 @@
 			</div> 
 	      	<form id="change_notice" method="post" th:object="${ticket}" action="#" style="min-width: 300px;">
 	      		<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Standort -->
+					<div class="form-floating mb-3 col" id="step_location"><!-- Standort -->
 						<select th:field="*{building}" id="option_location" class="form-select" required>
 							<option value="" selected hidden>Bitte den Standort auswählen</option>
 							<option th:block th:each="location : ${optlocations}" th:value="${location.text}" th:text="${location.text}"/>
@@ -98,7 +101,7 @@
 						<label for="option_location">Standort</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2">
+				<div class="row g-3 p-2" id="step_names">
 					<div class="form-floating mb-3 col"><!-- Nachname -->
 						<input th:field="*{lastname}" id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
 						<label for="name">Name</label>
@@ -109,7 +112,7 @@
 					</div>
 				</div>
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3">
+					<div class="form-floating mb-3" id="step_feedback">
 						<!-- Feedback -->
 						<textarea th:field="*{description}" id="feedback_area" name="feedback_area" class="form-control" rows="8" style="height: 150px" required></textarea>
 						<label for="feedback_area">Feedback</label>
@@ -124,6 +127,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

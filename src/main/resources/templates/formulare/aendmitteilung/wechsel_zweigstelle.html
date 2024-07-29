@@ -105,19 +105,19 @@
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
 				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Wechseltag -->
+					<div class="form-floating mb-3 col" id="step_dateChange"><!-- Wechseltag -->
 						<input id="dateChange" type="date" name="dateChange" class="form-control" placeholder="wechseltag" required>
 						<label for="dateChange">Wechseltag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Neuer Standort -->
+					<div class="form-floating mb-3 col" id="step_newlocation"><!-- Neuer Standort -->
 						<select id="option_newlocation" class="form-select" required>
 							<option value="" selected hidden>Bitte den Standort auswählen</option>
 							<option th:block th:each="location : ${optlocations}" th:value="${location.value}" th:text="${location.text}"/>
-							<option value="nothing">keine</option>
+							<option value="nothing">keiner</option>
 						</select>
 						<label for="option_newlocation">Neuer Standort</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Neue Kostenstelle -->
+					<div class="form-floating mb-3 col" id="step_costcentre"><!-- Neue Kostenstelle -->
 						<select id="option_costcentre" class="form-select" required>
 							<option value="" selected hidden>Bitte die Kostenstelle auswählen</option>
 						</select>
@@ -125,17 +125,17 @@
 					</div>
 				</div>
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Grundbetrag -->
+					<div class="form-floating mb-3 col" id="step_baseAmount"><!-- Grundbetrag -->
 						<input id="BaseAmount" type="text" name="BaseAmount" class="form-control" placeholder="Grundbetrag" required>
 						<label for="BaseAmount">Grundbetrag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Neuer Steigerungsbetrag -->
+					<div class="form-floating mb-3 col" id="step_increaseAmount"><!-- Neuer Steigerungsbetrag -->
 						<input id="IncreaseAmount" type="text" name="IncreaseAmount" class="form-control" placeholder="Steigerungsbetrag">
 						<label for="IncreaseAmount">Neuer Steigerungsbetrag</label>
 					</div>
 				</div>
 				<div class="g-3 p-2">
-					<fieldset class="border p-1">
+					<fieldset class="border p-1" id="step_lunch">
 						<legend class="float-none w-auto p-1">Teilnahme Mittagessen</legend>
 						<div class="form-check">
 						  <input class="form-check-input" type="radio" name="lunch" id="lunchyes" value="ja" required>
@@ -162,6 +162,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

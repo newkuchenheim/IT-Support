@@ -103,14 +103,14 @@
 			</div> 
 	      	<form id="change_notice" method="post" action="#" style="min-width: 300px;">
 	      		<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Standort -->
+					<div class="form-floating mb-3 col" id="step_location"><!-- Standort -->
 						<select id="option_location" class="form-select" required>
 							<option value="" selected hidden>Bitte den Standort auswählen</option>
 							<option th:block th:each="location : ${optlocations}" th:value="${location.value}" th:text="${location.text}"/>
 						</select>
 						<label for="option_location">Standort</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Erstellt durch -->
+					<div class="form-floating mb-3 col" id="step_createdBy"><!-- Erstellt durch -->
 						<input id="createdBy" type="text" name="createdBy" class="form-control" placeholder="Erstellt durch" required>
 						<label for="createdBy">Erstellt durch</label>
 					</div>
@@ -119,30 +119,32 @@
 						<label for="dateCreate">Erstellt am</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Nachname -->
-						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
-						<label for="name">Name</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Vorname -->
-						<input id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
-						<label for="prename">Vorname</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Gültig ab -->
-						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="gültig ab" required>
-						<label for="dateFrom">Gültig ab</label>
+				<div id="step_names">
+					<div class="row g-3 p-2">
+						<div class="form-floating mb-3 col"><!-- Nachname -->
+							<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+							<label for="name">Name</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Vorname -->
+							<input id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+							<label for="prename">Vorname</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Gültig ab -->
+							<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="gültig ab" required>
+							<label for="dateFrom">Gültig ab</label>
+						</div>
 					</div>
 				</div>
 				<hr>
 				<div class="g-3 p-2">
-					<div class="form-check form-switch"> <!-- Neuaufnahme -->
+					<div class="form-check form-switch" id="step_intake"> <!-- Neuaufnahme -->
 						<input class="form-check-input" type="checkbox" role="switch" id="newIntake" name="newIntake">
 						<label class="form-check-label float-start" for="newIntake">Neuaufnahme</label>
 					</div>
 				</div>
 				<hr>
 				<div class="g-3 p-2">
-					<fieldset class="border p-1">
+					<fieldset class="border p-1" id="step_address">
 						<legend class="float-none w-auto p-2">Neue Adresse</legend>
 						<div class="row">
 							<div class="form-floating mb-2 col"> <!-- Straße -->
@@ -167,7 +169,7 @@
 					</fieldset>
 				</div>
 				<div class="g-3 p-2">
-					<fieldset class="border p-2"> <!-- Wechsel -->
+					<fieldset class="border p-2" id="step_change"> <!-- Wechsel -->
 						<legend class="float-none w-auto p-2">Wechsel (nur bei Bedarf ausfüllen)</legend>
 						<div class="form-check">
 						  <input class="form-check-input" type="radio" name="changes" id="todriver" value="zu Selbstfahrer">
@@ -181,92 +183,131 @@
 				</div>
 				<hr>
 				<div class="g-3 p-2">
-					<div class="form-check form-switch"> <!-- Selbstfahrer -->
+					<div class="form-check form-switch" id="step_driver"> <!-- Selbstfahrer -->
 						<input class="form-check-input" type="checkbox" role="switch" id="selfdriver" name="selfdriver">
 						<label class="form-check-label float-start" for="selfdriver">Selbstfahrer</label>
 					</div>
 				</div>
 				<hr>
-				<div id="div_shuttle">
-					<div class="row g-3 p-2 h-auto">
-						<div class="form-floating mb-3 col"><!-- Austrittsgrund -->
-							<select id="option_withdrawal_reason" class="form-select">
-								<option value="" selected hidden>Bitte den Grund auswählen</option>
-								<option th:block th:each="reason : ${optwithdrawdriverreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
-							</select>
-							<label for="option_withdrawal_reason">Austritt</label>
+				<div id="step_drive">
+					<div id="div_shuttle">
+						<div class="row g-3 p-2 h-auto">
+							<div class="form-floating mb-3 col"><!-- Austrittsgrund -->
+								<select id="option_withdrawal_reason" class="form-select">
+									<option value="" selected hidden>Bitte den Grund auswählen</option>
+									<option th:block th:each="reason : ${optwithdrawdriverreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
+								</select>
+								<label for="option_withdrawal_reason">Austritt</label>
+							</div>
+							<div class="form-floating mb-2 col"><!-- Buslinie -->
+								<select id="option_busline" class="form-select">
+									<option value="" selected hidden>Bitte auswählen</option>
+									<!-- <option th:block th:each="busline : ${optbuslines}" th:value="${busline.value}" th:text="${busline.text}"/>-->
+								</select>
+								<label for="option_busline">Linie</label>
+							</div>
 						</div>
-						<div class="form-floating mb-2 col"><!-- Buslinie -->
-							<select id="option_busline" class="form-select">
-								<option value="" selected hidden>Bitte auswählen</option>
-								<!-- <option th:block th:each="busline : ${optbuslines}" th:value="${busline.value}" th:text="${busline.text}"/>-->
-							</select>
-							<label for="option_busline">Linie</label>
+						<div class="g-3 p-2">
+							<fieldset class="border p-1"> <!-- Abholpunkt -->
+								<legend class="float-none w-auto p-1">Abholpunkt</legend>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="meetingpoints" id="addresspoint" value="gleich Wohnadresse" required>
+								  <label class="form-check-label" for="adresspoint">gleich Wohnadresse</label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="meetingpoints" id="otherpoint" value="weicht von Wohnadresse ab">
+								  <label class="form-check-label" for="otherpoint">weicht von Wohnadresse ab</label>
+								</div>
+							</fieldset>
+						</div>
+						<div class="g-3 p-2">
+							<fieldset class="border p-1"> <!-- Begleitperson -->
+								<legend class="float-none w-auto p-1">Begleitperson</legend>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="escorts" id="escortsyes" value="notwendig" required>
+								  <label class="form-check-label" for="escortsyes">notwendig (s. Kostenzusage/Genehmigung)</label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="escorts" id="escortsno" value="nicht notwendig">
+								  <label class="form-check-label" for="escortsno">nicht notwendig</label>
+								</div>
+							</fieldset>
+						</div>
+						<hr>
+						<div class="g-3 p-2">
+							<div class="form-check form-switch"> <!-- Rollstuhl -->
+								<input class="form-check-input" type="checkbox" role="switch" id="wheelchair" name="wheelchair">
+								<label class="form-check-label float-start" for="wheelchair">Rollstuhl</label>
+							</div>
+						</div>
+						<div id="div_wheelchair_size" class="g-3 p-2" hidden>
+							<fieldset class="border p-2">
+								<legend class="float-none w-auto p-2">Maße</legend>
+								<div class="row">
+									<div class="form-floating mb-2 col"> <!-- Höhe -->
+									  <input class="form-control" type="text" name="height" id="height" pattern="([1-9]\d*|0),[0-9]{1,2}">
+									  <label for="height">Höhe (cm)</label>
+									</div>
+									<div class="form-floating mb-2 col"> <!-- Breite -->
+									  <input class="form-control" type="text" name="width" id="width" pattern="([1-9]\d*|0),[0-9]{1,2}">
+									  <label for="width">Breite (cm)</label>
+									</div>
+									<div class="form-floating mb-2 col"> <!-- Tiefe -->
+									  <input class="form-control" type="text" name="depth" id="depth" pattern="([1-9]\d*|0),[0-9]{1,2}">
+									  <label for="depth">Tiefe (cm)</label>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<hr>
+						<div class="row g-3 p-2">
+							<div class="form-floating">
+								<!-- Bemerkung / Sonstige Info -->
+								<textarea id="comment_area" name="comment_area" class="form-control" rows="5" style="height: 80px"></textarea>
+								<label for="comment_area">Bemerkung / Sonstige Info</label>
+							</div>
 						</div>
 					</div>
-					<div class="g-3 p-2">
-						<fieldset class="border p-1"> <!-- Abholpunkt -->
-							<legend class="float-none w-auto p-1">Abholpunkt</legend>
-							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="meetingpoints" id="addresspoint" value="gleich Wohnadresse" required>
-							  <label class="form-check-label" for="adresspoint">gleich Wohnadresse</label>
-							</div>
-							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="meetingpoints" id="otherpoint" value="weicht von Wohnadresse ab">
-							  <label class="form-check-label" for="otherpoint">weicht von Wohnadresse ab</label>
-							</div>
-						</fieldset>
-					</div>
-					<div class="g-3 p-2">
-						<fieldset class="border p-1"> <!-- Begleitperson -->
-							<legend class="float-none w-auto p-1">Begleitperson</legend>
-							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="escorts" id="escortsyes" value="notwendig" required>
-							  <label class="form-check-label" for="escortsyes">notwendig (s. Kostenzusage/Genehmigung)</label>
-							</div>
-							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="escorts" id="escortsno" value="nicht notwendig">
-							  <label class="form-check-label" for="escortsno">nicht notwendig</label>
-							</div>
-						</fieldset>
-					</div>
-					<hr>
-					<div class="g-3 p-2">
-						<div class="form-check form-switch"> <!-- Rollstuhl -->
-							<input class="form-check-input" type="checkbox" role="switch" id="wheelchair" name="wheelchair">
-							<label class="form-check-label float-start" for="wheelchair">Rollstuhl</label>
-						</div>
-					</div>
-					<div id="div_wheelchair_size" class="g-3 p-2" hidden>
-						<fieldset class="border p-2">
-							<legend class="float-none w-auto p-2">Maße</legend>
+					<div id="div_selfdriver" class="g-3 p-2 h-auto bg-secondary" hidden>
+						<fieldset class="border p-2"> <!-- Selbstfahrer -->
+							<legend class="float-none w-auto p-2">Selbstfahrer</legend>
 							<div class="row">
-								<div class="form-floating mb-2 col"> <!-- Höhe -->
-								  <input class="form-control" type="text" name="height" id="height" pattern="([1-9]\d*|0),[0-9]{1,2}">
-								  <label for="height">Höhe (cm)</label>
+								<div class="form-floating col"><!-- Selbstfahrer -->
+									<select id="option_drivertype" class="form-select">
+										<option value="" selected hidden>Bitte auswählen</option><!-- Fahrerart -->
+										<option th:block th:each="drivertype : ${optdrivertypes}" th:value="${drivertype.value}" th:text="${drivertype.text}"/>
+									</select>
+									<label for="option_drivertype">Fahrertyp</label>
 								</div>
-								<div class="form-floating mb-2 col"> <!-- Breite -->
-								  <input class="form-control" type="text" name="width" id="width" pattern="([1-9]\d*|0),[0-9]{1,2}">
-								  <label for="width">Breite (cm)</label>
+								<div class="form-check col">
+								  <input class="form-check-input" type="radio" name="divisions" id="bbb" value="EV/BBB">
+								  <label class="form-check-label" for="bbb">EV/BBB</label>
 								</div>
-								<div class="form-floating mb-2 col"> <!-- Tiefe -->
-								  <input class="form-control" type="text" name="depth" id="depth" pattern="([1-9]\d*|0),[0-9]{1,2}">
-								  <label for="depth">Tiefe (cm)</label>
+								<div class="form-check col">
+								  <input class="form-check-input" type="radio" name="divisions" id="ab" value="AB">
+								  <label class="form-check-label" for="ab">AB</label>
+								</div>
+								<div>
+								<fieldset class="border p-2"> <!-- Angabe der Zentralen Verwaltung -->
+									<legend class="float-none w-auto p-2">Änderung von Zentralen Verwaltung</legend>
+									<div class="row">
+										<div class="form-floating col"> <!-- KM bis NEW -->
+											  <input class="form-control" type="text" name="km" id="km" pattern="[0-9]*">
+											  <label for="km">Entfernung bis zur NEW in Kilometer</label>
+										</div>
+										<div class="form-floating col"> <!-- Tagessatz -->
+											  <input class="form-control" type="text" name="dailyrate" id="dailyrate" pattern="([1-9]\\d*|0),[0-9]{1,2}">
+											  <label for="dailyrate">Tagessatz in Euro</label>
+										</div>
+									</div>
+								</fieldset>
 								</div>
 							</div>
 						</fieldset>
-					</div>
-					<hr>
-					<div class="row g-3 p-2">
-						<div class="form-floating">
-							<!-- Bemerkung / Sonstige Info -->
-							<textarea id="comment_area" name="comment_area" class="form-control" rows="5" style="height: 80px"></textarea>
-							<label for="comment_area">Bemerkung / Sonstige Info</label>
-						</div>
 					</div>
 				</div>
 				<div class="g-3 p-2">
-					<fieldset class="border p-2"> <!-- Kostenzusage -->
+					<fieldset class="border p-2" id="step_costacception"> <!-- Kostenzusage -->
 						<legend class="float-none w-auto p-2">Kostenzusage / Genehmigung liegt vor</legend>
 						<div class="form-check">
 						  <input class="form-check-input" type="radio" name="costacceptance" id="accept" value="ja">
@@ -275,43 +316,6 @@
 						<div class="form-check">
 						  <input class="form-check-input" type="radio" name="costacceptance" id="unaccept" value="liegt noch nicht vor">
 						  <label class="form-check-label" for="unaccept">liegt noch nicht vor, trotzdem laut Anweisung SD Umsetzung</label>
-						</div>
-					</fieldset>
-				</div>
-				<div id="div_selfdriver" class="g-3 p-2 h-auto bg-secondary" hidden>
-					<fieldset class="border p-2"> <!-- Selbstfahrer -->
-						<legend class="float-none w-auto p-2">Selbstfahrer</legend>
-						<div class="row">
-							<div class="form-floating col"><!-- Selbstfahrer -->
-								<select id="option_drivertype" class="form-select">
-									<option value="" selected hidden>Bitte auswählen</option><!-- Fahrerart -->
-									<option th:block th:each="drivertype : ${optdrivertypes}" th:value="${drivertype.value}" th:text="${drivertype.text}"/>
-								</select>
-								<label for="option_drivertype">Fahrertyp</label>
-							</div>
-							<div class="form-check col">
-							  <input class="form-check-input" type="radio" name="divisions" id="bbb" value="EV/BBB">
-							  <label class="form-check-label" for="bbb">EV/BBB</label>
-							</div>
-							<div class="form-check col">
-							  <input class="form-check-input" type="radio" name="divisions" id="ab" value="AB">
-							  <label class="form-check-label" for="ab">AB</label>
-							</div>
-							<div>
-							<fieldset class="border p-2"> <!-- Angabe der Zentralen Verwaltung -->
-								<legend class="float-none w-auto p-2">Änderung von Zentralen Verwaltung</legend>
-								<div class="row">
-									<div class="form-floating col"> <!-- KM bis NEW -->
-										  <input class="form-control" type="text" name="km" id="km" pattern="[0-9]*">
-										  <label for="km">Entfernung bis zur NEW in Kilometer</label>
-									</div>
-									<div class="form-floating col"> <!-- Tagessatz -->
-										  <input class="form-control" type="text" name="dailyrate" id="dailyrate" pattern="([1-9]\\d*|0),[0-9]{1,2}">
-										  <label for="dailyrate">Tagessatz in Euro</label>
-									</div>
-								</div>
-							</fieldset>
-							</div>
 						</div>
 					</fieldset>
 				</div>
@@ -337,6 +341,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

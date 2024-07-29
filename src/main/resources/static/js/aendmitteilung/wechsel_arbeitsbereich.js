@@ -113,7 +113,7 @@ function init() {
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel = (_optlunchmodel !== null && _optlunchmodel !== "" ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -134,20 +134,20 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t" + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t\t      " + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Kostenträger:\t\t\t\t\t" + costunit_text + "\r\n"
-				+ "\t• Kostenstelle:\t\t\t\t\t" + _optcostcentre + "\r\n"
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Kostenträger: " + costunit_text + "\r\n"
+				+ "\t• Kostenstelle: " + _optcostcentre + "\r\n"
 				+ "\t• Prüfung\r\n"
-				+ "\t   Erwerbsminderungsrente:\t    " + checkReducedPension_Text + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t\t\t" + _baseAmount + "\r\n"
-				+ "\t• Steigerungsbetrag:\t\t\t  " + _increaseAmount + "\r\n"
-				+ "\t• Mittagessen:\t\t\t\t        " + lunch_Text +  "\r\n"
-				+ "\t• Zahlungsmethode:\t\t\t  " + paymethod + lunchmodel + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t\t" + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t   " + GetLocaleDateString(_dateCreate) + "\r\n";
+				+ "\t   Erwerbsminderungsrente: " + checkReducedPension_Text + "\r\n"
+				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
+				+ "\t• Steigerungsbetrag: " + _increaseAmount + "\r\n"
+				+ "\t• Mittagessen: " + lunch_Text +  "\r\n"
+				+ "\t• Zahlungsmethode: " + paymethod + lunchmodel + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
@@ -195,31 +195,21 @@ function init() {
 		e.preventDefault();
 		sendEmail();
 	});
-	// Create Tour Steps
-	/*var wt = new WebTour();
-	function nextCustom() {
-		wt.isPaused = true;
-		wt.showLoader();
-		setTimeout(() => {
-			wt.isPaused = false;
-			document.querySelector('.wt-loader').remove();
-		}, 10000);
-	}*/
 	var steps = [
 		{
 			title: "Anleitung Änderungsmitteilung - Wechsel in Arbeitsbereich",
-			content: "Willkommen.<br>Sie können die Schritte mit der Maus oder den Pfeiltasten bedienen.<br>Sie können die Anleitung mit \"ESC\" jederzeit beenden",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("CloseText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
-			width: wtConfig.get("StartWidth")
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
 		},
 		{
 			element: "#step_location",
 			title: "1. Schritt",
 			content: "Wählen Sie Ihren Standort aus.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var location = document.getElementById("option_location").value;
 				if (location == null || location === "") {
@@ -232,12 +222,10 @@ function init() {
 			title: "2. Schritt",
 			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
-				var prename = document.getElementById("prename").value;
-				var name = document.getElementById("name").value;
-				if (prename == null || prename === "" || name == null || name === "") {
+				if (NamesEmptyOrWrong()) {
 					nextCustom();
 				}
 			},
@@ -248,8 +236,8 @@ function init() {
 			title: "3. Schritt",
 			content: "Geben Sie den Wechseltag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var dateChange = document.getElementById("dateChange").value;
 				if (dateChange == null || dateChange === "") {
@@ -263,8 +251,8 @@ function init() {
 			title: "4. Schritt",
 			content: "Geben Sie den Kostenträger an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var costunit = document.getElementById("option_costunit").value;
 				if (costunit == null || costunit === "") {
@@ -277,8 +265,8 @@ function init() {
 			title: "5. Schritt",
 			content: "Geben Sie die Kostenstelle an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var costcentre = document.getElementById("option_costcentre").value;
 				if (costcentre == null || costcentre === "") {
@@ -291,16 +279,16 @@ function init() {
 			title: "6. Schritt",
 			content: "Aktivieren Sie bei Bedarf diesen Schalter.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 		},
 		{
 			element: "#step_baseAmount",
 			title: "7. Schritt",
 			content: "Geben Sie den Grundbetrag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var baseAmount = document.getElementById("BaseAmount").value;
 				if (baseAmount == null || baseAmount === "") {
@@ -313,24 +301,24 @@ function init() {
 			title: "8. Schritt",
 			content: "Geben Sie den Steigerungsbetrag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 		},
 		{
 			element: "#step_lunch",
 			title: "9. Schritt",
 			content: "Aktivieren Sie bei Bedarf diesen Schalter<br>und geben die Zahlungsmethode an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 		},
 		{
 			element: "#step_createdBy",
 			title: "10. Schritt",
 			content: "Geben Sie in diesem Feld Ihren Namen an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.get("NextText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") },
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			onNext: function () {
 				var createdBy = document.getElementById("createdBy").value;
 				if (createdBy == null || createdBy === "") {
@@ -343,8 +331,8 @@ function init() {
 			title: "11. Schritt",
 			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
 			placement: "top",
-			btnNext: { text: wtConfig.get("FinishText"), backgroundColor: wtConfig.get("NextBgColor"), textColor: wtConfig.get("NextTextColor") },
-			btnBack: { text: wtConfig.get("BackText"), backgroundColor: wtConfig.get("BackBgColor"), textColor: wtConfig.get("BackTextColor") }
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
 	}]
 	wt.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {

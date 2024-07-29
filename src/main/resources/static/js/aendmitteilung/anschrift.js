@@ -69,7 +69,7 @@ function init() {
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateValidFrom = document.getElementById("dateValidFrom").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t\t  ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _changeHousingType = document.getElementById("changeHousingType").checked;
@@ -97,13 +97,13 @@ function init() {
 			}
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t\t" + fullname + "\r\n"
-				+ "\t• Gültig ab:\t\t\t\t\t\t " + GetLocaleDateString(_dateValidFrom) + "\r\n"
-				+ "\t• Änderung der Wohnform:\t\t" + changedHousingTypeText + housingTypePart + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t\t    " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Gültig ab: " + GetLocaleDateString(_dateValidFrom) + "\r\n"
+				+ "\t• Änderung der Wohnform: " + changedHousingTypeText + housingTypePart + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
@@ -127,5 +127,101 @@ function init() {
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();
 		sendEmail();
+	});
+	
+	var steps = [
+		{
+			title: "Anleitung Änderungsmitteilung - Anschrift",
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
+		},
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_names",
+			title: "2. Schritt",
+			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				if (NamesEmptyOrWrong()) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_ValidFrom",
+			title: "3. Schritt",
+			content: "Geben Sie das \"gültig ab\" Datum an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var dateValidFrom = document.getElementById("dateValidFrom").value;
+				if (dateValidFrom == null || dateValidFrom === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_HousingType",
+			title: "4. Schritt",
+			content: "Geben Sie die neue Wohnform an, wenn es eine Änderung gibt..",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var changeHousingType = document.getElementById("changeHousingType").checked;
+				var housingType = document.getElementById("option_housingtype").value;
+				if (changeHousingType && (housingType == null || housingType === "")) {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_createdBy",
+			title: "5. Schritt",
+			content: "Geben Sie in diesem Feld Ihren Namen an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#send",
+			title: "6. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
+	}];
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

@@ -62,7 +62,7 @@ function init() {
 		var _dateFirstDay = document.getElementById("dateFirstDay").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _weekHours = document.getElementById("weekHours").value;
@@ -88,17 +88,17 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-				+ "\t• Erster Tag:\t\t\t\t\t  " + GetLocaleDateString(_dateFirstDay) + "\r\n"
-				+ "\t• Grund:\t\t\t\t\t    " + _optreason + "\r\n"
-				+ "\t• Wochenstunden:\t\t\t " + _weekHours + "\r\n"
-				+ "\t• Mittagessen / Zeitmodell:\t     " + _optlunchmodel + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t\t\t " + _baseAmount + "\r\n"
-				+ "\t• Neuer Steigerungsbetrag:\t     " + _increaseAmount + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Erster Tag: " + GetLocaleDateString(_dateFirstDay) + "\r\n"
+				+ "\t• Grund: " + _optreason + "\r\n"
+				+ "\t• Wochenstunden: " + _weekHours + "\r\n"
+				+ "\t• Mittagessen / Zeitmodell: " + _optlunchmodel + "\r\n"
+				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
+				+ "\t• Neuer Steigerungsbetrag: " + _increaseAmount + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
@@ -110,5 +110,150 @@ function init() {
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();
 		sendEmail();
+	});
+	
+	var steps = [
+		{
+			title: "Anleitung Änderungsmitteilung - Arbeitszeit",
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
+		},
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_names",
+			title: "2. Schritt",
+			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				if (NamesEmptyOrWrong()) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_firstday",
+			title: "3. Schritt",
+			content: "Geben Sie den Ersten Tag an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var dateFirstDay = document.getElementById("dateFirstDay").value;
+				if (dateFirstDay == null || dateFirstDay === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_reason",
+			title: "4. Schritt",
+			content: "Wählen Sie einen Grund aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var reason = document.getElementById("option_reason").value;
+				if (reason == null || reason === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_weekhours",
+			title: "5. Schritt",
+			content: "Geben Sie die Wochenstunden an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var weekhours = document.getElementById("weekHours").value;
+				if (weekhours == null || weekhours === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_lunchmodel",
+			title: "6. Schritt",
+			content: "Wählen Sie das Mittagessen / Zeitmodell aus",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var lunchmodel = document.getElementById("option_lunchmodel").value;
+				if (lunchmodel == null || lunchmodel === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_baseAmount",
+			title: "7. Schritt",
+			content: "Geben Sie den Grundbetrag an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var baseAmount = document.getElementById("baseAmount").value;
+				if (baseAmount == null || baseAmount === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_increaseAmount",
+			title: "8. Schritt",
+			content: "Geben Sie den Steigerungsbetrag an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+		},
+		{
+			element: "#step_createdBy",
+			title: "9. Schritt",
+			content: "Geben Sie in diesem Feld Ihren Namen an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#send",
+			title: "10. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
+	}]
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

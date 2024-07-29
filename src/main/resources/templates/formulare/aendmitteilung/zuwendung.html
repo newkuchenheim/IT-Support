@@ -114,7 +114,7 @@
 	      	<form id="change_notice" method="post" action="#" style="min-width: 300px;">
 	      		<!-- load head fields for form -->
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
-				<div class="row g-3 p-2 h-auto">
+				<div class="row g-3 p-2 h-auto" id="step_reason">
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
@@ -130,51 +130,53 @@
 						<label for="option_jubilar">Jahre</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Gutschein -->
-						<select id="option_voucher" name="option_voucher" class="form-select" required>
-							<option value="" selected hidden>Bitte den Gutschein auswählen</option>
-							<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
-						</select>
-						<label for="option_voucher">Gutschein</label>
+				<div id="step_vouchers">
+					<div class="row g-3 p-2 h-auto">
+						<div class="form-floating mb-3 col"><!-- Gutschein -->
+							<select id="option_voucher" name="option_voucher" class="form-select" required>
+								<option value="" selected hidden>Bitte den Gutschein auswählen</option>
+								<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
+							</select>
+							<label for="option_voucher">Gutschein</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Anzahl -->
+							<input id="voucherCount" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" min="1" max="1" step="1" required>
+							<label for="voucherCount">Anzahl</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Gesamtsumme -->
+							<input id="voucherCountSum" type="text" name="voucherCountSum" class="form-control" placeholder="Gesamtsumme" value="0" disabled>
+							<label for="voucherCountSum">Gesamtsumme</label>
+						</div>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Anzahl -->
-						<input id="voucherCount" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" min="1" max="1" step="1" required>
-						<label for="voucherCount">Anzahl</label>
+					<div id="voucher2" class="row g-3 p-2 h-auto" hidden> <!-- Voucher 2 Div Container -->
+						<div class="form-floating mb-3 col"><!-- Gutschein 2 -->
+							<select id="option_voucher2" name="option_voucher" class="form-select">
+								<option value="" selected>Keine Angabe</option>
+								<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
+							</select>
+							<label for="option_voucher2">Gutschein</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Anzahl 2 -->
+							<input id="voucherCount2" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" value="0" min="0" max="2" step="1">
+							<label for="voucherCount2">Anzahl</label>
+						</div>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Gesamtsumme -->
-						<input id="voucherCountSum" type="text" name="voucherCountSum" class="form-control" placeholder="Gesamtsumme" value="0" disabled>
-						<label for="voucherCountSum">Gesamtsumme</label>
-					</div>
-				</div>
-				<div id="voucher2" class="row g-3 p-2 h-auto" hidden> <!-- Voucher 2 Div Container -->
-					<div class="form-floating mb-3 col"><!-- Gutschein 2 -->
-						<select id="option_voucher2" name="option_voucher" class="form-select">
-							<option value="" selected>Keine Angabe</option>
-							<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
-						</select>
-						<label for="option_voucher2">Gutschein</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Anzahl 2 -->
-						<input id="voucherCount2" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" value="0" min="0" max="2" step="1">
-						<label for="voucherCount2">Anzahl</label>
-					</div>
-				</div>
-				<div id="voucher3" class="row g-3 p-2 h-auto" hidden> <!-- Voucher 3 Div Container -->
-					<div class="form-floating mb-3 col"><!-- Gutschein 3 -->
-						<select id="option_voucher3" name="option_voucher" class="form-select">
-							<option value="" selected>Keine Angabe</option>
-							<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
-						</select>
-						<label for="option_voucher3">Gutschein</label>
-					</div>
-					<div class="form-floating mb-3 col"><!-- Anzahl 3 -->
-						<input id="voucherCount3" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" value="0" min="0" max="3" step="1">
-						<label for="voucherCount3">Anzahl</label>
+					<div id="voucher3" class="row g-3 p-2 h-auto" hidden> <!-- Voucher 3 Div Container -->
+						<div class="form-floating mb-3 col"><!-- Gutschein 3 -->
+							<select id="option_voucher3" name="option_voucher" class="form-select">
+								<option value="" selected>Keine Angabe</option>
+								<option th:block th:each="voucher : ${optvouchers}" th:value="${voucher.value}" th:text="${voucher.text}"/>
+							</select>
+							<label for="option_voucher3">Gutschein</label>
+						</div>
+						<div class="form-floating mb-3 col"><!-- Anzahl 3 -->
+							<input id="voucherCount3" type="number" name="voucherCount" class="form-control" placeholder="Anzahl" value="0" min="0" max="3" step="1">
+							<label for="voucherCount3">Anzahl</label>
+						</div>
 					</div>
 				</div>
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Empfänger -->
+					<div class="form-floating mb-3 col" id="step_employee"><!-- Empfänger -->
 						<input id="employee" type="text" name="employee" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Verantwortlicher Mitarbeiter" required>
 						<label for="employee">Verantwortlicher Mitarbeiter (Empfänger für die Gutscheinausgabe)</label>
 					</div>
@@ -187,6 +189,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

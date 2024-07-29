@@ -324,4 +324,116 @@ function init() {
 		e.preventDefault();
 		sendEmail();
 	});
+	
+	var steps = [
+		{
+			title: "Anleitung Änderungsmitteilung - Zuwendung",
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
+		},
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_names",
+			title: "2. Schritt",
+			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				if (NamesEmptyOrWrong()) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_reason",
+			title: "3. Schritt",
+			content: "Wählen Sie den Grund aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var reason = document.getElementById("option_reason").value;
+				var years = document.getElementById("option_jubilar").value;
+				if (reason == null || reason === "" || (reason === "Jubilare" && (years == null || years === ""))) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_vouchers",
+			title: "4. Schritt",
+			content: "Wählen Sie die Gutscheine und die Anzahl aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var voucher = document.getElementById("option_voucher").value;
+				var vouchercount = document.getElementById("voucherCount").value;
+				if (voucher == null || voucher === "" || vouchercount == null || vouchercount === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_employee",
+			title: "5. Schritt",
+			content: "Geben Sie den Namen von dem verantwortlichen Mitarbeiter an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var employee = document.getElementById("employee").value;
+				if (employee == null || employee === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_createdBy",
+			title: "6. Schritt",
+			content: "Geben Sie in diesem Feld Ihren Namen an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#send",
+			title: "7. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
+	}]
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+	});
 }

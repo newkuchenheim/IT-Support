@@ -69,7 +69,7 @@ function init() {
 		var _dateTo_elem = document.getElementById("dateTo");
 		var _dateTo = _dateTo_elem.value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
@@ -122,5 +122,101 @@ function init() {
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();
 		sendEmail();
+	});
+	
+	var steps = [
+		{
+			title: "Anleitung Änderungsmitteilung - Krankheit",
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
+		},
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_names",
+			title: "2. Schritt",
+			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				if (NamesEmptyOrWrong()) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_days",
+			title: "3. Schritt",
+			content: "Geben Sie den Ersten und Letzten Tag an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var dateFrom = document.getElementById("dateFrom").value;
+				if (dateFrom == null || dateFrom === "") {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_lunchmodel",
+			title: "4. Schritt",
+			content: "Geben Sie die Mittagessen Verrechnung an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var lunchmodel = document.getElementById("option_lunchmodel").value;
+				if (lunchmodel == null || lunchmodel === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_createdBy",
+			title: "5. Schritt",
+			content: "Geben Sie in diesem Feld Ihren Namen an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#send",
+			title: "6. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
+	}]
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

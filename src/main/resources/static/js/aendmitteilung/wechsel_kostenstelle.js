@@ -109,7 +109,7 @@ function init() {
 		var _optoldcostcentre = document.getElementById("option_oldcostcentre").value;
 		var _optnewcostcentre = document.getElementById("option_newcostcentre").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t   ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -130,14 +130,14 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t " + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t" + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Alte Kostenstelle:\t    " + _optoldcostcentre + "\r\n"
-				+ "\t• Neue Kostenstelle:\t  " + _optnewcostcentre + "\r\n"
-				+ "\t• Bemerkung:\t\t      " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Alte Kostenstelle: " + _optoldcostcentre + "\r\n"
+				+ "\t• Neue Kostenstelle: " + _optnewcostcentre + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
@@ -149,5 +149,89 @@ function init() {
 	document.getElementById("change_notice").addEventListener("submit", (e) => {
 		e.preventDefault();
 		sendEmail();
+	});
+	
+	var steps = [
+		{
+			title: "Anleitung Änderungsmitteilung - Wechsel Kostenstelle",
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
+		},
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var location = document.getElementById("option_location").value;
+				if (location == null || location === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_names",
+			title: "2. Schritt",
+			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				if (NamesEmptyOrWrong()) {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_costcentres",
+			title: "3. Schritt",
+			content: "Geben Sie den Wechseltag, die alte und neue Kostenstelle an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var dateChange = document.getElementById("dateChange").value;
+				var oldcostcentre = document.getElementById("option_oldcostcentre").value;
+				var newcostcentre = document.getElementById("option_newcostcentre").value;
+				if (dateChange == null || dateChange === "" || oldcostcentre == null || oldcostcentre === "" || newcostcentre == null || newcostcentre === "") {
+					nextCustom();
+				}
+			},
+			width: "450px"
+		},
+		{
+			element: "#step_createdBy",
+			title: "4. Schritt",
+			content: "Geben Sie in diesem Feld Ihren Namen an.",
+			placement: "bottom",
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			onNext: function () {
+				var createdBy = document.getElementById("createdBy").value;
+				if (createdBy == null || createdBy === "") {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#send",
+			title: "5. Schritt",
+			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
+			placement: "top",
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
+	}]
+	wt.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wt.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

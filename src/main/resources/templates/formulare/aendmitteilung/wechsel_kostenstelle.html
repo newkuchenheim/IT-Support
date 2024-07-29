@@ -104,7 +104,7 @@
 	      		<!-- load head fields for form -->
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
-				<div class="row g-3 p-2 h-auto">
+				<div class="row g-3 p-2 h-auto" id="step_costcentres">
 					<div class="form-floating mb-3 col"><!-- Wechseltag -->
 						<input id="dateChange" type="date" name="dateChange" class="form-control" placeholder="wechseltag" required>
 						<label for="dateChange">Wechseltag</label>
@@ -130,6 +130,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

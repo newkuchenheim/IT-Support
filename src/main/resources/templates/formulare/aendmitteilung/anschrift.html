@@ -109,26 +109,28 @@
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Gültig ab -->
+					<div class="form-floating mb-3 col" id="step_ValidFrom"><!-- Gültig ab -->
 						<input id="dateValidFrom" type="date" name="dateValidFrom" class="form-control" placeholder="gültig ab" required>
 						<label for="dateValidFrom">Gültig ab</label>
 					</div>
 				</div>
 				<hr>
-				<div class="g-3 p-2">
-					<div class="form-check form-switch"> <!-- Wohnform Änderung -->
-						<input class="form-check-input" type="checkbox" role="switch" id="changeHousingType" name="changeHousingType">
-						<label class="form-check-label float-start" for="changeHousingType">Änderung der Wohnform</label>
+				<div id="step_HousingType">
+					<div class="g-3 p-2">
+						<div class="form-check form-switch"> <!-- Wohnform Änderung -->
+							<input class="form-check-input" type="checkbox" role="switch" id="changeHousingType" name="changeHousingType">
+							<label class="form-check-label float-start" for="changeHousingType">Änderung der Wohnform</label>
+						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="row g-3 p-2 h-auto" id="div_housing_type" hidden>
-					<div class="form-floating mb-3 col"><!-- Wohnform -->
-						<select id="option_housingtype" class="form-select">
-							<option value="" selected hidden>Bitte die Wohnform auswählen</option>
-							<option th:block th:each="housingType : ${opthousingtypes}" th:value="${housingType.value}" th:text="${housingType.text}"/>
-						</select>
-						<label for="option_housingtype">Wohnform</label>
+					<hr>
+					<div class="row g-3 p-2 h-auto" id="div_housing_type" hidden>
+						<div class="form-floating mb-3 col"><!-- Wohnform -->
+							<select id="option_housingtype" class="form-select">
+								<option value="" selected hidden>Bitte die Wohnform auswählen</option>
+								<option th:block th:each="housingType : ${opthousingtypes}" th:value="${housingType.value}" th:text="${housingType.text}"/>
+							</select>
+							<label for="option_housingtype">Wohnform</label>
+						</div>
 					</div>
 				</div>
 				<!-- load foot fields for form -->
@@ -139,6 +141,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

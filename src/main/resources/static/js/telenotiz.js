@@ -305,31 +305,30 @@ function init() {
 		locations[i].addEventListener("change", changeAutoCompleteList);
 	}
 	// Create Tour Steps
-	var wt = new WebTour();
+	//var wt = new WebTour();
 	var steps = [
 		{
 			title: "Anleitung Gesprächsnotiz",
-			content: "Willkommen.<br>Sie können die Schritte mit der Maus oder den Pfeiltasten bedienen.<br>Sie können die Anleitung mit \"ESC\" jederzeit beenden",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "Schließen"},
-			width: "600px"
+			content: wtConfig.StartText,
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
+			width: wtConfig.StartWidth
 		},
 		{
-			element: "#collLocation",
+			element: "#step_location",
 			title: "1. Schritt",
 			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Gesprächsnotiz klicken.",
 			placement: "right",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 		},
 		{
 			element: "#note_for",
 			title: "2. Schritt",
 			content: "Suchen Sie nach der gewünschten Person mit Hilfe des Nachnamens oder geben Sie direkt die E-Mail ein.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			width: "500px"
 		},
 		{
@@ -337,8 +336,8 @@ function init() {
 			title: "3. Schritt",
 			content: "Geben Sie den Namen oder die Firma des Anrufers an.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
 			width: "450px"
 		},
 		{
@@ -346,18 +345,16 @@ function init() {
 			title: "4. Schritt",
 			content: "Bei Bedarf können Sie einen Grund angeben.",
 			placement: "bottom",
-			btnNext: { text: "Nächste &#8594" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 		},
 		{
 			element: "#send",
 			title: "5. Schritt",
 			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
 			placement: "top",
-			btnNext: { text: "Fertig" },
-			btnBack: { text: "&#8592 Zurück"},
-			width: "400px"
+			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
+			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
 	}]
 	wt.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {

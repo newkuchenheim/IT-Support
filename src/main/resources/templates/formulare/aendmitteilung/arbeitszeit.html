@@ -109,11 +109,11 @@
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
 				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Erster Tag -->
+					<div class="form-floating mb-3 col" id="step_firstday"><!-- Erster Tag -->
 						<input id="dateFirstDay" type="date" name="dateFirstDay" class="form-control" placeholder="Erster Tag" required>
 						<label for="dateFirstDay">Erster Tag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Grund -->
+					<div class="form-floating mb-3 col" id="step_reason"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
 							<option th:block th:each="reason : ${optreasons}" th:value="${reason.value}" th:text="${reason.text}"/>
@@ -122,11 +122,11 @@
 					</div>
 				</div>
 				<div class="row g-3 p-2 h-auto">
-					<div class="form-floating mb-3 col"><!-- Wochenstunden -->
+					<div class="form-floating mb-3 col" id="step_weekhours"><!-- Wochenstunden -->
 						<input id="weekHours" type="text" name="weekHours" class="form-control" placeholder="Wochenstunden" required>
 						<label for="weekHours">Wochenstunden</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Mittagessen / Zeitmodell -->
+					<div class="form-floating mb-3 col" id="step_lunchmodel"><!-- Mittagessen / Zeitmodell -->
 						<select id="option_lunchmodel" class="form-select" required>
 							<option value="" selected hidden>Bitte auswählen</option>
 							<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
@@ -135,11 +135,11 @@
 					</div>
 				</div>
 				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Grundbetrag -->
+					<div class="form-floating mb-3 col" id="step_baseAmount"><!-- Grundbetrag -->
 						<input id="baseAmount" type="text" name="baseAmount" class="form-control" placeholder="Grundbetrag" required>
 						<label for="baseAmount">Grundbetrag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Steigerungsbetrag -->
+					<div class="form-floating mb-3 col" id="step_increaseAmount"><!-- Steigerungsbetrag -->
 						<input id="increaseAmount" type="text" class="form-control" placeholder="Steigerungsbetrag">
 						<label for="increaseAmount">Neuer Steigerungsbetrag</label>
 					</div>
@@ -152,6 +152,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
