@@ -184,7 +184,7 @@ function init() {
 				subject += " " + fullname;
 				// build voucher part
 				var vouchers = "";
-				var tabs = "\t\t\t\t\t\t\t\t\t\t   ";
+				var tabs = "\t\t\t";
 				for (var i=0; i < _optvouchers.length; i++) {
 					if (parseInt(_voucherCounts[i].value) > 0) {
 						if (i > 0) vouchers += tabs;

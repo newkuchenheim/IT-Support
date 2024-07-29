@@ -62,7 +62,7 @@ function init() {
 		var _dateFirstDay = document.getElementById("dateFirstDay").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _weekHours = document.getElementById("weekHours").value;
@@ -77,7 +77,7 @@ function init() {
 		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
 		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFirstDay !== "" && _createdBy !== "" 
-			&& _baseAmount !== "" && _increaseAmount !== "" && _weekHours !== "" && _optlunchmodel !== "") {
+			&& _baseAmount !== "" && _weekHours !== "" && _optlunchmodel !== "") {
 			var fullname = _name + ", " + _prename;
 			// show success Messages
 			var _form_success = document.getElementById("form_success");
@@ -88,17 +88,17 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-				+ "\t• Erster Tag:\t\t\t\t\t  " + GetLocaleDateString(_dateFirstDay) + "\r\n"
-				+ "\t• Grund:\t\t\t\t\t    " + _optreason + "\r\n"
-				+ "\t• Wochenstunden:\t\t\t " + _weekHours + "\r\n"
-				+ "\t• Mittagessen / Zeitmodell:\t     " + _optlunchmodel + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t\t\t " + _baseAmount + "\r\n"
-				+ "\t• Neuer Steigerungsbetrag:\t     " + _increaseAmount + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Erster Tag: " + GetLocaleDateString(_dateFirstDay) + "\r\n"
+				+ "\t• Grund: " + _optreason + "\r\n"
+				+ "\t• Wochenstunden: " + _weekHours + "\r\n"
+				+ "\t• Mittagessen / Zeitmodell: " + _optlunchmodel + "\r\n"
+				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
+				+ "\t• Neuer Steigerungsbetrag: " + _increaseAmount + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}
