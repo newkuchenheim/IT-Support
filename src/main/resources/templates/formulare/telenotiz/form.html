@@ -142,12 +142,12 @@
 			</div> 
 	      	<form id="calling_note" autocomplete="off" method="post" action="#" style="min-width: 300px;">
 				<div class="row g-3 p-2">
-            		<div class="form-floating mb-3 col autocomplete"><!-- Notiz für -->
+            		<div class="form-floating mb-3 col autocomplete" id="step_note_for"><!-- Notiz für -->
 						<input id="note_for" type="text" name="note_for" class="form-control" placeholder="Notiz für" required>
 						<label for="note_for">Notiz für</label>
             		</div>
             	</div>
-            	<div class="row g-3 p-2" id="company_info">
+            	<div class="row g-3 p-2" id="step_company_info">
             		<div class="form-floating mb-3 col"><!-- Anrufername -->
             			<input id="call_name" type="text" name="call_name" pattern="[a-zA-ZäüößÜÖÄ\-\.´'éÉ/\s/]+" class="form-control" placeholder="Name" maxlength="60" required>
 						<label for="call_name">Anrufername</label>
@@ -164,7 +164,7 @@
             		</div>
             	</div>
             	<div class="row g-3 p-2">
-            		<div class="form-floating mb-3 col"><!-- Grund -->
+            		<div class="form-floating mb-3 col" id="step_call_reason"><!-- Grund -->
             			<input id="call_reason" type="text" name="call_reason" class="form-control" placeholder="Grund" maxlength="135">
 						<label for="call_reason">Grund</label>
             		</div>
@@ -197,11 +197,21 @@
 	    
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
-	      	<h3>Anleitung&nbsp;
-				<button type="button" class="btn btn-primary" id="start_tour">
-					Tour Starten
-				</button>
-			</h3>
+	      	<h3>Anleitung</h3>
+			<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

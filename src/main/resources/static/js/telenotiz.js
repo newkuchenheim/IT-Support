@@ -305,59 +305,87 @@ function init() {
 		locations[i].addEventListener("change", changeAutoCompleteList);
 	}
 	// Create Tour Steps
-	//var wt = new WebTour();
+	wtConfig.MainSteps[0].title = "Anleitung Gesprächsnotiz";
+	wtConfig.MainSteps[4].title = "5" + wtConfig.MainSteps[4].title.substring(1);
 	var steps = [
-		{
-			title: "Anleitung Gesprächsnotiz",
-			content: wtConfig.StartText,
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
-			width: wtConfig.StartWidth
-		},
+		wtConfig.MainSteps[0],
 		{
 			element: "#step_location",
 			title: "1. Schritt",
 			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Gesprächsnotiz klicken.",
 			placement: "right",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var location = document.querySelector("input[type='radio'][name=location]:checked");
+				if (location == null || location.value === "") {
+					wtConfig.nextCustom();
+				}
+			}
 		},
 		{
-			element: "#note_for",
+			element: "#step_note_for",
 			title: "2. Schritt",
 			content: "Suchen Sie nach der gewünschten Person mit Hilfe des Nachnamens oder geben Sie direkt die E-Mail ein.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			width: "500px"
+			placement: "top",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "500px",
+			onNext: function () {
+				var name_valid = false;
+				var email_valid = false;
+				var note_for = document.getElementById("note_for").value;
+				var fullname_upp;
+				for (i = 0; i < persons.length; i++) {
+				if (persons[i] !== undefined) {
+					fullname_upp = (persons[i]["Vorname"].replaceAll("\"","") + " " + persons[i]["Name"].replaceAll("\"","")).toUpperCase();
+						if (fullname_upp == note_for.toUpperCase()) {
+							name_valid = true;
+							email_valid = true;
+							break;
+						}
+					}
+				}
+				if (!name_valid) {
+					email_valid = validateNumOrEmail(note_for, true);
+				}
+				if (!name_valid || !email_valid) {
+					wtConfig.nextCustom();
+				}
+			}
 		},
 		{
-			element: "#company_info",
+			element: "#step_company_info",
 			title: "3. Schritt",
 			content: "Geben Sie den Namen oder die Firma des Anrufers an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			width: "450px"
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "450px",
+			onNext: function () {
+				var call_name = document.getElementById("call_name").value;
+				var call_company = document.getElementById("call_company").value;
+				if ((call_name == null || call_name === "") && (call_company == null || call_company === "")) {
+					nextCustom();
+				}
+			}
 		},
 		{
-			element: "#call_reason",
+			element: "#step_call_reason",
 			title: "4. Schritt",
 			content: "Bei Bedarf können Sie einen Grund angeben.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
-		{
-			element: "#send",
-			title: "5. Schritt",
-			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
-			placement: "top",
-			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
-	}]
-	wt.setSteps(steps);
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {
-		wt.start();
+		document.getElementById("webtour_msg_div").hidden = true;
+		wtConfig.WebTour.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

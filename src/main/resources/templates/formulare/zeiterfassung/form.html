@@ -116,7 +116,7 @@
 				<h1 id="location_header">Zentrale Verwaltung</h1>
 			</div> 
 	      	<form id="time_entering" method="post" action="#" style="min-width: 300px;">
-				<div class="row g-3 p-2">
+				<div class="row g-3 p-2" id="step_names">
 					<div class="form-floating mb-3 col"><!-- Nachname -->
 						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
 						<label for="name">Nachname</label>
@@ -126,7 +126,7 @@
 						<label for="prename">Vorname</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2 h-auto">
+				<div class="row g-3 p-2 h-auto" id="step_request">
 					<div class="form-floating mb-3 col"><!-- Antragsart -->
 						<select id="option_request" class="form-select" required>
 							<option value="" selected>Bitte die Antragsart auswählen</option>
@@ -153,7 +153,7 @@
 						<label for="description_area">Erläuterungen</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2">
+				<div class="row g-3 p-2" id="step_dates">
 					<div class="form-floating mb-3 col"><!-- Datum Von -->
 						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="Von" required>
 						<label for="dateFrom">Von</label>
@@ -184,6 +184,20 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<div class="well border" id="webtour_msg_div">
+	        	 <div id="webtour_msg" class="alert alert-info d-flex align-items-center alert-dismissible" role="alert"><!-- Form Success -->
+			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+			  		<div>
+			    		Wollen Sie eine Tour starten?<br>
+			    		<button type="button" class="btn btn-success" id="start_tour">
+							Ja
+						</button>&nbsp;
+						<button type="button" class="btn btn-danger" id="no_tour">
+							Nein
+						</button>
+			  		</div>
+				</div>
+	      	</div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

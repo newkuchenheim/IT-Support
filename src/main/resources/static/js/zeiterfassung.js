@@ -265,4 +265,64 @@ function init() {
 			document.getElementById("name_warning").classList.add("visually-hidden");
 		}
 	});
+	wtConfig.MainSteps[0].title = "Anleitung Korrekturbeleg";
+	wtConfig.MainSteps[4].title = "5" + wtConfig.MainSteps[4].title.substring(1);
+	var steps = [
+		wtConfig.MainSteps[0],
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Korrekturbeleg klicken.",
+			placement: "right",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var location = document.querySelector("input[type='radio'][name=location]:checked");
+				if (location == null || location.value === "") {
+					NextCustom();
+				}
+			}
+		},
+		wtConfig.MainSteps[2],
+		{
+			element: "#step_request",
+			title: "3. Schritt",
+			content: "Wählen Sie die Antragsart und den Grund aus.<br>Bei Bedarf können Sie es erläutern.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "450px",
+			onNext: function () {
+				var request = document.getElementById("option_request").value;
+				var reason = document.getElementById("option_reason").value;
+				if (request == null || request === "" || reason == null || reason === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_dates",
+			title: "4. Schritt",
+			content: "Geben Sie das Von und Bis Datum an",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var dateFrom = document.getElementById("dateFrom").value;
+				var dateTo = document.getElementById("dateTo").value;
+				if (dateFrom == null || dateFrom === "" || dateTo == null || dateTo === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wtConfig.WebTour.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+	});
 }

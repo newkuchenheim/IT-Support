@@ -5,19 +5,6 @@ function init() {
 	document.getElementById("change_notice").reset();
 	//var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de";
-	function setDateToday() {
-		var date = new Date();
-
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-		
-		if (month < 10) month = "0" + month;
-		if (day < 10) day = "0" + day;
-		
-		var today = year + "-" + month + "-" + day;
-		document.getElementById("dateCreate").value = today;
-	}
 	// Set Date for first load
 	setDateToday();
 	/*function validateName(prename, name) {
@@ -48,15 +35,6 @@ function init() {
 		if (from !== "" && to !== "" && to >= from) valid = true;
 		else if (from !== "" && to === "" || to !== "" && from === "") valid = true;
 		return valid;
-	}
-	function GetLocaleDateString(date) {
-		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
-		var str_date = "";
-		if (date !== "") {
-			var _date = new Date(date);
-			str_date = _date.toLocaleDateString();
-		}
-		return str_date;
 	}
 	
 	function sendEmail() {
@@ -123,99 +101,62 @@ function init() {
 		e.preventDefault();
 		sendEmail();
 	});
-	
+	wtConfig.MainSteps[0].title += "Unbezahlte Urlaub";
+	wtConfig.MainSteps[3].title = "6" + wtConfig.MainSteps[3].title.substring(1);
+	wtConfig.MainSteps[4].title = "7" + wtConfig.MainSteps[4].title.substring(1);
 	var steps = [
+		wtConfig.MainSteps[0],
+		wtConfig.MainSteps[1],
+		wtConfig.MainSteps[2],
 		{
-			title: "Anleitung Änderungsmitteilung - Unbezahlte Urlaubh",
-			content: wtConfig.StartText,
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
-			width: wtConfig.StartWidth
-		},
-		{
-			element: "#step_location",
-			title: "1. Schritt",
-			content: "Wählen Sie Ihren Standort aus.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var location = document.getElementById("option_location").value;
-				if (location == null || location === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#step_names",
-			title: "2. Schritt",
-			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				if (NamesEmptyOrWrong()) {
-					nextCustom();
-				}
-			},
-			width: "450px"
-		},
-		{
-			element: "#step_dates",
+			element: "#step_dateFrom",
 			title: "3. Schritt",
-			content: "Geben Sie den Ersten und Letzten Tag an.",
+			content: "Geben Sie den Ersten Tag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var dateFrom = document.getElementById("dateFrom").value;
-				var dateTo = document.getElementById("dateTo").value;
-				if (dateFrom == null || dateFrom === "" || dateTo == null || dateTo === "") {
-					nextCustom();
+				if (dateFrom == null || dateFrom === "") {
+					wtConfig.nextCustom();
 				}
 			},
-			width: "450px"
+		},
+		{
+			element: "#step_dateTo",
+			title: "4. Schritt",
+			content: "Geben Sie den Letzten Tag an.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var dateTo = document.getElementById("dateTo").value;
+				if (dateTo == null || dateTo === "") {
+					wtConfig.nextCustom();
+				}
+			},
 		},
 		{
 			element: "#step_lunchmodel",
-			title: "4. Schritt",
+			title: "5. Schritt",
 			content: "Geben Sie das Mittagessen / Zeitmodell an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var lunchmodel = document.getElementById("option_lunchmodel").value;
 				if (lunchmodel == null || lunchmodel === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
-		{
-			element: "#step_createdBy",
-			title: "5. Schritt",
-			content: "Geben Sie in diesem Feld Ihren Namen an.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var createdBy = document.getElementById("createdBy").value;
-				if (createdBy == null || createdBy === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#send",
-			title: "6. Schritt",
-			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
-			placement: "top",
-			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
-	}]
-	wt.setSteps(steps);
+		wtConfig.MainSteps[3],
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;
-		wt.start();
+		wtConfig.WebTour.start();
 	});
 	document.getElementById("no_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;

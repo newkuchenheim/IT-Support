@@ -5,22 +5,6 @@ function init() {
 	document.getElementById("change_notice").reset();
 	//var _persIndex = -2;
 	var _email_to = "fahrtendienst@new-eu.de";
-	/**
-	 * set the field dateCreate to today date
-	 */
-	function setDateCreateToToday() {
-		var date = new Date();
-
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-		
-		if (month < 10) month = "0" + month;
-		if (day < 10) day = "0" + day;
-		
-		var today = year + "-" + month + "-" + day;
-		document.getElementById("dateCreate").value = today;
-	}
 	// Set Date for first load
 	setDateCreateToToday();
 	
@@ -125,21 +109,6 @@ function init() {
 		
 		return i;
 	}*/
-	
-	/**
-	 * returns current date as locale date string in format dd.mm.yyyy (without starting zeros)
-	 * @param {string} date 
-	 *
-	 */
-	function GetLocaleDateString(date) {
-		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
-		var str_date = "";
-		if (date !== "") {
-			var _date = new Date(date);
-			str_date = _date.toLocaleDateString();
-		}
-		return str_date;
-	}
 	
 	/**
 	 * creates a email template with the form data and send this to local email client
@@ -288,65 +257,23 @@ function init() {
 		e.preventDefault();
 		sendEmail();
 	});
-	
+	wtConfig.MainSteps[0].title += "Fahrtendienst"
+	wtConfig.MainSteps[2].title = "3" + wtConfig.MainSteps[2].title.substring(1);
+	wtConfig.MainSteps[2].content = wtConfig.MainSteps[2].content.substring(0, wtConfig.MainSteps[2].content.length - 5) + ", sowie das Gültig ab Datum an.";
+	wtConfig.MainSteps[3].title = "2" + wtConfig.MainSteps[3].title.substring(1);
+	wtConfig.MainSteps[4].title = "10" + wtConfig.MainSteps[4].title.substring(1);
 	var steps = [
-		{
-			title: "Anleitung Änderungsmitteilung - Fahrtendienst",
-			content: wtConfig.StartText,
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
-			width: wtConfig.StartWidth
-		},
-		{
-			element: "#step_location",
-			title: "1. Schritt",
-			content: "Wählen Sie Ihren Standort aus.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var location = document.getElementById("option_location").value;
-				if (location == null || location === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#step_createdBy",
-			title: "2. Schritt",
-			content: "Geben Sie in diesem Feld Ihren Namen an.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var createdBy = document.getElementById("createdBy").value;
-				if (createdBy == null || createdBy === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#step_names",
-			title: "3. Schritt",
-			content: "Geben Sie den Vor- und Nachnahmen der gewünschten Person, sowie das Gültig ab Datum an.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var validFrom = document.getElementById("dateFrom").value;
-				if (NamesEmptyOrWrong() || validFrom == null || validFrom === "") {
-					nextCustom();
-				}
-			},
-			width: "450px"
-		},
+		wtConfig.MainSteps[0],
+		wtConfig.MainSteps[1],
+		wtConfig.MainSteps[3],
+		wtConfig.MainSteps[2],
 		{
 			element: "#step_intake",
 			title: "4. Schritt",
 			content: "Aktivieren Sie bei Bedarf den Schalter für die Neuaufnahme.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			width: "500px"
 		},
 		{
@@ -354,39 +281,39 @@ function init() {
 			title: "5. Schritt",
 			content: "Geben Sie die neue Adresse an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
 		{
 			element: "#step_change",
 			title: "6. Schritt",
 			content: "Geben Sie bei Bedarf ein Wechsel an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
 		{
 			element: "#step_driver",
 			title: "7. Schritt",
 			content: "Aktivieren Sie bei Bedarf den Selbstfahrer - Schalter.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
 		{
 			element: "#step_drive",
 			title: "8. Schritt",
 			content: "Geben Sie Informationen für den Zubringer bzw. Selbstfahrer an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var selfdriver = document.getElementById("selfdriver").checked;
 				var division = document.querySelector("input[type='radio'][name=divisions]:checked");
 				var meetingpoint = document.querySelector("input[type='radio'][name=meetingpoints]:checked");
 				var escort = document.querySelector("input[type='radio'][name=escorts]:checked");
 				if ((selfdriver && (division == null || division === "")) || (!selfdriver && (meetingpoint == null || meetingpoint === "" || escort == null || escort === ""))) {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			},
 			width: "500px"
@@ -396,21 +323,15 @@ function init() {
 			title: "9. Schritt",
 			content: "Geben Sie an ob eine Kostenzusage vorliegt.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
-		{
-			element: "#send",
-			title: "10. Schritt",
-			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
-			placement: "top",
-			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
-	}]
-	wt.setSteps(steps);
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;
-		wt.start();
+		wtConfig.WebTour.start();
 	});
 	document.getElementById("no_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;

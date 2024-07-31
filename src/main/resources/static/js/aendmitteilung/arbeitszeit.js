@@ -5,19 +5,6 @@ function init() {
 	document.getElementById("change_notice").reset();
 	var _persIndex = -2;
 	var _email_to = "aenderungsmitteilung@new-eu.de;leistunstraegerabrechnung@new-eu.de";
-	function setDateToday() {
-		var date = new Date();
-
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-		
-		if (month < 10) month = "0" + month;
-		if (day < 10) day = "0" + day;
-		
-		var today = year + "-" + month + "-" + day;
-		document.getElementById("dateCreate").value = today;
-	}
 	// Set Date for first load
 	setDateToday();
 	function validateName(prename, name) {
@@ -42,15 +29,6 @@ function init() {
 		}
 		
 		return i;
-	}
-	function GetLocaleDateString(date) {
-		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
-		var str_date = "";
-		if (date !== "") {
-			var _date = new Date(date);
-			str_date = _date.toLocaleDateString();
-		}
-		return str_date;
 	}
 	
 	function sendEmail() {
@@ -111,54 +89,24 @@ function init() {
 		e.preventDefault();
 		sendEmail();
 	});
-	
+	wtConfig.MainSteps[0].title += "Arbeitszeit"
+	wtConfig.MainSteps[3].title = "9" + wtConfig.MainSteps[3].title.substring(1);
+	wtConfig.MainSteps[4].title = "10" + wtConfig.MainSteps[4].title.substring(1);
 	var steps = [
-		{
-			title: "Anleitung Änderungsmitteilung - Arbeitszeit",
-			content: wtConfig.StartText,
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.CloseText, backgroundColor: wtConfig.CloseBgColor, textColor: wtConfig.CloseTextColor },
-			width: wtConfig.StartWidth
-		},
-		{
-			element: "#step_location",
-			title: "1. Schritt",
-			content: "Wählen Sie Ihren Standort aus.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var location = document.getElementById("option_location").value;
-				if (location == null || location === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#step_names",
-			title: "2. Schritt",
-			content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				if (NamesEmptyOrWrong()) {
-					nextCustom();
-				}
-			},
-			width: "450px"
-		},
+		wtConfig.MainSteps[0],
+		wtConfig.MainSteps[1],
+		wtConfig.MainSteps[2],
 		{
 			element: "#step_firstday",
 			title: "3. Schritt",
 			content: "Geben Sie den Ersten Tag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var dateFirstDay = document.getElementById("dateFirstDay").value;
 				if (dateFirstDay == null || dateFirstDay === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
@@ -167,12 +115,12 @@ function init() {
 			title: "4. Schritt",
 			content: "Wählen Sie einen Grund aus.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var reason = document.getElementById("option_reason").value;
 				if (reason == null || reason === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
@@ -181,12 +129,12 @@ function init() {
 			title: "5. Schritt",
 			content: "Geben Sie die Wochenstunden an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var weekhours = document.getElementById("weekHours").value;
 				if (weekhours == null || weekhours === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
@@ -195,12 +143,12 @@ function init() {
 			title: "6. Schritt",
 			content: "Wählen Sie das Mittagessen / Zeitmodell aus",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var lunchmodel = document.getElementById("option_lunchmodel").value;
 				if (lunchmodel == null || lunchmodel === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
@@ -209,12 +157,12 @@ function init() {
 			title: "7. Schritt",
 			content: "Geben Sie den Grundbetrag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var baseAmount = document.getElementById("baseAmount").value;
 				if (baseAmount == null || baseAmount === "") {
-					nextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
@@ -223,35 +171,16 @@ function init() {
 			title: "8. Schritt",
 			content: "Geben Sie den Steigerungsbetrag an.",
 			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor }
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
 		},
-		{
-			element: "#step_createdBy",
-			title: "9. Schritt",
-			content: "Geben Sie in diesem Feld Ihren Namen an.",
-			placement: "bottom",
-			btnNext: { text: wtConfig.NextText, backgroundColor: wtConfig.NextBgColor, textColor: wtConfig.NextTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.BackTextColor },
-			onNext: function () {
-				var createdBy = document.getElementById("createdBy").value;
-				if (createdBy == null || createdBy === "") {
-					nextCustom();
-				}
-			}
-		},
-		{
-			element: "#send",
-			title: "10. Schritt",
-			content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
-			placement: "top",
-			btnNext: { text: wtConfig.FinishText, backgroundColor: wtConfig.FinishBgColor, textColor: wtConfig.FinishTextColor },
-			btnBack: { text: wtConfig.BackText, backgroundColor: wtConfig.BackBgColor, textColor: wtConfig.ackTextColor }
-	}]
-	wt.setSteps(steps);
+		wtConfig.MainSteps[3],
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
 	document.getElementById("start_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;
-		wt.start();
+		wtConfig.WebTour.start();
 	});
 	document.getElementById("no_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;

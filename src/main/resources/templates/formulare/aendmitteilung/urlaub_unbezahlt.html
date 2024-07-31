@@ -109,12 +109,12 @@
 	      		<!-- load head fields for form -->
 				<th:block th:replace="~{formulare/fragments/aendmittgeneral :: headfields}"></th:block>
 				<!-- variable form fields -->
-				<div class="row g-3 p-2 h-auto" id="step_dates">
-					<div class="form-floating mb-3 col"><!-- Erster Tag -->
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col" id="step_dateFrom"><!-- Erster Tag -->
 						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="von" required>
 						<label for="dateFrom">Erster Tag</label>
 					</div>
-					<div class="form-floating mb-3 col"><!-- Letzter Tag -->
+					<div class="form-floating mb-3 col" id="step_dateTo"><!-- Letzter Tag -->
 						<input id="dateTo" type="date" name="dateTo" class="form-control" placeholder="bis" required>
 						<label for="dateTo">Letzter Tag</label>
 					</div>
