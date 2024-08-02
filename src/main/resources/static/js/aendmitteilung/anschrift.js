@@ -69,7 +69,7 @@ function init() {
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateValidFrom = document.getElementById("dateValidFrom").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t\t  ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _changeHousingType = document.getElementById("changeHousingType").checked;
@@ -97,13 +97,13 @@ function init() {
 			}
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t\t" + fullname + "\r\n"
-				+ "\t• Gültig ab:\t\t\t\t\t\t " + GetLocaleDateString(_dateValidFrom) + "\r\n"
-				+ "\t• Änderung der Wohnform:\t\t" + changedHousingTypeText + housingTypePart + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t\t    " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Gültig ab: " + GetLocaleDateString(_dateValidFrom) + "\r\n"
+				+ "\t• Änderung der Wohnform: " + changedHousingTypeText + housingTypePart + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

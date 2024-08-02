@@ -158,15 +158,17 @@ function init() {
 	autocomplete(document.getElementById("note_for"), true);
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
-		var _date = new Date(date);
-		/*var day = _date.getDate();
-		var month = _date.getMonth() + 1;
-		var year = _date.getFullYear();
-		
-		if (month < 10) month = "0" + month;
-		if (day < 10) day = "0" + day;
-		return day + "." + month + "." + year;*/
-		return _date.toLocaleDateString();
+		var str_date = "";
+		if (date !== "") {
+			var options = {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit"
+			};
+			var _date = new Date(date);
+			str_date = _date.toLocaleDateString("de-DE", options);
+		}
+		return str_date;
 	}
 	function validateNumOrEmail(str, isMail) {
 		/*check if number only contains numbers or - and /*/

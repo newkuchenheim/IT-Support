@@ -69,7 +69,7 @@ function init() {
 		var _dateTo_elem = document.getElementById("dateTo");
 		var _dateTo = _dateTo_elem.value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t   ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _days = document.getElementById("days").value;
@@ -96,13 +96,13 @@ function init() {
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
 				document.getElementById("change_notice").submit();
 				// build body
-				body = "\t• Zweigstelle:\t\t\t" + _location_text + "\r\n"
-					+ "\t• Name, Vorname:\t " + fullname + "\r\n"
-					+ "\t• Fehltag(e):\t\t\t  " + GetLocaleDateString(_dateFrom) + " - " + GetLocaleDateString(_dateTo) + "\r\n"
-					+ "\t• Anzahl Fehltag(e):\t    " + _days + "\r\n"
-					+ "\t• Bemerkung:\t\t      " + _comment + "\r\n"
-					+ "\t• Erstellt durch:\t\t" + _createdBy + "\r\n"
-					+ "\t• Erstellt am:\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+				body = "\t• Zweigstelle: " + _location_text + "\r\n"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Fehltag(e): " + GetLocaleDateString(_dateFrom) + " - " + GetLocaleDateString(_dateTo) + "\r\n"
+					+ "\t• Anzahl Fehltag(e): " + _days + "\r\n"
+					+ "\t• Bemerkung: " + _comment + "\r\n"
+					+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+					+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 				var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 				window.location.href = mailToLink;
 			} else {

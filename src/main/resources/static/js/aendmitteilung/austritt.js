@@ -61,8 +61,8 @@ function init() {
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateWithdrawal = document.getElementById("dateWithdrawal").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _sendto = document.getElementById("sendto_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _sendto = document.getElementById("sendto_area").value.replaceAll("\n", "\r\n\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
@@ -84,14 +84,14 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-				+ "\t• Austritt am:\t\t\t\t\t" + GetLocaleDateString(_dateWithdrawal) + "\r\n"
-				+ "\t• Mittagessen / Zeitmodell:\t     " + _optlunchmodel + "\r\n"
-				+ "\t• Unterlagen sind zu senden an:   " + _sendto + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Austritt am: " + GetLocaleDateString(_dateWithdrawal) + "\r\n"
+				+ "\t• Mittagessen / Zeitmodell: " + _optlunchmodel + "\r\n"
+				+ "\t• Unterlagen sind zu senden an:\r\n\t\t" + _sendto + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

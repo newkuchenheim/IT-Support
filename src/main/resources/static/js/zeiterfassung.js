@@ -133,8 +133,13 @@ function init() {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";
 		if (date !== "") {
+			var options = {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit"
+			};
 			var _date = new Date(date);
-			str_date = _date.toLocaleDateString();
+			str_date = _date.toLocaleDateString("de-DE", options);
 		}
 		return str_date;
 	}
@@ -180,12 +185,12 @@ function init() {
 				// build subject
 				var subject = "Korrekturbeleg-"+_optrequest + ": " + fullname;
 				// build body
-				body = "Korrekturbeleg-"+_optrequest + ":"
+				body = "Korrekturbeleg-"+_optrequest + ":\r\n"
 					+ "\t• Name, Vorname: " + fullname + "\r\n"
 					+ "\t• Antrag auf: " + _optrequest + "\r\n"
 					+ "\t• Grund: " + _optreason + "\r\n"
 					+ "\t• Erläuterungen: " + _description + "\r\n"
-					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " - " + _timeFrom + "\r\n"
+					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " " + _timeFrom + " - \r\n"
 					+ GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
 				var mailToLink = "mailto:" + cc_email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;

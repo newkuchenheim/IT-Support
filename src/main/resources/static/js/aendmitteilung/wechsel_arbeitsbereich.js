@@ -113,7 +113,7 @@ function init() {
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel = (_optlunchmodel !== null && _optlunchmodel !== "" ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -134,20 +134,19 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t\t\t" + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t\t      " + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Kostenträger:\t\t\t\t\t" + costunit_text + "\r\n"
-				+ "\t• Kostenstelle:\t\t\t\t\t" + _optcostcentre + "\r\n"
-				+ "\t• Prüfung\r\n"
-				+ "\t   Erwerbsminderungsrente:\t    " + checkReducedPension_Text + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t\t\t" + _baseAmount + "\r\n"
-				+ "\t• Steigerungsbetrag:\t\t\t  " + _increaseAmount + "\r\n"
-				+ "\t• Mittagessen:\t\t\t\t        " + lunch_Text +  "\r\n"
-				+ "\t• Zahlungsmethode:\t\t\t  " + paymethod + lunchmodel + "\r\n"
-				+ "\t• Bemerkung:\t\t\t\t\t" + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t\t\t   " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Kostenträger: " + costunit_text + "\r\n"
+				+ "\t• Kostenstelle: " + _optcostcentre + "\r\n"
+				+ "\t• Prüfung Erwerbsminderungsrente: " + checkReducedPension_Text + "\r\n"
+				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
+				+ "\t• Steigerungsbetrag:  " + _increaseAmount + "\r\n"
+				+ "\t• Mittagessen: " + lunch_Text +  "\r\n"
+				+ "\t• Zahlungsmethode: " + paymethod + lunchmodel + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

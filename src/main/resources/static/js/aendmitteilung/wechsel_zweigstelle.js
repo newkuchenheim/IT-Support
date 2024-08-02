@@ -102,7 +102,7 @@ function init() {
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel_part = (_lunch.startsWith("j") ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t       ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -123,17 +123,17 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t    " + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t     " + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t   " + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Neue Zweigstelle:\t       " + _newlocation_text + "\r\n"
-				+ "\t• Neue Kostenstelle:\t      " + _optcostcentre + "\r\n"
-				+ "\t• Grundbetrag:\t\t\t  " + _baseAmount + "\r\n"
-				+ "\t• Steigerungsbetrag:\t      " + _increaseAmount + "\r\n"
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Neue Zweigstelle: " + _newlocation_text + "\r\n"
+				+ "\t• Neue Kostenstelle: " + _optcostcentre + "\r\n"
+				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
+				+ "\t• Steigerungsbetrag: " + _increaseAmount + "\r\n"
 				+ "\t• Teilnahme Mittagessen: " + _lunch + lunchmodel_part + "\r\n"
-				+ "\t• Bemerkung:\t\t          " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t    " + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t      " + GetLocaleDateString(_dateCreate) + "\r\n";
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

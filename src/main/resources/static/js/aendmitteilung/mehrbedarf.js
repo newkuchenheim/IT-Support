@@ -61,7 +61,7 @@ function init() {
 		var _location_text = _location_elem.options[_location_elem.selectedIndex].text;
 		var _dateValidFrom = document.getElementById("dateValidFrom").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t   ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _caseGroup = document.getElementById("option_casegroup").value;
@@ -83,13 +83,13 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t" + fullname + "\r\n"
-				+ "\t• Gültig ab:\t\t\t  " + GetLocaleDateString(_dateValidFrom) + "\r\n"
-				+ "\t• Fallgruppe:\t\t\t " + _caseGroup + "\r\n"
-				+ "\t• Bemerkung:\t\t      " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Gültig ab: " + GetLocaleDateString(_dateValidFrom) + "\r\n"
+				+ "\t• Fallgruppe: " + _caseGroup + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

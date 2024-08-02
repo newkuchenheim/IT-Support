@@ -46,7 +46,7 @@ function init() {
 	function validateDate(from, to) {
 		var valid = false;
 		if (from !== "" && to !== "" && to >= from) valid = true;
-		else if (from !== "" && to === "" || to !== "" && from === "") valid = true;
+		else if (from !== "" && to === "") valid = true;
 		return valid;
 	}
 	function GetLocaleDateString(date) {
@@ -69,7 +69,7 @@ function init() {
 		var _dateTo_elem = document.getElementById("dateTo");
 		var _dateTo = _dateTo_elem.value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _cancelPay = document.getElementById("cancelPay").checked;
@@ -81,7 +81,7 @@ function init() {
 		var ccPart = "";
 		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
-		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFrom !== "" && _dateTo !== "" && _createdBy !== "") {
+		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFrom !== "" && _createdBy !== "") {
 			if (validateDate(_dateFrom, _dateTo)) {
 				var fullname = _name + ", " + _prename;
 				// show success Messages
@@ -97,15 +97,14 @@ function init() {
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
 				document.getElementById("change_notice").submit();
 				// build body
-				body = "\t• Zweigstelle:\t\t\t\t\t" + _location_text + "\r\n"
-					+ "\t• Name, Vorname:\t\t\t " + fullname + "\r\n"
-					+ "\t• Erster Tag:\t\t\t\t\t  " + GetLocaleDateString(_dateFrom) + "\r\n"
-					+ "\t• Letzter Tag:\t\t\t\t\t " + GetLocaleDateString(_dateTo) + "\r\n"
-					+ "\t• Unterbrechung Essensgeld /\r\n"
-					+ "\t  Verrechnung Lohn aussetzen:\t   " + cancelPayText + "\r\n"
-					+ "\t• Bemerkung:\t\t\t\t        " + _comment + "\r\n"
-					+ "\t• Erstellt durch:\t\t\t\t  " + _createdBy + "\r\n"
-					+ "\t• Erstellt am:\t\t\t\t\t    " + GetLocaleDateString(_dateCreate) + "\r\n";
+				body = "\t• Zweigstelle: " + _location_text + "\r\n"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Erster Tag: " + GetLocaleDateString(_dateFrom) + "\r\n"
+					+ "\t• Letzter Tag: " + GetLocaleDateString(_dateTo) + "\r\n"
+					+ "\t• Unterbrechung Essensgeld / Verrechnung Lohn aussetzen: " + cancelPayText + "\r\n"
+					+ "\t• Bemerkung: " + _comment + "\r\n"
+					+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+					+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 				var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 				window.location.href = mailToLink;
 			} else {

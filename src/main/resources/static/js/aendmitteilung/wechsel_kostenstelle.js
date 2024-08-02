@@ -109,7 +109,7 @@ function init() {
 		var _optoldcostcentre = document.getElementById("option_oldcostcentre").value;
 		var _optnewcostcentre = document.getElementById("option_newcostcentre").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t   ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -130,14 +130,14 @@ function init() {
 			subject += fullname;
 			document.getElementById("change_notice").submit();
 			// build body
-			body = "\t• Zweigstelle:\t\t\t" + _location_text + "\r\n"
-				+ "\t• Name, Vorname:\t " + fullname + "\r\n"
-				+ "\t• Wechseltag:\t\t\t" + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Alte Kostenstelle:\t    " + _optoldcostcentre + "\r\n"
-				+ "\t• Neue Kostenstelle:\t  " + _optnewcostcentre + "\r\n"
-				+ "\t• Bemerkung:\t\t      " + _comment + "\r\n"
-				+ "\t• Erstellt durch:\t\t" + _createdBy + "\r\n"
-				+ "\t• Erstellt am:\t\t\t  " + GetLocaleDateString(_dateCreate) + "\r\n";
+			body = "\t• Zweigstelle: " + _location_text + "\r\n"
+				+ "\t• Name, Vorname: " + fullname + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Alte Kostenstelle: " + _optoldcostcentre + "\r\n"
+				+ "\t• Neue Kostenstelle:  " + _optnewcostcentre + "\r\n"
+				+ "\t• Bemerkung: " + _comment + "\r\n"
+				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 			var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 			window.location.href = mailToLink;
 		}

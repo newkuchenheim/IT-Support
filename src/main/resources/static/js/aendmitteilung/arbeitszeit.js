@@ -62,7 +62,7 @@ function init() {
 		var _dateFirstDay = document.getElementById("dateFirstDay").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _weekHours = document.getElementById("weekHours").value;

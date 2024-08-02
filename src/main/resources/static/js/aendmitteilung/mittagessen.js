@@ -88,7 +88,7 @@ function init() {
 		var _dateCreate = document.getElementById("dateCreate").value;
 		var _checkout = document.getElementById("checkout").checked;
 		var _checkout_text = (_checkout ? "ja" : "nein");
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t  ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
@@ -116,14 +116,14 @@ function init() {
 				document.getElementById("checkout_error").classList.add("visually-hidden");
 				document.getElementById("change_notice").submit();
 				// build body
-				body = "\t• Zweigstelle:\t\t\t\t" + _location_text + "\r\n"
-					+ "\t• Name, Vorname:\t\t" + fullname + "\r\n"
-					+ "\t• Ab Datum:\t\t\t      " + GetLocaleDateString(_dateFrom) + "\r\n"
-					+ "\t• Abmeldung:\t\t\t     " + _checkout_text + "\r\n"
-					+ "\t• Anmeldung / Zeitmodell:  " + _optlunchmodel + "\r\n"
-					+ "\t• Bemerkung:\t\t\t     " + _comment + "\r\n"
-					+ "\t• Erstellt durch:\t\t\t" + _createdBy + "\r\n"
-					+ "\t• Erstellt am:\t\t\t\t " + GetLocaleDateString(_dateCreate) + "\r\n";
+				body = "\t• Zweigstelle: " + _location_text + "\r\n"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Ab Datum: " + GetLocaleDateString(_dateFrom) + "\r\n"
+					+ "\t• Abmeldung: " + _checkout_text + "\r\n"
+					+ "\t• Anmeldung / Zeitmodell: " + _optlunchmodel + "\r\n"
+					+ "\t• Bemerkung: " + _comment + "\r\n"
+					+ "\t• Erstellt durch: " + _createdBy + "\r\n"
+					+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";
 				var mailToLink = "mailto:" + _email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + ccPart;
 				window.location.href = mailToLink;
 			} else {
