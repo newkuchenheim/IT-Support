@@ -87,7 +87,7 @@ function init() {
 		var _optoldcostcentre = document.getElementById("option_oldcostcentre").value;
 		var _optnewcostcentre = document.getElementById("option_newcostcentre").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;

@@ -66,7 +66,7 @@ function init() {
 		var _dateCreate = document.getElementById("dateCreate").value;
 		var _checkout = document.getElementById("checkout").checked;
 		var _checkout_text = (_checkout ? "ja" : "nein");
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;

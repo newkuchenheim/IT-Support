@@ -80,7 +80,7 @@ function init() {
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel_part = (_lunch.startsWith("j") ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -103,8 +103,8 @@ function init() {
 			// build body
 			body = "\t• Zweigstelle: " + _location_text + "\r\n"
 				+ "\t• Name, Vorname: " + fullname + "\r\n"
-				+ "\t• Wechseltag:  " + GetLocaleDateString(_dateChange) + "\r\n"
-				+ "\t• Neue Zweigstelle:  " + _newlocation_text + "\r\n"
+				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
+				+ "\t• Neue Zweigstelle: " + _newlocation_text + "\r\n"
 				+ "\t• Neue Kostenstelle: " + _optcostcentre + "\r\n"
 				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
 				+ "\t• Steigerungsbetrag: " + _increaseAmount + "\r\n"

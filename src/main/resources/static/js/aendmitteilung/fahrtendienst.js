@@ -156,7 +156,7 @@ function init() {
 		var _division_elem = document.querySelector("input[type='radio'][name=divisions]:checked");
 		var _division = "";
 		if (_division_elem != null) _division = _division_elem.value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t\t\t     ");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;

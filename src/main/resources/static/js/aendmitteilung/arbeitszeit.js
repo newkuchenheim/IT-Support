@@ -40,7 +40,7 @@ function init() {
 		var _dateFirstDay = document.getElementById("dateFirstDay").value;
 		var _optreason = document.getElementById("option_reason").value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _weekHours = document.getElementById("weekHours").value;
@@ -55,7 +55,7 @@ function init() {
 		//if (_ccEmail !== null && _ccEmail !== "") ccPart = "&cc=" + _ccEmail;
 		var body;
 		if (_prename !== "" && _name !== "" && _location_text !== "" && _dateFirstDay !== "" && _createdBy !== "" 
-			&& _baseAmount !== "" && _increaseAmount !== "" && _weekHours !== "" && _optlunchmodel !== "") {
+			&& _baseAmount !== "" && _weekHours !== "" && _optlunchmodel !== "") {
 			var fullname = _name + ", " + _prename;
 			// show success Messages
 			var _form_success = document.getElementById("form_success");

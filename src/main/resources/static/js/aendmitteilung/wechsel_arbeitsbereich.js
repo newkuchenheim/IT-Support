@@ -91,7 +91,7 @@ function init() {
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
 		var lunchmodel = (_optlunchmodel !== null && _optlunchmodel !== "" ? ": " + _optlunchmodel : "");
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _createdBy = document.getElementById("createdBy").value;
@@ -117,10 +117,9 @@ function init() {
 				+ "\t• Wechseltag: " + GetLocaleDateString(_dateChange) + "\r\n"
 				+ "\t• Kostenträger: " + costunit_text + "\r\n"
 				+ "\t• Kostenstelle: " + _optcostcentre + "\r\n"
-				+ "\t• Prüfung\r\n"
-				+ "\t   Erwerbsminderungsrente: " + checkReducedPension_Text + "\r\n"
+				+ "\t• Prüfung Erwerbsminderungsrente: " + checkReducedPension_Text + "\r\n"
 				+ "\t• Grundbetrag: " + _baseAmount + "\r\n"
-				+ "\t• Steigerungsbetrag: " + _increaseAmount + "\r\n"
+				+ "\t• Steigerungsbetrag:  " + _increaseAmount + "\r\n"
 				+ "\t• Mittagessen: " + lunch_Text +  "\r\n"
 				+ "\t• Zahlungsmethode: " + paymethod + lunchmodel + "\r\n"
 				+ "\t• Bemerkung: " + _comment + "\r\n"

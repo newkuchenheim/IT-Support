@@ -47,7 +47,7 @@ function init() {
 		var _dateTo_elem = document.getElementById("dateTo");
 		var _dateTo = _dateTo_elem.value;
 		var _dateCreate = document.getElementById("dateCreate").value;
-		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t\t\t");
+		var _comment = document.getElementById("comment_area").value.replaceAll("\n", "\r\n\t");
 		var _prename = _prename_elem.value;
 		var _name = _name_elem.value;
 		var _optlunchmodel = document.getElementById("option_lunchmodel").value;
