@@ -66,11 +66,7 @@ function init() {
 				+ "\t• Name, Vorname: " + fullname + "\r\n"
 				+ "\t• Austritt am: " + GetLocaleDateString(_dateWithdrawal) + "\r\n"
 				+ "\t• Mittagessen / Zeitmodell: " + _optlunchmodel + "\r\n"
-<<<<<<< HEAD
-				+ "\t• Unterlagen sind zu senden an:\r\n\t\t\t" + _sendto + "\r\n"
-=======
 				+ "\t• Unterlagen sind zu senden an:\r\n\t\t" + _sendto + "\r\n"
->>>>>>> refs/heads/main
 				+ "\t• Bemerkung: " + _comment + "\r\n"
 				+ "\t• Erstellt durch: " + _createdBy + "\r\n"
 				+ "\t• Erstellt am: " + GetLocaleDateString(_dateCreate) + "\r\n";

@@ -116,8 +116,7 @@ function init() {
 			btnBack: wtConfig.btnBack,
 			onNext: function () {
 				var dateFrom = document.getElementById("dateFrom").value;
-				var dateTo = document.getElementById("dateTo").value;
-				if (dateFrom == null || dateFrom === "" || dateTo == null || dateTo === "") {
+				if (dateFrom == null || dateFrom === "") {
 					wtConfig.nextCustom();
 				}
 			},
