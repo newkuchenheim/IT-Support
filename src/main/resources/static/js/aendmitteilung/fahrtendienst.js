@@ -6,7 +6,7 @@ function init() {
 	//var _persIndex = -2;
 	var _email_to = "fahrtendienst@new-eu.de";
 	// Set Date for first load
-	setDateCreateToToday();
+	setDateToday();
 	
 	/**
 	 * add busline element to parent element

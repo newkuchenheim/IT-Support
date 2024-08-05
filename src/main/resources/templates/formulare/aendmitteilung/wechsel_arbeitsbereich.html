@@ -147,31 +147,33 @@
 					</div>
 				</div>
 				<hr>
-				<div class="g-3 p-2">
-					<div class="form-check form-switch" id="step_lunch"> <!-- Mittagessen -->
-						<input class="form-check-input" type="checkbox" role="switch" id="lunch" name="lunch">
-						<label class="form-check-label float-start" for="lunch">Mittagessen</label>
+				<div id="step_lunch">
+					<div class="g-3 p-2">
+						<div class="form-check form-switch"> <!-- Mittagessen -->
+							<input class="form-check-input" type="checkbox" role="switch" id="lunch" name="lunch">
+							<label class="form-check-label float-start" for="lunch">Mittagessen</label>
+						</div>
 					</div>
-				</div>
-				<div id="div_paymethod" class="g-3 p-2" hidden>
-					<fieldset class="border p-2">
-						<legend class="float-none w-auto p-2">Zahlungsmethode</legend>
-						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="paymethods" id="lunchpay" value="Essensgeld">
-						  <label class="form-check-label" for="lunchpay">Essensgeld: Monatliche Verrechnung mit Lohn</label>
-						</div>
-						<div id="div_lunchmodel_sel" class="form-floating mb-2" hidden><!-- Zeitmodell -->
-							<select id="option_lunchmodel" class="form-select">
-								<option value="" selected hidden>Bitte auswählen</option>
-								<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
-							</select>
-							<label for="option_lunchmodel">Zeitmodell</label>
-						</div>
-						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="paymethods" id="stamps" value="Märkchen - Kauf">
-						  <label class="form-check-label" for="stamps">Märkchen - Kauf (nur bei Selbstzahlern möglich - nicht bei Anspruch Grundsicherung)</label>
-						</div>
-					</fieldset>
+					<div id="div_paymethod" class="g-3 p-2" hidden>
+						<fieldset class="border p-2">
+							<legend class="float-none w-auto p-2">Zahlungsmethode</legend>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="paymethods" id="lunchpay" value="Essensgeld">
+							  <label class="form-check-label" for="lunchpay">Essensgeld: Monatliche Verrechnung mit Lohn</label>
+							</div>
+							<div id="div_lunchmodel_sel" class="form-floating mb-2" hidden><!-- Zeitmodell -->
+								<select id="option_lunchmodel" class="form-select">
+									<option value="" selected hidden>Bitte auswählen</option>
+									<option th:block th:each="lunchmodel : ${optlunchmodels}" th:value="${lunchmodel.value}" th:text="${lunchmodel.text}"/>
+								</select>
+								<label for="option_lunchmodel">Zeitmodell</label>
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="paymethods" id="stamps" value="Märkchen - Kauf">
+							  <label class="form-check-label" for="stamps">Märkchen - Kauf (nur bei Selbstzahlern möglich - nicht bei Anspruch Grundsicherung)</label>
+							</div>
+						</fieldset>
+					</div>
 				</div>
 				<hr>
 				<!-- load foot fields for form -->
