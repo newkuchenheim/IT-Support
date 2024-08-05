@@ -11,31 +11,31 @@ class WebTourConfig {
 						+ 'Sie können die <b>Schritte</b> mit der <b>Maus</b> oder den <b>Pfeiltasten</b> bedienen.<br>Sie können die Anleitung mit <b>ESC</b> jederzeit beenden';
 		this.MainSteps = [
 			{
-				title: "Anleitung Änderungsmitteilung - ",
+				title: 'Anleitung Änderungsmitteilung - ',
 				content: this.StartText,
 				btnNext: this.btnNext,
 				btnBack: this.btnClose,
 				width: this.StartWidth
 			},
 			{
-				element: "#step_location",
-				title: "1. Schritt",
-				content: "Wählen Sie Ihren Standort aus.",
-				placement: "bottom",
+				element: '#step_location',
+				title: '1. Schritt',
+				content: 'Wählen Sie Ihren Standort aus.',
+				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
 				onNext: function () {
-					var location = document.getElementById("option_location").value;
-					if (location == null || location === "") {
+					var location = document.getElementById('option_location').value;
+					if (location == null || location === '') {
 						wtConfig.nextCustom();
 					}
 				}
 			},
 			{
-				element: "#step_names",
-				title: "2. Schritt",
-				content: "Geben Sie den Vor- und Nachnamen der gewünschten Person ein.",
-				placement: "bottom",
+				element: '#step_names',
+				title: '2. Schritt',
+				content: 'Geben Sie den Vor- und Nachnamen der gewünschten Person ein.',
+				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
 				onNext: function () {
@@ -43,43 +43,43 @@ class WebTourConfig {
 						wtConfig.nextCustom();
 					}
 				},
-				width: "450px"
+				width: '450px'
 			},
 			{
-				element: "#step_createdBy",
-				title: "5. Schritt",
-				content: "Geben Sie in diesem Feld Ihren Namen an.",
-				placement: "bottom",
+				element: '#step_createdBy',
+				title: '5. Schritt',
+				content: 'Geben Sie in diesem Feld Ihren Namen an.',
+				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
 				onNext: function () {
-					var createdBy = document.getElementById("createdBy").value;
-					if (createdBy == null || createdBy === "") {
+					var createdBy = document.getElementById('createdBy').value;
+					if (createdBy == null || createdBy === '') {
 						wtConfig.nextCustom();
 					}
 				}
 			},
 			{
-				element: "#send",
-				title: "6. Schritt",
-				content: "Klicken Sie auf dem Button \"Send Mail\".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.",
-				placement: "top",
+				element: '#send',
+				title: '6. Schritt',
+				content: 'Klicken Sie auf dem Button "Send Mail".<br>Es wird eine Outlook Vorlage geöffnet,<br>die Sie dann versenden können.',
+				placement: 'top',
 				btnNext: this.btnFinish,
 				btnBack: this.btnBack
 		}];
 	}
 	NamesEmptyOrWrong() {
 		var isEmptyOrWrong = false;
-		var prename = document.getElementById("prename").value;
-		var name = document.getElementById("name").value;
-		if (prename == null || prename === "" || name == null || name === "") {
+		var prename = document.getElementById('prename').value;
+		var name = document.getElementById('name').value;
+		if (prename == null || prename === '' || name == null || name === '') {
 			isEmptyOrWrong = true;
 		} else {
 			var re = /[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+/;
-			var full_matched_prename = "";
-			var full_matched_name = "";
+			var full_matched_prename = '';
+			var full_matched_name = '';
 			var i;
-			if (prename !== null && prename !== "") {
+			if (prename !== null && prename !== '') {
 				var matches = prename.match(re);
 				if (matches !== null) {
 					for (i = 0; i < matches.length; i++) {
@@ -87,7 +87,7 @@ class WebTourConfig {
 					}
 				}
 			} 
-			if (name !== null && name !== "") {
+			if (name !== null && name !== '') {
 				var matches = name.match(re);
 				if (matches !== null) {
 					for (i = 0; i < matches.length; i++) {
