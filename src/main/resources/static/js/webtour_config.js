@@ -6,7 +6,7 @@ class WebTourConfig {
 		this.btnClose = { text: 'Schließen', backgroundColor: '#dc3545', textColor: '#fff' };
 		this.btnFinish = { text: 'Fertig', backgroundColor: '#198754', textColor: '#fff'};
 		this.StartWidth = '600px';
-		this.StartText = 'Willkommen.<br>Alle <b>farblich</b> markierten Felder sind Plficht- oder Falschangaben.<br>'
+		this.StartText = 'Willkommen.<br>Alle <b>farblich</b> markierten Felder sind Pflicht- oder Falschangaben.<br>'
 						+ 'Erst nach der <b>Eingabe</b>, können Sie den nächsten Schritt ausführen.<br>'
 						+ 'Sie können die <b>Schritte</b> mit der <b>Maus</b> oder den <b>Pfeiltasten</b> bedienen.<br>Sie können die Anleitung mit <b>ESC</b> jederzeit beenden';
 		this.MainSteps = [
@@ -24,10 +24,11 @@ class WebTourConfig {
 				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
+				config: this, // Instance of this class for onNext function
 				onNext: function () {
 					var location = document.getElementById('option_location').value;
 					if (location == null || location === '') {
-						wtConfig.nextCustom();
+						this.config.nextCustom();
 					}
 				}
 			},
@@ -38,9 +39,10 @@ class WebTourConfig {
 				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
+				config: this,
 				onNext: function () {
-					if (wtConfig.NamesEmptyOrWrong()) {
-						wtConfig.nextCustom();
+					if (this.config.NamesEmptyOrWrong()) {
+						this.config.nextCustom();
 					}
 				},
 				width: '450px'
@@ -52,10 +54,11 @@ class WebTourConfig {
 				placement: 'bottom',
 				btnNext: this.btnNext,
 				btnBack: this.btnBack,
+				config: this,
 				onNext: function () {
 					var createdBy = document.getElementById('createdBy').value;
 					if (createdBy == null || createdBy === '') {
-						wtConfig.nextCustom();
+						this.config.nextCustom();
 					}
 				}
 			},

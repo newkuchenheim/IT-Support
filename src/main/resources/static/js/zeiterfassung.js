@@ -284,7 +284,7 @@ function init() {
 			onNext: function () {
 				var location = document.querySelector("input[type='radio'][name=location]:checked");
 				if (location == null || location.value === "") {
-					NextCustom();
+					wtConfig.nextCustom();
 				}
 			}
 		},
