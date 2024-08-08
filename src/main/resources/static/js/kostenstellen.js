@@ -136,4 +136,42 @@ function init() {
 	document.getElementById("location_sel").addEventListener("keypress", function(e) {
 		triggerSearchButton(e);
 	});
+	wtConfig.MainSteps[0].title = "Anleitung Kostenstellen";
+	var steps = [
+		wtConfig.MainSteps[0],
+		{
+			element: "#step_filter",
+			title: "1. Schritt",
+			content: "Geben Sie die Nummer oder den Namen der Kostenstelle an.<br>Geben Sie den Standort freihand ein oder wählen ihn aus der Liste aus. Die Groß- und Kleinschreibung spielt keine Rolle.<br>Auch Teilangaben sind möglich",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "500px"
+		},
+		{
+			element: "#searchBtn",
+			title: "2. Schritt",
+			content: "Klicken Sie auf den <b>Suchen</b> - Button.<br>Alle passenden Kostenstellen werden dann aufgelisten.<br>Bei leeren Feldern, werden alle Kostenstelle aufgelistet.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "500px"
+		},
+		{
+			element: "#resetBtn",
+			title: "3. Schritt",
+			content: "Mit dem Button <b>Filter zurücksetzen</b> können Sie alle Filter löschen und neu ausfüllen.",
+			placement: "bottom",
+			btnNext: wtConfig.btnFinish,
+			btnBack: wtConfig.btnBack
+		}
+	];
+	wtConfig.WebTour.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wtConfig.WebTour.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+	});
 }

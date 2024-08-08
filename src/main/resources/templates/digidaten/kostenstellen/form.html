@@ -95,8 +95,8 @@
 				<h1 id="headline">Kostenstellen</h1>
 			</div> 
 	      	<form id="searchkst" method="post" action="" style="min-width: 300px;" th:object="${CostCentre}">
-				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Kostenstelle -->
+				<div class="row g-3 p-2" id="step_filter">
+					<div class="form-floating mb-3 col" id="step_costcentre"><!-- Kostenstelle -->
 						<input th:field="*{label1}" id="ks" type="text" name="ks" class="form-control" placeholder="Kostenstelle">
 						<label for="ks">Kostenstelle</label>
 					</div>
@@ -148,6 +148,8 @@
 		<!-- anzeige -->
 		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 			<h3>Anleitung</h3>
+			<!-- load webtour message template -->
+			<div th:replace="~{formulare/fragments/webtour_msg :: webtour_msg}"></div>
 			<div class="well p-2 border">
 				<!-- info an rechten col -->
 				<ul>
