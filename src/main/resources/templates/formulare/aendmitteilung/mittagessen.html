@@ -143,20 +143,8 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
-	      	<div class="well" id="webtour_msg_div">
-	        	 <div id="webtour_msg" class="alert alert-primary d-flex align-items-center" role="alert"><!-- Form Success -->
-			  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-			  		<div>
-			    		Wollen Sie eine Tour starten?<br>
-			    		<button type="button" class="btn btn-success" id="start_tour">
-							Ja
-						</button>&nbsp;
-						<button type="button" class="btn btn-danger" id="no_tour">
-							Nein
-						</button>
-			  		</div>
-				</div>
-	      	</div>
+	      	<!-- load webtour message template -->
+			<div th:replace="~{formulare/fragments/webtour_msg :: webtour_msg}"></div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
