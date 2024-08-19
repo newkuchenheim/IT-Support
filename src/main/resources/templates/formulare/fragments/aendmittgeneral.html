@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<!-- General head fields for change notice -->
+	<th:block th:fragment="headfields">
+		<div class="row g-3 p-2 h-auto">
+			<div class="form-floating mb-3 col" id="step_location"><!-- Standort -->
+				<select id="option_location" class="form-select" required>
+					<option value="" selected hidden>Bitte den Standort auswählen</option>
+					<option th:block th:each="location : ${optlocations}" th:value="${location.value}" th:text="${location.text}"/>
+				</select>
+				<label for="option_location">Standort</label>
+			</div>
+			<!-- <div class="form-floating mb-3 col"><!-- CC Email --
+				<input id="cc_email" type="email" name="cc_email" class="form-control" placeholder="CC">
+				<label for="cc_email">CC an E-Mail senden</label>
+			</div>-->
+		</div>
+		<div class="row g-3 p-2" id="step_names">
+			<div class="form-floating mb-3 col"><!-- Nachname -->
+				<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
+				<label for="name">Name</label>
+			</div>
+			<div class="form-floating mb-3 col"><!-- Vorname -->
+				<input id="prename" type="text" name="prename" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Vorname" required>
+				<label for="prename">Vorname</label>
+			</div>
+		</div>
+	</th:block>
+	<!-- General foot Fields with comment -->
+	<th:block th:fragment="foot_commentfields">
+		<div class="row g-3 p-2">
+			<div class="form-floating mb-3" id="step_comment">
+				<!-- Bemerkung -->
+				<textarea id="comment_area" name="comment_area" class="form-control" rows="5" style="height: 100px"></textarea>
+				<label for="comment_area">Bemerkung</label>
+			</div>
+			<div class="form-floating mb-3 col" id="step_createdBy"><!-- Erstellt durch -->
+				<input id="createdBy" type="text" name="createdBy" class="form-control" placeholder="Erstellt durch" required>
+				<label for="createdBy">Erstellt durch</label>
+			</div>
+			<div class="form-floating mb-3 col"><!-- Erstellt am -->
+				<input id="dateCreate" type="date" name="dateCreate" class="form-control" placeholder="Erstellt am" disabled>
+				<label for="dateCreate">Erstellt am</label>
+			</div>
+		</div>
+		<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+			<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
+		</div>
+	</th:block>
+	<!-- General foot fields for change notice -->
+	<th:block th:fragment="footfields">
+		<div class="row g-3 p-2">
+			<div class="form-floating mb-3 col" id="step_createdBy"><!-- Erstellt durch -->
+				<input id="createdBy" type="text" name="createdBy" class="form-control" placeholder="Erstellt durch" required>
+				<label for="createdBy">Erstellt durch</label>
+			</div>
+			<div class="form-floating mb-3 col"><!-- Erstellt am -->
+				<input id="dateCreate" type="date" name="dateCreate" class="form-control" placeholder="Erstellt am" disabled>
+				<label for="dateCreate">Erstellt am</label>
+			</div>
+		</div>
+		<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+			<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
+		</div>
+	</th:block>
+</body>
+</html>

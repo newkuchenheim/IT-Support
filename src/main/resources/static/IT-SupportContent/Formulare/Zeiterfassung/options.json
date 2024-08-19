@@ -1,32 +1,16 @@
 {"optrequests":[
     {
-        "value" : "Überstundengutschrift",
-        "text" : "Überstundengutschrift"
+        "value" : "Krank Buchung",
+        "text" : "Krank Buchung"
     },
     {
         "value" : "Korrekturbuchung",
         "text" : "Korrekturbuchung"
-    },
-    {
-        "value" : "Krank Buchung",
-        "text" : "Krank Buchung"
     }
 ], "optreasons":[
-    {
-        "value" : "Keine Kommen-Buchung",
-        "text" : "Keine Kommen-Buchung"
-    },
-    {
-        "value" : "Keine Gehen-Buchung",
-        "text" : "Keine Gehen-Buchung"
-    },
-    {
-        "value" : "Keine Dienstgang-Kommen-Buchung",
-        "text" : "Keine Dienstgang-Kommen-Buchung"
-    },
-    {
-        "value" : "Keine Dienstgang-Gehen-Buchung",
-        "text" : "Keine Dienstgang-Gehen-Buchung"
+	{
+        "value" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]",
+        "text" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]"
     },
     {
         "value" : "Krank ohne Bescheinigung",
@@ -34,15 +18,11 @@
     },
     {
         "value" : "Krank mit eAu",
-        "text" : "Krank mit eAU"
+        "text" : "Krank mit eAu"
     },
     {
-        "value" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]",
-        "text" : "Sonstiges [z.B. Veranstaltungen, Freizeiten, etc.]"
-    },
-    {
-        "value" : "-",
-        "text" : "Keine Angabe"
+        "value" : "Krank mit pAu",
+        "text" : "Krank mit pAU"
     }
 ]
 }

@@ -56,6 +56,33 @@ public class ItSupportApplication {
 				} else if(Files.isDirectory(_checkPath) && Files.list(_checkPath).toList().isEmpty()) {
 					// if directory is exist but empty
 					//recusive copy
+			
+					//recursive copy
+//					Stream<Path> streamPath = Files.walk(_PATH_CONFIG_SRC);
+//					streamPath.forEach(p -> {
+//						try {
+//							Files.copy(p, _checkPath.resolve(_PATH_CONFIG_SRC.relativize(p)));
+//						} catch (IOException e) {
+//							//e.printStackTrace();
+//							//System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
+//						}
+//					});
+//					streamPath.close();
+//				} else if(Files.isDirectory(_checkPath)) {
+//					// if directory is exist but empty
+
+					//recusive copy
+//					Stream<Path> streamPath = Files.walk(_PATH_CONFIG_SRC);
+//					streamPath.forEach(p -> {
+//						try {
+//							Files.copy(p, _checkPath.resolve(_PATH_CONFIG_SRC.relativize(p)));
+//						} catch (IOException e) {
+//							//e.printStackTrace();
+//							System.out.println(String.format("Programm Start - File check - %s: FileAlreadyExistsException", p.getFileName()));
+//						}
+//					});
+//					streamPath.close();
+
 				}
 			}
 		} catch (IOException e) {

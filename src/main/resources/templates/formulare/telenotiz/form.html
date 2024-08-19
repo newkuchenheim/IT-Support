@@ -96,6 +96,7 @@
 		  var telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
 		  var telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var telelist_qubi = /*[[${qubi_telelist}]]*/ 'Telelist QuBi';
 		  var persons = telelist_zvw;
 	 </script>
   	<!-- Javascript for form -->
@@ -141,12 +142,12 @@
 			</div> 
 	      	<form id="calling_note" autocomplete="off" method="post" action="#" style="min-width: 300px;">
 				<div class="row g-3 p-2">
-            		<div class="form-floating mb-3 col autocomplete"><!-- Notiz für -->
+            		<div class="form-floating mb-3 col autocomplete" id="step_note_for"><!-- Notiz für -->
 						<input id="note_for" type="text" name="note_for" class="form-control" placeholder="Notiz für" required>
 						<label for="note_for">Notiz für</label>
             		</div>
             	</div>
-            	<div class="row g-3 p-2">
+            	<div class="row g-3 p-2" id="step_company_info">
             		<div class="form-floating mb-3 col"><!-- Anrufername -->
             			<input id="call_name" type="text" name="call_name" pattern="[a-zA-ZäüößÜÖÄ\-\.´'éÉ/\s/]+" class="form-control" placeholder="Name" maxlength="60" required>
 						<label for="call_name">Anrufername</label>
@@ -163,7 +164,7 @@
             		</div>
             	</div>
             	<div class="row g-3 p-2">
-            		<div class="form-floating mb-3 col"><!-- Grund -->
+            		<div class="form-floating mb-3 col" id="step_call_reason"><!-- Grund -->
             			<input id="call_reason" type="text" name="call_reason" class="form-control" placeholder="Grund" maxlength="135">
 						<label for="call_reason">Grund</label>
             		</div>
@@ -197,6 +198,8 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<!-- load webtour message template -->
+			<div th:replace="~{formulare/fragments/webtour_msg :: webtour_msg}"></div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>

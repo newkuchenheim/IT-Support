@@ -1,0 +1,55 @@
+{"locations":[
+    {
+        "value" : "NE.W Ülpenich",
+        "text" : "NE.W Ülpenich"
+    },
+    {
+        "value" : "NE.W Zingsheim",
+        "text" : "NE.W Zingsheim"
+    },
+    {
+        "value" : "NE.W Kuchenheim",
+        "text" : "NE.W Kuchenheim"
+    },
+    {
+        "value" : "NE.W Kall",
+        "text" : "NE.W Kall"
+    },
+    {
+        "value" : "QuBi.Eifel",
+        "text" : "QuBi.Eifel"
+    },
+    {
+        "value" : "NE.W Verwaltung",
+        "text" : "NE.W Verwaltung"
+    },
+    {
+        "value" : "NE.W Fuhrpark",
+        "text" : "NE.W Fuhrpark"
+    },
+    {
+        "value" : "Außenarbeitsplätze",
+        "text" : "Außenarbeitsplätze"
+    },
+    {
+        "value" : "Eulog",
+        "text" : "Eulog"
+    },
+    {
+        "value" : "Eulog Fuhrpark",
+        "text" : "Eulog Fuhrpark"
+    },
+    {
+        "value" : "IFG",
+        "text" : "IFG"
+    },
+    {
+        "value" : "IFG Fuhrpark",
+        "text" : "IFG Fuhrpark"
+    },
+    {
+        "value" : "Sonstige",
+        "text" : "Sonstige"
+    }
+]
+}

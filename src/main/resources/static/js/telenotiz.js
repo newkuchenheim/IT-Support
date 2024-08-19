@@ -145,6 +145,10 @@ function init() {
 				persons = telelist_zvw;
 				location_header.innerHTML = "Zentrale Verwaltung";
 				break;
+			case "qubi":
+				persons = telelist_qubi;
+				location_header.innerHTML = "QuBi Eifel Mechernich";
+			break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
 				persons = telelist_zvw;
@@ -154,15 +158,17 @@ function init() {
 	autocomplete(document.getElementById("note_for"), true);
 	function GetLocaleDateString(date) {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
-		var _date = new Date(date);
-		/*var day = _date.getDate();
-		var month = _date.getMonth() + 1;
-		var year = _date.getFullYear();
-		
-		if (month < 10) month = "0" + month;
-		if (day < 10) day = "0" + day;
-		return day + "." + month + "." + year;*/
-		return _date.toLocaleDateString();
+		var str_date = "";
+		if (date !== "") {
+			var options = {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit"
+			};
+			var _date = new Date(date);
+			str_date = _date.toLocaleDateString("de-DE", options);
+		}
+		return str_date;
 	}
 	function validateNumOrEmail(str, isMail) {
 		/*check if number only contains numbers or - and /*/
@@ -300,4 +306,88 @@ function init() {
 	for (var i = 0; i < locations.length; i++) {
 		locations[i].addEventListener("change", changeAutoCompleteList);
 	}
+	// Create Tour Steps
+	wtConfig.MainSteps[0].title = "Anleitung Gesprächsnotiz";
+	wtConfig.MainSteps[4].title = "5" + wtConfig.MainSteps[4].title.substring(1);
+	var steps = [
+		wtConfig.MainSteps[0],
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Gesprächsnotiz klicken.",
+			placement: "right",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var location = document.querySelector("input[type='radio'][name=location]:checked");
+				if (location == null || location.value === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_note_for",
+			title: "2. Schritt",
+			content: "Suchen Sie nach der gewünschten Person mit Hilfe des Nachnamens oder geben Sie direkt die E-Mail ein.",
+			placement: "top",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "500px",
+			onNext: function () {
+				var name_valid = false;
+				var email_valid = false;
+				var note_for = document.getElementById("note_for").value;
+				var fullname_upp;
+				for (i = 0; i < persons.length; i++) {
+				if (persons[i] !== undefined) {
+					fullname_upp = (persons[i]["Vorname"].replaceAll("\"","") + " " + persons[i]["Name"].replaceAll("\"","")).toUpperCase();
+						if (fullname_upp == note_for.toUpperCase()) {
+							name_valid = true;
+							email_valid = true;
+							break;
+						}
+					}
+				}
+				if (!name_valid) {
+					email_valid = validateNumOrEmail(note_for, true);
+				}
+				if (!name_valid || !email_valid) {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_company_info",
+			title: "3. Schritt",
+			content: "Geben Sie den Namen oder die Firma des Anrufers an.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "450px",
+			onNext: function () {
+				var call_name = document.getElementById("call_name").value;
+				var call_company = document.getElementById("call_company").value;
+				if ((call_name == null || call_name === "") && (call_company == null || call_company === "")) {
+					nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_call_reason",
+			title: "4. Schritt",
+			content: "Bei Bedarf können Sie einen Grund angeben.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack
+		},
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wtConfig.WebTour.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+	});
 }

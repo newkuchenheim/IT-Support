@@ -86,13 +86,52 @@ section {
 					<strong>Digi-NE.W-Formulare</strong>
 				</h5>
 			</div>
+			<!-- read content from file and show on Page -->
 			<div class="row p-2 max-width text-left" data-bs-spy="scroll">
-				<div class="alert alert-primary" role="alert">
-					<span class="badge bg-primary">Info</span>
-					<p class="text-decoration-underline fw-bolder fs-5">Willkommen</p>
-					<br>
-					<p class="text-wrap fst-normal">Hier finden Sie unsere Formulare</p>
-				</div>
+				<th:block th:each="content : ${contents}">
+					<div th:switch="${content.type}">
+						<div th:case="'warning'" class="alert alert-warning" role="alert">
+							<span class="badge bg-warning text-dark">Warning</span>
+							<p class="text-decoration-underline fw-bolder fs-5"
+								th:text="${content.title}"></p>
+							<br>
+							<p class="text-wrap fst-normal" th:utext="${content.description}"></p>
+							<br>
+							<p class="text-end fst-italic"
+								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+						</div>
+						<div th:case="'success'" class="alert alert-success" role="alert">
+							<span class="badge bg-success">Erfolgreich</span>
+							<p class="text-decoration-underline fw-bolder fs-5"
+								th:text="${content.title}"></p>
+							<br>
+							<p class="text-wrap fst-normal" th:utext="${content.description}"></p>
+							<br>
+							<p class="text-end fst-italic"
+								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+						</div>
+						<div th:case="'info'" class="alert alert-primary" role="alert">
+							<span class="badge bg-primary">Info</span>
+							<p class="text-decoration-underline fw-bolder fs-5"
+								th:text="${content.title}"></p>
+							<br>
+							<p class="text-wrap fst-normal" th:utext="${content.description}"></p>
+							<br>
+							<p class="text-end fst-italic"
+								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+						</div>
+						<div th:case="*" class="alert alert-danger" role="alert">
+							<span class="badge bg-danger">Fehler</span>
+							<p class="text-decoration-underline fw-bolder fs-5"
+								th:text="${content.title}"></p>
+							<br>
+							<p class="text-wrap fst-normal" th:utext="${content.description}"></p>
+							<br>
+							<p class="text-end fst-italic"
+								th:text="'Von ' + ${content.writtenBy} + ', geschrieben am ' + ${content.writtenOn}"></p>
+						</div>
+					</div>
+				</th:block>
 			</div>
 		</div>
 

@@ -2,6 +2,8 @@ window.onload = init;
 function init() {
 	// reset chosen location
 	document.getElementById("zvw_location").checked = true;
+	//var general_email_to = "";
+	var cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 	var persIndex = -2;
 	function changeTeleList() {
 		var location_header = document.getElementById("location_header");
@@ -15,39 +17,46 @@ function init() {
 				persons = telelist_kall;
 				location_header.innerHTML = "Werkstatt Kall";
 				location_warn.innerText = "Kall";
-				general_email_to = "g.schuett@new-eu.de; a.schreiber@new-eu.de; j.hoelnyk@new-eu.de";
+				cc_email = "korrekturbeleg-kall@new-eu.de";
 				break;
 			case "khm":
 				persons = telelist_khm;
 				location_header.innerHTML = "Werkstatt Kuchenheim";
 				location_warn.innerText = "Kuchenheim";
-				general_email_to = "a.winkelhag@new-eu.de";
+				cc_email = "korrekturbeleg-kuchenheim@new-eu.de";
 				break;
 			case "uelp":
 				persons = telelist_uelp;
 				location_header.innerHTML = "Werkstatt Ülpenich";
 				location_warn.innerText = "Ülpenich";
-				general_email_to = "g.schalke@new-eu.de";
+				cc_email = "korrekturbeleg-uelpenich@new-eu.de";
 				break;
 			case "zhm":
 				persons = telelist_zhm;
 				location_header.innerHTML = "Werkstatt Zingsheim";
 				location_warn.innerText = "Zingsheim";
-				general_email_to = "verwaltung-zingsheim@new-eu.de";
+				cc_email = "korrekturbeleg-zingsheim@new-eu.de";
 				break;
 			case "zvw":
 				persons = telelist_zvw;
 				location_header.innerHTML = "Zentrale Verwaltung";
 				location_warn.innerText = "der Zentralen Verwaltung";
-				general_email_to = "s.schmitz@new-eu.de";
+				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
+				break;
+			case "qubi":
+				persons = telelist_qubi;
+				location_header.innerHTML = "QuBi Eifel Mechernich";
+				location_warn.innerText = "dem QuBi Eifel Mechernich";
+				cc_email = "korrekturbeleg-qubi@new-eu.de";
 				break;
 			default:
 				location_header.innerHTML = "Zentrale Verwaltung";
 				location_warn.innerText = "der Zentralen Verwaltung";
 				persons = telelist_zvw;
-				general_email_to = "s.schmitz@new-eu.de";
+				cc_email = "korrekturbeleg-verwaltung@new-eu.de";
 		}
 	}
+	
 	function addReason(parent, reason, first) {
 		var child = document.createElement("option");
 		if (first) {
@@ -58,9 +67,20 @@ function init() {
 		} else {
 			child.innerHTML = reason["text"];
 			child.value = reason["value"];
+			
+			if(reason["text"].includes("Sonstiges")){
+				child.selected = true;
+				
+				var timeFrom_elem = document.getElementById("timeFrom");
+				var timeTo_elem = document.getElementById("timeTo");
+				
+				timeFrom_elem.required = true;
+				timeTo_elem.required = true;
+			}
 		}
 		parent.appendChild(child);
 	}
+	
 	function changeReason(request) {
 		var optreason_elem = document.getElementById("option_reason");
 		// clear opt list
@@ -70,15 +90,16 @@ function init() {
 		// add specific options with request
 		addReason(optreason_elem, "", true);
 		for (var i = 0; i < optreasons.length; i++) {
-			if (request.includes("berstunden") && (optreasons[i]["text"].includes("Sonstige") || optreasons[i]["value"] == "-")) {
+			if (request.includes("Krankbuchung") && optreasons[i]["text"].includes("Krank")) {
 				addReason(optreason_elem, optreasons[i], false);
-			} else if (request.includes("Krank") && optreasons[i]["text"].includes("Krank")) {
-				addReason(optreason_elem, optreasons[i], false);
-			} else if (request.includes("Korrektur") && !optreasons[i]["text"].includes("Krank")) {
-				addReason(optreason_elem, optreasons[i], false);
-			}
+			} else if(request === "Korrekturbuchung" && optreasons[i]["text"].includes("Sonstiges")){
+				
+				addReason(optreason_elem, optreasons[i], false);	
+			} 
 		}
+		
 	}
+	
 	function validateName(prename, name) {
 		var _prename = prename;
 		var _name = name;
@@ -112,8 +133,13 @@ function init() {
 		/*Format Date string yyyy-mm-dd to dd.mm.yyyy*/
 		var str_date = "";
 		if (date !== "") {
+			var options = {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit"
+			};
 			var _date = new Date(date);
-			str_date = _date.toLocaleDateString();
+			str_date = _date.toLocaleDateString("de-DE", options);
 		}
 		return str_date;
 	}
@@ -130,19 +156,15 @@ function init() {
 		var _name = _name_elem.value;
 		var _optrequest = document.getElementById("option_request").value;
 		var _optreason = document.getElementById("option_reason").value;
-		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t\t  ");
+		var _description = document.getElementById("description_area").value.replaceAll("\n", "\r\n\t\t\t\t\t");
 		var _dateFrom = _dateFrom_elem.value;
 		var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
 		var _timeTo = _timeTo_elem.value;
-		
+		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
 		// create email parts
-		var email_to = "";
-		var subject = "Korrekturantrag-Zeiterfassung ";
+		//var email_to = "";
 		var body;
-		var func;
-		var pers_email;
-		var management_email = "";
 		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
 			var fullname = _name + " " + _prename;
 			var validDate = validateDate(_dateFrom, _dateTo);
@@ -150,38 +172,7 @@ function init() {
 				// remove red border
 				if (_dateTo_elem.hasAttribute("style")) _dateTo_elem.removeAttribute("style");
 				if (_timeTo_elem.hasAttribute("style")) _timeTo_elem.removeAttribute("style");
-				// get email of team head
-				if (persIndex > -1) {
-					func = persons[persIndex]["Funktion"];
-					pers_email = persons[persIndex]["E-Mail"].replaceAll("\"", "");
-					for (i = 0; i < persons.length; i++) {
-						if (persons[i] !== undefined) {
-							if ((persons[i]["Funktion"].includes("Geschäftsführung") || persons[i]["Funktion"].includes("- Betriebsleitung")) && management_email.length == 0) {
-								management_email = persons[i]["E-Mail"].replaceAll("\"","");
-							}
-							if (func.includes("-") && !func.includes("Teamleitung")) {
-								var funcParts = func.split("-");
-								if ((persons[i]["Funktion"].includes(funcParts[1].trim()) || persons[i]["Funktion"].includes(funcParts[0].trim())) 
-								&& (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-									email_to = persons[i]["E-Mail"].replaceAll("\"","");
-									break;	
-								} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
-									email_to = "t.scheuls@new-eu.de";
-								}
-							} else if (persons[i]["Funktion"].includes(func) && (persons[i]["Funktion"].includes("Abteilungsleitung") || persons[i]["Funktion"].includes("Teamleitung"))) {
-								email_to = persons[i]["E-Mail"].replaceAll("\"","");
-								break;
-							} else if (i == persons.length - 1 && func.includes("ozialer Dienst")) {
-								email_to = "t.scheuls@new-eu.de";
-							}
-						}
-					}
-				}
-				// set email if no team head found
-				if (email_to.length == 0) {
-					if (general_email_to == pers_email) email_to = management_email;
-					else email_to = general_email_to;
-				} 
+				
 				// submit and reset form
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
 				document.getElementById("name_warning").classList.add("visually-hidden");
@@ -192,15 +183,16 @@ function init() {
 				form_success_bs.show;
 				_form_success.classList.remove("visually-hidden");
 				// build subject
-				subject += fullname;
+				var subject = "Korrekturbeleg-"+_optrequest + ": " + fullname;
 				// build body
-				body = "\t• Name, Vorname:\t" + fullname + "\r\n"
-					+ "\t• Antrag auf:\t\t\t" + _optrequest + "\r\n"
-					+ "\t• Grund:\t\t\t  " + _optreason + "\r\n"
-					+ "\t• Erläuterungen:\t    " + _description + "\r\n"
-					+ "\t• Datum und Uhrzeit:\tVon: " + GetLocaleDateString(_dateFrom) + " " + _timeFrom + "\r\n"
-					+ "\t\t\t\t\t\t   Bis:  " + GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
-				var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+				body = "Korrekturbeleg-"+_optrequest + ":\r\n"
+					+ "\t• Name, Vorname: " + fullname + "\r\n"
+					+ "\t• Antrag auf: " + _optrequest + "\r\n"
+					+ "\t• Grund: " + _optreason + "\r\n"
+					+ "\t• Erläuterungen: " + _description + "\r\n"
+					+ "\t• Datum: " + GetLocaleDateString(_dateFrom) + " " + _timeFrom + " - \r\n"
+					+ GetLocaleDateString(_dateTo) + " " + _timeTo + "\r\n";
+				var mailToLink = "mailto:" + cc_email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 				window.location.href = mailToLink;
 			} else {
 					_dateTo_elem.setAttribute("style", "border-color: red");
@@ -226,27 +218,15 @@ function init() {
 		var timeFrom_elem = document.getElementById("timeFrom");
 		var dateTo_elem = document.getElementById("dateTo");
 		var timeTo_elem = document.getElementById("timeTo");
-		if (value_low.includes("kommen")) {
-			dateFrom_elem.required = true;
+		
+		dateFrom_elem.required = true;
+		dateTo_elem.required = true;
+		if(value_low.includes("sonstiges")){
 			timeFrom_elem.required = true;
-			dateTo_elem.required = false;
-			timeTo_elem.required = false;
-			// clear not required fields
-			dateTo_elem.value = "";
-			timeTo_elem.value = "";
-		} else if (value_low.includes("gehen")) {
-			dateFrom_elem.required = false;
-			timeFrom_elem.required = false;
-			dateTo_elem.required = true;
 			timeTo_elem.required = true;
-			// clear not required fields
-			dateFrom_elem.value = "";
-			timeFrom_elem.value = "";
 		} else {
-			dateFrom_elem.required = true;
-			timeFrom_elem.required = true;
-			dateTo_elem.required = true;
-			timeTo_elem.required = true;
+			timeFrom_elem.required = false;
+			timeTo_elem.required = false;
 		}
 	});
 	
@@ -289,5 +269,65 @@ function init() {
 		} else {
 			document.getElementById("name_warning").classList.add("visually-hidden");
 		}
+	});
+	wtConfig.MainSteps[0].title = "Anleitung Korrekturbeleg";
+	wtConfig.MainSteps[4].title = "5" + wtConfig.MainSteps[4].title.substring(1);
+	var steps = [
+		wtConfig.MainSteps[0],
+		{
+			element: "#step_location",
+			title: "1. Schritt",
+			content: "Wählen Sie Ihren Standort aus.<br>Ggf. vorher auf Korrekturbeleg klicken.",
+			placement: "right",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var location = document.querySelector("input[type='radio'][name=location]:checked");
+				if (location == null || location.value === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		wtConfig.MainSteps[2],
+		{
+			element: "#step_request",
+			title: "3. Schritt",
+			content: "Wählen Sie die Antragsart und den Grund aus.<br>Bei Bedarf können Sie es erläutern.",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			width: "450px",
+			onNext: function () {
+				var request = document.getElementById("option_request").value;
+				var reason = document.getElementById("option_reason").value;
+				if (request == null || request === "" || reason == null || reason === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		{
+			element: "#step_dates",
+			title: "4. Schritt",
+			content: "Geben Sie das Von und Bis Datum an",
+			placement: "bottom",
+			btnNext: wtConfig.btnNext,
+			btnBack: wtConfig.btnBack,
+			onNext: function () {
+				var dateFrom = document.getElementById("dateFrom").value;
+				var dateTo = document.getElementById("dateTo").value;
+				if (dateFrom == null || dateFrom === "" || dateTo == null || dateTo === "") {
+					wtConfig.nextCustom();
+				}
+			}
+		},
+		wtConfig.MainSteps[4]
+	]
+	wtConfig.WebTour.setSteps(steps);
+	document.getElementById("start_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
+		wtConfig.WebTour.start();
+	});
+	document.getElementById("no_tour").addEventListener("click", function() {
+		document.getElementById("webtour_msg_div").hidden = true;
 	});
 }

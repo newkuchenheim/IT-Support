@@ -69,9 +69,9 @@
 		  var telelist_uelp = /*[[${uelp_telelist}]]*/ 'Telelist ülpenich';
 		  var telelist_zhm = /*[[${zhm_telelist}]]*/ 'Telelist Zingsheim';
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
+		  var telelist_qubi = /*[[${qubi_telelist}]]*/ 'Telelist QuBi';
 		  var optreasons = /*[[${optreasons}]]*/ 'Option Reason';
 		  var persons = telelist_zvw;
-		  var general_email_to = "s.schmitz@new-eu.de";
 	 </script>
   	<!-- Javascript for form -->
   	<script type="text/javascript" th:src="@{../../js/zeiterfassung.js}">
@@ -116,7 +116,7 @@
 				<h1 id="location_header">Zentrale Verwaltung</h1>
 			</div> 
 	      	<form id="time_entering" method="post" action="#" style="min-width: 300px;">
-				<div class="row g-3 p-2">
+				<div class="row g-3 p-2" id="step_names">
 					<div class="form-floating mb-3 col"><!-- Nachname -->
 						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Nachname" required>
 						<label for="name">Nachname</label>
@@ -126,18 +126,23 @@
 						<label for="prename">Vorname</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2 h-auto">
+				<div class="row g-3 p-2 h-auto" id="step_request">
 					<div class="form-floating mb-3 col"><!-- Antragsart -->
 						<select id="option_request" class="form-select" required>
-							<option value="" selected hidden>Bitte die Antragsart auswählen</option>
-							<option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/>
+							<option value="" selected>Bitte die Antragsart auswählen</option>
+							<option value="Krankbuchung" >Krankbuchung</option>
+							<option value="Korrekturbuchung" >Korrekturbuchung</option>
+							<!-- <option th:block th:each="request : ${optrequests}" th:value="${request.getValue()}" th:text="${request.getText()}"/> -->
 						</select>
 						<label for="option_request">Antrag auf</label>
 					</div>
 					<div class="form-floating mb-3 col"><!-- Grund -->
 						<select id="option_reason" class="form-select" required>
 							<option value="" selected hidden>Bitte den Grund auswählen</option>
-							<!--<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>-->
+							<!-- <option value="Krank ohne Bescheinigung">Krank ohne Bescheinigung</option>
+							<option value="Krank mit eAu">Krank mit eAu</option>
+							<option value="Krank mit pAu">Krank mit pAu</option>-->
+							<option th:block th:each="reason : ${optreasons}" th:value="${reason.getValue()}" th:text="${reason.getText()}"/>
 						</select>
 						<label for="option_cause">Grund</label>
 					</div>
@@ -148,26 +153,28 @@
 						<label for="description_area">Erläuterungen</label>
 					</div>
 				</div>
-				<div class="row g-3 p-2">
+				<div class="row g-3 p-2" id="step_dates">
 					<div class="form-floating mb-3 col"><!-- Datum Von -->
 						<input id="dateFrom" type="date" name="dateFrom" class="form-control" placeholder="Von" required>
 						<label for="dateFrom">Von</label>
 					</div>
-					<div class="form-floating mb-3 col"> <!-- Uhrzeit Von -->
-						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr" required>
-						<label for="timeFrom">Uhr</label>
-					</div>
-				</div>
-				<div class="row g-3 p-2">
-					<div class="form-floating mb-3 col"><!-- Datum Bis -->
+					<div class="form-floating mb-3 col">
 						<input id="dateTo" type="date" name="dateTo" class="form-control" placeholder="Bis" required>
 						<label for="dateTo">Bis</label>
 					</div>
-					<div class="form-floating mb-3 col"> <!-- Uhrzeit Bis -->
-						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr" required>
+					
+				</div>
+				<div class="row g-3 p-2">
+					 <div class="form-floating mb-3 col"> 
+						<input id="timeFrom" type="time" name="timeFrom" class="form-control" placeholder="Uhr">
+						<label for="timeFrom">Uhr</label>
+					</div>
+					<div class="form-floating mb-3 col"> 
+						<input id="timeTo" type="time" name="timeTo" class="form-control" placeholder="Uhr">
 						<label for="timeTo">Uhr</label>
 					</div>
 				</div>
+				
 				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
 					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
 				</div>
@@ -177,15 +184,16 @@
 	    <!-- Anzeige -->
 	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
 	      	<h3>Anleitung</h3>
+	      	<!-- load webtour message template -->
+			<div th:replace="~{formulare/fragments/webtour_msg :: webtour_msg}"></div>
 	      	<div class="well p-2 border">
 	      		<!-- info an rechten col -->
 	      		<ul>
-					<li><strong>Schritt 1:</strong> Wählen Sie Ihren Standort aus. Ggf. vorher auf Zeiterfassung klicken.</li>
+					<li><strong>Schritt 1:</strong> Wählen Sie <b>Ihren Standort</b> aus. Ggf. vorher auf Korrekturbeleg klicken.</li>
 	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Vor- und Nachnamen an.</li>
-	      			<li><strong>Schritt 3:</strong> Wählen Sie die Antragsart aus.</li>
-	      			<li><strong>Schritt 4:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
-	      			<li><strong>Schritt 5:</strong> Geben Sie bitte mindestens ein Datum an.</li>
-	      			<li><strong>Schritt 6:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      			<li><strong>Schritt 3:</strong> Wählen Sie den Grund aus. Bei Bedarf können Sie es erläutern.</li>
+	      			<li><strong>Schritt 4:</strong> Geben Sie bitte mindestens ein Datum an.</li>
+	      			<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
 	      		</ul>
 	      	</div>
 	      	<!-- load contact template -->
