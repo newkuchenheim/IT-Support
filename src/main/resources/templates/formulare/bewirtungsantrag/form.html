@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- include main scripts; title tag will be removed-->
+	<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+	<title>NEW-Bewirtungsantrag an Küche</title>
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link  th:href="@{../../css/formulare_main.css}" rel="stylesheet">
+    <style>
+	    /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+	    
+	    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	    .row.content {height: 450px}
+	    /* Set gray background color and 100% height */
+	    .sidenav {
+	      padding-top: 20px;
+	      background-color: #f1f1f1;
+	      height: 100%;
+	    }
+	    
+	    /* Set black background color, white text and some padding */
+	    footer {
+	      background-color: #555;
+	      color: white;
+	      padding: 15px;
+	    }
+	    fieldset{
+		    text-align: left;
+		}
+		.interForm{
+		    display: flex;
+		    flex-flow: wrap;
+		}
+		form{
+		    text-align: center;
+		    border-color: #f1f1f1;
+		    border-style: solid;
+		    
+		}
+		section{
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    
+		}
+		/****** Begin Bewirtungsantrag section ******/
+		#nav_header {
+			color: black;
+			text-decoration: underline;
+		}
+		/****** End section Zeiterfassung ******/
+	    /* On small screens, set height to 'auto' for sidenav and grid */
+	    @media screen and (max-width: 767px) {
+	      .sidenav {
+	        height: auto;
+	        padding: 15px;
+	      }
+	      .row.content {height:auto;} 
+	    }
+  	</style>
+  	<!-- Load persons array in javascript -->
+  	<script type="text/javascript" th:inline="javascript">
+  		var _CostCentres = /*[[${CostCentres}]]*/ 'All CostCentres';
+	 </script>
+  	<!-- Javascript for form -->
+  	<script type="text/javascript" th:src="@{../../js/bewirtungsantrag.js}">
+	 </script>
+</head>
+<body>
+	 <!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons}"></svg>
+	 
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	 
+	<!-- Load topmenu template -->
+    <nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+     
+  	<div class="row pt-1 m-2">
+  		<!-- Load sidenav template -->
+  		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+	    
+	    <!-- main view col-->
+	    <div class="col p-3 max-width text-left" style="height: 75%">
+	    	<div id="dateMeetingError" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Der Tag der Veranstaltung muss gleich oder nach dem Erstell Datum sein.
+		  		</div>
+			</div>
+			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		  		<div>
+		    		Der Bewirtungsantrag wird an Outloook übertragen.
+		  		</div>
+			</div>
+			<div>
+				<h1 id="location_header">Veranstaltung in Kuchenheim</h1>
+			</div> 
+	      	<form id="catering_request" method="post" action="#" style="min-width: 300px;">
+				<div class="row g-3 p-2" id="step_names">
+					<div class="form-floating mb-3 col" id="step_name"><!-- Name -->
+						<input id="name" type="text" name="name" class="form-control" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+" placeholder="Name" required>
+						<label for="name">Name</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- Erstellt Am -->
+						<input id="dateCreate" type="date" name="dateCreate" class="form-control" placeholder="Erstellt am" disabled>
+						<label for="dateCreate">Erstellt am</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col" id="step_meeting"><!-- Tag der Veranstaltung -->
+						<input id="dateMeeting" type="date" name="dateMeeting" class="form-control" placeholder="Tag der Veranstaltung" required>
+						<label for="dateMeeting">Tag der Veranstaltung</label>
+					</div>
+					<div class="form-floating mb-3 col" id="step_start"> <!-- Beginn -->
+						<input id="timeStart" type="time" name="timeStart" class="form-control" placeholder="Beginn" required>
+						<label for="timeStart">Beginn</label>
+					</div>
+					<div class="form-floating mb-3 col" id="step_reason"><!-- Anlass -->
+						<input id="reason" type="text" name="reason" class="form-control" placeholder="reason" required>
+						<label for="reason">Anlass</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col" id="step_costcentre"><!-- Kostenstelle -->
+						<select id="option_costcentre" class="form-select" required>
+							<option value="" selected hidden>Bitte die Kostenstelle auswählen</option>
+						</select>
+						<label for="option_costcentre">Kostenstelle</label>
+					</div>
+					<div class="form-floating mb-3 col" id="step_room"><!-- Tagungsraum -->
+						<input id="room" type="text" name="room" class="form-control"  placeholder="room" required>
+						<label for="room">Tagungsraum</label>
+					</div>
+					<div class="form-floating mb-3 col" id="step_personcount"><!-- Personen -->
+						<input id="countPerson" type="number" name="countPerson" class="form-control"  placeholder="Anzahl Personen" step="1" min="1" required>
+						<label for="countPerson">Anzahl Personen</label>
+					</div>
+				</div>
+				<div class="g-3 p-2" id="step_lunch">
+					 <fieldset class="border p-2"> <!-- Essen -->
+							<legend class="float-none w-auto p-2">Essen</legend>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Mittagessen -->
+									<input id="countLunch" type="number" name="countLunch" class="form-control"  placeholder="Mittagessen" step="1" min="0">
+									<label for="countLunch">Mittagessen</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Brötchen -->
+									<input id="countBreadrolls" type="number" name="countBreadrolls" class="form-control"  placeholder="Brötchen" step="1" min="0">
+									<label for="countBreadrolls">Brötchen</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Gebäck -->
+									<input id="countCookies" type="number" name="countCookies" class="form-control"  placeholder="Gebäck" step="1" min="0">
+									<label for="countCookies">Gebäck</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Bemerkung -->
+									<input id="comment" type="text" name="comment" class="form-control"  placeholder="Bemerkung">
+									<label for="comment">Bemerkung</label>
+								</div>
+							</div>
+					</fieldset>
+				</div>
+				<div class="g-3 p-2" id="step_drinks">
+					 <fieldset class="border p-2"> <!-- Getränke -->
+							<legend class="float-none w-auto p-2">Getränke</legend>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Kaffee -->
+									<input id="countCoffee" type="number" name="countCoffee" class="form-control"  placeholder="Kaffee" step="1" min="0">
+									<label for="countCoffee">Kaffee</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Tee -->
+									<input id="countTea" type="number" name="countTea" class="form-control"  placeholder="Tee" step="1" min="0">
+									<label for="countTea">Tee</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Milch -->
+									<input id="countMilk" type="number" name="countMilk" class="form-control"  placeholder="Milk" step="1" min="0">
+									<label for="countMilk">Milch</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Zucker -->
+									<input id="countSugar" type="number" name="countSugar" class="form-control"  placeholder="Sugar" step="1" min="0">
+									<label for="countSugar">Zucker</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Sprudel -->
+									<input id="countWater" type="number" name="countWater" class="form-control"  placeholder="Wasser" step="1" min="0">
+									<label for="countWater">Sprudel</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Apfelsaft -->
+									<input id="countAppleJuice" type="number" name="countAppleJuice" class="form-control"  placeholder="Apfelsaft" step="1" min="0">
+									<label for="countAppleJuice">Apfelsaft</label>
+								</div>
+							</div>
+							<div class="row">
+							<div class="form-floating mb-3 col"><!-- Limo -->
+									<input id="countLemon" type="number" name="countLemon" class="form-control"  placeholder="Limo" step="1" min="0">
+									<label for="countLemon">Limo</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Multivitamin -->
+									<input id="countMultivitamin" type="number" name="countMultivitamin" class="form-control"  placeholder="Multivitamin" step="1" min="0">
+									<label for="countMultivitamin">Multivitamin</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Sonstiges -->
+									<input id="commentDrinks" type="text" name="commentDrinks" class="form-control"  placeholder="Bemerkung">
+									<label for="commentDrinks">Bemerkung</label>
+								</div>
+							</div>
+					</fieldset>
+				</div>
+				<div class="g-3 p-2" id="step_dishes">
+					 <fieldset class="border p-2"> <!-- Geschirr -->
+							<legend class="float-none w-auto p-2">Geschirr</legend>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Teller -->
+									<input id="countPlate" type="number" name="countPlate" class="form-control"  placeholder="Teller" step="1" min="0">
+									<label for="countPlate">Teller</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Tassen -->
+									<input id="countCup" type="number" name="countCup" class="form-control"  placeholder="Tassen" step="1" min="0">
+									<label for="countCup">Tassen</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Becher -->
+									<input id="countJar" type="number" name="countJar" class="form-control"  placeholder="Becher" step="1" min="0">
+									<label for="countJar">Becher</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-floating mb-3 col"><!-- Kuchengabeln -->
+									<input id="countForks" type="number" name="countForks" class="form-control"  placeholder="Kuchengabeln" step="1" min="0">
+									<label for="countForks">Kuchengabeln</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Messer -->
+									<input id="countKnives" type="number" name="countKnives" class="form-control"  placeholder="Messer" step="1" min="0">
+									<label for="countKnives">Messer</label>
+								</div>
+							</div>
+							<div class="row">
+							<div class="form-floating mb-3 col"><!-- Löffel -->
+									<input id="countSpoons" type="number" name="countSpoons" class="form-control"  placeholder="Löffel" step="1" min="0">
+									<label for="countSpoons">Löffel</label>
+								</div>
+								<div class="form-floating mb-3 col"><!-- Tortenheber -->
+									<input id="countCakeLifter" type="number" name="countCakeLifter" class="form-control"  placeholder="Tortenheber" step="1" min="0">
+									<label for="countCakeLifter">Tortenheber</label>
+								</div>
+							</div>
+					</fieldset>
+				</div>
+				<div class="form-group mb-3 col send" data-bs-toggle="tooltip" data-bs-placement="top" title="Outlook Vorlage öffnen">
+					<input type="submit" value="Send Mail" class="btn btn-success" id="send" name="send"/><br/>
+				</div>
+			</form>
+	    </div>
+	    
+	    <!-- Anzeige -->
+	    <div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+	      	<h3>Anleitung</h3>
+	      	<!-- load webtour message template -->
+			<div th:replace="~{formulare/fragments/webtour_msg :: webtour_msg}"></div>
+	      	<div class="well p-2 border">
+	      		<!-- info an rechten col -->
+	      		<ul>
+					<li><strong>Schritt 1:</strong> Wählen Sie <b>den Veranstaltungsort</b> aus. Ggf. vorher auf Bewirtungsantrag klicken.</li>
+	      			<li><strong>Schritt 2:</strong> Geben Sie Ihren Namen an.</li>
+	      			<li><strong>Schritt 3:</strong> Geben Sie den Tag der Veranstaltung an.</li>
+	      			<li><strong>Schritt 4:</strong> Geben Sie den Beginn der Veranstaltung an.</li>
+	      			<li><strong>Schritt 5:</strong> Geben Sie den Anlass an.</li>
+	      			<li><strong>Schritt 6:</strong> Wählen Sie die Kostenstelle aus.</li>
+	      			<li><strong>Schritt 7:</strong> Geben Sie den Tagungsraum an.</li>
+	      			<li><strong>Schritt 8:</strong> Geben Sie die Anzahl der Personen an.</li>
+	      			<li><strong>Schritt 9:</strong> Geben Sie die benötige Menge vom Essen an.</li>
+	      			<li><strong>Schritt 10:</strong> Geben Sie die benötigte Menge an Getränken an.</li>
+	      			<li><strong>Schritt 11:</strong> Geben Sie die benötigte Menge an Geschirr an.</li>
+	      			<li><strong>Schritt 12:</strong> Klicken Sie auf dem Button "Send Mail". Es wird eine Outlook Vorlage geöffnet, die Sie dann versenden können.</li>
+	      		</ul>
+	      	</div>
+	      	<!-- load contact template -->
+	      	<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+	    </div>
+	</div>
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>
