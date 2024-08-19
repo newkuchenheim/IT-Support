@@ -136,7 +136,7 @@ function init() {
 	document.getElementById("location_sel").addEventListener("keypress", function(e) {
 		triggerSearchButton(e);
 	});
-	wtConfig.MainSteps[0].title = "Anleitung Kostenstellen";
+	wtConfig.MainSteps[0].title = "Anleitung Kostenstellenplan";
 	var steps = [
 		wtConfig.MainSteps[0],
 		{
