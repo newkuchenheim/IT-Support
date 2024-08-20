@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.newkuchenheim.ITSupport.controller;
+package de.newkuchenheim.ITSupport.controller.it;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;

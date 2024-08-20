@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.controller;
+package de.newkuchenheim.ITSupport.controller.formular;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.controller.abstractFormulareController;
 import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.newkuchenheim.ITSupport.controller;
+package de.newkuchenheim.ITSupport.controller.it;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -29,16 +29,11 @@ import de.newkuchenheim.ITSupport.dao.implement.wikifbKanboardDAO;
  */
 
 @Controller
-@RequestMapping("itsupport/wikifeedback")
-public class wikifeedbackController {
+@RequestMapping("itsupport/wikifeedback/reduce")
+public class wikifeedbackReduceController {
 
 	private static List<Ticket> tickets = new ArrayList();
-	
-	@ModelAttribute("page")
-    String page() {
-        return "wikifeedback";
-    }
-	
+
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
 
@@ -54,28 +49,32 @@ public class wikifeedbackController {
 			tLog.getInstance().log(null, "severe", e.getMessage());
 		}
 
-		return "itsupport/wikifeedback/home";
+		return "itsupport/wikifeedback/reduce/reducehome";
 	}
 
-	@GetMapping({"form", "form/"})
+	@GetMapping({"reduceform", "reduceform/"})
 	public String renderCreateForm(Model model) {
 
 		tickets.clear();
 
 		// tracking
 		System.out.println("call a form wikifeedback" + LocalDateTime.now());
-		tLog.getInstance().log(null, "info", "call a form feedback");
+		tLog.getInstance().log(null, "info", "call a form");
 
 		model.addAttribute("ticket", new Ticket());
-		return "itsupport/wikifeedback/form";
+		return "itsupport/wikifeedback/reduce/reduceform";
 	}
 
-	@PostMapping("form")
+	@PostMapping("reduceform")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
 		model.addAttribute("ticket", ticket);
 
+		System.out.println(ticket.getFirstname() + " " + ticket.getLastname());
+		System.out.println("wikifeedback wurde gesendet am " + LocalDateTime.now());
+		tLog.getInstance().log(null, "Info", "Trying to create a wikifeedback at " + LocalDateTime.now().toString());
+
 		tickets.add(ticket);
-		
+//		return "create/home";
 		return "redirect:";
 	}
 }

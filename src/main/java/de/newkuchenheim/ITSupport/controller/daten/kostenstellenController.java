@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.controller;
+package de.newkuchenheim.ITSupport.controller.daten;
 
 import java.io.File;
 import java.io.FileInputStream;

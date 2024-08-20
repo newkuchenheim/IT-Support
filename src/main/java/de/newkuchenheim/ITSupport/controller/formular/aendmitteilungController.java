@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.controller;
+package de.newkuchenheim.ITSupport.controller.formular;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +17,7 @@ import de.newkuchenheim.ITSupport.bdo.CostCentre;
 import de.newkuchenheim.ITSupport.bdo.FormData;
 import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.controller.abstractFormulareController;
 import de.newkuchenheim.ITSupport.dao.implement.aendmittJobrouterDAO;
 import de.newkuchenheim.ITSupport.dao.implement.aendmittKanboardDAO;
 import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
