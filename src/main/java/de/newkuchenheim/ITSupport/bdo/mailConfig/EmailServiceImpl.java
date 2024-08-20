@@ -2,6 +2,7 @@ package de.newkuchenheim.ITSupport.bdo.mailConfig;
 
 import de.newkuchenheim.ITSupport.bdo.email;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,13 @@ public class EmailServiceImpl implements EmailService{
 	 
     @Value("${spring.mail.username}") private String sender;
  
+    private EmailServiceImpl instance;
+    
+    public EmailServiceImpl getInstance() {
+    	if(instance == null)
+    		return new EmailServiceImpl();
+    	return null;
+    }
     
 	@Override
 	public String sendSimpleMail(email details) {

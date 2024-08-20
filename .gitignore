@@ -26,3 +26,8 @@ replay_pid*
 #ignore target
 target
 /.settings
+
+*.properties
+
+# matches any files and directories with the name test
+test
