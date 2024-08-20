@@ -139,7 +139,8 @@
 						<label for="room">Tagungsraum</label>
 					</div>
 					<div class="form-floating mb-3 col" id="step_personcount"><!-- Personen -->
-						<input id="countPerson" type="number" name="countPerson" class="form-control"  placeholder="Anzahl Personen" step="1" min="1" required>
+						<input id="countPerson" type="number" name="countPerson" class="form-control"  placeholder="Anzahl Personen" 
+							onkeypress="return validateDigits(event)" step="1" min="1" required>
 						<label for="countPerson">Anzahl Personen</label>
 					</div>
 				</div>
@@ -148,17 +149,20 @@
 							<legend class="float-none w-auto p-2">Essen</legend>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Mittagessen -->
-									<input id="countLunch" type="number" name="countLunch" class="form-control"  placeholder="Mittagessen" step="1" min="0">
+									<input id="countLunch" type="number" name="countLunch" class="form-control"  placeholder="Mittagessen" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countLunch">Mittagessen</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Brötchen -->
-									<input id="countBreadrolls" type="number" name="countBreadrolls" class="form-control"  placeholder="Brötchen" step="1" min="0">
+									<input id="countBreadrolls" type="number" name="countBreadrolls" class="form-control"  placeholder="Brötchen" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countBreadrolls">Brötchen</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Gebäck -->
-									<input id="countCookies" type="number" name="countCookies" class="form-control"  placeholder="Gebäck" step="1" min="0">
+									<input id="countCookies" type="number" name="countCookies" class="form-control"  placeholder="Gebäck" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countCookies">Gebäck</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Bemerkung -->
@@ -173,39 +177,47 @@
 							<legend class="float-none w-auto p-2">Getränke</legend>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Kaffee -->
-									<input id="countCoffee" type="number" name="countCoffee" class="form-control"  placeholder="Kaffee" step="1" min="0">
+									<input id="countCoffee" type="number" name="countCoffee" class="form-control"  placeholder="Kaffee" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countCoffee">Kaffee</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Tee -->
-									<input id="countTea" type="number" name="countTea" class="form-control"  placeholder="Tee" step="1" min="0">
+									<input id="countTea" type="number" name="countTea" class="form-control"  placeholder="Tee" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countTea">Tee</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Milch -->
-									<input id="countMilk" type="number" name="countMilk" class="form-control"  placeholder="Milk" step="1" min="0">
+									<input id="countMilk" type="number" name="countMilk" class="form-control"  placeholder="Milk" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countMilk">Milch</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Zucker -->
-									<input id="countSugar" type="number" name="countSugar" class="form-control"  placeholder="Sugar" step="1" min="0">
+									<input id="countSugar" type="number" name="countSugar" class="form-control"  placeholder="Sugar" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countSugar">Zucker</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Sprudel -->
-									<input id="countWater" type="number" name="countWater" class="form-control"  placeholder="Wasser" step="1" min="0">
+									<input id="countWater" type="number" name="countWater" class="form-control"  placeholder="Wasser" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countWater">Sprudel</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Apfelsaft -->
-									<input id="countAppleJuice" type="number" name="countAppleJuice" class="form-control"  placeholder="Apfelsaft" step="1" min="0">
+									<input id="countAppleJuice" type="number" name="countAppleJuice" class="form-control"  placeholder="Apfelsaft" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countAppleJuice">Apfelsaft</label>
 								</div>
 							</div>
 							<div class="row">
 							<div class="form-floating mb-3 col"><!-- Limo -->
-									<input id="countLemon" type="number" name="countLemon" class="form-control"  placeholder="Limo" step="1" min="0">
+									<input id="countLemon" type="number" name="countLemon" class="form-control"  placeholder="Limo" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countLemon">Limo</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Multivitamin -->
-									<input id="countMultivitamin" type="number" name="countMultivitamin" class="form-control"  placeholder="Multivitamin" step="1" min="0">
+									<input id="countMultivitamin" type="number" name="countMultivitamin" class="form-control"  placeholder="Multivitamin" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countMultivitamin">Multivitamin</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Sonstiges -->
@@ -220,35 +232,42 @@
 							<legend class="float-none w-auto p-2">Geschirr</legend>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Teller -->
-									<input id="countPlate" type="number" name="countPlate" class="form-control"  placeholder="Teller" step="1" min="0">
+									<input id="countPlate" type="number" name="countPlate" class="form-control"  placeholder="Teller" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countPlate">Teller</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Tassen -->
-									<input id="countCup" type="number" name="countCup" class="form-control"  placeholder="Tassen" step="1" min="0">
+									<input id="countCup" type="number" name="countCup" class="form-control"  placeholder="Tassen" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countCup">Tassen</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Becher -->
-									<input id="countJar" type="number" name="countJar" class="form-control"  placeholder="Becher" step="1" min="0">
+									<input id="countJar" type="number" name="countJar" class="form-control"  placeholder="Becher" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countJar">Becher</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-floating mb-3 col"><!-- Kuchengabeln -->
-									<input id="countForks" type="number" name="countForks" class="form-control"  placeholder="Kuchengabeln" step="1" min="0">
+									<input id="countForks" type="number" name="countForks" class="form-control"  placeholder="Kuchengabeln" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countForks">Kuchengabeln</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Messer -->
-									<input id="countKnives" type="number" name="countKnives" class="form-control"  placeholder="Messer" step="1" min="0">
+									<input id="countKnives" type="number" name="countKnives" class="form-control"  placeholder="Messer" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countKnives">Messer</label>
 								</div>
 							</div>
 							<div class="row">
 							<div class="form-floating mb-3 col"><!-- Löffel -->
-									<input id="countSpoons" type="number" name="countSpoons" class="form-control"  placeholder="Löffel" step="1" min="0">
+									<input id="countSpoons" type="number" name="countSpoons" class="form-control"  placeholder="Löffel" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countSpoons">Löffel</label>
 								</div>
 								<div class="form-floating mb-3 col"><!-- Tortenheber -->
-									<input id="countCakeLifter" type="number" name="countCakeLifter" class="form-control"  placeholder="Tortenheber" step="1" min="0">
+									<input id="countCakeLifter" type="number" name="countCakeLifter" class="form-control"  placeholder="Tortenheber" 
+										onkeypress="return validateDigits(event)" step="1" min="0">
 									<label for="countCakeLifter">Tortenheber</label>
 								</div>
 							</div>

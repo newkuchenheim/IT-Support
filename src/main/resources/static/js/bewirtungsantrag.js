@@ -177,36 +177,36 @@ function init() {
 					+ "\t• Tagungsraum: " + _room + "\r\n"
 					+ "\t• Anzahl Personen: " + _countPerson + "\r\n\r\n"
 					+ "\t 𝐄𝐬𝐬𝐞𝐧:\r\n";
-					if (_countLunch !== "") body += "\t• Mittagessen: " + _countLunch + "\r\n";
-					if (_countBreadrolls !== "") body += "\t• Brötchen: " + _countBreadrolls + "\r\n";
-					if (_countCookies !== "") body += "\t• Gebäck: " + _countCookies + "\r\n";
+					if (_countLunch !== "" && _countLunch > 0) body += "\t• Mittagessen: " + _countLunch + "\r\n";
+					if (_countBreadrolls !== "" && _countBreadrolls > 0) body += "\t• Brötchen: " + _countBreadrolls + "\r\n";
+					if (_countCookies !== "" && _countCookies > 0) body += "\t• Gebäck: " + _countCookies + "\r\n";
 					if (_comment !== "") {
 						body += "\t• Bemerkung: " + _comment + "\r\n\r\n";
 					} else {
 						body += "\r\n";
 					}
 					body += "\t 𝐆𝐞𝐭𝐫ä𝐧𝐤𝐞:\r\n";
-					if (_countCoffee !== "") body += "\t• Kaffee: " + _countCoffee + "\r\n";
-					if (_countTea !== "") body += "\t• Tee: " + _countTea + "\r\n";
-					if (_countMilk !== "") body += "\t• Milch: " + _countMilk + "\r\n";
-					if (_countSugar !== "") body += "\t• Zucker: " + _countSugar + "\r\n";
-					if (_countWater !== "") body += "\t• Sprudel: " + _countWater + "\r\n";
-					if (_countAppleJuice !== "") body += "\t• Apfelsaft: " + _countAppleJuice + "\r\n";
-					if (_countLemon !== "") body += "\t• Limo: " + _countLemon + "\r\n";
-					if (_countMultivitamin !== "") body += "\t• Multivitamin: " + _countMultivitamin + "\r\n";
+					if (_countCoffee !== "" && _countCoffee > 0) body += "\t• Kaffee: " + _countCoffee + "\r\n";
+					if (_countTea !== "" && _countTea > 0) body += "\t• Tee: " + _countTea + "\r\n";
+					if (_countMilk !== "" && _countMilk > 0) body += "\t• Milch: " + _countMilk + "\r\n";
+					if (_countSugar !== "" && _countSugar > 0) body += "\t• Zucker: " + _countSugar + "\r\n";
+					if (_countWater !== "" && _countWater > 0) body += "\t• Sprudel: " + _countWater + "\r\n";
+					if (_countAppleJuice !== "" && _countAppleJuice > 0) body += "\t• Apfelsaft: " + _countAppleJuice + "\r\n";
+					if (_countLemon !== "" && _countLemon > 0) body += "\t• Limo: " + _countLemon + "\r\n";
+					if (_countMultivitamin !== "" && _countMultivitamin > 0) body += "\t• Multivitamin: " + _countMultivitamin + "\r\n";
 					if (_commentDrinks !== "") {
 						body += "\t• Bemerkung: " + _commentDrinks + "\r\n\r\n";
 					} else {
 						body += "\r\n";
 					}
 					body += "\t 𝐆𝐞𝐬𝐜𝐡𝐢𝐫𝐫:\r\n";
-					if (_countPlate !== "") body += "\t• Teller: " + _countPlate + "\r\n";
-					if (_countCup !== "") body += "\t• Tassen: " + _countCup + "\r\n";
-					if (_countJar !== "") body += "\t• Becher: " + _countJar + "\r\n";
-					if (_countForks !== "") body += "\t• Kuchengabeln: " + _countForks + "\r\n";
-					if (_countKnives !== "") body += "\t• Messer: " + _countKnives + "\r\n";
-					if (_countSpoons !== "") body += "\t• Löffel: " + _countSpoons + "\r\n";
-					if (_countCakeLifter !== "") body += "\t• Tortenheber: " + _countCakeLifter + "\r\n";
+					if (_countPlate !== "" && _countPlate > 0) body += "\t• Teller: " + _countPlate + "\r\n";
+					if (_countCup !== "" && _countCup > 0) body += "\t• Tassen: " + _countCup + "\r\n";
+					if (_countJar !== "" && _countJar > 0) body += "\t• Becher: " + _countJar + "\r\n";
+					if (_countForks !== "" && _countForks > 0) body += "\t• Kuchengabeln: " + _countForks + "\r\n";
+					if (_countKnives !== "" && _countKnives > 0) body += "\t• Messer: " + _countKnives + "\r\n";
+					if (_countSpoons !== "" && _countSpoons > 0) body += "\t• Löffel: " + _countSpoons + "\r\n";
+					if (_countCakeLifter !== "" && _countCakeLifter > 0) body += "\t• Tortenheber: " + _countCakeLifter + "\r\n";
 					var mailToLink = "mailto:" + email_to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 					window.location.href = mailToLink;
 				} else {
@@ -394,4 +394,8 @@ function init() {
 	document.getElementById("no_tour").addEventListener("click", function() {
 		document.getElementById("webtour_msg_div").hidden = true;
 	});
+}
+function validateDigits(event)
+{
+	return event.charCode >= 48 && event.charCode <= 57;
 }
