@@ -37,6 +37,7 @@
 				</div>
 			</div>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Korrekturbeleg</a>
+			<!-- <a class="nav-link" href="/formulare/bewirtungsantrag/form">Bewirtungsantrag</a> -->
 			<!-- <a class="nav-link" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a> -->
 			<a class="nav-link" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
 			<div class="collapse" id="collForm">
@@ -99,6 +100,71 @@
 					</div>
 				</div>
 			</div>
+			<!-- <a class="nav-link" href="/formulare/bewirtungsantrag/form">Bewirtungsantrag</a> -->
+			<!-- <a class="nav-link" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a> -->
+			<a class="nav-link" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
+			<div class="collapse" id="collForm">
+				<div class="card card-body">
+			  		<nav class="nav flex-column">
+			  			<a class="nav-link" href="/formulare/aendmitteilung/anschrift">Anschrift</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/arbeitszeit">Arbeitszeit</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/austritt">Austritt</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/bankverbindung">Bankverbindung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/fahrtendienst">Fahrtendienst</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/krankheit">Krankheit</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/lohn">Lohn</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/mehrbedarf">Mehrbedarf</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/mittagessen">Mittagessen</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/sonstiges">Sonstiges</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/fehlzeit_unbezahlt">Unbezahlte Fehlzeit</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/urlaub_unbezahlt">Unbezahlter Urlaub</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/fehlen_unentschuldigt">Unentschuldigtes Fehlen</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_arbeitsbereich">Wechsel in Arbeitsbereich</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_kostenstelle">Wechsel Kostenstelle</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/wechsel_zweigstelle">Wechsel Zweigstelle</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/zuwendung">Zuwendung</a>
+			  			<a class="nav-link" href="/formulare/aendmitteilung/feedback">Feedback</a>
+					</nav>
+				</div>
+			</div>
+		</nav>
+		<nav  class="nav flex-column" th:case="bewirtungsantrag">
+			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
+			<a class="nav-link" href="/formulare/zeiterfassung/form">Korrekturbeleg</a>
+			<div id="step_location">
+				<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collLocation" role="button" aria-expanded="true" aria-controls="collLocation">Bewirtungsantrag</a>
+				<div class="collapse show" id="collLocation">
+					<div class="card card-body">
+						<h5 id="nav_header">Veranstaltungsort:</h5>
+				  		<nav>
+							 <!--  <label>
+								  <input type="radio" name="location" id="zvw_location" value="zvw" checked>
+								  <span class="nav-link">Zentrale Verwaltung</span>
+							  </label><br>-->
+							  <label>
+								  <input type="radio" name="location" value="khm" id="khm_location" checked>
+								  <span class="nav-link">Kuchenheim</span>
+							  </label><br>
+							  <label>
+								  <input type="radio" name="location" value="kall">
+								  <span class="nav-link">Kall</span>
+							  </label><br>
+							  <label>
+								  <input type="radio" name="location" value="qubi">
+								  <span class="nav-link">QuBi Eifel Mechernich</span>
+							  </label><br>
+							  <label>
+								  <input type="radio" name="location" value="uelp">
+								  <span class="nav-link">Ülpenich</span>
+							  </label><br>
+							  <label>
+								  <input type="radio" name="location" value="zhm">
+								  <span class="nav-link">Zingsheim</span>
+							  </label>
+						</nav>
+					</div>
+				</div>
+			</div>
 			<!-- <a class="nav-link" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a> -->
 			<a class="nav-link" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
 			<div class="collapse" id="collForm">
@@ -129,6 +195,7 @@
 		<nav  class="nav flex-column" th:case="*">
 			<a class="nav-link" href="/formulare/telenotiz/form">Gesprächsnotiz</a>
 			<a class="nav-link" href="/formulare/zeiterfassung/form">Korrekturbeleg</a>
+			<!-- <a class="nav-link" href="/formulare/bewirtungsantrag/form">Bewirtungsantrag</a>-->
 			<!--<a class="nav-link" th:classappend="${page == 'hilfstool' ? 'active link-dark' : ''}" href="/formulare/zeiterfassung/hilfstool">Novatime - Hilfstool</a>-->
 			<th:block th:if="${#strings.startsWith(page, 'aendmitt')}">
 				<a class="nav-link active link-dark" data-bs-toggle="collapse" href="#collForm" role="button" aria-expanded="true" aria-controls="collForm">Änderungsmitteilung</a>
