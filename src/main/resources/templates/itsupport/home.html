@@ -76,7 +76,7 @@ section {
 	<div class="row content p-3" style="height: 67%">
 		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
-		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
+		<div th:replace="~{itsupport/fragments/sidenav :: sidenav(nav_elems=${nav_elems})}"></div>
 
 		<!-- main page 2te col-->
 		<div class="col p-3 max-width text-left">

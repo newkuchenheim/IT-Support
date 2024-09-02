@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.bdo;
+package de.newkuchenheim.ITSupport.bdo.daten;
 
 public class FormData implements Comparable<FormData> {
 	private long jrid;

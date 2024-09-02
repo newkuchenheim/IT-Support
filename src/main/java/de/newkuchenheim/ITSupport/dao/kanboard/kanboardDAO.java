@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.newkuchenheim.ITSupport.dao;
+package de.newkuchenheim.ITSupport.dao.kanboard;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -16,9 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.condition.ParamsRequestCondition;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
-import de.newkuchenheim.ITSupport.bdo.awNote;
 import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.awNote;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskFileKanboardConfigutration;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
 import de.newkuchenheim.ITSupport.bdo.response.ErrorKanboard;
@@ -40,7 +40,8 @@ public abstract class kanboardDAO {
 	public final String _TAB_UL_1 = "- ", _NEWLINE = " \\r\\n", _BOLD_OPEN = " **", _BOLD_CLOSE = "** ",
 			_HEADING_1_OPEN = "# ", _HEADING_1_CLOSE = " # \\r\\n", _HEADING_2_OPEN = "## ",
 			_HEADING_2_CLOSE = " ## \\r\\n", _HEADING_3_OPEN = "### ", _HEADING_3_CLOSE = " ### \\r\\n";
-
+	
+	
 	/**
 	 * create a Request to send a File to Kanboard
 	 * @param config TaskFileConfiguration

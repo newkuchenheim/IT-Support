@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.dao;
+package de.newkuchenheim.ITSupport.dao.kanboard;
 
 import java.io.UnsupportedEncodingException;
 

@@ -1,14 +1,14 @@
-package de.newkuchenheim.ITSupport.dao.implement;
+package de.newkuchenheim.ITSupport.dao.implement.it;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
-import de.newkuchenheim.ITSupport.bdo.awNote;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.awNote;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.kanboardTaskInterface;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardTaskInterface;
 
 public class awsnotizKanboardDAO extends kanboardDAO implements kanboardTaskInterface<awNote>{
 

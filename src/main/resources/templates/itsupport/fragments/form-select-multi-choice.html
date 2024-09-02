@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" rel="stylesheet" />
+</head>
+<body>
+	<div th:fragment="form-select-multi-choice" class="col col-sm-2 m-2 p-3 bg-grey text-white text-left sidenav">
+		<div class="form-group">
+		    <select name="teams" id="teams" multiple="multiple" class="form-control">
+		    	<optgroup th:classappend="">
+		    		<option></option>
+		    	</optgroup>
+		    </select>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+  		</div>
+		<th:block th:each="element : ${nav_elems}">
+			<nav  class="nav flex-column">
+				<th:block th:switch="${element.isParent}">
+					<th:block th:case="true">
+						<a class="nav-link" th:classappend="${show_collapse == true ? 'link-dark active' : ''}" data-bs-toggle="collapse" href="#collLocation" role="button" aria-expanded="true" aria-controls="collLocation" th:text="${element.text}"></a>
+		  				<div class="collapse" th:classappend="${show_collapse == true ? 'show' : ''}" id="collLocation" >
+							<div class="card card-body">
+						  		<nav class="nav flex-column">
+						  			<th:block th:each="c : ${element.childList}">
+						  				<label>
+										  	<a class="nav-link" aria-current="page" th:classappend="${c.page_name == page ? 'active link-dark' : ''}" th:href="${c.attributes.get('href')}" th:text="${c.text}"></a>
+										</label>
+									</th:block>
+								</nav>
+							</div>
+						</div>
+					</th:block>
+					<th:block th:case="false" >
+						<th:block th:unless="${element.isChildren}">
+							<a class="nav-link" th:classappend="${element.page_name == page ? 'active link-dark' : ''}" th:href="${element.attributes.get('href')}" th:text="${element.text}"></a>	
+						</th:block>
+					</th:block>
+	  			</th:block>
+			</nav>
+		</th:block>
+  	</div>
+</body>
+</html>

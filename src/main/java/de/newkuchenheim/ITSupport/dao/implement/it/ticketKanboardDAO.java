@@ -1,6 +1,7 @@
-package de.newkuchenheim.ITSupport.dao.implement;
+package de.newkuchenheim.ITSupport.dao.implement.it;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -12,17 +13,25 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.Email;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskFileKanboardConfigutration;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.kanboardFileInterface;
-import de.newkuchenheim.ITSupport.dao.kanboardTaskInterface;
+import de.newkuchenheim.ITSupport.bdo.mailConfig.emailConfiguration;
+import de.newkuchenheim.ITSupport.bdo.mailConfig.emailUtil;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardFileInterface;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardTaskInterface;
+import jakarta.mail.Session;
 
 public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterface<Ticket>, kanboardFileInterface<Ticket> {
 
 	private static ticketKanboardDAO instance;
-
+	//Mail Configuration
+	private emailConfiguration emailConfig = new emailConfiguration();
+	private emailUtil emailUtilitiy = emailUtil.getInstance();
+	
+	
 	/**
 	 * Get Instance kanboardDAO
 	 * 
@@ -91,6 +100,21 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			
 			Object result = sendTaskRequest(task);
 			if(result instanceof Integer) {
+				if(ticket.getEmail() != null && !ticket.getEmail().isBlank()) {
+					Session session = Session.getDefaultInstance(this.emailConfig.getProperties(), this.emailConfig.getAuthenticator());
+					
+					Email mail = new Email();
+					mail.setSubject("Support-Ticket #" + result + " wurde gesendet");
+					mail.setMsgBody("Vielen Dank für Ihre Nutzung unseres Ticketsystems! \n Wir werden schnellsmöglich Ihr Ticket betreuen. "
+							+ "Sie können Bearbeitungszutand des Ticketd verfolgen, indem Sie den unteren Link anwenden. \n"
+							+ "\t* Ticket-Tracking: 192.168.0.224:8080/itsupport/Ticket-Tracking \n"
+							+ "\t* Ticket-ID: " + result + "\n"
+							+ "\t* Gesendet am: " + LocalDateTime.now().toString());
+					mail.setRecipient(ticket.getEmail());
+					
+					this.emailUtilitiy.sendSimpleMail(session, mail, this.emailConfig.getFromMail());
+				}
+				
 				return (int) result;
 			} 
 			else 

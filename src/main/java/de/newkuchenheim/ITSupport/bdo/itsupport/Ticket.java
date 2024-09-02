@@ -1,8 +1,9 @@
 /**
  * 
  */
-package de.newkuchenheim.ITSupport.bdo;
+package de.newkuchenheim.ITSupport.bdo.itsupport;
 
+import de.newkuchenheim.ITSupport.bdo.Email;
 import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +37,7 @@ public class Ticket {
 	private LocalDateTime changed_at;
 	private boolean is_active;
 	private String contactperson;
-	
+
 	/**
 	 * @return the firstname
 	 */

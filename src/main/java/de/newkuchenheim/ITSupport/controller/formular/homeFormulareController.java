@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import de.newkuchenheim.ITSupport.bdo.FormChgLog;
 import de.newkuchenheim.ITSupport.bdo.MainContent;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.implement.formJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.it.formJobrouterDAO;
 
 
 /**

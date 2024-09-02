@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.newkuchenheim.ITSupport.bdo;
+package de.newkuchenheim.ITSupport.bdo.itsupport;
 
 import java.time.LocalDate;
 import java.util.Date;

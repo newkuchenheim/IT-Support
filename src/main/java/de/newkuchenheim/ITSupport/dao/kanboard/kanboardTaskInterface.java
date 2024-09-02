@@ -1,10 +1,10 @@
-package de.newkuchenheim.ITSupport.dao;
+package de.newkuchenheim.ITSupport.dao.kanboard;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
-import de.newkuchenheim.ITSupport.bdo.awNote;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.awNote;
 
 public interface kanboardTaskInterface<T> {
 	

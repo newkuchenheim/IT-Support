@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.implement.wikifbKanboardDAO;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.dao.implement.it.wikifbKanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -30,18 +30,15 @@ import de.newkuchenheim.ITSupport.dao.implement.wikifbKanboardDAO;
 
 @Controller
 @RequestMapping("itsupport/wikifeedback")
-public class wikifeedbackController {
+public class wikifeedbackController extends itsupportController{
 
 	private static List<Ticket> tickets = new ArrayList();
 	
-	@ModelAttribute("page")
-    String page() {
-        return "wikifeedback";
-    }
-	
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
-
+		//configurate Navigation
+		initNavigation(model, "wikifeedback");
+				
 		model.addAttribute("tickets", tickets);
 
 		// send a request with ticket
@@ -59,7 +56,10 @@ public class wikifeedbackController {
 
 	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) {
-
+		
+		//configurate Navigation
+		initNavigation(model, "wikifeedback");
+				
 		tickets.clear();
 
 		// tracking

@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.dao.implement;
+package de.newkuchenheim.ITSupport.dao.implement.it;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import de.newkuchenheim.ITSupport.bdo.FormChgLog;
 import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.DataJobrouterConfig;
-import de.newkuchenheim.ITSupport.dao.jobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.jobrouter.jobrouterDAO;
 
 public class formJobrouterDAO extends jobrouterDAO  {
 	private static formJobrouterDAO instance;

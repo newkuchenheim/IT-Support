@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.dao.implement;
+package de.newkuchenheim.ITSupport.dao.implement.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +7,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import de.newkuchenheim.ITSupport.bdo.CostCentre;
+import de.newkuchenheim.ITSupport.bdo.daten.CostCentre;
 import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.DataJobrouterConfig;
-import de.newkuchenheim.ITSupport.dao.jobrouterDAO;
-import de.newkuchenheim.ITSupport.dao.jobrouterDataInterface;
+import de.newkuchenheim.ITSupport.dao.jobrouter.jobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.jobrouter.jobrouterDataInterface;
 
 /**
  * @author Sebastian Hansen

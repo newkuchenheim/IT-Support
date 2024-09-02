@@ -1,6 +1,6 @@
 package de.newkuchenheim.ITSupport.bdo;
 
-public class email {
+public class Email {
 	
 	private String recipient;
     private String msgBody;

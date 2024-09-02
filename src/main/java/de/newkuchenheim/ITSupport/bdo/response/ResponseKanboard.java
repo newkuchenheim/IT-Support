@@ -3,7 +3,7 @@
  */
 package de.newkuchenheim.ITSupport.bdo.response;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
 
 /**
  * @author Minh Tam Truong

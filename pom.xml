@@ -33,12 +33,13 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
-		<dependency>
-		    <groupId>jakarta.mail</groupId>
-		    <artifactId>jakarta.mail-api</artifactId>
+	    
+	    <dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>jakarta.mail</artifactId>
+		    <version>2.0.1</version>
 		</dependency>
-
+		        
 		<!-- Compile -->
 		<dependency>
             <groupId>org.springframework</groupId>

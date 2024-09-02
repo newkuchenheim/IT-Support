@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.bdo.itsupport.TicketCategory;
 import de.newkuchenheim.ITSupport.controller.abstractFormulareController;
-import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 
 /**
  * @author Sebastian Hansen

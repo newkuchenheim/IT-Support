@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.implement.wikifbKanboardDAO;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.dao.implement.it.wikifbKanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
 
 /**
  * @author Minh Tam Truong

@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.CostCentre;
-import de.newkuchenheim.ITSupport.bdo.Ticket;
-import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
+import de.newkuchenheim.ITSupport.bdo.daten.CostCentre;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.TicketCategory;
+import de.newkuchenheim.ITSupport.dao.implement.data.kostenstelleJobrouterDAO;
 
 @Controller
 @RequestMapping("digidaten/kostenstellen")

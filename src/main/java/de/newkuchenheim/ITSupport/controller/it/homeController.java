@@ -36,22 +36,18 @@ import de.newkuchenheim.ITSupport.bdo.tLog;
  */
 
 @Controller
-public class homeController {
+public class homeController extends itsupportController{
 	
 	private final String _URL_MAIN_CONTENT  = System.getProperty("user.home") + "\\IT-SupportContent\\Ticket\\mitteilung.json";//"%USERPROFILE%/it-supportcontent/ticket/mitteilung.json";
 	private final String _URL_MAIN_CONTENT_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Ticket/mitteilung.json";//"/home/itsupport/itsupport/it-supportcontent/ticket/mitteilung.json";
 	
 	private static List<MainContent> contents = new ArrayList();
 	
-
-	@ModelAttribute("page")
-    String page() {
-        return "itsupport";
-    }
-	
 	@GetMapping({"/itsupport", "/itsupport/"})
 	String getHome(Model model) throws IOException, FileNotFoundException {
-		
+		//configurate Navigation
+		initNavigation(model, "itsupport");
+				
 		contents.clear();
 		
 		String _sys_path = null;
@@ -124,5 +120,6 @@ public class homeController {
 		model.addAttribute("contents", contents);
 		return "itsupport/home";
 	}
+	
 	
 }

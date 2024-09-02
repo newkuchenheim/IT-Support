@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.awNote;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.implement.awsnotizKanboardDAO;
+import de.newkuchenheim.ITSupport.bdo.itsupport.awNote;
+import de.newkuchenheim.ITSupport.dao.implement.it.awsnotizKanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
 
 /**
  * @author Minh Tam Truong
@@ -30,18 +30,15 @@ import de.newkuchenheim.ITSupport.dao.implement.awsnotizKanboardDAO;
 
 @Controller
 @RequestMapping("itsupport/awnotiz")
-public class awnotizController {
+public class awnotizController extends itsupportController{
 
 	private static List<awNote> aws = new ArrayList();
 
-	@ModelAttribute("page")
-    String page() {
-        return "awnotiz";
-    }
-
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
-		
+		//configurate Navigation
+		initNavigation(model, "awnotiz");
+				
 		model.addAttribute("aws", aws);
 
 		//send a request with ticket
@@ -59,7 +56,9 @@ public class awnotizController {
 	
 	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) {
-		
+		//configurate Navigation
+		initNavigation(model, "awnotiz");
+				
 		aws.clear();
 
 		//tracking

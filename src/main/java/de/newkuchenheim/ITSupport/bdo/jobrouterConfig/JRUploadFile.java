@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.bdo;
+package de.newkuchenheim.ITSupport.bdo.jobrouterConfig;
 
 import org.springframework.web.multipart.MultipartFile;
 

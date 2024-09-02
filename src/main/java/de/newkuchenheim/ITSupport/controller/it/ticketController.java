@@ -32,11 +32,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
-import de.newkuchenheim.ITSupport.bdo.TicketCategory;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.implement.ticketKanboardDAO;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.TicketCategory;
+import de.newkuchenheim.ITSupport.dao.implement.it.ticketKanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
 import javassist.compiler.ast.Symbol;
 
 /**
@@ -48,18 +48,18 @@ import javassist.compiler.ast.Symbol;
 
 @Controller
 @RequestMapping("itsupport/ticket")
-public class formController {
+public class ticketController extends itsupportController {
 
 	private static List<Ticket> tickets = new ArrayList();
 	//private String current_mapping;
 	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Ticket\\ticketcats.json";//"%USERPROFILE%/it-supportcontent/ticket/ticketcats.json";
 	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Ticket/ticketcats.json";//"/home/itsupport/itsupport/it-supportcontent/ticket/ticketcats.json";
 	
-	@ModelAttribute("page")
-    String page() {
-		
-		return "ticket";
-    }
+//	@ModelAttribute("page")
+//    String page() {
+//		
+//		return "ticket";
+//    }
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -71,6 +71,8 @@ public class formController {
 
 	@GetMapping({"", "/"})
 	public String displayAllEvents(Model model) {
+		//configurate Navigation
+		initNavigation(model, "ticket");
 		
 		model.addAttribute("tickets", tickets);
 		
@@ -114,6 +116,8 @@ public class formController {
 						}
 						
 						model.addAttribute("desc_list", desc_list);
+						
+						
 					}
 				} else { // send a new ticket
 					model.addAttribute("event_response", "ticket");
@@ -136,7 +140,9 @@ public class formController {
 	
 	@GetMapping({"form", "form/"})
 	public String renderCreateForm(Model model) throws FileNotFoundException {
-		
+		//configurate Navigation
+		initNavigation(model, "ticket");
+				
 		tickets.clear();
 		
 		//tracking
@@ -194,7 +200,6 @@ public class formController {
 	
 	@PostMapping("form")
 	public String sendForm(@ModelAttribute Ticket ticket, Model model) {
-		// Get file content as Base64 String, uploaded temp file will be deleted after this
 		
 		if (ticket.getFile() != null) {
 			try {
@@ -220,6 +225,9 @@ public class formController {
 	@GetMapping({"ticket_tracking", "ticket_tracking/"})
 	public String renderTicketTracking(Model model) {
 		
+		//configurate Navigation
+		initNavigation(model, "ticket_tracking");
+				
 		tickets.clear();
 		//tracking
 		System.out.println("call form ticket-status " + LocalDateTime.now());
@@ -231,7 +239,8 @@ public class formController {
 	}
 	
 	@PostMapping("ticket_tracking")
-	public String sendTracking(@ModelAttribute Ticket ticket, Model model) {
+	public String sendTracking(@ModelAttribute Ticket ticket, Model model) {		
+		
 		// Get file content as Base64 String, uploaded temp file will be deleted after this
 		model.addAttribute("ticket", ticket);
 		tickets.add(ticket);

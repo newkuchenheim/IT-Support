@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.CostCentre;
 import de.newkuchenheim.ITSupport.bdo.tLog;
-import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
+import de.newkuchenheim.ITSupport.bdo.daten.CostCentre;
+import de.newkuchenheim.ITSupport.dao.implement.data.kostenstelleJobrouterDAO;
 
 @Controller
 @RequestMapping("formulare/bewirtungsantrag")

@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.newkuchenheim.ITSupport.bdo.CostCentre;
-import de.newkuchenheim.ITSupport.bdo.FormData;
-import de.newkuchenheim.ITSupport.bdo.Ticket;
 import de.newkuchenheim.ITSupport.bdo.tLog;
+import de.newkuchenheim.ITSupport.bdo.daten.CostCentre;
+import de.newkuchenheim.ITSupport.bdo.daten.FormData;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
 import de.newkuchenheim.ITSupport.controller.abstractFormulareController;
-import de.newkuchenheim.ITSupport.dao.implement.aendmittJobrouterDAO;
-import de.newkuchenheim.ITSupport.dao.implement.aendmittKanboardDAO;
-import de.newkuchenheim.ITSupport.dao.implement.kostenstelleJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.data.kostenstelleJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.formular.aendmittJobrouterDAO;
+import de.newkuchenheim.ITSupport.dao.implement.formular.aendmittKanboardDAO;
 
 /**
  * @author Sebastian Hansen

@@ -1,4 +1,4 @@
-package de.newkuchenheim.ITSupport.dao;
+package de.newkuchenheim.ITSupport.dao.jobrouter;
 
 import java.io.IOException;
 import java.util.ArrayList;

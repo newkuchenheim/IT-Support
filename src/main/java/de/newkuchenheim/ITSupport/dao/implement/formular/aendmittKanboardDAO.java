@@ -1,13 +1,13 @@
-package de.newkuchenheim.ITSupport.dao.implement;
+package de.newkuchenheim.ITSupport.dao.implement.formular;
 
 import java.io.UnsupportedEncodingException;
 
 import org.json.JSONObject;
 
-import de.newkuchenheim.ITSupport.bdo.Ticket;
+import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
 import de.newkuchenheim.ITSupport.bdo.kanboardConfig.TaskKanboardConfiguration;
-import de.newkuchenheim.ITSupport.dao.kanboardDAO;
-import de.newkuchenheim.ITSupport.dao.kanboardTaskInterface;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
+import de.newkuchenheim.ITSupport.dao.kanboard.kanboardTaskInterface;
 
 public class aendmittKanboardDAO extends kanboardDAO {
 	private static aendmittKanboardDAO instance;
