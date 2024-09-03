@@ -32,11 +32,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import de.newkuchenheim.ITSupport.bdo.Email;
 import de.newkuchenheim.ITSupport.bdo.tLog;
 import de.newkuchenheim.ITSupport.bdo.itsupport.Ticket;
 import de.newkuchenheim.ITSupport.bdo.itsupport.TicketCategory;
+import de.newkuchenheim.ITSupport.bdo.mailConfig.emailConfiguration;
+import de.newkuchenheim.ITSupport.bdo.mailConfig.emailUtil;
 import de.newkuchenheim.ITSupport.dao.implement.it.ticketKanboardDAO;
 import de.newkuchenheim.ITSupport.dao.kanboard.kanboardDAO;
+import jakarta.mail.Session;
 import javassist.compiler.ast.Symbol;
 
 /**
@@ -55,6 +59,11 @@ public class ticketController extends itsupportController {
 	private final String _URL_TICKETCATS  = System.getenv("USERPROFILE") + "\\IT-SupportContent\\Ticket\\ticketcats.json";//"%USERPROFILE%/it-supportcontent/ticket/ticketcats.json";
 	private final String _URL_TICKETCATS_LINUX  = System.getProperty("user.home") + "/IT-SupportContent/Ticket/ticketcats.json";//"/home/itsupport/itsupport/it-supportcontent/ticket/ticketcats.json";
 	
+	//Mail Configuration
+	private emailConfiguration emailConfig = new emailConfiguration();
+	private emailUtil emailUtilitiy = emailUtil.getInstance();
+		
+		
 //	@ModelAttribute("page")
 //    String page() {
 //		
@@ -117,17 +126,40 @@ public class ticketController extends itsupportController {
 						
 						model.addAttribute("desc_list", desc_list);
 						
-						
 					}
 				} else { // send a new ticket
 					model.addAttribute("event_response", "ticket");
 					int TicketID = ticketKanboardDAO.getInstance().sendTicket(newTicket);
 					model.addAttribute("result", TicketID);
 					// add file to new ticket
-					if (!newTicket.getFileContent().isBlank() && TicketID > -1) {
-						newTicket.setId(TicketID);
-						ticketKanboardDAO.getInstance().sendFile(newTicket);
-					}
+					if(TicketID > -1) {
+						//send mail
+						if(newTicket.getEmail() != null && !newTicket.getEmail().isBlank()) {
+							tLog.getInstance().log(null, "info", "sending mail to #"+TicketID);
+							Session session = Session.getDefaultInstance(this.emailConfig.getProperties(), this.emailConfig.getAuthenticator());
+							
+							Email mail = new Email();
+							mail.setSubject("Support-Ticket #" + TicketID + " wurde gesendet.");
+							mail.setMsgBody("Vielen Dank für Ihre Nutzung unseres Ticketsystems! \nWir werden schnellstmöglich Ihr Ticket bearbeiten. "
+									+ "Sie können den Bearbeitungstand des Tickets verfolgen, indem Sie das Ticket-Tracking anwenden. Dabei geben Sie bitte Ihre Ticket-ID und Ihren Nachnamen ein.\n"
+									+ "\t* Ticket-Tracking: 192.168.0.224:8080/itsupport/Ticket-Tracking \n"
+									+ "\t* Ticket-ID: " + TicketID + "\n"
+									+ "\t* Gesendet am: " + LocalDateTime.now().toString());
+							mail.setRecipient(newTicket.getEmail());
+							
+							this.emailUtilitiy.sendSimpleMail(session, mail, this.emailConfig.getFromMail());
+							tLog.getInstance().log(null, "info", "#"+TicketID + ": mail have been to send");
+							
+						}
+						
+						//send file
+						if (!newTicket.getFileContent().isBlank()) {
+							newTicket.setId(TicketID);
+							//send file
+							ticketKanboardDAO.getInstance().sendFile(newTicket);
+							
+						}
+					} 
 				}
 			}
 		} catch (UnsupportedEncodingException e) {

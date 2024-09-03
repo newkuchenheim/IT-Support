@@ -80,7 +80,7 @@ section {
 		<!-- navigation link intern -->
 		<!-- Load sidenav template -->
 		<div th:replace="~{itsupport/fragments/sidenav :: sidenav}"></div>
-
+		
 		<!-- main view col-->
 		<div class="col p-3 max-width text-left" style="height: 75%">
 			<div class="d-flex justify-content-center">
@@ -139,7 +139,8 @@ section {
 						<!-- email -->
 						<input id="emailtf" th:field="*{email}"
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text"
-							class="form-control" name="email" placeholder="Email"> <label
+							class="form-control" name="email" placeholder="Email"
+							data-bs-toggle="tooltip" data-bs-placement="bottom" title="Neue Funktion: E-mail-Bestätigung nach Senden"> <label
 							for="emailtf">E-Mail</label>
 					</div>
 					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"

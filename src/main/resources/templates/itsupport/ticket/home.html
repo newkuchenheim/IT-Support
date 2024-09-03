@@ -85,41 +85,7 @@ section {
 			</div>
 			<div th:case="tracking" class="row p-3 max-width text-left">
 				  <div th:switch="${color}">
-					<!--<div th:case="red" class="alert alert-danger" role="alert">
-						<h3 th:text="${title}"></h3>
-						<h5>Problembeschreibung</h5>
-						<p th:text="${categorie}"></p>
-						<h5>IT-Log</h5>
-						<p th:text="${contact_person}"></p>
-						<p th:text="${state}"></p>
-						<p th:text="${beginn_at}"></p>
-						<p th:text="${ended_at}"></p>
-						<p><b>Log:</b></p>
-						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>					</div>
-					<div th:case="yellow" class="alert alert-warning" role="alert">
-						<h3 th:text="${title}"></h3>
-						<h5>Problembeschreibung</h5>
-						<p th:text="${categorie}"></p>
-						<h5>IT-Log</h5>
-						<p th:text="${contact_person}"></p>
-						<p th:text="${state}"></p>
-						<p th:text="${beginn_at}"></p>
-						<p th:text="${ended_at}"></p>
-						<p><b>Log:</b></p>
-						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>
-					</div>
-					<div th:case="green" class="alert alert-success" role="alert">
-						<h3 th:text="${title}"></h3>
-						<h5>Problembeschreibung</h5>
-						<p th:text="${categorie}"></p>
-						<h5>IT-Log</h5>
-						<p th:text="${contact_person}"></p>
-						<p th:text="${state}"></p>
-						<p th:text="${beginn_at}"></p>
-						<p th:text="${ended_at}"></p>
-						<p><b>Log:</b></p>
-						<p th:each="desc : ${desc_list}" th:text="${desc}"></p>
-					</div>-->
+					
 					<div th:case="cyan" class="alert alert-info" role="alert">
 						<h3 th:text="${title}"></h3>
 						<h5>Problembeschreibung</h5>
@@ -176,9 +142,9 @@ section {
 			<div th:case="ticket" >
 				<div th:switch="${result}" class="alert alert-primary" role="alert">
 					<p th:case="-1">
-						Ihr Ticket wurde nicht versendet! <br> Bitte kontaktieren Sie
-						unsere IT-Kollege per <a href="mailto:edv@new-eu.de">Mail</a>
-						oder Telefon. Vielen Dank!
+						Ihr Ticket wurde nicht versendet! <br> 
+						Bitte verwenden Sie keine besondere Zeichen bei <b>Ticket-Beschreibung</b>. Für weitere Fragen kontaktieren Sie mit uns per E-Mail oder telefonisch unter Hotline 3123.<br>
+						Vielen Dank!
 					</p>
 					<p th:case="*">
 						Ihre Nachricht mit der Ticket Nr. <b th:text="${result}"></b> wurde

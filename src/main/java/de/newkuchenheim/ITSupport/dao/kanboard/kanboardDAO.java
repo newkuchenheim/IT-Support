@@ -64,7 +64,7 @@ public abstract class kanboardDAO {
 		// add header parameter
 		// headers.add("X-API-Auth", xAPIAuthToken);
 		headers.add("Authorization", "Basic " + xLoginToken);
-		
+		//headers.add("Content-Type", "application/json; charset=utf-8");
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		// response after push request
@@ -111,7 +111,7 @@ public abstract class kanboardDAO {
 		// add header parameter
 		// headers.add("X-API-Auth", xAPIAuthToken);
 		headers.add("Authorization", "Basic " + xLoginToken);
-		
+		//headers.add("Content-Type", "application/json; charset=utf-8");
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		// response after push request
