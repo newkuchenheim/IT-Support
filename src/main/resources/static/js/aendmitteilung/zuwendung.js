@@ -248,7 +248,15 @@ function init() {
 		var voucher3_div = document.getElementById("voucher3");
 		var voucherCount3_elem = document.getElementById("voucherCount3");
 		var optvoucher3_elem = document.getElementById("option_voucher3");
-		if (years === "15") {
+		if (years === "20+") {
+			// 3 vouchers
+			_maxvoucher = 3;
+			voucherCount_elem.max = "3";
+			voucher2_div.hidden = false;
+			voucherCount2_elem.max = "3";
+			voucher3_div.hidden = false;
+			voucherCount3_elem.max = "3";
+		} else if (years === "15") {
 			// 2 vouchers
 			_maxvoucher = 2;
 			voucherCount_elem.max = "2";
