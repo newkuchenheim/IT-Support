@@ -30,7 +30,7 @@ import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.FileUploadJobrouterConfig;
  * 
  */
 public abstract class jobrouterDAO {
-	public final String _URL = "http://192.168.0.236/jobrouter/api/rest/v2";
+	public final String _URL = "http://srv-dms.kuchenheim.new.de/jobrouter/api/rest/v2";
 	public final String _DOMAIN = "192.168.0.236";
 	public final String _COOKIE_PATH = "/jobrouter/api/rest/v2";
 	public final String _USER = "Form_remote";

@@ -38,7 +38,8 @@ public class aendmittJobrouterDAO extends jobrouterDAO implements jobrouterDataI
 				if (!dataArray.isEmpty()) {
 					for (Object item : dataArray) {
 						FormData tempFormData = new FormData();
-						tempFormData.setJrid(Long.parseLong(((JSONObject)item).getString("jrid")));
+						//tempFormData.setJrid(Long.parseLong(((JSONObject)item).getString("jrid")));
+						tempFormData.setJrid(((JSONObject)item).getInt("jrid"));
 						tempFormData.setId(((JSONObject)item).getInt("id"));
 						tempFormData.setKeyword(((JSONObject)item).getString("keyword"));
 						tempFormData.setFormName(((JSONObject)item).getString("form_name"));

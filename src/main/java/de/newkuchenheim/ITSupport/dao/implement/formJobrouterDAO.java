@@ -35,8 +35,8 @@ public class formJobrouterDAO extends jobrouterDAO  {
 			if (dataArray != null && !dataArray.isEmpty()) {
 				for(Object dataset : dataArray) {
 					FormChgLog FormChgLogTmp = new FormChgLog();
-					FormChgLogTmp.setJrid(Long.parseLong(((JSONObject)dataset).getString("jrid")));
-					FormChgLogTmp.setChglogID(Long.parseLong(((JSONObject)dataset).getString("chglogID")));
+					FormChgLogTmp.setJrid(((JSONObject)dataset).getInt("jrid"));
+					FormChgLogTmp.setChglogID(((JSONObject)dataset).getInt("chglogID"));
 					FormChgLogTmp.setType(((JSONObject)dataset).getString("type"));
 					FormChgLogTmp.setWrittenBy(((JSONObject)dataset).getString("writtenBy"));
 					FormChgLogTmp.setWrittenOn(((JSONObject)dataset).getString("writtenOn"));
