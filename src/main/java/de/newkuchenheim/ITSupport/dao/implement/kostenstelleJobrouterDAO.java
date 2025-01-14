@@ -46,8 +46,8 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 					for(Object dataset : dataArray) {
 						CostCentre CostCentreTmp = new CostCentre();
 						JSONObject currDataset = ((JSONObject) dataset);
-						if (currDataset.get("ks") != null && currDataset.get("ks") instanceof String) {
-							CostCentreTmp.setNumber(currDataset.getString("ks"));
+						if (currDataset.get("ks") != null && currDataset.get("ks") instanceof Integer) {
+							CostCentreTmp.setNumber(currDataset.getInt("ks"));
 						}
 						if (currDataset.get("bez") != null && currDataset.get("bez") instanceof String) {
 							CostCentreTmp.setLabel(currDataset.getString("bez"));
@@ -86,8 +86,8 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 				if (dataArray != null && !dataArray.isEmpty()) {
 					CostCentre = new CostCentre();
 					JSONObject dataset = dataArray.getJSONObject(0);
-					if (dataset.get("ks") != null && dataset.get("ks") instanceof String) {
-						CostCentre.setNumber(dataset.getString("ks"));
+					if (dataset.get("ks") != null && dataset.get("ks") instanceof Integer) {
+						CostCentre.setNumber(dataset.getInt("ks"));
 					}
 					if (dataset.get("bez") != null && dataset.get("bez") instanceof String) {
 						CostCentre.setLabel(dataset.getString("bez"));

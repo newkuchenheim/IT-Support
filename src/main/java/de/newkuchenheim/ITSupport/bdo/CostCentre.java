@@ -7,20 +7,20 @@ package de.newkuchenheim.ITSupport.bdo;
 * 
 */
 public class CostCentre implements Comparable<CostCentre>{
-	private String number;
+	private int number;
 	private String label;
 	private String label1;
 	private String location;
 	/**
 	 * @return the number
 	 */
-	public String getNumber() {
+	public int getNumber() {
 		return number;
 	}
 	/**
 	 * @param number the number to set
 	 */
-	public void setNumber(String number) {
+	public void setNumber(int number) {
 		this.number = number;
 	}
 	/**
@@ -60,19 +60,19 @@ public class CostCentre implements Comparable<CostCentre>{
 		this.location = location;
 	}
 	public CostCentre() {
-		number = "";
+		number = -1;
 		label = "";
 		label1 = "";
 		location = "";
 	}
 	@Override
 	public int compareTo(CostCentre o) {
-		return this.number.compareTo(o.getNumber());
+		return Integer.compare(this.number, o.getNumber());
 	}
 	@Override
 	public String toString() {
 		String str = "";
-		if (!number.isBlank() || !label.isBlank()) {
+		if (number > 0) {
 			str = number + " - " + label;
 		}
 		return str;
