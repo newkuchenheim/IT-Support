@@ -1,9 +1,13 @@
 window.onload = init;
 function init() {
 	// reset chosen location
-	document.getElementById("zvw_location").checked = true;
+	var location = document.querySelector("input[type='radio'][name=location]:checked");
+	if (location != null) {
+		location.checked = false;
+	}
 	//var general_email_to = "";
-	var cc_email = "korrekturbeleg-verwaltung@new-eu.de";
+	
+	var cc_email = "";
 	var persIndex = -2;
 	function changeTeleList() {
 		var location_header = document.getElementById("location_header");
@@ -104,21 +108,25 @@ function init() {
 		var _prename = prename;
 		var _name = name;
 		var i;
-		if (_prename == null || _prename === "") _prename = document.getElementById("prename").value;
-		if (_name == null || _name === "") _name = document.getElementById("name").value;
-		if (_prename === "" || _name === "") i = -2;
-		else {
-			var _fullname_upp = (_name + " " + _prename).toUpperCase();
-			var _pers_fullname_upp;
-			for (i = 0; i < persons.length; i++) {
-				if (persons[i] !== undefined) {
-					_pers_fullname_upp = (persons[i]["Name"].replaceAll("\"","") + " " + persons[i]["Vorname"].replaceAll("\"","")).toUpperCase();
-					if (_fullname_upp == _pers_fullname_upp) {
-						break;
+		if (persons != null) {
+			if (_prename == null || _prename === "") _prename = document.getElementById("prename").value;
+			if (_name == null || _name === "") _name = document.getElementById("name").value;
+			if (_prename === "" || _name === "") i = -2;
+			else {
+				var _fullname_upp = (_name + " " + _prename).toUpperCase();
+				var _pers_fullname_upp;
+				for (i = 0; i < persons.length; i++) {
+					if (persons[i] !== undefined) {
+						_pers_fullname_upp = (persons[i]["Name"].replaceAll("\"","") + " " + persons[i]["Vorname"].replaceAll("\"","")).toUpperCase();
+						if (_fullname_upp == _pers_fullname_upp) {
+							break;
+						}
 					}
 				}
+				if (i == persons.length) i = -1;
 			}
-			if (i == persons.length) i = -1;
+		} else {
+			i = -2;
 		}
 		
 		return i;
@@ -161,11 +169,12 @@ function init() {
 		var _timeFrom = _timeFrom_elem.value;
 		var _dateTo = _dateTo_elem.value;
 		var _timeTo = _timeTo_elem.value;
-		var location = document.querySelector("input[type='radio'][name=location]:checked").value;
+		var _location = document.querySelector("input[type='radio'][name=location]:checked");
 		// create email parts
 		//var email_to = "";
 		var body;
-		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "") {
+		if (_prename !== "" && _name !== "" && _optrequest !== "" && _optreason !== "" 
+		&& _location != null) {
 			var fullname = _name + " " + _prename;
 			var validDate = validateDate(_dateFrom, _dateTo);
 			if (validDate) {
@@ -175,6 +184,7 @@ function init() {
 				
 				// submit and reset form
 				document.getElementById("dateTo_error").classList.add("visually-hidden");
+				document.getElementById("location_error").classList.add("visually-hidden");
 				document.getElementById("name_warning").classList.add("visually-hidden");
 				document.getElementById("time_entering").submit();
 				// show success Messages
@@ -202,6 +212,11 @@ function init() {
 					dateTo_error_alert.show;
 					_dateTo_error.classList.remove("visually-hidden");
 			}
+		} else if (_location == null) {
+			var _location_error = document.getElementById("location_error");
+			var location_error_alert = new bootstrap.Alert(_location_error);
+			location_error_alert.show;
+			_location_error.classList.remove("visually-hidden");
 		}
 	}
 	

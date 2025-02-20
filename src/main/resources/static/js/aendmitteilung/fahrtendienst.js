@@ -45,8 +45,7 @@ function init() {
 		_busline_sel.value = "";
 		// get only busline for given location
 		for (var i = 0; i < _BusLines.length; i++) {
-			if (_BusLines[i]["description"].includes(location) || _BusLines[i]["value"].startsWith("C") 
-				|| _BusLines[i]["value"].startsWith("H") || _BusLines[i]["value"].startsWith("Ef")) {
+			if (_BusLines[i]["description"].includes(location) || _BusLines[i]["description"].includes("AAP")) {
 				addBusline(_busline_sel, _BusLines[i], false)
 			}
 		}

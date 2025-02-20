@@ -71,7 +71,7 @@
 		  var telelist_zvw = /*[[${zvw_telelist}]]*/ 'Telelist Zentrale Verwaltung';
 		  var telelist_qubi = /*[[${qubi_telelist}]]*/ 'Telelist QuBi';
 		  var optreasons = /*[[${optreasons}]]*/ 'Option Reason';
-		  var persons = telelist_zvw;
+		  var persons = null;
 	 </script>
   	<!-- Javascript for form -->
   	<script type="text/javascript" th:src="@{../../js/zeiterfassung.js}">
@@ -106,6 +106,12 @@
 		    		Das <b>Bis-Datum</b> muss gleich oder nach dem <b>Von-Datum</b> sein!
 		  		</div>
 			</div>
+			<div id="location_error" class="alert alert-danger d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- DateTo Error -->
+		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+		  		<div>
+		    		Bitte wählen Sie Ihren Standort aus!
+		  		</div>
+			</div>
 			<div id="form_success" class="alert alert-success d-flex align-items-center alert-dismissible visually-hidden" role="alert"><!-- Form Success -->
 		  		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 		  		<div>
@@ -113,7 +119,7 @@
 		  		</div>
 			</div>
 			<div>
-				<h1 id="location_header">Zentrale Verwaltung</h1>
+				<h1 id="location_header"></h1>
 			</div> 
 	      	<form id="time_entering" method="post" action="#" style="min-width: 300px;">
 				<div class="row g-3 p-2" id="step_names">
