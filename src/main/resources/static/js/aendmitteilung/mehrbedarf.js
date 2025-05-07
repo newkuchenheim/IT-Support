@@ -4,7 +4,7 @@ function init() {
 	document.getElementById("option_location").value = "";
 	document.getElementById("change_notice").reset();
 	//var _persIndex = -2;
-	var _email_to = "leistunstraegerabrechnung@new-eu.de";
+	var _email_to = "leistungstraegerabrechnung@new-eu.de";
 	// Set Date for first load
 	setDateToday();
 	/*function validateName(prename, name) {
