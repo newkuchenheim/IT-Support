@@ -91,13 +91,13 @@ section {
 				<div class="row g-3 p-2">
 					<div class="form-floating mb-3 col">
 						<!-- Vorname -->
-						<input th:field="*{firstname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
+						<input th:field="*{firstname}"
 							id="vnametf" type="text" class="form-control" name="vname"
 							placeholder="Vorname" required> <label for="vnametf">Vorname</label>
 					</div>
 					<div class="form-floating mb-3 col">
 						<!-- Nachname -->
-						<input th:field="*{lastname}" pattern="[a-zA-ZäüößÜÖÄ\-´'éÉ/\s/]+"
+						<input th:field="*{lastname}"
 							id="nnametf" type="text" class="form-control" name="nname"
 							placeholder="Nachname" required> <label for="nnametf">Nachname</label>
 					</div>
@@ -138,7 +138,7 @@ section {
 						title="Lassen Sie bitte Ihre Emailadresse da!">
 						<!-- email -->
 						<input id="emailtf" th:field="*{email}"
-							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text"
+							type="text"
 							class="form-control" name="email" placeholder="Email"> <label
 							for="emailtf">E-Mail</label>
 					</div>
@@ -146,7 +146,7 @@ section {
 						data-bs-placement="bottom"
 						title="Lassen Sie bitte Ihre Telefonnummer da, damit wir Sie sofort kontaktieren können!">
 						<!-- telefon -->
-						<input id="telefontf" th:field="*{telefon}" pattern="[0-9\-\.\//\s/]+"
+						<input id="telefontf" th:field="*{telefon}"
 							type="text" class="form-control" name="telefon"
 							placeholder="Telefonnummer/Kurzwahl"> <label
 							for="telefontf">Telefonnummer/Kurzwahl</label>
