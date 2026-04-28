@@ -53,7 +53,7 @@ public class vcardController {
 				lastVCard.getFirstname(), lastVCard.getLastname());
 		Email mail = new Email();
 		mail.setMsgBody(body);
-		mail.setRecipient(lastVCard.getEmail());
+		mail.setRecipient("druckvorstufe@new-eu.de");
 		mail.setSubject("Visitenkarten Bestellung");
 		
 		emailConfiguration mailConfig = new emailConfiguration();
