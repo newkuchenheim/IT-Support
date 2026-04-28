@@ -55,6 +55,9 @@ public class ticketKanboardDAO extends kanboardDAO implements kanboardTaskInterf
 			title += "]-[" + ticket.getLastname() + "]";
 				
 			String description = ticket.getDescription();
+			if (description.contains("\"")) {
+				description = description.replace("\"", "\\\"");
+			}
 			String new_desc = "";
 			if (description != null && !description.isBlank() && description.contains(System.lineSeparator())) {
 				//String[] _str_split = description.split(System.lineSeparator());

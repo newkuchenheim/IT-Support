@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- include main scripts; title tag will be removed-->
+<title th:replace="~{itsupport/fragments/headmain :: headmain}"></title>
+<title>NEW-Bestellformular Vistenkarten</title>
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!-- <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>-->
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+fieldset {
+	text-align: left;
+}
+
+.interForm {
+	display: flex;
+	flex-flow: wrap;
+}
+
+form {
+	text-align: center;
+	border-color: #f1f1f1;
+	border-style: solid;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+</style>
+<script type="text/javascript" th:inline="javascript">
+	var _CostCentres = /*[[${CostCentres}]]*/ 'All CostCentres';
+</script>
+<script type="text/javascript" th:src="@{../../js/vcard.js}"></script>
+</head>
+<body>
+	<!-- Load alert icons -->
+	<svg th:replace="~{itsupport/fragments/alerticons :: alerticons}"></svg>
+	
+	<!-- Load Header from template -->
+	<header th:replace="~{itsupport/fragments/header :: header}"></header>
+	
+	<!-- Load topmenu template -->
+	<nav th:replace="~{formulare/fragments/topmenu :: topmenu}"></nav>
+	
+	
+	<div class="row pt-1 m-2">
+		<!-- navigation link intern -->
+		<!-- Load sidenav template -->
+		<div th:replace="~{formulare/fragments/sidenav :: sidenav}"></div>
+
+		<!-- main view col-->
+		<div class="col p-3 max-width text-left" style="height: 75%">
+			<div class="d-flex justify-content-center">
+				<h1 class="display-6">Bestellformular Vistenkarten</h1>
+			</div>
+			<form method="post" id="send_vcard" action="#" th:object="${vcard}"
+				style="min-width: 300px;" enctype="multipart/form-data">
+				<div class="row g-3 p-2">
+					<div>
+						<img th:src="@{../../img/vcard_muster.jpg}" width="50%" heigth="50%" alt="vk_muster"/>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col">
+						<!-- Vorname -->
+						<input th:field="*{firstname}"
+							id="vnametf" type="text" class="form-control" name="vname"
+							placeholder="Vorname" required> <label for="vnametf">Vorname</label>
+					</div>
+					<div class="form-floating mb-3 col">
+						<!-- Nachname -->
+						<input th:field="*{lastname}"
+							id="nnametf" type="text" class="form-control" name="nname"
+							placeholder="Nachname" required> <label for="nnametf">Nachname</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="In welcher Abteilung arbeiten Sie?">
+						<!-- Abteilung -->
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-triangle-right"></i></span> <input th:field="*{branch}" id="abteilungtf" type="text"
+							class="form-control" name="abteilung" placeholder="Abteilung">
+						<label for="abteilungtf">Abteilung</label>
+					</div>
+					<div class="form-floating mb-3 col" data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="Lassen Sie bitte Ihre Emailadresse da!">
+						<!-- email -->
+						<input id="emailtf" th:field="*{email}"
+							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" type="text"
+							class="form-control" name="email" placeholder="Email"> <label
+							for="emailtf">E-Mail</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col">
+						<!-- adresse -->
+							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> <select id="option_address"
+							th:field="*{address}" name="causetitle" class="form-control"
+							aria-label="Default select example" required>
+							<option value="" selected hidden>NE.W Nordeifel.Werkstätten gGmbH</option>
+							<option th:block th:each="address : ${optaddresses}" th:value="${address.getValue()}" th:text="${address.getText()}"/>
+						</select> <label for="option_address">Adresse</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2">
+					<div class="form-floating mb-3 col">
+						<!-- adresse -->
+							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> <select id="option_phone"
+							th:field="*{phone}" name="causetitle" class="form-control"
+							aria-label="Default select example" required>
+							<option value="" selected hidden>Bitte die Telefonnummer auswählen</option>
+							<option th:block th:each="phone : ${optphones}" th:value="${phone.getValue()}" th:text="${phone.getText()}"/>
+						</select> <label for="option_phone">Telefonnummer</label>
+					</div>
+					<div class="form-floating mb-3 col">
+						<!-- durchwahl -->
+						<input id="durchwahltf" th:field="*{direct_dial}" pattern="[0-9]+"
+							type="text" class="form-control" name="durchwahl"
+							placeholder="Durchwahl"> <label
+							for="durchwahltf">Durchwahl</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col">
+						<!-- handy -->
+						<input id="handytf" th:field="*{mobile}" pattern="[0-9\-\.\//\s/]+"
+							type="text" class="form-control" name="handy"
+							placeholder="Dienst-Handy"> <label
+							for="handytf">Dienst-Handy</label>
+					</div>
+					<div class="form-floating mb-3 col">
+						<!-- fax -->
+						<input id="faxtf" th:field="*{fax}" pattern="[0-9\-\.\//\s/]+"
+							type="text" class="form-control" name="fax"
+							placeholder="Faxl"> <label
+							for="faxtf">Fax</label>
+					</div>
+				</div>
+				<div class="row g-3 p-2 h-auto">
+					<div class="form-floating mb-3 col">
+						<!-- handy -->
+						<input id="bestellmengetf" th:field="*{count}"
+							type="number" class="form-control" name="bestellmenge"
+							placeholder="Bestellmenge"> <label
+							for="handytf">Bestellmenge</label>
+					</div>
+					<div class="form-floating mb-3 col"><!-- kostenstelle -->
+							<select id="option_costcentre" class="form-select" th:field="*{costcentre}">
+								<option value="" selected hidden>Bitte Ihre Kostenstelle auswählen</option>
+							</select>
+							<label for="option_costcentre">Kostenstelle</label>
+					</div>
+				</div>
+				<div class="form-group mb-3" data-bs-toggle="tooltip"
+					data-bs-placement="top" title="Senden Ihrer Bestellanfrage">
+					<input type="submit" value="Senden" class="btn btn-success" /><br />
+				</div>
+
+			</form>
+		</div>
+		
+		<!-- Anzeige -->
+		<div class="col col-sm-2 p-3 bg-grey sidenav m-2">
+			
+			<h3>Anleitung</h3>
+			<div class="well p-2 border">
+				<!-- info an rechten col -->
+				<ul>
+					<li><strong>Schritt 1:</strong> Füllen Sie Ihren Namen und
+						Abteilung aus</li>
+					<li><strong>Schritt 2:</strong> Wählen Sie die Adresse Ihrer NE.W aus.</li>
+					<li><strong>Schritt 3:</strong> Geben Sie Ihre restlichen Kontaktdaten an.</li>
+					<li><strong>Schritt 4:</strong> Geben Sie die gewünschte Bestellmenge an und wählen die Kostenstelle aus.</li>
+					<li><strong>Schritt 5:</strong> Klicken Sie auf dem Button
+						"Senden". Ihre Bestellanfrage wird direkt per Mail ans Druckzentrum weitergeleitet.</li>
+				</ul>
+
+			</div>
+			
+			<!-- load contact template -->
+			<div th:replace="~{itsupport/fragments/contact :: contact}"></div>
+		</div>
+	</div>
+	
+	<!-- Load Footer Template -->
+	<footer th:replace="~{itsupport/fragments/footer :: footer}"></footer>
+</body>
+</html>

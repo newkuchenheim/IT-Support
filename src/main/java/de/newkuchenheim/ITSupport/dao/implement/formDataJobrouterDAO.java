@@ -1,7 +1,6 @@
 package de.newkuchenheim.ITSupport.dao.implement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -12,19 +11,29 @@ import de.newkuchenheim.ITSupport.bdo.jobrouterConfig.DataJobrouterConfig;
 import de.newkuchenheim.ITSupport.dao.jobrouterDAO;
 import de.newkuchenheim.ITSupport.dao.jobrouterDataInterface;
 
-public class aendmittJobrouterDAO extends jobrouterDAO implements jobrouterDataInterface<FormData> {
-	private static aendmittJobrouterDAO instance;
+/**
+ * @author Sebastian Hansen
+ * 
+ * @createOn 27.04.2026
+ * 
+ */
+
+public class formDataJobrouterDAO extends jobrouterDAO implements jobrouterDataInterface<FormData> {
+	private static formDataJobrouterDAO instance;
+	private String FormDataGUID = "BAADBC30-D148-408E-6D0C-60235DD96324";
 	private List<FormData> _FormDataAll = new ArrayList<>();
-	public static aendmittJobrouterDAO getInstance() {
+	
+	public static formDataJobrouterDAO getInstance() {
 		if (instance == null) {
-			instance = new aendmittJobrouterDAO();
+			instance = new formDataJobrouterDAO();
 		}
 		return instance;
 	}
-
+	
+	
 	@Override
 	public List<FormData> getDataSets(String guid) {
-		List<FormData> FormDates = new ArrayList<>();
+		List<FormData> FormData = new ArrayList<>();
 		if (guid != null && !guid.isBlank()) {
 			DataJobrouterConfig dataConf = DataJobrouterConfig.GET_DATASETS;
 			dataConf.resetRequestRoute();
@@ -38,7 +47,6 @@ public class aendmittJobrouterDAO extends jobrouterDAO implements jobrouterDataI
 				if (!dataArray.isEmpty()) {
 					for (Object item : dataArray) {
 						FormData tempFormData = new FormData();
-						//tempFormData.setJrid(Long.parseLong(((JSONObject)item).getString("jrid")));
 						tempFormData.setJrid(((JSONObject)item).getInt("jrid"));
 						tempFormData.setId(((JSONObject)item).getInt("id"));
 						tempFormData.setKeyword(((JSONObject)item).getString("keyword"));
@@ -49,12 +57,12 @@ public class aendmittJobrouterDAO extends jobrouterDAO implements jobrouterDataI
 						if (((JSONObject)item).get("description") != null && ((JSONObject)item).get("description") instanceof String) {
 							tempFormData.setDescription(((JSONObject)item).getString("description"));
 						}
-						FormDates.add(tempFormData);
+						FormData.add(tempFormData);
 					}
 				}
 			}
 		}
-		return FormDates;
+		return FormData;
 	}
 
 	@Override
@@ -80,15 +88,20 @@ public class aendmittJobrouterDAO extends jobrouterDAO implements jobrouterDataI
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public List<FormData> getDataSets() {
+		return this.getDataSets(FormDataGUID);
+	}
+	
 	/**
 	 * 
 	 * @param keyword for specific form data
 	 * @param reset clear form data list if param true
-	 * @return List of Form Dates
+	 * @return List of Form Data
 	 */
 	public List<FormData> getFormData(String keyword, boolean reset) {
 		if (reset) {
-			_FormDataAll = getDataSets("BAADBC30-D148-408E-6D0C-60235DD96324");
+			_FormDataAll = getDataSets();
 		}
 		// get copy data to new list
 		List<FormData> FormData = new ArrayList<>(_FormDataAll);

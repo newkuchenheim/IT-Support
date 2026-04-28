@@ -20,6 +20,7 @@ import de.newkuchenheim.ITSupport.dao.jobrouterDataInterface;
  */
 public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterDataInterface<CostCentre> {
 	private static kostenstelleJobrouterDAO instance;
+	private String CostCentreGUID = "33937D15-AC9A-A7CE-9B2D-0DC182D13FEB";
 	
 	public static kostenstelleJobrouterDAO getInstance() {
 		if (instance == null) {
@@ -152,5 +153,25 @@ public class kostenstelleJobrouterDAO extends jobrouterDAO implements jobrouterD
 			}
 		}
 		return false;
+	}
+	
+	public List<CostCentre> getDataSets() {
+		return this.getDataSets(this.CostCentreGUID);
+	}
+	
+	public CostCentre getDataSet(long jrid) {
+		return this.getDataSet(this.CostCentreGUID, jrid);
+	}
+	
+	public long sendDataSet(CostCentre CostCentre) {
+		return this.sendDataSet(this.CostCentreGUID, CostCentre);
+	}
+	
+	public int sendListOptions(CostCentre CostCentre) {
+		return this.sendListOptions(this.CostCentreGUID, CostCentre);
+	}
+	
+	public boolean deleteDataSets(List<String> jrids) {
+		return this.deleteDataSets(this.CostCentreGUID, jrids);
 	}
 }
