@@ -28,7 +28,8 @@ public class emailUtil {
 		try {  
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
-		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));  
+		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
+		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
 		    message.setSubject(item.getSubject());  
 		    message.setText(item.getMsgBody());  
 		       
@@ -46,7 +47,8 @@ public class emailUtil {
 		try {  
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
-		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));  
+		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
+		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
 		    message.setSubject(item.getSubject());  
 		    message.setContent(item.getMsgBody(), "text/html; charset=utf-8");  
 		       
@@ -64,7 +66,8 @@ public class emailUtil {
 		try {  
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
-		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));  
+		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
+		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
 		    message.setSubject(item.getSubject());
 		    
 		    // create BodyPart
