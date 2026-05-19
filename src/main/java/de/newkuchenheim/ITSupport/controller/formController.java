@@ -137,22 +137,24 @@ public class formController {
 						newTicket.setId(TicketID);
 						ticketKanboardDAO.getInstance().sendFile(newTicket);
 					}
-
-					// Send Mail with Ticketnumber
-					String body = String.format(
-							"Sehr geehrte/r %s %s,\n\nIhr Ticket mit der Nummer %,d wurde an uns weitergeleitet.\nWir kümmern uns schnellstmöglich um Ihr"
-							+ " Anliegen und werden uns bei Ihnen melden.\nSie können den Zustand Ihres Tickets mit %,d über http://192.168.0.224:8080/itsupport/ticket/form verfolgen\n\nMit freundlichen Grüßen,\n\nIhr IT-Support",
-							newTicket.getFirstname(), newTicket.getLastname(), TicketID, TicketID);
-					Email mail = new Email();
-					mail.setMsgBody(body);
-					mail.setRecipient(newTicket.getEmail());
-					mail.setSubject("Visitenkarten Bestellung");
-
-					emailConfiguration mailConfig = new emailConfiguration();
-
-					Session session = Session.getInstance(mailConfig.getProperties(), mailConfig.getAuthenticator());
-
-					emailUtil.getInstance().sendSimpleMail(session, mail, mailConfig.getFromMail());
+					
+					if (TicketID > -1) {
+						// Send Mail with Ticketnumber
+						String body = String.format(
+								"Sehr geehrte/r %s %s,\n\nIhr Ticket mit der Nummer %,d wurde an uns weitergeleitet.\nWir kümmern uns schnellstmöglich um Ihr"
+								+ " Anliegen und werden uns bei Ihnen melden.\nSie können den Zustand Ihres Tickets mit %,d über http://192.168.0.224:8080/itsupport/ticket/ticket_tracking verfolgen\n\nMit freundlichen Grüßen,\n\nIhr IT-Support",
+								newTicket.getFirstname(), newTicket.getLastname(), TicketID, TicketID);
+						Email mail = new Email();
+						mail.setMsgBody(body);
+						mail.setRecipient(newTicket.getEmail());
+						mail.setSubject("Ticket [" + TicketID + "]");
+	
+						emailConfiguration mailConfig = new emailConfiguration();
+	
+						Session session = Session.getInstance(mailConfig.getProperties(), mailConfig.getAuthenticator());
+	
+						emailUtil.getInstance().sendSimpleMail(session, mail, mailConfig.getFromMail());
+					}
 				}
 			}
 		} catch (UnsupportedEncodingException e) {

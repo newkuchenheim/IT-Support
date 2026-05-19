@@ -29,7 +29,9 @@ public class emailUtil {
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
 		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
-		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    if (item.getRecipient_cc() != null && !item.getRecipient_cc().isEmpty() && !item.getRecipient_cc().isBlank()) {
+		    	message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    }
 		    message.setSubject(item.getSubject());  
 		    message.setText(item.getMsgBody());  
 		       
@@ -48,7 +50,9 @@ public class emailUtil {
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
 		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
-		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    if (item.getRecipient_cc() != null && !item.getRecipient_cc().isEmpty() && !item.getRecipient_cc().isBlank()) {
+		    	message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    }
 		    message.setSubject(item.getSubject());  
 		    message.setContent(item.getMsgBody(), "text/html; charset=utf-8");  
 		       
@@ -67,7 +71,9 @@ public class emailUtil {
 			MimeMessage message = new MimeMessage(session);  
 		    message.setFrom(new InternetAddress(fromMail));  
 		    message.addRecipient(Message.RecipientType.TO,new InternetAddress(item.getRecipient()));
-		    message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    if (item.getRecipient_cc() != null && !item.getRecipient_cc().isEmpty() && !item.getRecipient_cc().isBlank()) {
+		    	message.addRecipient(Message.RecipientType.CC,new InternetAddress(item.getRecipient_cc()));
+		    }
 		    message.setSubject(item.getSubject());
 		    
 		    // create BodyPart
